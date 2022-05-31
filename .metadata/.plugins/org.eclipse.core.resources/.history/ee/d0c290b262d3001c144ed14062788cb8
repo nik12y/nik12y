@@ -1,0 +1,20 @@
+package com.WebApp.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.WebApp.Dao.CustomerDAO;
+
+@Controller
+public class CustomerController {
+
+	@Autowired
+	CustomerDAO customerDao;
+	
+	@RequestMapping("/listOfCustomer")
+	public String listCustomer(Model model) {
+		
+	}
+}

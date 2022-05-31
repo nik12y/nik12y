@@ -1,0 +1,5 @@
+package com.springDataRest.repository;
+
+public class GradleUserRepository {
+
+}

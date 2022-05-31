@@ -1,0 +1,18 @@
+package com.OneToManyOperation;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.entity.Course;
+import com.entity.Instructor;
+
+public class CreateInstructor {
+
+	public static void main(String[] args) {
+		
+		SessionFactory factory=new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Instructor.class)
+				.addAnnotatedClass(Course.class)
+				.buildSessionFactory()
+	}
+}

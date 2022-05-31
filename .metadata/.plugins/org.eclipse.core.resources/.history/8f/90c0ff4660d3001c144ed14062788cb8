@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="BuildWebMini">
+        <property name="context-root" value="BuildWebMini"/>
+        <property name="java-output-path" value="/BuildWebMini/build/classes"/>
+    </wb-module>
+</project-modules>

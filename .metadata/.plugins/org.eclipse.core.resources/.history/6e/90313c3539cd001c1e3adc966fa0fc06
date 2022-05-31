@@ -1,0 +1,43 @@
+package com.StudentRunner;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
+import com.entity.Student;
+
+public class QueryStudentData {
+
+	public static void main(String[] args) {
+
+		// create sessionFactory object
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
+				.buildSessionFactory();
+
+		// create Session object
+		Session session = factory.getCurrentSession();
+
+		try {
+			// start the transaction
+			session.beginTransaction();
+
+			// Query for retrieving the data
+			List<Student> theStudent = session.createQuery("from Student").getResultList();
+			for (Student myStudent : theStudent) {
+				System.out.println(myStudent);
+			}
+
+			// commit transaction
+			session.getTransaction().commit();
+
+			System.out.println("Done!!");
+
+		} finally {
+			factory.close();
+		}
+	}
+}

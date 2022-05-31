@@ -1,0 +1,20 @@
+package com.nikspringComponent;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class HappyFortuneService implements FortuneService {
+
+	@Override
+	public int getFortune() {
+		return 5;
+	}
+
+	@Override
+	public String nikPracticeDEmo() {
+		return "practice is done";
+	}
+
+	
+
+}

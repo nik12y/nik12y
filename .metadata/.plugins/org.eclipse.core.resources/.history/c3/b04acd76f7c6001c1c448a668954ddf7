@@ -1,0 +1,20 @@
+package com.nikspringComponent;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataBaseFortuneService implements FortuneService {
+
+	@Override
+	public int getFortune() {
+		// TODO Auto-generated method stub
+		return 3;
+	}
+
+	@Override
+	public String nikPracticeDEmo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

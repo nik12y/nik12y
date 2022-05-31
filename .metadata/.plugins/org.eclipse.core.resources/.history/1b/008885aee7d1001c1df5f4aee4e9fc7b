@@ -1,0 +1,5 @@
+package com.nikWebDemo.entity;
+
+public class Customer {
+
+}

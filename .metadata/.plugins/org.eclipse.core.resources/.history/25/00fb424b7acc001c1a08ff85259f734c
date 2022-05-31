@@ -1,0 +1,28 @@
+package com.studentRunner;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.jdbc.entity.Student;
+
+public class StudentRunnerMain {
+
+	public static void main(String[] args) {
+		
+		//create sessionFactory object
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Student.class)
+				.buildSessionFactory();
+		
+		//create Session object
+		Session session = factory.getCurrentSession();
+		
+		try {
+			
+		} finally {
+			factory.close();
+		}
+	}
+}

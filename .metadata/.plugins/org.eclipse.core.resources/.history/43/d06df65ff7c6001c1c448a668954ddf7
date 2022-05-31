@@ -1,0 +1,10 @@
+package com.nikspringComponent;
+
+public interface Coach {
+
+	public String getDailyWorkout();
+	
+	public int getDailyFortune();
+	
+	public String nikPractice();
+}

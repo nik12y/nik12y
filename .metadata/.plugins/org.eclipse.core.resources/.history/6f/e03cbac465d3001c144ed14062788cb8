@@ -1,0 +1,36 @@
+package com.WebApp.Dao;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.WebApp.entity.User;
+
+@Repository
+public class  UserDAOImpl implements  UserDAO {
+
+	@Autowired
+	SessionFactory sessionFactory;
+
+	@Override
+	@Transactional
+	public List<User> getUsers() {
+		
+			Session openSession = sessionFactory.openSession();
+
+			Query<User> query = openSession.createQuery("from Customer", User.class);
+
+			List<User> listOfCustomer = query.getResultList();
+
+			return listOfCustomer;
+		}
+	}
+
+
+}

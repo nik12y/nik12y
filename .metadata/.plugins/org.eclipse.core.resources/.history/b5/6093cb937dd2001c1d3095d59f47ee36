@@ -1,0 +1,5 @@
+package com.nikWebDemo.DAO;
+
+public class CustomerDao {
+
+}

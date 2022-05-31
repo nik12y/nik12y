@@ -1,0 +1,5 @@
+package com.WebApp.Dao;
+
+public class CustomerDAO {
+
+}

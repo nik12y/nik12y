@@ -1,0 +1,15 @@
+package com.WebApp.Dao;
+
+import java.util.List;
+
+import com.WebApp.entity.Customer;
+
+public class CustomerDAOImpl implements CustomerDAO {
+
+	@Override
+	public List<Customer> getCustomers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

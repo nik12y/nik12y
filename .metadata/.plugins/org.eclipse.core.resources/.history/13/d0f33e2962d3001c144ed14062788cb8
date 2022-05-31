@@ -1,0 +1,27 @@
+package com.WebApp.Dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.WebApp.entity.Customer;
+
+public class CustomerDAOImpl implements CustomerDAO {
+
+	@Autowired
+	SessionFactory sessionFactory;
+
+	@Override
+	public List<Customer> getCustomers() {
+		Session openSession = sessionFactory.openSession();
+
+		Query<Customer> query = openSession.createQuery("from customer", Customer.class);
+
+		List<Customer> listOfCustomer = query.getResultList();
+		return listOfCustomer;
+	}
+
+}

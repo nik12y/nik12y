@@ -1,0 +1,24 @@
+package com.nikspringComponent;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class RandomFortuneService implements FortuneService {
+
+	private String[] data= { "hi i am Nikhil learning Spring Boot",
+			                               " I set my target to complete the course",
+			                               "within the 10days"
+	};
+	@Override
+	public String getFortune() {
+		
+		return "RandomService is running";
+	}
+
+	@Override
+	public String nikPracticeDEmo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Tue May 17 16:35:57 IST 2022
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\lenovo\\UdemySpringBoot\\BuildWebMini\\WebCOntent\\WEB-INF\\lib\\spring-web-5.3.9.jar=WEB-INF/lib/spring-web-5.3.9.jar
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\lenovo\\UdemySpringBoot\\BuildWebMini\\WebCOntent\\WEB-INF\\lib\\spring-web-5.3.9-sources.jar=WEB-INF/lib/spring-web-5.3.9-sources.jar

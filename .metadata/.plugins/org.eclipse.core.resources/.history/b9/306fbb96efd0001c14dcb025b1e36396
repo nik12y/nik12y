@@ -1,0 +1,43 @@
+package com.OneToManyOperation;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.entity.Instructor;
+import com.entity.InstructorDetail;
+
+public class DeleteBiDirectional {
+
+	public static void main(String[] args) {
+		
+
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Instructor.class)
+				.addAnnotatedClass(InstructorDetail.class).buildSessionFactory();
+
+		Session session = factory.getCurrentSession();
+		
+		try {
+			//start the session
+			session.beginTransaction();
+			
+			//Take the id from where we have to delete the details
+			int instructorId=0;
+			 InstructorDetail theInDeId=session.get(InstructorDetail.class, insDeId);
+			
+			System.out.println("founding the InstructorId :" +theInDeId);
+			
+			System.out.println("Associted the Instructor with instructorDetails :" +theInDeId.getInstructor());
+			
+			session.delete(theInDeId);
+			
+			session.getTransaction().commit();
+			//
+		} catch (Exception e) {
+		        e.printStackTrace();
+		}finally {
+			factory.close();
+		}
+
+	}
+}

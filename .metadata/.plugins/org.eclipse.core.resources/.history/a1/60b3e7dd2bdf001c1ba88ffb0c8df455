@@ -1,0 +1,5 @@
+package com.springDataRest.entity;
+
+public class Gradleuser {
+
+}

@@ -1,0 +1,15 @@
+package com.nikWebDemo.DAO;
+
+import java.util.List;
+
+import com.nikWebDemo.entity.Customer;
+
+public class CustomerDaoImpl implements CustomerDao {
+
+	@Override
+	public List<Customer> getCustomers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

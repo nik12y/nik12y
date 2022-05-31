@@ -1,0 +1,9 @@
+
+package com.nikspringComponent;
+
+public interface FortuneService {
+
+	public int getFortune();
+	
+	public String nikPracticeDEmo();
+}

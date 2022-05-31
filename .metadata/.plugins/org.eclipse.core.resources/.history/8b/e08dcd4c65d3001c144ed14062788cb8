@@ -1,0 +1,10 @@
+package com.WebApp.Dao;
+
+import java.util.List;
+
+import com.WebApp.entity.Customer;
+
+public interface CustomerDAO {
+
+	List<Customer> getCustomers();
+}

@@ -1,0 +1,11 @@
+package com.springDataRest.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import com.springDataRest.entity.GradleUser;
+
+@RepositoryRestResource(path = "members")
+public interface GradleUserRepository  extends JpaRepository<GradleUser , Long>{
+
+}
