@@ -1,0 +1,22 @@
+input CountryInput {
+    countryCode: String!
+    countryName : String
+    numericCountryCode : Int
+    alternateCountryCode : String
+    regionCode : String
+    limitCurrency : String
+    overallLimit : Int
+    ibanRequired : Boolean!
+    euMember : Boolean!
+    clearingCodeBicPlus : Boolean!
+    generateMt205 : Boolean!
+    defaultClearingNetwork : Boolean!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
+

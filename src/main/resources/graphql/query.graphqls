@@ -1,0 +1,4 @@
+type Query{
+    getCountryByCode(sessionContext: SessionContextInput, country: CountryInputQuery): Country
+    getCountries(sessionContext: SessionContextInput): [Country]
+}

@@ -1,0 +1,25 @@
+type SessionContext {
+    bankCode: String
+    defaultBranchCode: String
+    internalTransactionReferenceNumber: String
+    userTransactionReferenceNumber: String
+    externalTransactionReferenceNumber: String
+    targetUnit: String
+    postingDate: String
+    valueDate: String
+    transactionBranch: String
+    userId: String
+    accessibleTargetUnits: [String]
+    channel: String
+    taskCode: String
+    localDateTime: String
+    role: String
+    originalTransactionReferenceNumber: String
+    externalBatchNumber: Int
+    customAttributes: String
+    serviceInvocationModeType: ServiceInvocationModeType
+    allTargetUnitsSelected: Boolean
+    mutationType: MutationType
+    userLocal: String
+    originatingModuleCode: String
+}
