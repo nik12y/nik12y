@@ -1,2 +1,13 @@
-/db/
-/application/
+/bin/
+/build/
+/.idea/
+*.class
+*.jar
+*.war
+*.ear
+.gradle
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
+settings.gradle.bak
