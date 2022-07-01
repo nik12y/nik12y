@@ -1,0 +1,6 @@
+input CityInputQuery {
+    cityCode: String!
+    authorized : String!
+
+}
+

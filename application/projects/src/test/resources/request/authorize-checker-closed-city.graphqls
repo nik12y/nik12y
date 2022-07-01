@@ -1,0 +1,48 @@
+mutation{
+    processCity(
+        sessionContext:{
+            bankCode: ""
+            defaultBranchCode: ""
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: ""
+            externalTransactionReferenceNumber: ""
+            targetUnit: ""
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: ""
+            userId: ""
+            accessibleTargetUnits: [""]
+            channel: ""
+            taskCode: ""
+            localDateTime: ""
+            role: "checker"
+            originalTransactionReferenceNumber: ""
+            externalBatchNumber: 1
+            customAttributes: ""
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: ""
+            originatingModuleCode: ""
+        },
+        city:{
+            cityCode:"MU"
+            cityName:"testCity"
+            countryCode : "AU"
+            stateCode : "ST"
+            timeZone:"28 June 2022"
+            action : "authorize"
+            status:"closed"
+            recordVersion : 0
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

@@ -1,6 +1,6 @@
 package com.idg.idgcore.domain.entity;
 
-import com.idg.idgcore.domain.AbstractDomainObject;
+import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class AuditableEntity  extends AbstractDomainObject {
+public class AuditableEntity  extends AbstractAuditableDomainEntity {
 
     @CreatedBy
     @Column(name = "created_by", updatable = false)

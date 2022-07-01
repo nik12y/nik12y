@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import static com.idg.idgcore.common.Constants.TaskCode.COUNTRY;
 
-//@Data
 @ToString (callSuper = true)
 @Getter
 @Setter
@@ -22,10 +21,10 @@ public class CountryDTO extends CoreEngineBaseDTO {
     private String countryCode;
     private String countryName;
     private Integer numericCountryCode;
-    private Integer alternateCountryCode;
+    private String alternateCountryCode;
     private String regionCode;
     private String limitCurrency;
-    private Integer overallLimit;
+    private Float overallLimit;
     private boolean ibanRequired;
     private boolean euMember;
     private boolean clearingCodeBicPlus;

@@ -1,1 +1,9 @@
 directive @NotBlank(message: String!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @NotEmpty(message: String!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @Size(min: Int = 10, max: Int = 5000, message: String!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @PositiveOrZero(message: String!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @Pattern(regexp : String!, message: String!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @uppercase on FIELD | FIELD_DEFINITION| INPUT_FIELD_DEFINITION
+directive @Max(value : Int! = 5000, message : String!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @Digits(integer : Int!, fraction : Int!, message : String!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @Expression(value : String!, message : String!) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION

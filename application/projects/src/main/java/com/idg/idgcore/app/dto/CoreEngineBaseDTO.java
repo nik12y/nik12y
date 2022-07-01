@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-//@Data
+import static com.idg.idgcore.common.Constants.EMPTY_STRING;
+
 @ToString
 @Getter
 @Setter
@@ -22,10 +23,10 @@ public class CoreEngineBaseDTO extends AuditableDTO {
     private String lastConfigurationAction;
 
     public String getTaskCode () {
-        return "";
+        return EMPTY_STRING;
     }
 
     public String getTaskIdentifier () {
-        return "";
+        return EMPTY_STRING;
     }
 }

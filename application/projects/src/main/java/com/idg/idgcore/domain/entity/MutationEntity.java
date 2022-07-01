@@ -1,27 +1,34 @@
 package com.idg.idgcore.domain.entity;
 
-import com.idg.idgcore.domain.AbstractAuditDomainEntity;
-import com.vladmihalcea.hibernate.type.json.*;
-import lombok.*;
-import org.hibernate.annotations.*;
-
+import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.Type;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.*;
-import java.io.*;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import java.io.Serializable;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+//@Builder
 @Entity
 @Table (name = "IDGC_COE_MUTATION_STAGE_CNFG")
 @Inheritance (strategy = InheritanceType.JOINED)
 @ToString
 @TypeDef (name = "jsonb", typeClass = JsonBinaryType.class)
 public class MutationEntity
-    extends AbstractAuditDomainEntity
+    extends AbstractAuditableDomainEntity
     implements Serializable
 {
     @Id

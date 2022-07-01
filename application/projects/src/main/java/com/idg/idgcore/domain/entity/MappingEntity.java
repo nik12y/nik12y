@@ -1,8 +1,14 @@
 package com.idg.idgcore.domain.entity;
 
-import lombok.*;
-
-import javax.persistence.*;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.ToString;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
 
 @Setter
 @Getter

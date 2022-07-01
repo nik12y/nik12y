@@ -7,11 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class MappingApplicationService implements IMappingApplicationService {
-    public static ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = new ModelMapper();
     @Autowired
     private IMappingDomainService mappingDomainService;
 
@@ -23,8 +23,9 @@ public class MappingApplicationService implements IMappingApplicationService {
 
     @Override
     public List<MappingDTO> getMappings () {
-        return mappingDomainService.getAllMappings().stream().map(mappingEntity -> {
-            return mapper.map(mappingEntity, MappingDTO.class);
-        }).collect(Collectors.toList());
+        return mappingDomainService.getAllMappings().stream()
+                .map(mappingEntity -> mapper.map(mappingEntity, MappingDTO.class))
+                .collect(Collectors.toList());
     }
+
 }

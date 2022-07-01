@@ -1,13 +1,11 @@
 package com.idg.idgcore.app.dto;
 
-import lombok.Data;
 import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-@Data
 @ToString
 @Getter
 @Setter

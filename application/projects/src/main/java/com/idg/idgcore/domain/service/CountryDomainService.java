@@ -1,18 +1,23 @@
 package com.idg.idgcore.domain.service;
 
 import com.idg.idgcore.app.dto.CountryDTO;
+import com.idg.idgcore.domain.assembler.CountryAssembler;
 import com.idg.idgcore.domain.entity.CountryEntity;
 import com.idg.idgcore.domain.repository.ICountryRepository;
-import org.modelmapper.ModelMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CountryDomainService implements ICountryDomainService {
     @Autowired
     private ICountryRepository countryRepository;
+
+    @Autowired
+    private CountryAssembler countryAssembler;
 
     public CountryEntity getConfigurationByCode (CountryDTO countryDTO) {
         return this.countryRepository.findByCountryCode(countryDTO.getCountryCode());
@@ -27,8 +32,7 @@ public class CountryDomainService implements ICountryDomainService {
     }
 
     public void save (CountryDTO countryDTO) {
-        ModelMapper mapper = new ModelMapper();
-        CountryEntity countryEntity = mapper.map(countryDTO, CountryEntity.class);
+        CountryEntity countryEntity =countryAssembler.convertDtoToEntity(countryDTO);
         this.countryRepository.save(countryEntity);
     }
 }

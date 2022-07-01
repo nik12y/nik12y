@@ -12,5 +12,5 @@ public interface IAuditHistoryRepository
 {
     List<AuditHistoryEntity> findAllByTaskIdentifier (String taskIdentifier);
     List<AuditHistoryEntity> findAllByTaskIdentifierAndRecordVersion (String taskIdentifier,
-                                                                      String record_version);
+                                                                      String recordVersion);
 }

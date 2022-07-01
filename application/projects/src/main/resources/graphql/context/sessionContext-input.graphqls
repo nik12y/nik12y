@@ -13,7 +13,7 @@ input SessionContextInput {
     channel: String
     taskCode: String
     localDateTime: String
-    role: String
+    role: [String]
     originalTransactionReferenceNumber: String
     externalBatchNumber: Int
     customAttributes: String

@@ -1,9 +1,9 @@
 package com.idg.idgcore;
 
-import org.modelmapper.*;
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.context.annotation.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import com.idg.idgcore.dto.context.SessionContext;
 
 @SpringBootApplication

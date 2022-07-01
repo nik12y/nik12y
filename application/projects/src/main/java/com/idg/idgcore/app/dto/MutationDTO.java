@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//@Data
 @ToString (callSuper = true)
 @Getter
 @Setter

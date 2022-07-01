@@ -1,0 +1,14 @@
+input CityInput {
+
+    cityCode : String!
+    cityName : String!
+    timeZone : String!
+    countryCode : String!
+    stateCode : String
+
+    action : String!
+    status : String!
+    recordVersion : Int
+
+}
+

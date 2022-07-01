@@ -9,25 +9,25 @@ import org.modelmapper.ModelMapper;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 public class MappingConfig {
-    private static List<MappingDTO> mappingDTOS;
-    public ModelMapper modelMapper = new ModelMapper();
+    private List<MappingDTO> mappings;
+    private final ModelMapper modelMapper = new ModelMapper();
     @Autowired
     private IMappingDomainService mappingDomainService;
 
     @PostConstruct
     public void init () {
-        mappingDTOS = mappingDomainService.getAllMappings().stream()
+        mappings = mappingDomainService.getAllMappings().stream()
                 .map(mappingEntity -> modelMapper.map(mappingEntity, MappingDTO.class)).collect(
                         Collectors.toList());
     }
 
     public List<MappingDTO> getMappings () {
-        return mappingDTOS;
+        return mappings;
     }
 
     public MappingDTO getMappingByCrietria (String action, String role, String status) {
