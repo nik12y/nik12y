@@ -19,4 +19,3 @@ input CountryInput {
     lastUpdatedBy: String
     lastUpdatedTime: String
 }
-

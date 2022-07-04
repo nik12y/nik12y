@@ -4,7 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.idg.idgcore.dto.context.SessionContext;
 
 @SpringBootApplication
 public class Application {
@@ -16,10 +15,4 @@ public class Application {
     public ModelMapper modelMapper () {
         return new ModelMapper();
     }
-
-    @Bean
-    public SessionContext sessionContext () {
-        return new SessionContext();
-    }
-
 }
