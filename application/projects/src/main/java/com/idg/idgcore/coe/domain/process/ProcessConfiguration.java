@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.infra.ThreadAttribute;
+
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
@@ -53,17 +54,16 @@ public class ProcessConfiguration implements IProcessConfiguration {
 
     public void process (CoreEngineBaseDTO baseDTO) throws JsonProcessingException {
         log.info("In process with parameters BaseDTO {}", baseDTO);
-        SessionContext sessionContext = (SessionContext) ThreadAttribute.get(ThreadAttribute.SESSION_CONTEXT);
-        MappingDTO mapping = getMapping(baseDTO.getAction(),
-                Arrays.stream(sessionContext.getRole()).findAny().get(),
+        SessionContext sessionContext = (SessionContext) ThreadAttribute.get(
+                ThreadAttribute.SESSION_CONTEXT);
+        MappingDTO mapping = getMapping(baseDTO.getAction(), sessionContext.getRole(),
                 baseDTO.getStatus());
-
         MutationDTO mutationDto = getMutationDTO(baseDTO, mapping);
         log.info("In process with enriched MutationDTO {}", baseDTO);
         if (isTrue(mapping.getInactivePreviousRecord()) && mutationDto.getRecordVersion() > 1) {
             CoreEngineBaseDTO baseRecord = getPreviousRecord(mutationDto);
             baseRecord.setStatus(INACTIVE);
-            insertIntoAuditHistory(getMutation(baseRecord));
+            insertIntoAuditHistory(getMutationDTO(baseRecord));
         }
         addUpdateRecord(mutationDto);
         if (isTrue(mapping.getInsertRecordIntoAudit())) {
@@ -80,9 +80,10 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return (IBaseApplicationService) appContext.getBean(beanName);
     }
 
-    private MappingDTO getMapping (String action, String role, String status) {
+    private MappingDTO getMapping (String action, String[] role, String status) {
         Predicate<MappingDTO> filter = mapping -> mapping.getAction().equals(action)
-                && mapping.getStatus().equals(status) && mapping.getRole().equals(role);
+                && mapping.getStatus().equals(status) && Arrays.stream(role)
+                .anyMatch(mapping.getRole()::equals);
         Optional<MappingDTO> mapping = mappings.stream().filter(filter).findFirst();
         if (mapping.isPresent()) {
             return mapping.get();
@@ -115,10 +116,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
 
     public CoreEngineBaseDTO getPreviousRecord (MutationDTO dto) {
         log.info("In getPreviousRecord with parameters MappingDTO {}", dto);
-        CoreEngineBaseDTO baseDTO = getService(dto.getTaskCode()).getConfigurationByCode(
-                dto.getTaskIdentifier());
-        baseDTO.setStatus(INACTIVE);
-        return baseDTO;
+        return getService(dto.getTaskCode()).getConfigurationByCode(dto.getTaskIdentifier());
     }
 
     public void addUpdateRecord (MutationDTO dto) {
@@ -142,13 +140,23 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return data.equals(STRING_Y);
     }
 
-    private MutationDTO getMutation (CoreEngineBaseDTO dto) {
-        return modelMapper.map(dto, MutationDTO.class);
-    }
-
     private boolean isKafkaEnabled (String value) {
         log.info("In isKafkaEnabled with parameters value {}", value);
         return value.equals("Y") || value.equals("y");
+    }
+
+    public MutationDTO getMutationDTO (CoreEngineBaseDTO baseDto) throws JsonProcessingException {
+        log.info("In getMutationDTO with parameters BaseDTO {}", baseDto);
+        MutationDTO mutationDTO = MutationDTO.builder().build();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+        modelMapper.map(baseDto, mutationDTO);
+        String data = objectMapper.writeValueAsString(baseDto);
+        PayloadDTO payload = PayloadDTO.builder().data(data).build();
+        mutationDTO.setPayload(payload);
+        mutationDTO.setTaskCode(baseDto.getTaskCode());
+        mutationDTO.setTaskIdentifier(baseDto.getTaskIdentifier());
+        return mutationDTO;
     }
 
 }

@@ -9,6 +9,7 @@ import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Slf4j
@@ -19,11 +20,11 @@ public class CountryQueryResolver implements GraphQLQueryResolver {
 
     public CountryDTO getCountryByCode (SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException, JsonProcessingException {
-            return this.countryService.getCountryByCode(sessionContext, countryDTO);
+        return this.countryService.getCountryByCode(sessionContext, countryDTO);
     }
 
-    public List<CountryDTO> getCountries (SessionContext sessionContext)
-            throws FatalException {
-            return this.countryService.getCountries(sessionContext);
+    public List<CountryDTO> getCountries (SessionContext sessionContext) throws FatalException {
+        return this.countryService.getCountries(sessionContext);
     }
+
 }

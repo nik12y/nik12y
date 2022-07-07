@@ -21,7 +21,6 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @Entity
 @Table (name = "IDGC_COE_MUTATION_STAGE_CNFG")
 @Inheritance (strategy = InheritanceType.JOINED)

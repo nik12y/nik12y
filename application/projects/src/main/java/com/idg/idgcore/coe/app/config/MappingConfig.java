@@ -14,16 +14,16 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class MappingConfig {
-    private List<MappingDTO> mappings;
     private final ModelMapper modelMapper = new ModelMapper();
+    private List<MappingDTO> mappings;
     @Autowired
     private IMappingDomainService mappingDomainService;
 
     @PostConstruct
     public void init () {
         mappings = mappingDomainService.getAllMappings().stream()
-                .map(mappingEntity -> modelMapper.map(mappingEntity, MappingDTO.class)).collect(
-                        Collectors.toList());
+                .map(mappingEntity -> modelMapper.map(mappingEntity, MappingDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<MappingDTO> getMappings () {

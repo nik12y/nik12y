@@ -1,12 +1,13 @@
 package com.idg.idgcore.coe.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import static com.idg.idgcore.coe.common.Constants.COUNTRY;
 
 @ToString (callSuper = true)
@@ -15,7 +16,7 @@ import static com.idg.idgcore.coe.common.Constants.COUNTRY;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@JsonIgnoreProperties (ignoreUnknown = true)
+@JsonInclude (JsonInclude.Include.NON_NULL)
 public class CountryDTO extends CoreEngineBaseDTO {
     private String countryCode;
     private String countryName;
@@ -36,8 +37,18 @@ public class CountryDTO extends CoreEngineBaseDTO {
     }
 
     @Override
+    public void setTaskCode (String taskCode) {
+        super.setTaskCode(COUNTRY);
+    }
+
+    @Override
     public String getTaskIdentifier () {
         return this.getCountryCode();
+    }
+
+    @Override
+    public void setTaskIdentifier (String taskIdentifier) {
+        super.setTaskIdentifier(taskIdentifier);
     }
 
 }

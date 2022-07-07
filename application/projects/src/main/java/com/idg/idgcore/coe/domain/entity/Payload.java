@@ -17,5 +17,4 @@ public class Payload
         implements Serializable
 {
     String data;
-
 }
