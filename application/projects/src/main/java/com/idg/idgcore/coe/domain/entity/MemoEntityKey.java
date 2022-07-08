@@ -21,18 +21,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table (name = "IDGC_COE_COUNTRY_CODE_CNFG")
-@Inheritance (strategy = InheritanceType.JOINED)
+@Table(name = "IDGC_COE_MEMO")
+@Inheritance(strategy = InheritanceType.JOINED)
 @ToString
-public class CountryEntityKey extends AbstractDomainKey
-        implements Serializable
-{
+public class MemoEntityKey extends AbstractDomainKey
+        implements Serializable {
     @Id
-    private String countryCode;
-
+    private String referenceNo;
 
     @Override
     public String keyAsString() {
-        return countryCode;
+        return referenceNo;
     }
 }
