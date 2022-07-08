@@ -1,13 +1,10 @@
 package com.idg.idgcore.coe.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
-
 import lombok.Setter;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -22,13 +19,11 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @Entity
 @Table (name = "IDGC_COE_COUNTRY_CODE_CNFG")
 @Inheritance (strategy = InheritanceType.JOINED)
 @ToString
 @IdClass (CountryEntityKey.class)
-@JsonIgnoreProperties (ignoreUnknown = true)
 public class CountryEntity extends AbstractAuditableDomainEntity implements Serializable {
     @Id
     private String countryCode;

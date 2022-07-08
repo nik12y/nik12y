@@ -23,13 +23,12 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @Entity
 @Table (name = "IDGC_COE_AUDIT_HISTORY_CNFG")
 @Inheritance (strategy = InheritanceType.JOINED)
 @ToString
 @TypeDef (name = "jsonb", typeClass = JsonBinaryType.class)
-public class AuditHistoryEntity extends AbstractAuditableDomainEntity//AbstractAuditDomainEntity
+public class AuditHistoryEntity extends AbstractAuditableDomainEntity
         implements Serializable
 {
     @Id

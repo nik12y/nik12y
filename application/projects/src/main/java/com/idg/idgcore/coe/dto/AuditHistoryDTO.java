@@ -1,5 +1,6 @@
 package com.idg.idgcore.coe.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,11 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class MutationDTO extends CoreEngineBaseDTO {
-    private PayloadDTO payload;
-
+@JsonInclude (JsonInclude.Include.NON_NULL)
+public class AuditHistoryDTO
+{
+    private String taskCode;
+    private String taskIdentifier;
+    private Integer recordVersion;
+    private String referenceNo;
 }

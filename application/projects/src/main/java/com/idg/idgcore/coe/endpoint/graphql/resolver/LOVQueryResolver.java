@@ -11,11 +11,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LOVQueryResolver implements GraphQLQueryResolver {
-
     @Autowired
     private LOVManagerApplicationService lovManagerApplicationService;
 
-    public LOVResponse getLOV(SessionContext sessionContext, LOVRequest lovRequest) throws FatalException {
-        return lovManagerApplicationService.fetchLOVValues(sessionContext,lovRequest);
+    public LOVResponse getLOV (SessionContext sessionContext, LOVRequest lovRequest)
+            throws FatalException {
+        return lovManagerApplicationService.fetchLOVValues(sessionContext, lovRequest);
     }
+
 }

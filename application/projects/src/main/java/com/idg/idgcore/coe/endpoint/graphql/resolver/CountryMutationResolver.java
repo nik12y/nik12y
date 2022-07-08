@@ -1,11 +1,11 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver;
 
-import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.idg.idgcore.coe.dto.CountryDTO;
 import com.idg.idgcore.coe.app.service.ICountryApplicationService;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
-import com.idg.idgcore.datatypes.exceptions.*;
+import com.idg.idgcore.datatypes.exceptions.FatalException;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class CountryMutationResolver implements GraphQLMutationResolver {
 
     public TransactionStatus processCountry (SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException, JsonProcessingException {
-            return this.countryService.processCountry(sessionContext, countryDTO);
+        return this.countryService.processCountry(sessionContext, countryDTO);
     }
 
 }
