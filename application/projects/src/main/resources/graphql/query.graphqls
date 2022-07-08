@@ -6,4 +6,5 @@ type Query{
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
     getAuditRecordByVersion(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): PayloadDTO
     getAuditRecords(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): [PayloadDTO]
+    getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
 }
