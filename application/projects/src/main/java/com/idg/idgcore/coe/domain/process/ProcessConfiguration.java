@@ -2,12 +2,12 @@ package com.idg.idgcore.coe.domain.process;
 
 import com.idg.idgcore.coe.app.config.ServiceBeanConfig;
 import com.idg.idgcore.coe.app.config.MappingConfig;
-import com.idg.idgcore.coe.dto.MappingDTO;
-import com.idg.idgcore.coe.dto.CoreEngineBaseDTO;
-import com.idg.idgcore.coe.dto.PayloadDTO;
-import com.idg.idgcore.coe.dto.MutationDTO;
-import com.idg.idgcore.coe.app.service.IBaseApplicationService;
-import com.idg.idgcore.coe.domain.service.IMutationsDomainService;
+import com.idg.idgcore.coe.dto.mapping.MappingDTO;
+import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
+import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
+import com.idg.idgcore.coe.dto.mutation.MutationDTO;
+import com.idg.idgcore.coe.app.service.base.IBaseApplicationService;
+import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -63,6 +63,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
         if (isTrue(mapping.getInactivePreviousRecord()) && mutationDto.getRecordVersion() > 1) {
             CoreEngineBaseDTO baseRecord = getPreviousRecord(mutationDto);
             baseRecord.setStatus(INACTIVE);
+            baseRecord.setAction(baseRecord.getAction());
             insertIntoAuditHistory(getMutationDTO(baseRecord));
         }
         addUpdateRecord(mutationDto);

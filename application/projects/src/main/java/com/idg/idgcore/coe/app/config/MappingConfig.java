@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.app.config;
 
-import com.idg.idgcore.coe.domain.service.IMappingDomainService;
-import com.idg.idgcore.coe.dto.MappingDTO;
+import com.idg.idgcore.coe.domain.service.mapping.IMappingDomainService;
+import com.idg.idgcore.coe.dto.mapping.MappingDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
