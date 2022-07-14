@@ -18,6 +18,8 @@ import java.util.Objects;
 import java.util.function.*;
 
 import static com.idg.idgcore.coe.common.Constants.ADD;
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZE;
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_Y;
 import static com.idg.idgcore.coe.common.Constants.DELETED;
 import static com.idg.idgcore.coe.common.Constants.DRAFT;
@@ -141,6 +143,11 @@ public class MutationsDomainService implements IMutationsDomainService {
                 .equals(UPDATED));
     }
 
+    private Predicate<MutationDTO> isModify () {
+        return d -> (d.getAction().equals(MODIFY) && d.getStatus()
+                .equals(UPDATED));
+    }
+
     private Predicate<MutationDTO> isNew () {
        return d -> (d.getAction().equals(ADD) && d.getStatus()
                 .equals(NEW));
@@ -157,7 +164,19 @@ public class MutationsDomainService implements IMutationsDomainService {
     public boolean validateMutation (MutationDTO dto) throws BusinessException {
         MutationEntity entity = fetchRecordIfExists(dto);
         if (Objects.nonNull(entity)) {
-            if (recordExistsFilter(entity, dto) && !DRAFT.equals(entity.getAction())) {
+            if((isAddDraft().test(dto) && DRAFT.equals(entity.getAction())) ||
+                    (isNew().test(dto) && DRAFT.equals(entity.getAction()))) {
+                return Boolean.TRUE;
+            }
+            else if((isModifyDraft().test(dto) && (DRAFT.equals(entity.getAction()) && UPDATED.equals(entity.getAction()))) ||
+                    (isModify().test(dto) && (DRAFT.equals(entity.getAction()) && UPDATED.equals(entity.getAction())))) {
+                return Boolean.TRUE;
+            }
+            else if(recordExistsFilter(entity, dto))
+            {
+                ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
+            }
+            else if (AUTHORIZED_N.equals(entity.getAuthorized())  && !AUTHORIZE.equals(dto.getAction())) {
                 ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
             }
             else if ((isAddDraft().test(dto) && !DRAFT.equals(entity.getStatus())) ||
@@ -168,5 +187,6 @@ public class MutationsDomainService implements IMutationsDomainService {
         }
         return Boolean.TRUE;
     }
+
 
 }
