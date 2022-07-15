@@ -100,46 +100,30 @@ public class CountryApplicationService extends AbstractApplicationService
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         ObjectMapper objectMapper = new ObjectMapper();
         List<CountryDTO> countryDTOList = new ArrayList<>();
-        List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                getTaskCode());
+
         try {
-            if (isChecker(sessionContext.getRole())) {
-                unauthorizedEntities = unauthorizedEntities.stream()
-                        .filter(dto -> !dto.getStatus().equals(DRAFT)).collect(Collectors.toList());
-                countryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
-                    String data = entity.getPayload().getData();
-                    CountryDTO countryDTO = null;
-                    try {
-                        countryDTO = objectMapper.readValue(data, CountryDTO.class);
-                    }
-                    catch (JsonProcessingException e) {
-                        ExceptionUtil.handleException(JSON_PARSING_ERROR);
-                    }
-                    return countryDTO;
-                }).collect(Collectors.toList()));
-            }
-            else {
-                countryDTOList.addAll(countryDomainService.getCountries().stream()
-                        .map(entity -> countryAssembler.convertEntityToDto(entity))
-                        .collect(Collectors.toList()));
-                countryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
-                    String data = entity.getPayload().getData();
-                    CountryDTO countryDTO = null;
-                    try {
-                        countryDTO = objectMapper.readValue(data, CountryDTO.class);
-                    }
-                    catch (JsonProcessingException e) {
-                        ExceptionUtil.handleException(JSON_PARSING_ERROR);
-                    }
-                    return countryDTO;
-                }).collect(Collectors.toList()));
-                countryDTOList = countryDTOList.stream().collect(
-                                Collectors.groupingBy(CountryDTO::getCountryCode,
-                                        Collectors.collectingAndThen(Collectors.maxBy(
-                                                        Comparator.comparing(CountryDTO::getRecordVersion)),
-                                                Optional::get))).values().stream()
-                        .collect(Collectors.toList());
-            }
+            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
+                    getTaskCode());
+            unauthorizedEntities = unauthorizedEntities.stream()
+                    .filter(dto -> !dto.getStatus().equals(DRAFT)).collect(Collectors.toList());
+            countryDTOList.addAll(countryDomainService.getCountries().stream()
+                    .map(entity -> countryAssembler.convertEntityToDto(entity))
+                    .collect(Collectors.toList()));
+            countryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+                String data = entity.getPayload().getData();
+                CountryDTO countryDTO = null;
+                try {
+                    countryDTO = objectMapper.readValue(data, CountryDTO.class);
+                }
+                catch (JsonProcessingException e) {
+                    ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                }
+                return countryDTO;
+            }).collect(Collectors.toList()));
+            countryDTOList = countryDTOList.stream().collect(
+                    Collectors.groupingBy(CountryDTO::getCountryCode, Collectors.collectingAndThen(
+                            Collectors.maxBy(Comparator.comparing(CountryDTO::getRecordVersion)),
+                            Optional::get))).values().stream().collect(Collectors.toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
