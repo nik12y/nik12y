@@ -8,12 +8,10 @@ import java.util.List;
 
 @Repository
 public interface IAuditHistoryRepository extends JpaRepository<AuditHistoryEntity, Integer> {
-    List<AuditHistoryEntity> findByTaskCodeAndTaskIdentifierAndStatus (String taskCode,
-                                                                       String taskIdentifier,
-                                                                       String status);
-    AuditHistoryEntity findByTaskCodeAndTaskIdentifierAndRecordVersionAndStatus (String taskCode,
-                                                                                 String taskIdentifier,
-                                                                                 Integer recordVersion,
-                                                                                 String status);
+    List<AuditHistoryEntity> findByTaskCodeAndTaskIdentifierAndAuthorizedAndStatusNot(
+                        String taskCode, String taskIdentifier, String authorized, String status);
+    AuditHistoryEntity findByTaskCodeAndTaskIdentifierAndRecordVersionAndAuthorizedAndStatusNot (
+                        String taskCode, String taskIdentifier, Integer recordVersion,
+                        String authorized, String status);
 
 }

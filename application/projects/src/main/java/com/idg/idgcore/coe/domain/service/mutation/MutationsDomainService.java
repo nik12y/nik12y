@@ -15,12 +15,11 @@ import org.modelmapper.convention.MatchingStrategies;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.*;
+import java.util.function.Predicate;
 
 import static com.idg.idgcore.coe.common.Constants.ADD;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZE;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_Y;
 import static com.idg.idgcore.coe.common.Constants.DELETED;
 import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.common.Constants.MODIFY;
@@ -29,6 +28,7 @@ import static com.idg.idgcore.coe.common.Constants.UPDATED;
 import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 import static com.idg.idgcore.coe.exception.Error.DUPLICATE_RECORD;
 import static com.idg.idgcore.coe.exception.Error.UNAUTHORIZED_RECORD_ALREADY_EXISTS;
+import static com.idg.idgcore.coe.exception.Error.VALIDATION_FAILED;
 
 @Slf4j
 @Service
@@ -83,6 +83,9 @@ public class MutationsDomainService implements IMutationsDomainService {
                 mutationEntity = mapper.map(mutationDTO, MutationEntity.class);
                 return this.mutationRepository.save(mutationEntity);
             }
+            else {
+                ExceptionUtil.handleException(VALIDATION_FAILED);
+            }
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {
@@ -130,63 +133,77 @@ public class MutationsDomainService implements IMutationsDomainService {
             log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
         }
         return this.mutationRepository.findByTaskCodeAndAuthorizedAndStatusNot(taskCode,
-                AUTHORIZED_Y, DELETED);
-    }
-
-    private Predicate<MutationDTO> isAddDraft () {
-        return d -> (d.getAction().equals(DRAFT) && d.getStatus()
-                .equals(DRAFT));
-    }
-
-    private Predicate<MutationDTO> isModifyDraft () {
-        return d -> (d.getAction().equals(DRAFT) && d.getStatus()
-                .equals(UPDATED));
-    }
-
-    private Predicate<MutationDTO> isModify () {
-        return d -> (d.getAction().equals(MODIFY) && d.getStatus()
-                .equals(UPDATED));
-    }
-
-    private Predicate<MutationDTO> isNew () {
-       return d -> (d.getAction().equals(ADD) && d.getStatus()
-                .equals(NEW));
-    }
-
-    public boolean recordExistsFilter (MutationEntity mutationEntity, MutationDTO mutationDTO)
-            throws BusinessException {
-        return mutationDTO.getTaskCode().equals(mutationEntity.getTaskCode())
-                && mutationDTO.getTaskIdentifier().equals(mutationEntity.getTaskIdentifier())
-                && mutationDTO.getAction().equals(mutationEntity.getAction())
-                && mutationDTO.getStatus().equals(mutationEntity.getStatus());
+                AUTHORIZED_N, DELETED);
     }
 
     public boolean validateMutation (MutationDTO dto) throws BusinessException {
         MutationEntity entity = fetchRecordIfExists(dto);
-        if (Objects.nonNull(entity)) {
-            if((isAddDraft().test(dto) && DRAFT.equals(entity.getAction())) ||
-                    (isNew().test(dto) && DRAFT.equals(entity.getAction()))) {
-                return Boolean.TRUE;
-            }
-            else if((isModifyDraft().test(dto) && (DRAFT.equals(entity.getAction()) && UPDATED.equals(entity.getAction()))) ||
-                    (isModify().test(dto) && (DRAFT.equals(entity.getAction()) && UPDATED.equals(entity.getAction())))) {
-                return Boolean.TRUE;
-            }
-            else if(recordExistsFilter(entity, dto))
-            {
-                ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
-            }
-            else if (AUTHORIZED_N.equals(entity.getAuthorized())  && !AUTHORIZE.equals(dto.getAction())) {
-                ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
-            }
-            else if ((isAddDraft().test(dto) && !DRAFT.equals(entity.getStatus())) ||
-                    (isNew().test(dto) && !DRAFT.equals(entity.getStatus())) ||
-                    (isModifyDraft().test(dto) && (MODIFY.equals(entity.getAction()) && UPDATED.equals(entity.getStatus())))) {
-                ExceptionUtil.handleException(DUPLICATE_RECORD);
-            }
+        if (Objects.nonNull(entity) && !validateDraft(entity, dto)) {
+            recordExistsFilter(entity, dto);
+            validateUnauthorizedRecords(entity, dto);
+            validateDuplicateRecords(entity, dto);
         }
         return Boolean.TRUE;
     }
 
+    private Predicate<MutationDTO> isAddDraft () {
+        return d -> (d.getAction().equals(DRAFT) && d.getStatus().equals(DRAFT));
+    }
+
+    private Predicate<MutationDTO> isModifyDraft () {
+        return d -> (d.getAction().equals(DRAFT) && d.getStatus().equals(UPDATED));
+    }
+
+    private Predicate<MutationDTO> isModify () {
+        return d -> (d.getAction().equals(MODIFY) && d.getStatus().equals(UPDATED));
+    }
+
+    private Predicate<MutationDTO> isNew () {
+        return d -> (d.getAction().equals(ADD) && d.getStatus().equals(NEW));
+    }
+
+    private void recordExistsFilter (MutationEntity mutationEntity, MutationDTO mutationDTO)
+            throws BusinessException {
+        if (mutationDTO.getTaskCode().equals(mutationEntity.getTaskCode())
+                && mutationDTO.getTaskIdentifier().equals(mutationEntity.getTaskIdentifier())
+                && mutationDTO.getAction().equals(mutationEntity.getAction())
+                && mutationDTO.getStatus().equals(mutationEntity.getStatus())) {
+            ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
+        }
+    }
+
+    private boolean validateDraft (MutationEntity entity, MutationDTO dto)
+            throws BusinessException {
+        return (validateAddActionDraft(entity, dto) || validateModifyActionDraft(entity, dto));
+    }
+
+    private void validateUnauthorizedRecords (MutationEntity entity, MutationDTO dto)
+            throws BusinessException {
+        if (AUTHORIZED_N.equals(entity.getAuthorized()) && !AUTHORIZE.equals(dto.getAction())) {
+            ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
+        }
+    }
+
+    private void validateDuplicateRecords (MutationEntity entity, MutationDTO dto)
+            throws BusinessException {
+        if ((isAddDraft().test(dto) && !DRAFT.equals(entity.getStatus())) || (isNew().test(dto)
+                && !DRAFT.equals(entity.getStatus())) || (isModifyDraft().test(dto) && (
+                MODIFY.equals(entity.getAction()) && UPDATED.equals(entity.getStatus())))) {
+            ExceptionUtil.handleException(DUPLICATE_RECORD);
+        }
+    }
+
+    private boolean validateAddActionDraft (MutationEntity entity, MutationDTO dto)
+            throws BusinessException {
+        return (isAddDraft().test(dto) && DRAFT.equals(entity.getAction())) || (isNew().test(dto)
+                && DRAFT.equals(entity.getAction()));
+    }
+
+    private boolean validateModifyActionDraft (MutationEntity entity, MutationDTO dto)
+            throws BusinessException {
+        return (isModifyDraft().test(dto) && (DRAFT.equals(entity.getAction()) && UPDATED.equals(
+                entity.getAction()))) || (isModify().test(dto) && (DRAFT.equals(entity.getAction())
+                && UPDATED.equals(entity.getStatus())));
+    }
 
 }

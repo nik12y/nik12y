@@ -8,7 +8,11 @@ public interface IAuditHistoryDomainService {
     public AuditHistoryEntity getAuditHistoryByRecordVersion (String taskCode,
                                                               String taskIdentifier,
                                                               Integer recordVersion,
+                                                              String authorized,
                                                               String status);
-    List<AuditHistoryEntity> getAuditHistory (String taskCode, String taskIdentifier, String status);
+    List<AuditHistoryEntity> getAuditHistory (String taskCode,
+                                              String taskIdentifier,
+                                              String authorized,
+                                              String status);
 
 }

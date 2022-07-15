@@ -31,8 +31,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.Arrays;
 
-import static com.idg.idgcore.coe.common.Constants.DELETED;
+import static com.idg.idgcore.coe.common.Constants.CHECKER;
+import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
@@ -98,29 +100,46 @@ public class CountryApplicationService extends AbstractApplicationService
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         ObjectMapper objectMapper = new ObjectMapper();
         List<CountryDTO> countryDTOList = new ArrayList<>();
+        List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
+                getTaskCode());
         try {
-            countryDTOList.addAll(countryDomainService.getCountries().stream()
-                    .map(entity -> countryAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode());
-            countryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
-                String data = entity.getPayload().getData();
-                CountryEntity countryEntity = null;
-                try {
-                    countryEntity = objectMapper.readValue(data, CountryEntity.class);
-                }
-                catch (JsonProcessingException e) {
-                    ExceptionUtil.handleException(JSON_PARSING_ERROR);
-                }
-                return countryAssembler.convertEntityToDto(countryEntity);
-            }).collect(Collectors.toList()));
-            countryDTOList = countryDTOList.stream().collect(
-                    Collectors.groupingBy(CountryDTO::getCountryCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(CountryDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
-            countryDTOList = countryDTOList.stream().filter(dto -> !dto.getStatus().equals(DELETED))
-                    .collect(Collectors.toList());
+            if (isChecker(sessionContext.getRole())) {
+                unauthorizedEntities = unauthorizedEntities.stream()
+                        .filter(dto -> !dto.getStatus().equals(DRAFT)).collect(Collectors.toList());
+                countryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+                    String data = entity.getPayload().getData();
+                    CountryDTO countryDTO = null;
+                    try {
+                        countryDTO = objectMapper.readValue(data, CountryDTO.class);
+                    }
+                    catch (JsonProcessingException e) {
+                        ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                    }
+                    return countryDTO;
+                }).collect(Collectors.toList()));
+            }
+            else {
+                countryDTOList.addAll(countryDomainService.getCountries().stream()
+                        .map(entity -> countryAssembler.convertEntityToDto(entity))
+                        .collect(Collectors.toList()));
+                countryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+                    String data = entity.getPayload().getData();
+                    CountryDTO countryDTO = null;
+                    try {
+                        countryDTO = objectMapper.readValue(data, CountryDTO.class);
+                    }
+                    catch (JsonProcessingException e) {
+                        ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                    }
+                    return countryDTO;
+                }).collect(Collectors.toList()));
+                countryDTOList = countryDTOList.stream().collect(
+                                Collectors.groupingBy(CountryDTO::getCountryCode,
+                                        Collectors.collectingAndThen(Collectors.maxBy(
+                                                        Comparator.comparing(CountryDTO::getRecordVersion)),
+                                                Optional::get))).values().stream()
+                        .collect(Collectors.toList());
+            }
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -184,6 +203,10 @@ public class CountryApplicationService extends AbstractApplicationService
 
     private String getTaskCode () {
         return CountryDTO.builder().build().getTaskCode();
+    }
+
+    private boolean isChecker (String[] role) {
+        return Arrays.stream(role).anyMatch(CHECKER::equals);
     }
 
 }

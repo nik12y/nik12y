@@ -10,18 +10,17 @@ public final class Constants {
     public static final String COUNTRY_SERVICE = "countryApplicationService";
     public static final String CITY_SERVICE = "cityApplicationService";
     public static final String INACTIVE = "inactive";
+    public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
-
+    public static final String CHECKER = "checker";
     public static final String DRAFT = "draft";
     public static final String ADD = "add";
     public static final String NEW = "new";
-
     public static final String MODIFY = "modify";
     public static final String UPDATED = "updated";
     public static final String AUTHORIZE = "authorize";
     public static final String AUTHORIZED_Y = "Y";
     public static final String AUTHORIZED_N = "N";
-
 
     private Constants () {
     }

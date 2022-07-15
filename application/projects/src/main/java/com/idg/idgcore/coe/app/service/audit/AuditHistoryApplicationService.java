@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static com.idg.idgcore.coe.common.Constants.*;
+import static com.idg.idgcore.coe.common.Constants.INACTIVE;
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_Y;
 
 @Slf4j
 @Service ("auditHistoryApplicationService")
@@ -38,6 +39,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
             log.info("In getCountryByCode with parameters sessionContext {}, auditHistoryDTO {}",
                     sessionContext, auditHistoryDTO);
         }
+        PayloadDTO payloadDTO = PayloadDTO.builder().build();
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
@@ -45,7 +47,8 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         try {
             auditHistoryEntity = auditHistoryDomainService.getAuditHistoryByRecordVersion(
                     auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(),
-                    auditHistoryDTO.getRecordVersion(), INACTIVE);
+                    auditHistoryDTO.getRecordVersion(), AUTHORIZED_Y, INACTIVE);
+            payloadDTO = mapper.map(auditHistoryEntity.getPayload(), PayloadDTO.class);
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -54,7 +57,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         finally {
             Interaction.close();
         }
-        return mapper.map(auditHistoryEntity.getPayload(), PayloadDTO.class);
+        return payloadDTO;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         List<AuditHistoryEntity> auditHistoryEntity = new ArrayList<>();
         try {
             auditHistoryEntity = auditHistoryDomainService.getAuditHistory(
-                    auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(), INACTIVE);
+                    auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(), AUTHORIZED_Y, INACTIVE);
         }
         catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);

@@ -1,14 +1,14 @@
 package com.idg.idgcore.coe.exception;
 
-import com.idg.idgcore.datatypes.exceptions.*;
+import com.idg.idgcore.datatypes.exceptions.BusinessException;
 
-import java.util.*;
+import java.util.Objects;
 
 public class ExceptionUtil {
     private ExceptionUtil () {
     }
 
-    public static void handleException (Error errorCode, Throwable t) {
+    public static void handleException (Error errorCode, Throwable t)  throws BusinessException {
         if (Objects.nonNull(t)) {
             throw new BusinessException(errorCode.getCode(), errorCode.getMessage(), t);
         }
@@ -17,7 +17,7 @@ public class ExceptionUtil {
         }
     }
 
-    public static void handleException (Error errorCode) {
+    public static void handleException (Error errorCode) throws BusinessException{
         throw new BusinessException(errorCode.getCode(), errorCode.getMessage());
     }
 
