@@ -1,5 +1,0 @@
-enum ServiceInvocationModeType{
-    Regular
-    Simulation
-    Draft
-}

@@ -1,7 +1,0 @@
-input AuditHistoryInputQuery {
-    taskCode: String
-    taskIdentifier: String
-    recordVersion: Int
-    referenceNo: String
-}
-

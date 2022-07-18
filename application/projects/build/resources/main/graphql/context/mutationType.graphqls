@@ -1,9 +1,0 @@
-enum MutationType {
-    ADDITION
-    UPDATE
-    DELETION
-    REOPEN
-    INQUIRE
-    AUTHORIZE
-    CLOSE
-}

@@ -1,8 +1,0 @@
-input MemoInputQuery {
-    moduleId:String!
-    taskCode:String!
-    taskIdentifier:String!
-    referenceNo:String
-    recordVersion:Int!
-}
-

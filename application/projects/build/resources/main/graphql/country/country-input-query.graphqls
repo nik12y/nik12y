@@ -1,5 +1,0 @@
-input CountryInputQuery {
-    countryCode: String!
-    authorized : String!
-}
-
