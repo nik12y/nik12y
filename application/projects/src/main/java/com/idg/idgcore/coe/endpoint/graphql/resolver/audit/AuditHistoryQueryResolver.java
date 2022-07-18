@@ -19,7 +19,7 @@ public class AuditHistoryQueryResolver implements GraphQLQueryResolver {
     @Autowired
     private IAuditHistoryApplicationService auditHistoryApplicationService;
 
-    public PayloadDTO getAuditRecordByVersion (SessionContext sessionContext,
+    public AuditHistoryDTO getAuditRecordByVersion (SessionContext sessionContext,
                                                AuditHistoryDTO auditHistoryDTO)
             throws FatalException, JsonProcessingException {
         return this.auditHistoryApplicationService.getAuditRecordByVersion(sessionContext,

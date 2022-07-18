@@ -9,7 +9,7 @@ import com.idg.idgcore.dto.context.SessionContext;
 import java.util.List;
 
 public interface IAuditHistoryApplicationService {
-    PayloadDTO getAuditRecordByVersion (SessionContext sessionContext,
+    AuditHistoryDTO getAuditRecordByVersion (SessionContext sessionContext,
                                         AuditHistoryDTO auditHistoryDTO)
             throws FatalException, JsonProcessingException;
     List<PayloadDTO> getAuditHistory (SessionContext sessionContext,

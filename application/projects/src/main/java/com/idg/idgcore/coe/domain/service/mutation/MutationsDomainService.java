@@ -20,7 +20,6 @@ import java.util.function.Predicate;
 import static com.idg.idgcore.coe.common.Constants.ADD;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZE;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.DELETED;
 import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.common.Constants.MODIFY;
 import static com.idg.idgcore.coe.common.Constants.NEW;
@@ -128,12 +127,11 @@ public class MutationsDomainService implements IMutationsDomainService {
         }
     }
 
-    public List<MutationEntity> getUnauthorizedMutation (final String taskCode) {
+    public List<MutationEntity> getUnauthorizedMutation (final String taskCode,final String authorized) {
         if (log.isInfoEnabled()) {
             log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
         }
-        return this.mutationRepository.findByTaskCodeAndAuthorizedAndStatusNot(taskCode,
-                AUTHORIZED_N, DELETED);
+        return this.mutationRepository.findByTaskCodeAndAuthorized(taskCode,authorized);
     }
 
     public boolean validateMutation (MutationDTO dto) throws BusinessException {

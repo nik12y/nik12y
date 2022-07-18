@@ -33,6 +33,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.common.Constants.CHECKER;
 import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
@@ -103,7 +104,7 @@ public class CountryApplicationService extends AbstractApplicationService
 
         try {
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode());
+                    getTaskCode(),AUTHORIZED_N);
             unauthorizedEntities = unauthorizedEntities.stream()
                     .filter(dto -> !dto.getStatus().equals(DRAFT)).collect(Collectors.toList());
             countryDTOList.addAll(countryDomainService.getCountries().stream()
@@ -187,10 +188,6 @@ public class CountryApplicationService extends AbstractApplicationService
 
     private String getTaskCode () {
         return CountryDTO.builder().build().getTaskCode();
-    }
-
-    private boolean isChecker (String[] role) {
-        return Arrays.stream(role).anyMatch(CHECKER::equals);
     }
 
 }

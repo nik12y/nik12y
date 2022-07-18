@@ -32,6 +32,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.common.Constants.DELETED;
 
 @Slf4j
@@ -95,7 +96,7 @@ public class CityApplicationService extends AbstractApplicationService
                     .map(entity -> cityAssembler.convertEntityToDto(entity))
                     .collect(Collectors.toList()));
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode());
+                    getTaskCode(), AUTHORIZED_N);
             cityDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 CityEntity cityEntity = null;

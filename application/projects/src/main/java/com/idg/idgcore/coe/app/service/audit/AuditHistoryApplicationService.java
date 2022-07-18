@@ -32,23 +32,22 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
     private IAuditHistoryDomainService auditHistoryDomainService;
 
     @Override
-    public PayloadDTO getAuditRecordByVersion (SessionContext sessionContext,
+    public AuditHistoryDTO getAuditRecordByVersion (SessionContext sessionContext,
                                                AuditHistoryDTO auditHistoryDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
             log.info("In getCountryByCode with parameters sessionContext {}, auditHistoryDTO {}",
                     sessionContext, auditHistoryDTO);
         }
-        PayloadDTO payloadDTO = PayloadDTO.builder().build();
+        AuditHistoryDTO dto = AuditHistoryDTO.builder().build();
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
-        AuditHistoryEntity auditHistoryEntity = new AuditHistoryEntity();
         try {
-            auditHistoryEntity = auditHistoryDomainService.getAuditHistoryByRecordVersion(
+            AuditHistoryEntity auditHistoryEntity = auditHistoryDomainService.getAuditHistoryByRecordVersion(
                     auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(),
                     auditHistoryDTO.getRecordVersion(), AUTHORIZED_Y, INACTIVE);
-            payloadDTO = mapper.map(auditHistoryEntity.getPayload(), PayloadDTO.class);
+            dto = setAuditHistoryFields(auditHistoryEntity);
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -57,7 +56,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         finally {
             Interaction.close();
         }
-        return payloadDTO;
+        return dto;
     }
 
     @Override
@@ -85,5 +84,22 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         return auditHistoryEntity.stream().map(ah -> mapper.map(ah.getPayload(), PayloadDTO.class))
                 .collect(Collectors.toList());
     }
+
+    private AuditHistoryDTO setAuditHistoryFields (AuditHistoryEntity auditHistoryEntity)
+    {
+        AuditHistoryDTO auditHistoryDTO = new AuditHistoryDTO();
+        auditHistoryDTO.setAction(auditHistoryEntity.getAction());
+        auditHistoryDTO.setAuthorized(auditHistoryEntity.getAuthorized());
+        auditHistoryDTO.setData(auditHistoryEntity.getPayload().getData());
+        auditHistoryDTO.setRecordVersion(auditHistoryEntity.getRecordVersion());
+        auditHistoryDTO.setStatus(auditHistoryEntity.getStatus());
+        auditHistoryDTO.setLastConfigurationAction(auditHistoryEntity.getLastConfigurationAction());
+        auditHistoryDTO.setCreatedBy(auditHistoryEntity.getCreatedBy());
+        auditHistoryDTO.setCreationTime(auditHistoryEntity.getCreationTime());
+        auditHistoryDTO.setLastUpdatedBy(auditHistoryEntity.getLastUpdatedBy());
+        auditHistoryDTO.setLastUpdatedTime(auditHistoryEntity.getLastUpdatedTime());
+        return auditHistoryDTO;
+    }
+
 
 }
