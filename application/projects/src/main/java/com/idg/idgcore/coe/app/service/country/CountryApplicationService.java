@@ -109,8 +109,6 @@ public class CountryApplicationService extends AbstractApplicationService
         try {
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
                     getTaskCode(),AUTHORIZED_N);
-            unauthorizedEntities = unauthorizedEntities.stream()
-                    .filter(dto -> !dto.getStatus().equals(DRAFT)).collect(Collectors.toList());
             countryDTOList.addAll(countryDomainService.getCountries().stream()
                     .map(entity -> countryAssembler.convertEntityToDto(entity))
                     .collect(Collectors.toList()));
@@ -119,7 +117,7 @@ public class CountryApplicationService extends AbstractApplicationService
                 CountryDTO countryDTO = null;
                 try {
                     countryDTO = objectMapper.readValue(data, CountryDTO.class);
-                    countryAssembler.setAuditFields(entity,countryDTO);
+                    countryDTO = countryAssembler.setAuditFields(entity,countryDTO);
                 }
                 catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
