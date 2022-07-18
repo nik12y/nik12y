@@ -5,6 +5,6 @@ type Query{
     getCities(sessionContext: SessionContextInput): [City]
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
     getAuditRecordByVersion(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): AuditHistoryDTO
-    getAuditRecords(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): [PayloadDTO]
+    getAuditRecords(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): [AuditHistoryDTO]
     getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
 }

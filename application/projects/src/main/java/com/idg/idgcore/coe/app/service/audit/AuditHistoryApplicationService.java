@@ -2,9 +2,11 @@ package com.idg.idgcore.coe.app.service.audit;
 
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.app.Interaction;
+import com.idg.idgcore.coe.domain.assembler.audit.*;
+import com.idg.idgcore.coe.domain.assembler.city.*;
+import com.idg.idgcore.coe.domain.assembler.country.*;
 import com.idg.idgcore.coe.domain.entity.audit.AuditHistoryEntity;
 import com.idg.idgcore.coe.domain.service.audit.IAuditHistoryDomainService;
-import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.audit.AuditHistoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -27,16 +29,16 @@ import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_Y;
 public class AuditHistoryApplicationService extends AbstractApplicationService
         implements IAuditHistoryApplicationService
 {
-    private final ModelMapper mapper = new ModelMapper();
     @Autowired
     private IAuditHistoryDomainService auditHistoryDomainService;
-
+    @Autowired
+    private AuditHistoryAssembler auditHistoryAssembler;
     @Override
     public AuditHistoryDTO getAuditRecordByVersion (SessionContext sessionContext,
                                                AuditHistoryDTO auditHistoryDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In getCountryByCode with parameters sessionContext {}, auditHistoryDTO {}",
+            log.info("In getAuditRecordByVersion with parameters sessionContext {}, auditHistoryDTO {}",
                     sessionContext, auditHistoryDTO);
         }
         AuditHistoryDTO dto = AuditHistoryDTO.builder().build();
@@ -47,7 +49,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
             AuditHistoryEntity auditHistoryEntity = auditHistoryDomainService.getAuditHistoryByRecordVersion(
                     auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(),
                     auditHistoryDTO.getRecordVersion(), AUTHORIZED_Y, INACTIVE);
-            dto = setAuditHistoryFields(auditHistoryEntity);
+            dto = auditHistoryAssembler.setAuditFields(auditHistoryEntity);
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -60,7 +62,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
     }
 
     @Override
-    public List<PayloadDTO> getAuditHistory (SessionContext sessionContext,
+    public List<AuditHistoryDTO> getAuditHistory (SessionContext sessionContext,
                                              AuditHistoryDTO auditHistoryDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
@@ -71,9 +73,13 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         List<AuditHistoryEntity> auditHistoryEntity = new ArrayList<>();
+        List<AuditHistoryDTO> dtoList =  new ArrayList<>();
         try {
             auditHistoryEntity = auditHistoryDomainService.getAuditHistory(
                     auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(), AUTHORIZED_Y, INACTIVE);
+
+            dtoList = auditHistoryEntity.stream().map(ah -> auditHistoryAssembler.setAuditFields(ah))
+                    .collect(Collectors.toList());
         }
         catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
@@ -81,25 +87,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         finally {
             Interaction.close();
         }
-        return auditHistoryEntity.stream().map(ah -> mapper.map(ah.getPayload(), PayloadDTO.class))
-                .collect(Collectors.toList());
+        return dtoList;
     }
-
-    private AuditHistoryDTO setAuditHistoryFields (AuditHistoryEntity auditHistoryEntity)
-    {
-        AuditHistoryDTO auditHistoryDTO = new AuditHistoryDTO();
-        auditHistoryDTO.setAction(auditHistoryEntity.getAction());
-        auditHistoryDTO.setAuthorized(auditHistoryEntity.getAuthorized());
-        auditHistoryDTO.setData(auditHistoryEntity.getPayload().getData());
-        auditHistoryDTO.setRecordVersion(auditHistoryEntity.getRecordVersion());
-        auditHistoryDTO.setStatus(auditHistoryEntity.getStatus());
-        auditHistoryDTO.setLastConfigurationAction(auditHistoryEntity.getLastConfigurationAction());
-        auditHistoryDTO.setCreatedBy(auditHistoryEntity.getCreatedBy());
-        auditHistoryDTO.setCreationTime(auditHistoryEntity.getCreationTime());
-        auditHistoryDTO.setLastUpdatedBy(auditHistoryEntity.getLastUpdatedBy());
-        auditHistoryDTO.setLastUpdatedTime(auditHistoryEntity.getLastUpdatedTime());
-        return auditHistoryDTO;
-    }
-
 
 }

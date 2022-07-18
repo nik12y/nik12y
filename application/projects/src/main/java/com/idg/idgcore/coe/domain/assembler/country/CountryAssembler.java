@@ -1,6 +1,7 @@
 package com.idg.idgcore.coe.domain.assembler.country;
 
 import com.idg.idgcore.coe.domain.entity.country.CountryEntity;
+import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -47,6 +48,21 @@ public class CountryAssembler {
         countryDTO.setIbanRequired(getBooleanValueFromChar(countryEntity.getIsIban()));
         countryDTO.setGenerateMt205(getBooleanValueFromChar(countryEntity.getIsMtGenerate()));
         return countryDTO;
+    }
+
+    public CountryDTO setAuditFields (MutationEntity  mutationEntity, CountryDTO countryDTO) {
+            countryDTO.setAction(mutationEntity.getAction());
+            countryDTO.setAuthorized(mutationEntity.getAuthorized());
+            countryDTO.setRecordVersion(mutationEntity.getRecordVersion());
+            countryDTO.setStatus(mutationEntity.getStatus());
+            countryDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
+            countryDTO.setCreatedBy(mutationEntity.getCreatedBy());
+            countryDTO.setCreationTime(mutationEntity.getCreationTime());
+            countryDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
+            countryDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
+            countryDTO.setTaskCode(mutationEntity.getTaskCode());
+            countryDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
+            return countryDTO;
     }
 
     public char getCharValueFromBoolean (boolean value) {

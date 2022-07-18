@@ -1,8 +1,5 @@
 package com.idg.idgcore.coe.dto.audit;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
-import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;

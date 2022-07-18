@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.app.Interaction;
 import com.idg.idgcore.coe.app.config.MappingConfig;
+import com.idg.idgcore.coe.domain.assembler.audit.*;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
@@ -54,6 +55,8 @@ public class CountryApplicationService extends AbstractApplicationService
     private ICountryDomainService countryDomainService;
     @Autowired
     private CountryAssembler countryAssembler;
+    @Autowired
+    private MutationAssembler mutationAssembler;
 
     public CountryDTO getCountryByCode (SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException {
@@ -77,6 +80,7 @@ public class CountryApplicationService extends AbstractApplicationService
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), CountryDTO.class);
+                result = countryAssembler.setAuditFields(mutationEntity,result);
                 fillTransactionStatus(transactionStatus);
             }
         }
@@ -115,6 +119,7 @@ public class CountryApplicationService extends AbstractApplicationService
                 CountryDTO countryDTO = null;
                 try {
                     countryDTO = objectMapper.readValue(data, CountryDTO.class);
+                    countryAssembler.setAuditFields(entity,countryDTO);
                 }
                 catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);

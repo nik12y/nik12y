@@ -2,7 +2,6 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.audit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.idg.idgcore.coe.app.service.audit.IAuditHistoryApplicationService;
-import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.audit.AuditHistoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -26,7 +25,7 @@ public class AuditHistoryQueryResolver implements GraphQLQueryResolver {
                 auditHistoryDTO);
     }
 
-    public List<PayloadDTO> getAuditRecords (SessionContext sessionContext,
+    public List<AuditHistoryDTO> getAuditRecords (SessionContext sessionContext,
                                              AuditHistoryDTO auditHistoryDTO)
             throws FatalException {
         return this.auditHistoryApplicationService.getAuditHistory(sessionContext, auditHistoryDTO);
