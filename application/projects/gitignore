@@ -1,4 +1,4 @@
-application.properties
+
 /bin/
 /build/
 /.idea/
@@ -6,7 +6,6 @@ application.properties
 *.jar
 *.war
 *.ear
-.gradle
 gradle-app.setting
 !gradle-wrapper.jar
 !gradle-wrapper.properties
