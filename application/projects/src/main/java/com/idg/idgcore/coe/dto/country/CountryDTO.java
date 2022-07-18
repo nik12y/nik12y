@@ -21,7 +21,7 @@ import static com.idg.idgcore.coe.common.Constants.COUNTRY;
 public class CountryDTO extends CoreEngineBaseDTO {
     private String countryCode;
     private String countryName;
-    private Integer numericCountryCode;
+    private String numericCountryCode;
     private String alternateCountryCode;
     private String regionCode;
     private String limitCurrency;

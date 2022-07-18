@@ -1,7 +1,7 @@
 type Country {
     countryCode: String!
     countryName : String
-    numericCountryCode : Int
+    numericCountryCode : String
     alternateCountryCode : String
     regionCode : String
     limitCurrency : String

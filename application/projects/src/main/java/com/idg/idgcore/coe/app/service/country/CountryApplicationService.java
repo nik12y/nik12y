@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.app.Interaction;
 import com.idg.idgcore.coe.app.config.MappingConfig;
+import com.idg.idgcore.coe.domain.assembler.audit.*;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
@@ -33,6 +34,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.common.Constants.CHECKER;
 import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
@@ -53,6 +55,8 @@ public class CountryApplicationService extends AbstractApplicationService
     private ICountryDomainService countryDomainService;
     @Autowired
     private CountryAssembler countryAssembler;
+    @Autowired
+    private MutationAssembler mutationAssembler;
 
     public CountryDTO getCountryByCode (SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException {
@@ -76,6 +80,7 @@ public class CountryApplicationService extends AbstractApplicationService
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), CountryDTO.class);
+                result = countryAssembler.setAuditFields(mutationEntity,result);
                 fillTransactionStatus(transactionStatus);
             }
         }
@@ -103,9 +108,7 @@ public class CountryApplicationService extends AbstractApplicationService
 
         try {
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode());
-            unauthorizedEntities = unauthorizedEntities.stream()
-                    .filter(dto -> !dto.getStatus().equals(DRAFT)).collect(Collectors.toList());
+                    getTaskCode(),AUTHORIZED_N);
             countryDTOList.addAll(countryDomainService.getCountries().stream()
                     .map(entity -> countryAssembler.convertEntityToDto(entity))
                     .collect(Collectors.toList()));
@@ -114,6 +117,7 @@ public class CountryApplicationService extends AbstractApplicationService
                 CountryDTO countryDTO = null;
                 try {
                     countryDTO = objectMapper.readValue(data, CountryDTO.class);
+                    countryDTO = countryAssembler.setAuditFields(entity,countryDTO);
                 }
                 catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
@@ -187,10 +191,6 @@ public class CountryApplicationService extends AbstractApplicationService
 
     private String getTaskCode () {
         return CountryDTO.builder().build().getTaskCode();
-    }
-
-    private boolean isChecker (String[] role) {
-        return Arrays.stream(role).anyMatch(CHECKER::equals);
     }
 
 }
