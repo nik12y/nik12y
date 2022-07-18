@@ -1,0 +1,14 @@
+type City {
+    cityCode: String!
+    cityName : String!
+    timeZone : String!
+    countryCode : String!
+    stateCode : String
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

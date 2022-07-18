@@ -1,0 +1,10 @@
+type Query{
+    getCountryByCode(sessionContext: SessionContextInput, countryQuery: CountryInputQuery): Country
+    getCountries(sessionContext: SessionContextInput): [Country]
+    getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
+    getCities(sessionContext: SessionContextInput): [City]
+    getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
+    getAuditRecordByVersion(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): AuditHistoryDTO
+    getAuditRecords(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): [AuditHistoryDTO]
+    getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
+}

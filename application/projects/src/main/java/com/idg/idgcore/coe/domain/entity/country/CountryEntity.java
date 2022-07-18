@@ -28,7 +28,7 @@ public class CountryEntity extends AbstractAuditableDomainEntity implements Seri
     @Id
     private String countryCode;
     private String countryName;
-    private Integer countryCodeMachine;
+    private String countryCodeMachine;
     private String countryCodeAlternate;
     private String regionCode;
     private String currencyLimit;

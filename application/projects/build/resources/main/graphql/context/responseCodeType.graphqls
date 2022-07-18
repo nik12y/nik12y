@@ -1,0 +1,5 @@
+enum ResponseCodeType {
+   SUCCESS
+   FATAL_ERROR
+   RUNTIME_ERROR
+}

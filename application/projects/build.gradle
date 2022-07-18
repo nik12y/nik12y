@@ -38,7 +38,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.1.0'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.24'
-//    implementation group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.1'
+    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.9.2'
 }
 
 test {

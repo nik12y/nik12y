@@ -21,6 +21,7 @@ public final class Constants {
     public static final String AUTHORIZE = "authorize";
     public static final String AUTHORIZED_Y = "Y";
     public static final String AUTHORIZED_N = "N";
+    public static final String REACT_URL = "http://localhost:3000";
 
     private Constants () {
     }

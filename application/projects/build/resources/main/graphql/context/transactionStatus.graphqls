@@ -1,0 +1,9 @@
+type TransactionStatus {
+    externalReferenceNumber: String
+    internalReferenceNumber: String
+    userReferenceNumber: String
+    replyCode: ResponseCodeType
+    replyMessage: String
+    errorCode: String
+    isErrorToBeOverridden: String
+}

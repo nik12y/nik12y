@@ -1,0 +1,9 @@
+input LOVRequest {
+    queryId: String!
+    taskCode: String
+    lovParams: [String]
+}
+
+type LOVResponse {
+    resultList:[[String]]
+}

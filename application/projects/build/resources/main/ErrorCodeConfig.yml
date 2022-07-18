@@ -1,0 +1,9 @@
+yaml:
+  name: configuration File for Error Codes
+  errorCodes:
+    - errorCode: IDC_CS_001
+      message: Invalid Country Code selected
+      hint: Please check available countries from country master screen
+    - errorCode: IDC_CS_002
+      message: Invalid Currency Code selected
+      hint: Please check currency codes that are supported
