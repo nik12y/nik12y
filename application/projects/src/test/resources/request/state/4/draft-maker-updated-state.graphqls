@@ -1,0 +1,47 @@
+mutation{
+    processState(
+        sessionContext:{
+            bankCode: "003"
+            defaultBranchCode: "1141"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: null
+            userId: "nikhiljagtap"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: "STATE"
+            localDateTime: ""
+            role: "maker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "es_US"
+            originatingModuleCode: null
+        },
+        state:{
+            stateCode:"BH"
+            stateName:"BIHAR"
+            countryCode : "IN"
+            action : "draft"
+            status:"updated"
+            recordVersion : 0
+
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

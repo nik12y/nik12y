@@ -1,0 +1,4 @@
+input BankInputQuery {
+    bankCode : String!
+    authorized : String!
+}

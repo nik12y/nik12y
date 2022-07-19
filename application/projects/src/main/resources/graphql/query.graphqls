@@ -1,6 +1,8 @@
 type Query{
     getCountryByCode(sessionContext: SessionContextInput, countryQuery: CountryInputQuery): Country
     getCountries(sessionContext: SessionContextInput): [Country]
+    getStateByCode(sessionContext: SessionContextInput, stateQuery: StateInputQuery): State
+    getStates(sessionContext: SessionContextInput): [State]
     getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
     getCities(sessionContext: SessionContextInput): [City]
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
@@ -9,4 +11,12 @@ type Query{
     getAuditRecordByVersion(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): AuditHistoryDTO
     getAuditRecords(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): [AuditHistoryDTO]
     getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
+	getBankByCode(sessionContext: SessionContextInput, bank: BankInputQuery): Bank
+    getBanks(sessionContext: SessionContextInput): [Bank]
+	getPurposeByCode(sessionContext: SessionContextInput, purposeQuery: PurposeInputQuery): Purpose
+    getPurposes(sessionContext: SessionContextInput): [Purpose]
+	getBankIdentifierByCode(sessionContext: SessionContextInput, bankIdentifierQuery: BankIdentifierInputQuery): BankIdentifier
+    getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
+	getLanguageByCode(sessionContext: SessionContextInput, languageQuery: LanguageInputQuery): Language
+    getLanguages(sessionContext: SessionContextInput): [Language]
 }
