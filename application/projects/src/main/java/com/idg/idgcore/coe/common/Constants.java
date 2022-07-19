@@ -6,12 +6,16 @@ public final class Constants {
     public static final String STRING_Y = "Y";
     public static final String STRING_N = "N";
     public static final String COUNTRY = "COUNTRY";
+    public static final String PURPOSE = "PURPOSE";
     public static final String CITY = "CITY";
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
+    public static final String BANK_SERVICE ="bankApplicationService";
+    public static final String PURPOSE_SERVICE = "purposeApplicationService";
     public static final String CITY_SERVICE = "cityApplicationService";
     public static final String BANK_IDENTIFIER_SERVICE = "bankIdentifierApplicationService";
     public static final String INACTIVE = "inactive";
+
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
     public static final String CHECKER = "checker";

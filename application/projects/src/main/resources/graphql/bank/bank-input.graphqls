@@ -1,0 +1,13 @@
+input BankInput {
+    bankCode : String! @Size(min: 1, max: 4, message: "bankCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,4}",message: "Bank Code Invalid pattern")
+    bankCodeRegulatory : String! @Size(min: 1, max: 10, message: "bankCodeRegulatory.message") @Pattern(regexp: ".[0-9]{1,10}",message: "Regulatory Bank Code Invalid pattern")
+    bankName : String! @Size(min: 1, max: 125, message: "bankName.message") @Pattern(regexp: ".[A-Za-z0-9 ]{1,125}",message: "Bank Name Invalid pattern")
+
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

@@ -1,0 +1,34 @@
+query{
+    getBanks(
+        sessionContext:{
+            bankCode: "010"
+            defaultBranchCode: "01113"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target_unit"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "Priya"
+            accessibleTargetUnits: [null]
+            channel: "Branch"
+            taskCode: null
+            localDateTime: null
+            role: ["maker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+        },
+    ) {
+        bankCode
+        bankCodeRegulatory
+        bankName
+    }
+}
+

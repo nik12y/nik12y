@@ -1,0 +1,11 @@
+{
+  "data": {
+    "getBanks": [
+      {
+        "bankCode": "SBI",
+        "bankCodeRegulatory": "002",
+        "bankName": "State Bank of India"
+      }
+    ]
+  }
+}
