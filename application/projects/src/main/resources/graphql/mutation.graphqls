@@ -3,4 +3,8 @@ type Mutation {
     processState(sessionContext: SessionContextInput, state: StateInput): TransactionStatus
     processCity(sessionContext: SessionContextInput, city: CityInput): TransactionStatus
     processMemo(sessionContext: SessionContextInput, memo: MemoInput): TransactionStatus
+	processBank(sessionContext: SessionContextInput, bank: BankInput): TransactionStatus
+	processPurpose(sessionContext: SessionContextInput, purpose: PurposeInput): TransactionStatus
+	processBankIdentifier(sessionContext: SessionContextInput, BankIdentifier: BankIdentifierInput): TransactionStatus
+    processLanguage(sessionContext: SessionContextInput, language: LanguageInput): TransactionStatus	
 }
