@@ -1,5 +1,13 @@
 type Mutation {
     processCountry(sessionContext: SessionContextInput, country: CountryInput): TransactionStatus
+
+
     processCity(sessionContext: SessionContextInput, city: CityInput): TransactionStatus
+
+
+    processBank(sessionContext: SessionContextInput, bank: BankInput): TransactionStatus
+
+
     processMemo(sessionContext: SessionContextInput, memo: MemoInput): TransactionStatus
 }
+

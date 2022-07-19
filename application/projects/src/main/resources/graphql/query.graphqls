@@ -1,8 +1,13 @@
 type Query{
     getCountryByCode(sessionContext: SessionContextInput, countryQuery: CountryInputQuery): Country
     getCountries(sessionContext: SessionContextInput): [Country]
+
     getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
     getCities(sessionContext: SessionContextInput): [City]
+
+    getBankByCode(sessionContext: SessionContextInput, bank: BankInputQuery): Bank
+    getBanks(sessionContext: SessionContextInput): [Bank]
+
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
     getAuditRecordByVersion(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): AuditHistoryDTO
     getAuditRecords(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): [AuditHistoryDTO]
