@@ -1,0 +1,4 @@
+input PurposeQuery {
+    purposeCode: String!
+    authorized: String!
+}
