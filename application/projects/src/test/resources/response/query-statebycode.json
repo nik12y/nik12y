@@ -1,0 +1,9 @@
+{
+  "data": {
+    "getStateByCode": {
+      "stateCode": "GA",
+      "stateName": "GOA",
+      "countryCode": "IN"
+    }
+  }
+}

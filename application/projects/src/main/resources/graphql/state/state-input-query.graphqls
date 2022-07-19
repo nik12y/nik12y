@@ -1,0 +1,4 @@
+input StateInputQuery {
+    stateCode: String!
+    authorized: String!
+}
