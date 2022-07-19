@@ -1,0 +1,18 @@
+{
+  "data": {
+    "getPurposes": [
+      {
+        "purposeCode": "PC0018",
+        "purposeName": "test",
+        "purposeDescription": "test",
+        "purposeType": "test"
+      },
+      {
+        "purposeCode": "PC0014",
+        "purposeName": "test",
+        "purposeDescription": "test",
+        "purposeType": "test"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "data": {
+    "getPurposeByCode": {
+      "purposeCode": "PC0014",
+      "purposeName": "test",
+      "purposeDescription": "test",
+      "purposeType": "test"
+    }
+  }
+}

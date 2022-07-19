@@ -4,6 +4,8 @@ type Query{
     getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
     getCities(sessionContext: SessionContextInput): [City]
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
+    getPurposeByCode(sessionContext: SessionContextInput, purposeQuery: PurposeInputQuery): Purpose
+    getPurposes(sessionContext: SessionContextInput): [Purpose]
     getAuditRecordByVersion(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): AuditHistoryDTO
     getAuditRecords(sessionContext: SessionContextInput, auditHistoryQuery: AuditHistoryInputQuery): [AuditHistoryDTO]
     getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
