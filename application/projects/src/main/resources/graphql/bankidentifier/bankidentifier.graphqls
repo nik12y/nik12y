@@ -1,0 +1,16 @@
+type BankIdentifier{
+    bankIdentifierCode: String!
+    bankIdentifierCodeName: String!
+    bankAddress1: String!
+     bankAddress2: String
+    bankAddress3: String
+    bankAddress4: String
+    internalAddress: String
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

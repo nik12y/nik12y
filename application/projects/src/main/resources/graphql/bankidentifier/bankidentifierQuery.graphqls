@@ -1,0 +1,4 @@
+type BankIdentifierQuery {
+    bankIdentifierCode: String!
+    authorized : String!
+}
