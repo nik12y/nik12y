@@ -1,8 +1,6 @@
 package com.idg.idgcore.coe.app.service.bankidentifier;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.idg.idgcore.coe.app.service.bankidentifier.BankIdentifierApplicationService;
 import com.idg.idgcore.coe.domain.assembler.bankidentifier.BankIdentifierAssembler;
 import com.idg.idgcore.coe.domain.entity.bankidentifier.BankIdentifierEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
@@ -11,12 +9,9 @@ import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.bankidentifier.IBankIdentifierDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
-import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.enumerations.core.ServiceInvocationModeType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,15 +19,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.common.Constants.BANK_IDENTIFIER;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+
 
 import java.util.Date;
 import java.util.List;

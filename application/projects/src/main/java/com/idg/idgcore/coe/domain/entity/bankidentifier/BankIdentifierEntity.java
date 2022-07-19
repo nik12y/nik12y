@@ -1,9 +1,18 @@
 package com.idg.idgcore.coe.domain.entity.bankidentifier;
 
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.IdClass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Setter

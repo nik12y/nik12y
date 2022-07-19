@@ -1,7 +1,12 @@
 package com.idg.idgcore.coe.domain.entity.bankidentifier;
 
 import com.idg.idgcore.domain.AbstractDomainKey;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.Builder;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
