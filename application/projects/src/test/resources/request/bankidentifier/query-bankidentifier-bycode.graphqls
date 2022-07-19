@@ -1,0 +1,41 @@
+query {
+    getBankIdentifierByCode(
+        sessionContext:{
+            bankCode: "05"
+            defaultBranchCode: "1392"
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "nikhil"
+            accessibleTargetUnits: null
+            channel: null
+            taskCode: null
+            localDateTime: null
+            role: ["maker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType: ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+        },
+        bankIdentifierQuery:{
+            bankIdentifierCode:"NWBKGB2L"
+            authorized:"Y"
+        }
+    ) {
+        bankIdentifierCode
+        bankIdentifierCodeName
+        bankAddress1
+        bankAddress2
+        bankAddress3
+        bankAddress4
+        internalAddress
+    }
+}

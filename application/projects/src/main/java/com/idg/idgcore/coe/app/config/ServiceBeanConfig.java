@@ -18,7 +18,10 @@ public class ServiceBeanConfig {
         beanMappings = new HashMap<>();
         beanMappings.put(COUNTRY, COUNTRY_SERVICE);
         beanMappings.put(CITY, CITY_SERVICE);
+        beanMappings.put(BANK_IDENTIFIER, BANK_IDENTIFIER_SERVICE);
 		beanMappings.put(PURPOSE, PURPOSE_SERVICE);
+		beanMappings.put(STATE, STATE_SERVICE);
+
     }
 
     public Map<String, String> getBeanConfig () {

@@ -5,6 +5,8 @@ type Query{
     getStates(sessionContext: SessionContextInput): [State]
     getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
     getCities(sessionContext: SessionContextInput): [City]
+    getBankIdentifierByCode(sessionContext: SessionContextInput, bankIdentifierQuery: BankIdentifierInputQuery): BankIdentifier
+    getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
     getPurposeByCode(sessionContext: SessionContextInput, purposeQuery: PurposeInputQuery): Purpose
     getPurposes(sessionContext: SessionContextInput): [Purpose]

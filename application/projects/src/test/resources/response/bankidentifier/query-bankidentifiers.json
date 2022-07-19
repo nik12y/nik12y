@@ -1,0 +1,24 @@
+{
+  "data": {
+    "getBankIdentifiers": [
+      {
+        "bankIdentifierCode": "NWBKGB2L",
+        "bankIdentifierCodeName": "NATIONAL WESTMINSTER BANK PLC",
+        "bankAddress1": "PREMIER PLACE, DEVONSHIRE SQUARE",
+        "bankAddress2": "LONDON",
+        "bankAddress3": "EC2M 4XB",
+        "bankAddress4": "UNITED KINGDOM",
+        "internalAddress": "PREMIER PLACE, DEVONSHIRE SQUARE"
+      },
+      {
+        "bankIdentifierCode": "NTSBDEB1",
+        "bankIdentifierCodeName": "N26 BANK GMBH",
+        "bankAddress1": "KLOSTERSTRASSE 62",
+        "bankAddress2": "BERLIN",
+        "bankAddress3": "EC2M 4XB",
+        "bankAddress4": "10179 BERLIN",
+        "internalAddress": "KLOSTERSTRASSE 62, BERLIN"
+      }
+    ]
+  }
+}
