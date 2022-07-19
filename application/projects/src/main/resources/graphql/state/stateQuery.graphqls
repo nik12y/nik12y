@@ -1,0 +1,4 @@
+type StateQuery {
+    stateCode: String!
+    authorized: String!
+}

@@ -1,0 +1,10 @@
+input StateInput {
+
+    stateCode : String! @Size(min: 2, max: 3, message: "stateCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,3}",message: "State Code Invalid pattern")
+    stateName : String! @Size(min: 1, max: 100, message: "stateName.message") @Pattern(regexp: ".[A-Za-z0-9]{1,100}",message: "State Name Invalid pattern")
+    countryCode : String! @Size(min: 2, max: 2, message: "countryCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,2}",message: "Country Code Invalid pattern")
+    action : String!
+    status : String!
+    recordVersion : Int
+
+}
