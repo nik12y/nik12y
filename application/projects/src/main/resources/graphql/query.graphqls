@@ -21,5 +21,7 @@ type Query{
     getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
     getLanguageByCode(sessionContext: SessionContextInput, languageQuery: LanguageInputQuery): Language
     getLanguages(sessionContext: SessionContextInput): [Language]
+    getBranchTypeByCode(sessionContext: SessionContextInput, branchType: BranchTypeInputQuery): BranchType
+    getBranches(sessionContext: SessionContextInput): [BranchType]
 }
 

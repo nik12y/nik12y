@@ -1,4 +1,4 @@
-
+application.properties
 /bin/
 /build/
 /.idea/
@@ -6,8 +6,10 @@
 *.jar
 *.war
 *.ear
+.gradle
 gradle-app.setting
 !gradle-wrapper.jar
 !gradle-wrapper.properties
 .gradletasknamecache
 settings.gradle.bak
+./src/test/resources/schema.sql

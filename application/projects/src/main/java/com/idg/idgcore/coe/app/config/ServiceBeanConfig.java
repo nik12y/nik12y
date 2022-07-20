@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import static com.idg.idgcore.coe.common.Constants.*;
 
+
 @Configuration
 public class ServiceBeanConfig {
     private Map<String, String> beanMappings;
@@ -17,6 +18,7 @@ public class ServiceBeanConfig {
         beanMappings = new HashMap<>();
         beanMappings.put(COUNTRY, COUNTRY_SERVICE);
         beanMappings.put(CITY, CITY_SERVICE);
+        beanMappings.put(BRANCHTYPE, BRANCHTYPE_SERVICE);
         beanMappings.put(LANGUAGE, LANGUAGE_SERVICE);
         beanMappings.put(BANK_IDENTIFIER, BANK_IDENTIFIER_SERVICE);
         beanMappings.put(PURPOSE, PURPOSE_SERVICE);
@@ -27,4 +29,5 @@ public class ServiceBeanConfig {
     public Map<String, String> getBeanConfig () {
         return beanMappings;
     }
+
 }
