@@ -5,7 +5,6 @@ import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import static com.idg.idgcore.coe.common.Constants.COUNTRY;
 import static com.idg.idgcore.coe.common.Constants.PURPOSE;
 
 @ToString(callSuper = true)
@@ -29,7 +28,7 @@ public class PurposeDTO extends CoreEngineBaseDTO {
 
     @Override
     public void setTaskCode (String taskCode) {
-        super.setTaskCode(COUNTRY);
+        super.setTaskCode(PURPOSE);
     }
 
     @Override

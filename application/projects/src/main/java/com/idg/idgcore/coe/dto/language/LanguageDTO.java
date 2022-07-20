@@ -5,7 +5,6 @@ import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import static com.idg.idgcore.coe.common.Constants.COUNTRY;
 import static com.idg.idgcore.coe.common.Constants.LANGUAGE;
 
 @ToString(callSuper = true)
@@ -31,7 +30,7 @@ public class LanguageDTO extends CoreEngineBaseDTO {
 
     @Override
     public void setTaskCode (String taskCode) {
-        super.setTaskCode(COUNTRY);
+        super.setTaskCode(LANGUAGE);
     }
 
     @Override
