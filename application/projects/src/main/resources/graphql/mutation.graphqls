@@ -9,5 +9,5 @@ type Mutation {
     processPurpose(sessionContext: SessionContextInput, purpose: PurposeInput): TransactionStatus
     processBankIdentifier(sessionContext: SessionContextInput, BankIdentifier: BankIdentifierInput): TransactionStatus
     processLanguage(sessionContext: SessionContextInput, language: LanguageInput): TransactionStatus
-
+    processBranchType(sessionContext: SessionContextInput, branchType: BranchTypeInput): TransactionStatus
 }

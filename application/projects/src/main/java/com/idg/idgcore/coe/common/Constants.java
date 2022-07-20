@@ -17,13 +17,10 @@ public final class Constants {
 
     public static final String BANK = "BANK";
     public static final String BANK_SERVICE ="bankApplicationService";
-
     public static final String PURPOSE_SERVICE = "purposeApplicationService";
     public static final String CITY_SERVICE = "cityApplicationService";
-
     public static final String LANGUAGE = "LANGUAGE";
     public static final String LANGUAGE_SERVICE = "languageApplicationService";
-
     public static final String BANK_IDENTIFIER_SERVICE = "bankIdentifierApplicationService";
 
     public static final String INACTIVE = "inactive";
@@ -40,18 +37,8 @@ public final class Constants {
     public static final String AUTHORIZED_Y = "Y";
     public static final String AUTHORIZED_N = "N";
     public static final String REACT_URL = "http://localhost:3000";
-
-
     public static final String BRANCHTYPE ="BRANCH-TYPE";
     public static final String BRANCHTYPE_SERVICE ="branchTypeApplicationService";
-
-    public static final String BANK ="BANK";
-    public static final String BANK_SERVICE ="bankApplicationService";
-
-    public static final String BRANCHTYPE ="BRANCH-TYPE";
-    public static final String BRANCHTYPE_SERVICE ="branchTypeApplicationService";
-
-
 
     private Constants () {
     }
