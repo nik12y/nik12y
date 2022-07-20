@@ -1,0 +1,4 @@
+type LanguageQuery {
+    languageCode: String!
+    authorized: String!
+}
