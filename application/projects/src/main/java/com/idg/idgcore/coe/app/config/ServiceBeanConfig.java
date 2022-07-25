@@ -19,6 +19,7 @@ public class ServiceBeanConfig {
         beanMappings.put(COUNTRY, COUNTRY_SERVICE);
         beanMappings.put(CITY, CITY_SERVICE);
         beanMappings.put(BRANCHTYPE, BRANCHTYPE_SERVICE);
+        beanMappings.put(GROUP_BANKING,GROUP_BANKING_SERVICE);
         beanMappings.put(LANGUAGE, LANGUAGE_SERVICE);
         beanMappings.put(BANK_IDENTIFIER, BANK_IDENTIFIER_SERVICE);
         beanMappings.put(PURPOSE, PURPOSE_SERVICE);

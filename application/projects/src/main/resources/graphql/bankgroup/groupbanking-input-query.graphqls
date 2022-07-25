@@ -1,0 +1,4 @@
+input GroupBankingInputQuery{
+    bankGroupCode: String!
+    authorized : String!
+}
