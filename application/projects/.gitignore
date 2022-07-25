@@ -2,11 +2,17 @@ application.properties
 /bin/
 /build/
 /.idea/
+.idea
+build
+libs
+gradle
 *.class
 *.jar
 *.war
 *.ear
 .gradle
+gradlew
+jdbcApp.log
 gradle-app.setting
 !gradle-wrapper.jar
 !gradle-wrapper.properties
