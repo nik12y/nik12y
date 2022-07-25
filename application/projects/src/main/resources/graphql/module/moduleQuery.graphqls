@@ -1,0 +1,4 @@
+type ModuleQuery {
+    moduleCode: String!
+    authorized: String!
+}
