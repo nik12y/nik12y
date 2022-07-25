@@ -1,0 +1,50 @@
+mutation{
+    processBankIdentifier(
+        sessionContext:{
+            bankCode: "05"
+            defaultBranchCode: "1392"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "nikhil"
+            accessibleTargetUnits: null
+            channel: null
+            taskCode: null
+            localDateTime: null
+            role: ["maker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType: ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+        },
+        BankIdentifier:{
+            bankIdentifierCode:"NWBKGB2L"
+            bankIdentifierCodeName:"NATIONAL WESTMINSTER BANK PLC"
+            bankAddress1:"PREMIER PLACE, DEVONSHIRE SQUARE"
+            bankAddress2:"LONDON"
+            bankAddress3:"EC2M 4XB"
+            bankAddress4:"UNITED KINGDOM"
+            internalAddress:"PREMIER PLACE, DEVONSHIRE SQUARE"
+            action : "close"
+            status:"closed"
+            recordVersion : 1
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

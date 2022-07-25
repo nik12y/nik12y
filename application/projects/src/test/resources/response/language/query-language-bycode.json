@@ -1,0 +1,11 @@
+{
+  "data": {
+    "getLanguageByCode": {
+      "languageCode": "HI",
+      "languageCodeAlternate": "HIN",
+      "languageName": "Hindi",
+      "localeCode": "HI",
+      "localeName": "Hindi(IN)"
+    }
+  }
+}

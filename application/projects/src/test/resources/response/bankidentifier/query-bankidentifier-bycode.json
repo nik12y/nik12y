@@ -1,0 +1,13 @@
+{
+  "data": {
+    "getBankIdentifierByCode": {
+      "bankIdentifierCode": "NWBKGB2L",
+      "bankIdentifierCodeName": "NATIONAL WESTMINSTER BANK PLC",
+      "bankAddress1": "PREMIER PLACE, DEVONSHIRE SQUARE",
+      "bankAddress2": "LONDON",
+      "bankAddress3": "EC2M 4XB",
+      "bankAddress4": "UNITED KINGDOM",
+      "internalAddress": "PREMIER PLACE, DEVONSHIRE SQUARE"
+    }
+  }
+}

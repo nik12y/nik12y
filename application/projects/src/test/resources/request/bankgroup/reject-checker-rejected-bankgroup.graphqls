@@ -1,0 +1,45 @@
+mutation{
+    processGroupBanking(
+        sessionContext:{
+            bankCode: "03"
+            defaultBranchCode: "0345"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target_unit"
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: null
+            userId: "Mohan"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: "GROUP-BANKING"
+            localDateTime: ""
+            role: "checker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "en_US"
+            originatingModuleCode: null
+        },
+        groupBanking:{
+            bankGroupCode: "SBI"
+            bankGroupName: "State Bank Of India"
+            action : "reject"
+            status:"rejected"
+            recordVersion : 0
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

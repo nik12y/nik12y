@@ -1,0 +1,4 @@
+input LanguageInputQuery {
+    languageCode: String!
+    authorized : String!
+}
