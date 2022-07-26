@@ -1,0 +1,5 @@
+input CaptInputQuery {
+    clearingPaymentTypeCode: String!
+    authorized : String!
+}
+

@@ -25,6 +25,7 @@ public class ServiceBeanConfig {
         beanMappings.put(PURPOSE, PURPOSE_SERVICE);
         beanMappings.put(STATE, STATE_SERVICE);
         beanMappings.put(BANK, BANK_SERVICE);
+        beanMappings.put(CAPT, CAPT_SERVICE);
     }
 
     public Map<String, String> getBeanConfig () {

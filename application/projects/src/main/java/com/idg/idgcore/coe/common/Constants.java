@@ -42,6 +42,8 @@ public final class Constants {
     public static final String REACT_URL = "http://localhost:3000";
     public static final String BRANCHTYPE ="BRANCH-TYPE";
     public static final String BRANCHTYPE_SERVICE ="branchTypeApplicationService";
+    public static final String CAPT = "CAPT";
+    public static final String CAPT_SERVICE = "captApplicationService";
 
     private Constants () {
     }
