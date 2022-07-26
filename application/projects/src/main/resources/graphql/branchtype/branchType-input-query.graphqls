@@ -1,0 +1,6 @@
+input BranchTypeInputQuery {
+    branchTypeCode: String!
+    authorized : String!
+
+}
+

@@ -1,0 +1,19 @@
+input ModuleInput {
+    moduleCode: String! @Size(min: 2, max: 2, message: "moduleCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${2,2}",message: "Module Code Invalid pattern")
+    moduleName : String! @Size(min: 1, max: 40, message: "moduleName.message") @Pattern(regexp: "..[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Module Name Invalid pattern")
+    bankCode : Int! @Digits(integer : 10, fraction : 0, message : "bankCode.message")
+    moduleUsers : Int @Digits(integer : 10, fraction : 0, message : "moduleUsers.message")
+    moduleCurrentUsers : Int @Digits(integer : 10, fraction : 0, message : "moduleCurrentUsers.message")
+    licensed : Boolean!
+    purgeAvailable : Boolean
+    userDefinedFields : Boolean
+    installed : Boolean
+    action : String!
+    status : String!
+    recordVersion : Int
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
+
