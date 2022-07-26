@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.endpoint.graphql.resolver;
+package com.idg.idgcore.coe.endpoint.graphql.resolver.state;
 
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestApplication.class)
@@ -31,7 +33,7 @@ class StateMutationResolverTest {
         GraphQLResponse graphQLResponseDraftDlt = graphQLTestTemplate.postForResource(srcDraftDelete);
 
         assertTrue(graphQLResponseDraftDlt.getStatusCode().is2xxSuccessful());
-//        assertThat(graphQLResponseDraftDlt.isOk(), equalTo(true));
+        assertThat(graphQLResponseDraftDlt.isOk(), equalTo(true));
 //        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseDraftDlt.getRawResponse().getBody(), true);
 
 
@@ -50,7 +52,7 @@ class StateMutationResolverTest {
         GraphQLResponse graphQLResponseAuth = graphQLTestTemplate.postForResource(srcDraftAut);
 
         assertTrue(graphQLResponseAuth.getStatusCode().is2xxSuccessful());
-//        assertThat(graphQLResponseAuth.isOk(), equalTo(true));
+        assertThat(graphQLResponseAuth.isOk(), equalTo(true));
 //        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseAuth.getRawResponse().getBody(), true);
 
     }
@@ -71,7 +73,7 @@ class StateMutationResolverTest {
         String srcAuthUpdated = "request/state/3/authorize-checker-updated-state.graphqls";
         GraphQLResponse graphQLResponseAuthUpdated = graphQLTestTemplate.postForResource(srcAuthUpdated);
         assertTrue(graphQLResponseAuthUpdated.getStatusCode().is2xxSuccessful());
-//        assertThat(graphQLResponseAuthUpdated.isOk(), equalTo(true));
+        assertThat(graphQLResponseAuthUpdated.isOk(), equalTo(true));
 //        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseAuthUpdated.getRawResponse().getBody(), true);
 
     }
@@ -91,7 +93,7 @@ class StateMutationResolverTest {
         GraphQLResponse graphQLResponseAuth = graphQLTestTemplate.postForResource(srcDraftAut);
 
         assertTrue(graphQLResponseAuth.getStatusCode().is2xxSuccessful());
-//        assertThat(graphQLResponseAuth.isOk(), equalTo(true));
+        assertThat(graphQLResponseAuth.isOk(), equalTo(true));
 //        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseAuth.getRawResponse().getBody(), true);
 
             }
@@ -112,7 +114,7 @@ class StateMutationResolverTest {
         GraphQLResponse graphQLResponseAuthUpdated = graphQLTestTemplate.postForResource(srcAuthUpdated);
 
         assertTrue(graphQLResponseAuthUpdated.getStatusCode().is2xxSuccessful());
-//        assertThat(graphQLResponseAuth.isOk(), equalTo(true));
+        assertThat(graphQLResponseAuth.isOk(), equalTo(true));
 //        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseAuth.getRawResponse().getBody(), true);
 
 
@@ -141,7 +143,7 @@ class StateMutationResolverTest {
 
 
         assertTrue(graphQLResponseCkReopen.getStatusCode().is2xxSuccessful());
-//        assertThat(graphQLResponseCkReopen.isOk(), equalTo(true));
+        assertThat(graphQLResponseCkReopen.isOk(), equalTo(true));
 //        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseCkReopen.getRawResponse().getBody(), true);
 
     }

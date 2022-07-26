@@ -2,11 +2,30 @@ plugins {
     id 'org.springframework.boot' version '2.4.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
+    id "name.remal.sonarlint" version "1.5.0"
+    id "com.avast.gradle.docker-compose" version "0.16.4"
+    id 'com.palantir.docker' version '0.34.0'
+    id 'com.palantir.docker-run' version '0.34.0'
 }
 
-group = 'com.social'
+group = 'com.idg'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = "11"
+String imageName = "$description:$version"
+docker {
+    dockerfile file('./Dockerfile')
+    name imageName
+    files "build/libs/${bootJar.archiveFileName.get()}"
+    buildArgs([JAR_FILE: bootJar.archiveFileName.get()])
+}
+
+dockerRun {
+    name project.name
+    image imageName
+    ports '8080:8080'
+    clean true
+}
 
 configurations {
     compileOnly {
@@ -17,6 +36,12 @@ configurations {
 repositories {
     mavenCentral()
 }
+
+//dockerCompose {
+//    useComposeFiles = ['docker-compose.yml']
+//    startedServices = ['yb-master', 'yb-tserver']
+//    isRequiredBy(test)
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
@@ -33,7 +58,7 @@ dependencies {
     runtimeOnly 'com.graphql-java-kickstart:voyager-spring-boot-starter:11.1.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.h2database:h2'
+//    runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.1.0'
@@ -42,7 +67,167 @@ dependencies {
     implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.9.2'
 }
 
-test {
+
+tasks.named('test') {
     useJUnitPlatform()
 }
+
+check.dependsOn jacocoTestCoverageVerification, sonarlintMain
+
+ext {
+    jacocoEnabled = System.properties.getProperty("jacocoEnabled") ?: "false"
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.20
+            }
+        }
+
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.20
+            }
+        }
+
+        rule {
+            element = 'CLASS'
+            includes = ['com.idg.*']
+
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 100
+            }
+        }
+
+        rule {
+            element = 'CLASS'
+            includes = ['com.idg.idgcore.coe.app.service.state']
+            includes = ['com.idg.idgcore.coe.domain.assembler.state']
+            includes = ['com.idg.idgcore.coe.domain.entity.state']
+            includes = ['com.idg.idgcore.coe.domain.repository.state']
+            includes = ['com.idg.idgcore.coe.domain.service.state']
+            includes = ['com.idg.idgcore.coe.dto.state']
+            includes = ['com.idg.idgcore.coe.endpoint.graphql.resolver.state']
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 100
+            }
+        }
+    }
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/idg/idgcore/Application.class',
+                    'com/idg/idgcore/coe/app/config/*',
+                    'com/idg/idgcore/coe/app/service/audit/*',
+                    'com/idg/idgcore/coe/app/service/base/*',
+                    'com/idg/idgcore/coe/app/service/city/*',
+                    'com/idg/idgcore/coe/app/service/country/*',
+                    'com/idg/idgcore/coe/app/service/bank/*',
+                    'com/idg/idgcore/coe/app/service/language/*',
+                    'com/idg/idgcore/coe/app/service/bankidentifier/*',
+                    'com/idg/idgcore/coe/app/service/purpose/*',
+                    'com/idg/idgcore/coe/app/service/mapping/*',
+                    'com/idg/idgcore/coe/app/service/memo/*',
+                    'com/idg/idgcore/coe/common/*',
+                    'com/idg/idgcore/coe/domain/assembler/city/*',
+                    'com/idg/idgcore/coe/domain/assembler/bankidentifier/*',
+                    'com/idg/idgcore/coe/domain/assembler/language/*',
+                    'com/idg/idgcore/coe/domain/assembler/audit/*',
+                    'com/idg/idgcore/coe/domain/assembler/bank/*',
+                    'com/idg/idgcore/coe/domain/assembler/purpose/*',
+                    'com/idg/idgcore/coe/domain/assembler/country/*',
+                    'com/idg/idgcore/coe/domain/assembler/memo/*',
+                    'com/idg/idgcore/coe/domain/entity/audit/*',
+                    'com/idg/idgcore/coe/domain/entity/city/*',
+                    'com/idg/idgcore/coe/domain/entity/country/*',
+                    'com/idg/idgcore/coe/domain/entity/bankidentifier/*',
+                    'com/idg/idgcore/coe/domain/entity/language/*',
+                    'com/idg/idgcore/coe/domain/entity/bank/*',
+                    'com/idg/idgcore/coe/domain/entity/purpose/*',
+                    'com/idg/idgcore/coe/domain/entity/mapping/*',
+                    'com/idg/idgcore/coe/domain/entity/memo/*',
+                    'com/idg/idgcore/coe/domain/entity/mutation/*',
+                    'com/idg/idgcore/coe/domain/process/*',
+                    'com/idg/idgcore/coe/domain/audit/*',
+                    'com/idg/idgcore/coe/domain/repository/audit/*',
+                    'com/idg/idgcore/coe/domain/repository/city/*',
+                    'com/idg/idgcore/coe/domain/repository/bankidentifier/*',
+                    'com/idg/idgcore/coe/domain/repository/language/*',
+                    'com/idg/idgcore/coe/domain/repository/bank/*',
+                    'com/idg/idgcore/coe/domain/repository/purpose/*',
+                    'com/idg/idgcore/coe/domain/repository/country/*',
+                    'com/idg/idgcore/coe/domain/repository/mapping/*',
+                    'com/idg/idgcore/coe/domain/repository/memo/*',
+                    'com/idg/idgcore/coe/domain/repository/mutation/*',
+                    'com/idg/idgcore/coe/domain/service/audit/*',
+                    'com/idg/idgcore/coe/domain/service/city/*',
+                    'com/idg/idgcore/coe/domain/service/country/*',
+                    'com/idg/idgcore/coe/domain/service/bankidentifier/*',
+                    'com/idg/idgcore/coe/domain/service/language/*',
+                    'com/idg/idgcore/coe/domain/service/bank/*',
+                    'com/idg/idgcore/coe/domain/service/purpose/*',
+                    'com/idg/idgcore/coe/domain/service/mapping/*',
+                    'com/idg/idgcore/coe/domain/service/memo/*',
+                    'com/idg/idgcore/coe/domain/service/mutation/*',
+                    'com/idg/idgcore/coe/dto/audit/*',
+                    'com/idg/idgcore/coe/dto/base/*',
+                    'com/idg/idgcore/coe/dto/city/*',
+                    'com/idg/idgcore/coe/dto/country/*',
+                    'com/idg/idgcore/coe/dto/bankidentifier/*',
+                    'com/idg/idgcore/coe/dto/language/*',
+                    'com/idg/idgcore/coe/dto/bank/*',
+                    'com/idg/idgcore/coe/dto/purpose/*',
+                    'com/idg/idgcore/coe/dto/mapping/*',
+                    'com/idg/idgcore/coe/dto/memo/*',
+                    'com/idg/idgcore/coe/dto/mutation/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/config/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/audit/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/city/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/country/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/bankidentifier/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/language/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/bank/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/purpose/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/lov/*',
+                    'com/idg/idgcore/coe/endpoint/graphql/resolver/memo/*',
+                    'com/idg/idgcore/coe/exception/*'
+            ])
+        }))
+    }
+
+}
+
+springBoot {
+    mainClass = 'com.idg.idgcore.Application'
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
 targetCompatibility = JavaVersion.VERSION_11

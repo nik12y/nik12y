@@ -28,9 +28,9 @@ public class Application {
             final CorsConfiguration config = new CorsConfiguration();
             config.setAllowCredentials(true);
             config.addAllowedOrigin(REACT_URL);
-//            config.addAllowedHeader("*");
-//            config.addAllowedMethod("*");
-//            source.registerCorsConfiguration("/graphql/**", config);
+            config.addAllowedHeader("*");
+            config.addAllowedMethod("*");
+            source.registerCorsConfiguration("/graphql/**", config);
             return new CorsFilter(source);
         }
     }
