@@ -20,9 +20,11 @@ import java.util.function.Predicate;
 import static com.idg.idgcore.coe.common.Constants.ADD;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZE;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
+import static com.idg.idgcore.coe.common.Constants.DELETE;
 import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.common.Constants.MODIFY;
 import static com.idg.idgcore.coe.common.Constants.NEW;
+import static com.idg.idgcore.coe.common.Constants.REJECT;
 import static com.idg.idgcore.coe.common.Constants.UPDATED;
 import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 import static com.idg.idgcore.coe.exception.Error.DUPLICATE_RECORD;
@@ -177,7 +179,8 @@ public class MutationsDomainService implements IMutationsDomainService {
 
     private void validateUnauthorizedRecords (MutationEntity entity, MutationDTO dto)
             throws BusinessException {
-        if (AUTHORIZED_N.equals(entity.getAuthorized()) && !AUTHORIZE.equals(dto.getAction())) {
+        if (AUTHORIZED_N.equals(entity.getAuthorized()) && !AUTHORIZE.equals(dto.getAction())
+                && !REJECT.equals(dto.getAction()) && !DELETE.equals(dto.getAction())) {
             ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
         }
     }

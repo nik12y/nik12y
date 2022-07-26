@@ -39,6 +39,8 @@ public final class Constants {
     public static final String MODIFY = "modify";
     public static final String UPDATED = "updated";
     public static final String AUTHORIZE = "authorize";
+    public static final String REJECT = "reject";
+    public static final String DELETE = "delete";
     public static final String AUTHORIZED_Y = "Y";
     public static final String AUTHORIZED_N = "N";
     public static final String REACT_URL = "http://localhost:3000";
