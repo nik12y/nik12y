@@ -1,6 +1,6 @@
 application.properties
 /bin/
-/build/
+/build/e
 /.idea/
 .idea
 build
