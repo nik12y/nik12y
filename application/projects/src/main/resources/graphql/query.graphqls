@@ -26,5 +26,9 @@ type Query{
 
     getGroupBankByCode(sessionContext: SessionContextInput, groupBankQuery: GroupBankingInputQuery): GroupBanking
     getGroupBanks(sessionContext: SessionContextInput):[GroupBanking]
+
+    getQuestionConfigById(sessionContext: SessionContextInput, questionQuery: QuestionConfigInputQuery): QuestionConfig
+    getQuestionsConfigs(sessionContext: SessionContextInput): [QuestionConfig]
+
 }
 

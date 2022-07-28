@@ -26,6 +26,9 @@ public final class Constants {
     public static final String GROUP_BANKING = "GROUP-BANKING";
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
 
+    public static final String QUESTION_CONFIG = "QUESTION";
+    public static final String QUESTION_CONFIG_SERVICE = "questionConfigApplicationService";
+
     public static final String INACTIVE = "inactive";
 
     public static final String ACTIVE = "active";

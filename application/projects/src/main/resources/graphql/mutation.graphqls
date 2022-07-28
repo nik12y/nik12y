@@ -12,6 +12,7 @@ type Mutation {
     processBranchType(sessionContext: SessionContextInput, branchType: BranchTypeInput): TransactionStatus
 
     processGroupBanking(sessionContext: SessionContextInput, groupBanking: GroupBankingInput ): TransactionStatus
+    processQuestionConfig(sessionContext: SessionContextInput,questionConfig: QuestionConfigInput): TransactionStatus
 
 
 }
