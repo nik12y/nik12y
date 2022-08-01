@@ -25,6 +25,7 @@ import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.common.Constants.MODIFY;
 import static com.idg.idgcore.coe.common.Constants.NEW;
 import static com.idg.idgcore.coe.common.Constants.REJECT;
+import static com.idg.idgcore.coe.common.Constants.REJECTED;
 import static com.idg.idgcore.coe.common.Constants.UPDATED;
 import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 import static com.idg.idgcore.coe.exception.Error.DUPLICATE_RECORD;
@@ -185,6 +186,10 @@ public class MutationsDomainService implements IMutationsDomainService {
         return d -> (d.getAction().equals(ADD) && d.getStatus().equals(NEW));
     }
 
+    private Predicate<MutationDTO> isModifyRejectedRecord (MutationEntity entity, MutationDTO dto) {
+        return d -> (d.getAction().equals(ADD) && d.getStatus().equals(NEW));
+    }
+
     private void recordExistsFilter (MutationEntity mutationEntity, MutationDTO mutationDTO)
             throws BusinessException {
         if (mutationDTO.getTaskCode().equals(mutationEntity.getTaskCode())
@@ -202,7 +207,7 @@ public class MutationsDomainService implements IMutationsDomainService {
 
     private void validateUnauthorizedRecords (MutationEntity entity, MutationDTO dto)
             throws BusinessException {
-        if (AUTHORIZED_N.equals(entity.getAuthorized()) && !AUTHORIZE.equals(dto.getAction())
+        if ((AUTHORIZED_N.equals(entity.getAuthorized()) && !REJECTED.equals(entity.getStatus())) && !AUTHORIZE.equals(dto.getAction())
                 && !REJECT.equals(dto.getAction()) && !DELETE.equals(dto.getAction())) {
             ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
         }
