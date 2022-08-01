@@ -8,6 +8,8 @@ import java.util.List;
 public interface IMutationsDomainService {
     MutationEntity getConfigurationByCode (final String taskIdentifier);
     MutationEntity  addUpdate (final MutationDTO mutationDTO);
+
+    MutationEntity  save (final MutationDTO mutationDTO);
     void insertIntoAuditHistory (final MutationDTO mutationDTO);
     List<MutationEntity> getUnauthorizedMutation(final String taskCode,final String authorized);
 }

@@ -102,6 +102,29 @@ public class MutationsDomainService implements IMutationsDomainService {
         return mutationEntity;
     }
 
+    public MutationEntity save (MutationDTO mutationDTO) {
+        if (log.isInfoEnabled()) {
+            log.info("In save with parameters  mutationDTO {}", mutationDTO);
+        }
+        MutationEntity mutationEntity = null;
+        try {
+                ModelMapper mapper = new ModelMapper();
+                mutationEntity = mapper.map(mutationDTO, MutationEntity.class);
+                return this.mutationRepository.save(mutationEntity);
+        }
+        catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error(e.getMessage());
+            }
+            if (e instanceof BusinessException) {
+                throw e;
+            }
+            else {
+                ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+            }
+        }
+        return mutationEntity;
+    }
     public MutationEntity fetchRecordIfExists (MutationDTO mutationDTO) throws BusinessException {
         if (log.isInfoEnabled()) {
             log.info("In recordExists with parameters  mutationDTO {}", mutationDTO);
