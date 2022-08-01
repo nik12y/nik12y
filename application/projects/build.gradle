@@ -7,6 +7,7 @@ plugins {
     id "com.avast.gradle.docker-compose" version "0.16.4"
     id 'com.palantir.docker' version '0.34.0'
     id 'com.palantir.docker-run' version '0.34.0'
+
     id 'org.liquibase.gradle' version '2.0.4'
 }
 
@@ -66,6 +67,7 @@ dependencies {
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.24'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.1'
     implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.9.2'
+
     implementation group: 'org.liquibase', name: 'liquibase-core'
     implementation group: 'org.liquibase', name: 'liquibase-maven-plugin', version: '4.11.0'
     implementation 'org.springframework.boot:spring-boot-starter:2.7.2'
