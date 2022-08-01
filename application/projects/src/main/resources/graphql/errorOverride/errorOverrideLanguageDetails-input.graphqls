@@ -1,0 +1,7 @@
+input ErrorOverrideLanguageDetailsInput {
+    languageCode: String!
+    languageName: String!
+    localeCode: String!
+    localeName: String!
+
+}
