@@ -73,7 +73,7 @@ public class MutationsDomainService implements IMutationsDomainService {
         return mutationEntity;
     }
 
-    public MutationEntity addUpdate (MutationDTO mutationDTO) {
+    public MutationEntity addUpdate (MutationDTO mutationDTO) throws BusinessException {
         if (log.isInfoEnabled()) {
             log.info("In addUpdate with parameters  mutationDTO {}", mutationDTO);
         }
