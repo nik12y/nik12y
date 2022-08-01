@@ -186,10 +186,6 @@ public class MutationsDomainService implements IMutationsDomainService {
         return d -> (d.getAction().equals(ADD) && d.getStatus().equals(NEW));
     }
 
-    private Predicate<MutationDTO> isModifyRejectedRecord (MutationEntity entity, MutationDTO dto) {
-        return d -> (d.getAction().equals(ADD) && d.getStatus().equals(NEW));
-    }
-
     private void recordExistsFilter (MutationEntity mutationEntity, MutationDTO mutationDTO)
             throws BusinessException {
         if (mutationDTO.getTaskCode().equals(mutationEntity.getTaskCode())
