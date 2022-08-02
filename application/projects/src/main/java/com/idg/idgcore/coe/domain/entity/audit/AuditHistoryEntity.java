@@ -2,7 +2,7 @@ package com.idg.idgcore.coe.domain.entity.audit;
 
 import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ import java.io.Serializable;
 @Table (name = "IDGC_COE_AUDIT_HISTORY_CNFG")
 @Inheritance (strategy = InheritanceType.JOINED)
 @ToString
-@TypeDef (name = "jsonb", typeClass = JsonBinaryType.class)
+@TypeDef (name = "json", typeClass = JsonType.class)
 public class AuditHistoryEntity extends AbstractAuditableDomainEntity
         implements Serializable
 {
@@ -37,8 +37,8 @@ public class AuditHistoryEntity extends AbstractAuditableDomainEntity
     private Integer id;
     private String taskCode;
     private String taskIdentifier;
-    @Type (type = "jsonb")
-    @Column (columnDefinition = "jsonb")
+    @Type (type = "json")
+    @Column (columnDefinition = "clob")
     private Payload payload;
     private String status;
     private String authorized;
