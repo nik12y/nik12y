@@ -1,5 +1,5 @@
 mutation{
-    processGroupBanking(
+    processQuestion(
         sessionContext:{
             bankCode: "03"
             defaultBranchCode: "0345"
@@ -13,7 +13,7 @@ mutation{
             userId: "NikhilYadav"
             accessibleTargetUnits: null
             channel: "Branch"
-            taskCode: "GROUP-BANKING"
+            taskCode: "QUESTION"
             localDateTime: ""
             role: "maker"
             originalTransactionReferenceNumber: null
@@ -25,10 +25,15 @@ mutation{
             userLocal: "en_US"
             originatingModuleCode: null
         },
-        groupBanking:{
-            bankGroupCode: "SBI"
-            bankGroupName:"State Bank Of India"
-            action : "authorize"
+        question:{
+            questionId:"Q03Draft"
+            questionName:"Education Loan Purpose"
+            questionText:"What is  Loan Purpose ?"
+            questionDescription:" Education Purpose helps to decide the further Application Treatment Workflow"
+            answerDisplayType: "Radio"
+            manualFactBased:"Fact"
+            answerValue: "Education Amount"
+            action : "add"
             status:"new"
             recordVersion : 0
         }

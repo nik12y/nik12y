@@ -1,0 +1,23 @@
+input QuestionInput{
+#    questionId: String!@Size(min: 3, max: 10, message: "questionId.message") @Pattern(regexp:".[A-Z0-9]{1,2}",message:"Question-Id Must have Valid Pattern")
+#    questionName: String!@Size(min: 3, max: 40, message: "questionName.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,2}",message:"Question-Name Must have Valid Pattern")
+#    questionText: String!@Size(min: 3, max: 100, message: "questionText.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,2}",message:"Question-Text Must have Valid Pattern")
+#    questionDescription: String!@Size(min: 3, max: 100, message: "questionDescription.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,2}",message:"Question-Description Must have Valid Pattern")
+#    answerDisplayType: String!@Size(min: 3, max: 50, message: "answerDisplayType.message") @Pattern(regexp:".[ A-Za-z ]{1,2}",message:"Answer Display Type Must have Valid Pattern")
+#    manualFactBased: String!@Size(min: 3, max: 10, message: "manualFactBased.message") @Pattern(regexp:".[ A-Za-z ]{1,2}",message:"Manual Fact Based Must have Valid Pattern")
+#    answerValue: String!@Size(min: 3, max: 100, message: "answerValue.message") @Pattern(regexp:".[ A-Za-z ]{1,2}",message:"Answer Value Must have Valid Pattern")
+    questionId: String!@Size(min: 3, max: 10, message: "questionId.message") @Pattern(regexp:".[A-Za-z0-9]{0,10}",message:"Question-Id Must have Capital and Numeric Values")
+    questionName: String!@Size(min: 3, max: 40, message: "questionName.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,40}",message:"Question-Name Must have Valid Pattern")
+    questionText: String!@Size(min: 3, max: 100, message: "questionText.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,100}",message:"Question-Text Must have Valid Pattern")
+    questionDescription: String!@Size(min: 3, max: 100, message: "questionDescription.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,100}",message:"Question-Description Must have Valid Pattern")
+    answerDisplayType: String!
+    manualFactBased: String!@Size(min: 3, max: 10, message: "manualFactBased.message") @Pattern(regexp:".[ A-Za-z ]{1,10}",message:"Manual Fact Based Must have Valid Pattern")
+    answerValue: String!@Size(min: 3, max: 100, message: "answerValue.message") @Pattern(regexp:".[ A-Za-z0-9 ]{1,100}",message:"Answer Value Must have Valid Pattern")
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
