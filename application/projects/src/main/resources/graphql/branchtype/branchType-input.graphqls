@@ -1,17 +1,17 @@
 input BranchTypeInput {
 
     branchTypeCode: String! @Size(min: 1, max: 8, message: "branchTypeCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,100}",message: "BranchType Code Invalid pattern")
-    branchTypeName : String!@Size(min: 1, max: 40, message: "branchTypeName.message") @Pattern(regexp: ".[0-9]{1,2}",message: "BranchTypeName  Invalid pattern")
-
+    branchTypeName : String!@Size(min: 1, max: 40, message: "branchTypeName.message") @Pattern(regexp: ".[A-Za-z0-9 ]{1,40}",message: "BranchTypeName  Invalid pattern")
+#countryName : String @Size(min: 1, max: 100, message: "countryName.message") @Pattern(regexp: ".[A-Za-z0-9]{1,100}",message: "Country Name Invalid pattern")
     action : String!
     status : String!
     recordVersion : Int
 
 
-    createdBy: String!
-    creationTime: String!
-    lastUpdatedBy: String!
-    lastUpdatedTime: String!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
 
 }
 

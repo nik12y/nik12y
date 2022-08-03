@@ -55,11 +55,11 @@ repositories {
     mavenCentral()
 }
 
-dockerCompose {
-    useComposeFiles = ['docker-compose.yml']
-    startedServices = ['yb-master', 'yb-tserver']
-    isRequiredBy(test)
-}
+//dockerCompose {
+//    useComposeFiles = ['docker-compose.yml']
+//    startedServices = ['yb-master', 'yb-tserver']
+//    isRequiredBy(test)
+//}
 
 
 dependencies {
