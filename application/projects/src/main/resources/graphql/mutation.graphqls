@@ -14,5 +14,6 @@ type Mutation {
     processGroupBanking(sessionContext: SessionContextInput, groupBanking: GroupBankingInput ): TransactionStatus
     processCapt(sessionContext: SessionContextInput, capt: CaptInput): TransactionStatus
     processModule(sessionContext: SessionContextInput, module: ModuleInput): TransactionStatus
+    processAml(sessionContext: SessionContextInput, aml: AmlInput): TransactionStatus
 
 }
