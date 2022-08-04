@@ -2,6 +2,8 @@ package com.idg.idgcore.coe.domain.process;
 
 import com.idg.idgcore.coe.app.config.ServiceBeanConfig;
 import com.idg.idgcore.coe.app.config.MappingConfig;
+import com.idg.idgcore.coe.app.config.kafka.*;
+import com.idg.idgcore.coe.dto.audit.*;
 import com.idg.idgcore.coe.dto.mapping.MappingDTO;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
@@ -36,8 +38,15 @@ import static com.idg.idgcore.coe.common.Constants.STRING_Y;
 public class ProcessConfiguration implements IProcessConfiguration {
     private final ModelMapper modelMapper = new ModelMapper();
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Autowired
+    private KafkaProducer producer;
     @Value ("${audit.history.kafka.enabled}")
     String auditHistoryKafkaEnabled;
+
+    @Value ("${audit.history.kafka.producer.topic}")
+    String auditHistoryKafkaProducerTopic;
+
     @Autowired
     private ApplicationContext appContext;
     @Autowired
@@ -144,10 +153,14 @@ public class ProcessConfiguration implements IProcessConfiguration {
     }
 
 
-    public void insertIntoAuditHistory (MutationDTO dto) {
+    public void insertIntoAuditHistory (MutationDTO dto) throws JsonProcessingException {
         log.info("In insertIntoAuditHistory with parameters MappingDTO {}", dto);
         if (!isKafkaEnabled(auditHistoryKafkaEnabled)) {
             mutationsDomainService.insertIntoAuditHistory(dto);
+        }
+        else {
+            AuditHistoryDTO auditHistoryDTO = modelMapper.map(dto, AuditHistoryDTO.class);
+            producer.sendMessage(auditHistoryKafkaProducerTopic, getPayload(auditHistoryDTO));
         }
     }
 
@@ -185,4 +198,15 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return mutationDTO;
     }
 
+    public String getPayload (CoreEngineBaseDTO baseDto) throws JsonProcessingException {
+        log.info("In getPayload with parameters baseDto {}", baseDto);
+        BaseKafkaMessage baseKafkaMessage = new BaseKafkaMessage();
+        SessionContext sessionContext = (SessionContext)ThreadAttribute.get(ThreadAttribute.SESSION_CONTEXT);
+        String payload  = (new ObjectMapper()).writeValueAsString(baseDto);
+        baseKafkaMessage.setSessionContext(sessionContext);
+        baseKafkaMessage.setPayload(payload);
+        baseKafkaMessage.setKey("auditHistory");
+
+        return (new ObjectMapper()).writeValueAsString(baseKafkaMessage);
+    }
 }
