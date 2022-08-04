@@ -1,0 +1,18 @@
+type Module {
+    moduleCode: String!
+    moduleName : String!
+    bankCode : String!
+    moduleUsers : Int
+    moduleCurrentUsers : Int
+    licensed : Boolean!
+    purgeAvailable : Boolean
+    userDefinedFields : Boolean
+    installed : Boolean
+    action : String!
+    status : String!
+    recordVersion : Int
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

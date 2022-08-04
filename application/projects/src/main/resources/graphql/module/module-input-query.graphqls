@@ -1,0 +1,5 @@
+input ModuleInputQuery {
+    moduleCode: String!
+    authorized : String!
+}
+

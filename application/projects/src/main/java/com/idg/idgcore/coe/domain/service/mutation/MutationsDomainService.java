@@ -20,9 +20,12 @@ import java.util.function.Predicate;
 import static com.idg.idgcore.coe.common.Constants.ADD;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZE;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
+import static com.idg.idgcore.coe.common.Constants.DELETE;
 import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.common.Constants.MODIFY;
 import static com.idg.idgcore.coe.common.Constants.NEW;
+import static com.idg.idgcore.coe.common.Constants.REJECT;
+import static com.idg.idgcore.coe.common.Constants.REJECTED;
 import static com.idg.idgcore.coe.common.Constants.UPDATED;
 import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 import static com.idg.idgcore.coe.exception.Error.DUPLICATE_RECORD;
@@ -71,7 +74,7 @@ public class MutationsDomainService implements IMutationsDomainService {
         return mutationEntity;
     }
 
-    public MutationEntity addUpdate (MutationDTO mutationDTO) {
+    public MutationEntity addUpdate (MutationDTO mutationDTO) throws BusinessException {
         if (log.isInfoEnabled()) {
             log.info("In addUpdate with parameters  mutationDTO {}", mutationDTO);
         }
@@ -100,6 +103,29 @@ public class MutationsDomainService implements IMutationsDomainService {
         return mutationEntity;
     }
 
+    public MutationEntity save (MutationDTO mutationDTO) {
+        if (log.isInfoEnabled()) {
+            log.info("In save with parameters  mutationDTO {}", mutationDTO);
+        }
+        MutationEntity mutationEntity = null;
+        try {
+                ModelMapper mapper = new ModelMapper();
+                mutationEntity = mapper.map(mutationDTO, MutationEntity.class);
+                return this.mutationRepository.save(mutationEntity);
+        }
+        catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error(e.getMessage());
+            }
+            if (e instanceof BusinessException) {
+                throw e;
+            }
+            else {
+                ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+            }
+        }
+        return mutationEntity;
+    }
     public MutationEntity fetchRecordIfExists (MutationDTO mutationDTO) throws BusinessException {
         if (log.isInfoEnabled()) {
             log.info("In recordExists with parameters  mutationDTO {}", mutationDTO);
@@ -177,7 +203,8 @@ public class MutationsDomainService implements IMutationsDomainService {
 
     private void validateUnauthorizedRecords (MutationEntity entity, MutationDTO dto)
             throws BusinessException {
-        if (AUTHORIZED_N.equals(entity.getAuthorized()) && !AUTHORIZE.equals(dto.getAction())) {
+        if ((AUTHORIZED_N.equals(entity.getAuthorized()) && !REJECTED.equals(entity.getStatus())) && !AUTHORIZE.equals(dto.getAction())
+                && !REJECT.equals(dto.getAction()) && !DELETE.equals(dto.getAction())) {
             ExceptionUtil.handleException(UNAUTHORIZED_RECORD_ALREADY_EXISTS);
         }
     }

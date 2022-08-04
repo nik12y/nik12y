@@ -21,5 +21,6 @@ public class MappingDTO {
     private String lastConfigurationAction;
     private String insertRecordIntoAudit;
     private String insertRecordIntoBasetable;
+    private String copyRecordFromBaseTable;
     private String mappingStatus;
 }
