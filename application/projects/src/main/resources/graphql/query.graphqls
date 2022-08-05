@@ -30,5 +30,7 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+    getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
+    getZakats(sessionContext: SessionContextInput): [Zakat]
 }
 

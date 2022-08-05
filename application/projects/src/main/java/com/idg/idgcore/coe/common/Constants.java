@@ -28,6 +28,9 @@ public final class Constants {
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
 
+    public static final String ZAKAT = "ZAKAT";
+    public static final String ZAKAT_SERVICE = "zakatApplicationService";
+
     public static final String INACTIVE = "inactive";
 
     public static final String ACTIVE = "active";
