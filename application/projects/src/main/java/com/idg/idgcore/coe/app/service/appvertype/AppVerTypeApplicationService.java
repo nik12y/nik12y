@@ -171,5 +171,4 @@ public class AppVerTypeApplicationService extends AbstractApplicationService imp
     private String getTaskCode() {
         return AppVerTypeDTO.builder().build().getTaskCode();
     }
-
 }
