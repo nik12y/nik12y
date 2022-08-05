@@ -90,7 +90,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
                copyRecordFromBaseTable(mutationDto);
            }
        }
-       catch (Exception e){
+       catch (BusinessException e){
            if (e instanceof BusinessException) {
                throw e;
            }
@@ -160,7 +160,8 @@ public class ProcessConfiguration implements IProcessConfiguration {
         }
         else {
             AuditHistoryDTO auditHistoryDTO = modelMapper.map(dto, AuditHistoryDTO.class);
-            producer.sendMessage(auditHistoryKafkaProducerTopic, getPayload(auditHistoryDTO));
+            BaseKafkaMessage baseKafkaMessage = getPayload(auditHistoryDTO);
+            producer.sendMessage(auditHistoryKafkaProducerTopic, baseKafkaMessage.getKey(), getPayloadStringValue(baseKafkaMessage));
         }
     }
 
@@ -198,7 +199,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return mutationDTO;
     }
 
-    public String getPayload (CoreEngineBaseDTO baseDto) throws JsonProcessingException {
+    public BaseKafkaMessage getPayload (CoreEngineBaseDTO baseDto) throws JsonProcessingException {
         log.info("In getPayload with parameters baseDto {}", baseDto);
         BaseKafkaMessage baseKafkaMessage = new BaseKafkaMessage();
         SessionContext sessionContext = (SessionContext)ThreadAttribute.get(ThreadAttribute.SESSION_CONTEXT);
@@ -207,6 +208,11 @@ public class ProcessConfiguration implements IProcessConfiguration {
         baseKafkaMessage.setPayload(payload);
         baseKafkaMessage.setKey("auditHistory");
 
+        return baseKafkaMessage;
+    }
+
+    public String getPayloadStringValue (BaseKafkaMessage baseKafkaMessage) throws JsonProcessingException {
+        log.info("In getPayload with parameters baseKafkaMessage {}", baseKafkaMessage);
         return (new ObjectMapper()).writeValueAsString(baseKafkaMessage);
     }
 }
