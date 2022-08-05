@@ -12,7 +12,7 @@
                      remarks="A table to contain all the Language configuration">
 
             <column name="language_code" type="varchar(2)">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
+                <constraints nullable="false" primaryKey="true"/>
             </column>
 
             <column name="language_code_alternate" type="varchar(3)">
@@ -48,13 +48,13 @@
             <column name="created_by" type="varchar(20)">
             </column>
 
-            <column name="creation_time" type="java.util.Date">
+            <column name="creation_time" type="timestamp">
             </column>
 
             <column name="last_updated_by" type="varchar(20)">
             </column>
 
-            <column name="last_updated_time" type="java.util.Date">
+            <column name="last_updated_time" type="timestamp">
             </column>
 
         </createTable>

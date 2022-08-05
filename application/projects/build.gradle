@@ -76,6 +76,8 @@ dependencies {
     implementation 'org.liquibase:liquibase-core:4.9.1'
     runtimeOnly 'org.postgresql:postgresql:42.3.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.2'
+
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.6.0.0.1'
 }
 
 tasks.named('test') {
@@ -100,7 +102,7 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                minimum = 0.4
+                minimum = 0.3
             }
         }
 
@@ -125,8 +127,10 @@ jacocoTestCoverageVerification {
                     '**/country/**',
                     '**/bank/**',
                     '**/bankgroup/**',
-                    '**/language/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
                     '**/branchtype/**',
+                    '**/module/**',
                     '**/purpose/**',
                     '**/mapping/**',
                     '**/memo/**',
@@ -166,8 +170,10 @@ jacocoTestReport {
                     '**/country/**',
                     '**/bank/**',
                     '**/bankgroup/**',
-                    '**/language/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
                     '**/branchtype/**',
+                    '**/module/**',
                     '**/purpose/**',
                     '**/mapping/**',
                     '**/memo/**',
