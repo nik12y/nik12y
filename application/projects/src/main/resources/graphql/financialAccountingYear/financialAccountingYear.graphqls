@@ -1,0 +1,20 @@
+type FinancialAccountingYear {
+
+    bankCode: String!
+    branchCode: String!
+    startDate: String!
+    endDate: String!
+    financialAccountingYearCode: String!
+    financialAccountingYearName: String!
+    periodCodeFrequency : String!
+
+    financialAccountingYearPeriodicCode : [FinancialAccountingYearPeriodCode]
+
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

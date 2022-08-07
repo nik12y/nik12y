@@ -1,0 +1,6 @@
+input FinancialAccountingYearPeriodCodeInput {
+
+    periodCode : String!
+    startDateAccountingPeriod : String!
+    endDateAccountingPeriod : String!
+}

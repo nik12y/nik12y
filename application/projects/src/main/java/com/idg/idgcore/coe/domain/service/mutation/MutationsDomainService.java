@@ -154,9 +154,14 @@ public class MutationsDomainService implements IMutationsDomainService {
     }
 
     public List<MutationEntity> getUnauthorizedMutation (final String taskCode,final String authorized) {
+        System.out.println("In getUnauthorizedMutation with parameters taskCode{"+taskCode+", "+authorized+"}");
         if (log.isInfoEnabled()) {
             log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
         }
+        List<MutationEntity> byTaskCodeAndAuthorized = this.mutationRepository.findByTaskCodeAndAuthorized(
+                taskCode, authorized);
+        System.out.println("In getUnauthorizedMutation with parameters taskCode{"+taskCode+", "+authorized+"}  RETURNED with "+byTaskCodeAndAuthorized);
+
         return this.mutationRepository.findByTaskCodeAndAuthorized(taskCode,authorized);
     }
 

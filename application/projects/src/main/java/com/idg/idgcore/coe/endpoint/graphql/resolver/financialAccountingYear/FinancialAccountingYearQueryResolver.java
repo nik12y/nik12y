@@ -1,0 +1,30 @@
+package com.idg.idgcore.coe.endpoint.graphql.resolver.financialAccountingYear;
+
+import com.fasterxml.jackson.core.*;
+import com.idg.idgcore.coe.app.service.financialAccountingYear.*;
+import com.idg.idgcore.coe.dto.financialAccountingYear.*;
+import com.idg.idgcore.datatypes.exceptions.*;
+import com.idg.idgcore.dto.context.*;
+import graphql.kickstart.tools.*;
+import lombok.extern.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+
+import java.util.*;
+
+@Slf4j
+@Component
+public class FinancialAccountingYearQueryResolver implements GraphQLQueryResolver {
+    @Autowired
+    private IFinancialAccountingYearApplicationService appService;
+
+    public FinancialAccountingYearDTO getFinancialAccountingYearByCode (SessionContext sessionContext, FinancialAccountingYearDTO dto)
+            throws FatalException, JsonProcessingException {
+        return this.appService.getFinancialAccountingYearByCode(sessionContext, dto);
+    }
+
+    public List<FinancialAccountingYearDTO> getFinancialAccountingYears (SessionContext sessionContext) throws FatalException {
+        return this.appService.getFinancialAccountingYears(sessionContext);
+    }
+
+}
