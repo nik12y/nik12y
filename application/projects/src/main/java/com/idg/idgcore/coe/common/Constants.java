@@ -33,6 +33,7 @@ public final class Constants {
     public static final String NEW = "new";
     public static final String MODIFY = "modify";
     public static final String UPDATED = "updated";
+    public static final String REJECTED = "rejected";
     public static final String AUTHORIZE = "authorize";
     public static final String REJECT = "reject";
     public static final String DELETE = "delete";
