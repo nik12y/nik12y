@@ -22,6 +22,7 @@ public class ErrorOverrideDomainService implements IErrorOverrideDomainService {
     private ErrorOverrideAssembler errorOverrideAssembler;
 
     public ErrorOverrideEntity getConfigurationByCode (ErrorOverrideDTO errorOverrideDTO) {
+        System.out.println(" Domain errorOverrideDTO "+errorOverrideDTO);
         ErrorOverrideEntity errorOverrideEntity = null;
         try {
             errorOverrideEntity = this.errorOverrideRepository.findByErrorCode(errorOverrideDTO.getErrorCode());
