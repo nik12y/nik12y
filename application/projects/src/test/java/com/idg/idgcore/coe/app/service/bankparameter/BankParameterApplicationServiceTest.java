@@ -128,7 +128,7 @@ class BankParameterApplicationServiceTest {
         BankParameterPreferencesEntity bankParameterPreferencesEntity = new BankParameterPreferencesEntity("Monday","Saturday","Sunday","","April");
         BankParameterForOdLoanEntity bankParameterForOdLoanEntity = new BankParameterForOdLoanEntity("OD_01","Regulated rule for Overdraft decision","LN_01","Regulated rule for Loan decision");
 
-        BankParameterEntity bankParameterEntity=new BankParameterEntity("0002","State Bank of India","0002","SBI","SBI","draft",0,"Y","draft","", "",bankParameterAddressEntity,bankParameterContactInfoEntity,bankParameterCurrencyEntity,bankParameterPreferencesEntity,bankParameterForOdLoanEntity);
+        BankParameterEntity bankParameterEntity=new BankParameterEntity("0002","State Bank of India","0002","SBI","SBI","","","draft",0,"Y","draft",bankParameterAddressEntity,bankParameterContactInfoEntity,bankParameterCurrencyEntity,bankParameterPreferencesEntity,bankParameterForOdLoanEntity);
 
         bankParameterEntity.setBankParameterAddressEntity(bankParameterAddressEntity);
         bankParameterEntity.setBankParameterContactInfoEntity(bankParameterContactInfoEntity);
