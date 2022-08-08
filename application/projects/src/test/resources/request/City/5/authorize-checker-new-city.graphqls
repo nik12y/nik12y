@@ -1,0 +1,48 @@
+mutation{
+    processCity(
+        sessionContext:{
+            bankCode: ""
+            defaultBranchCode: ""
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: ""
+            externalTransactionReferenceNumber: ""
+            targetUnit: ""
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: ""
+            userId: ""
+            accessibleTargetUnits: [""]
+            channel: ""
+            taskCode: ""
+            localDateTime: ""
+            role: "checker"
+            originalTransactionReferenceNumber: ""
+            externalBatchNumber: 1
+            customAttributes: ""
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: ""
+            originatingModuleCode: ""
+        },
+        city:{
+            cityCode:"BH"
+            cityName:"BHANDARA"
+            countryCode : "IN"
+            stateCode : "MH"
+            timeZone:"28 June 2022"
+            action : "authorize"
+            status:"new"
+            recordVersion : 1
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

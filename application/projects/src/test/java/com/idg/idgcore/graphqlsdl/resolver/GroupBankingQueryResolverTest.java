@@ -21,7 +21,7 @@ public class GroupBankingQueryResolverTest {
     @DisplayName("JUnit test for list of GroupBanks")
     @Test
     void getAllGroupBanks() throws IOException {
-        String srcDraft = "requestBankGroup/query-bankgroups.graphqls";
+        String srcDraft = "request/bankgroup/query-bankgroups.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
         System.out.println(" srcDraft ");
@@ -32,7 +32,7 @@ public class GroupBankingQueryResolverTest {
     @Test
     @DisplayName("JUnit test for Get GroupBank By Code")
     void getGroupBankByCode() throws IOException {
-        String srcDraft="requestBankGroup/query-bankgroup-bycode.graphqls";
+        String srcDraft="request/bankgroup/query-bankgroup-bycode.graphqls";
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
         System.out.println(" srcDraft ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
