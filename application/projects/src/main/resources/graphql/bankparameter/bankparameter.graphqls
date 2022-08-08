@@ -1,0 +1,21 @@
+type BankParameter {
+    bankCode: String!
+    bankName: String
+    regulatoryBankCode: String
+    bankConciseName: String
+    groupBankingCode: String
+    lifeCycleId : String
+    referenceNo : String
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    bankParameterAddress:BankParameterAddress
+    bankParameterContactInfo:BankParameterContactInfo
+    bankParameterCurrency:BankParameterCurrency
+    bankParameterPreferences:BankParameterPreferences
+    bankParameterForOdLoan:BankParameterForOdLoan
+}
