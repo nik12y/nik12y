@@ -139,7 +139,6 @@ public class CountryApplicationService extends AbstractApplicationService
         return countryDTOList;
     }
 
-    @Transactional
     public TransactionStatus processCountry (SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {

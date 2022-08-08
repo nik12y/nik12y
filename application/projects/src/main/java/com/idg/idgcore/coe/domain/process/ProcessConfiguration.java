@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.infra.ThreadAttribute;
+import org.springframework.transaction.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -52,27 +53,39 @@ public class ProcessConfiguration implements IProcessConfiguration {
         mappings = mappingConfig.getMappings();
     }
 
-    public void process (CoreEngineBaseDTO baseDTO) throws JsonProcessingException {
+    @Transactional
+    public void process (CoreEngineBaseDTO baseDTO)
+            throws BusinessException, JsonProcessingException {
         log.info("In process with parameters BaseDTO {}", baseDTO);
-        SessionContext sessionContext = (SessionContext) ThreadAttribute.get(
-                ThreadAttribute.SESSION_CONTEXT);
-        MappingDTO mapping = getMapping(baseDTO.getAction(), sessionContext.getRole(),
-                baseDTO.getStatus());
-        MutationDTO mutationDto = getMutationDTO(baseDTO, mapping);
-        log.info("In process with enriched MutationDTO {}", baseDTO);
-        if (isTrue(mapping.getInactivePreviousRecord()) && mutationDto.getRecordVersion() > 1) {
-            CoreEngineBaseDTO baseRecord = getPreviousRecord(mutationDto);
-            baseRecord.setStatus(INACTIVE);
-            baseRecord.setAction(baseRecord.getAction());
-            insertIntoAuditHistory(getMutationDTO(baseRecord));
-        }
-        addUpdateRecord(mutationDto);
-        if (isTrue(mapping.getInsertRecordIntoAudit())) {
-            insertIntoAuditHistory(mutationDto);
-        }
-        if (isTrue(mapping.getInsertRecordIntoBasetable())) {
-            insertIntoBaseTable(mutationDto);
-        }
+       try {
+           SessionContext sessionContext = (SessionContext) ThreadAttribute.get(
+                   ThreadAttribute.SESSION_CONTEXT);
+           MappingDTO mapping = getMapping(baseDTO.getAction(), sessionContext.getRole(),
+                   baseDTO.getStatus());
+           MutationDTO mutationDto = getMutationDTO(baseDTO, mapping);
+           log.info("In process with enriched MutationDTO {}", baseDTO);
+           if (isTrue(mapping.getInactivePreviousRecord()) && mutationDto.getRecordVersion() > 1) {
+               CoreEngineBaseDTO baseRecord = getPreviousRecord(mutationDto);
+               baseRecord.setStatus(INACTIVE);
+               baseRecord.setAction(baseRecord.getAction());
+               insertIntoAuditHistory(getMutationDTO(baseRecord));
+           }
+           addUpdateRecord(mutationDto);
+           if (isTrue(mapping.getInsertRecordIntoAudit())) {
+               insertIntoAuditHistory(mutationDto);
+           }
+           if (isTrue(mapping.getInsertRecordIntoBasetable())) {
+               insertIntoBaseTable(mutationDto);
+           }
+           if (isTrue(mapping.getCopyRecordFromBaseTable())) {
+               copyRecordFromBaseTable(mutationDto);
+           }
+       }
+       catch (Exception e){
+           if (e instanceof BusinessException) {
+               throw e;
+           }
+       }
     }
 
     private IBaseApplicationService getService (String key) {
@@ -120,16 +133,28 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return getService(dto.getTaskCode()).getConfigurationByCode(dto.getTaskIdentifier());
     }
 
-    public void addUpdateRecord (MutationDTO dto) {
+    public void addUpdateRecord (MutationDTO dto) throws BusinessException {
         log.info("In addUpdateRecord with parameters MappingDTO {}", dto);
-        mutationsDomainService.addUpdate(dto);
+        try {
+            mutationsDomainService.addUpdate(dto);
+        }
+        catch (BusinessException e) {
+            throw new BusinessException(e);
+        }
     }
+
 
     public void insertIntoAuditHistory (MutationDTO dto) {
         log.info("In insertIntoAuditHistory with parameters MappingDTO {}", dto);
         if (!isKafkaEnabled(auditHistoryKafkaEnabled)) {
             mutationsDomainService.insertIntoAuditHistory(dto);
         }
+    }
+
+    public void copyRecordFromBaseTable (MutationDTO dto) throws JsonProcessingException {
+        log.info("In copyRecordFromBaseTable with parameters MappingDTO {}", dto);
+        CoreEngineBaseDTO baseDto = getService(dto.getTaskCode()).getConfigurationByCode(dto.getTaskIdentifier());
+        mutationsDomainService.save(getMutationDTO(baseDto));
     }
 
     public void insertIntoBaseTable (MutationDTO dto) throws JsonProcessingException {

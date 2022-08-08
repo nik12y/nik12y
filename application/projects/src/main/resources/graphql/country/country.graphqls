@@ -5,7 +5,7 @@ type Country {
     alternateCountryCode : String
     regionCode : String
     limitCurrency : String
-    overallLimit : Int
+    overallLimit : Float
     ibanRequired : Boolean!
     euMember : Boolean!
     clearingCodeBicPlus : Boolean!
