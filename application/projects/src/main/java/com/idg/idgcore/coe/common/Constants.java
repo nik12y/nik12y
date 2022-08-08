@@ -18,7 +18,6 @@ public final class Constants {
 
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
-
     public static final String BANK = "BANK";
     public static final String BANK_SERVICE ="bankApplicationService";
     public static final String PURPOSE_SERVICE = "purposeApplicationService";
@@ -26,14 +25,11 @@ public final class Constants {
     public static final String LANGUAGE = "LANGUAGE";
     public static final String LANGUAGE_SERVICE = "languageApplicationService";
     public static final String BANK_IDENTIFIER_SERVICE = "bankIdentifierApplicationService";
-
     public static final String GROUP_BANKING = "GROUP-BANKING";
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
-
     public static final String INACTIVE = "inactive";
-
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
     public static final String CHECKER = "checker";
@@ -42,7 +38,10 @@ public final class Constants {
     public static final String NEW = "new";
     public static final String MODIFY = "modify";
     public static final String UPDATED = "updated";
+    public static final String REJECTED = "rejected";
     public static final String AUTHORIZE = "authorize";
+    public static final String REJECT = "reject";
+    public static final String DELETE = "delete";
     public static final String AUTHORIZED_Y = "Y";
     public static final String AUTHORIZED_N = "N";
     public static final String REACT_URL = "http://localhost:3000";
