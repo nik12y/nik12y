@@ -10,7 +10,10 @@ public final class Constants {
     public static final String PURPOSE = "PURPOSE";
     public static final String CITY = "CITY";
     public static final String STATE = "STATE";
+    public static final String CHECKLIST_SERVICE = "checklistApplicationService";
+    public static final String CHECKLIST = "CHECKLIST";
     public static final String STATE_SERVICE = "stateApplicationService";
+
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
     public static final String BANK = "BANK";

@@ -1,0 +1,18 @@
+type AppVerCatChecklistPolicy {
+    appVerChecklistPolicyId: String!
+    appVerChecklistPolicyDesc: String!
+    domainId: String!
+    domainCategoryId: String!
+    eventId: String!
+    effectiveDate: String!
+    entity: String!
+    ruleId: String!
+    action: String!
+    status: String!
+    recordVersion: Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+#    appVerChecklistPolicyCategory: [AppVerChecklistPolicyCategory]
+}
