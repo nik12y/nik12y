@@ -5,12 +5,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.coe.domain.assembler.language.LanguageAssembler;
+import com.idg.idgcore.coe.domain.entity.bankidentifier.BankIdentifierEntityKey;
 import com.idg.idgcore.coe.domain.entity.language.LanguageEntity;
+import com.idg.idgcore.coe.domain.entity.language.LanguageEntityKey;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.Payload;
 import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.language.ILanguageDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
+import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.language.LanguageDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -27,10 +30,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
+import static com.idg.idgcore.coe.common.Constants.BANK_IDENTIFIER;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -79,7 +86,7 @@ class LanguageApplicationServiceTest {
         languageDTOUnAuth=getLanguageDTOUnAuth();
         languageDTOMapper=getLanguageDTOMapper();
         mutationEntity=getMutationEntity();
-        languageEntity1=getLanguagesEntity();
+        languageEntity1=getLanguagesEntity1();
         languageDTO1=getLanguagesDTO();
         mutationEntity2=getMutationEntityJsonError();
     }
@@ -93,17 +100,6 @@ class LanguageApplicationServiceTest {
         assertEquals("Y",languageDTO1.getAuthorized());
         assertThat(languageDTO1).isNotNull();
     }
-
-//    @Test
-//    @DisplayName("JUnit for getByLanguageCode in application service when Not Authorize in try else block")
-//    void getLanguageByCodewhenNotAuthorizeTryBlock() throws JsonProcessingException, FatalException {
-//        given(mutationsDomainService.getConfigurationByCode(languageDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
-//        LanguageDTO languageDTO1 = languageApplicationService.getLanguageByCode(sessionContext,languageDTOMapper);
-//        assertEquals("N",languageDTO1.getAuthorized());
-//        assertThat(languageDTO1).isNotNull();
-//        System.out.println(languageDTO1);
-//    }
-
     @Test
     @DisplayName("JUnit for getByLanguageCode in application service when Not Authorize in catch block")
     void getLanguageByCodewhenNotAuthorizeCatchBlock () throws FatalException {
@@ -113,62 +109,29 @@ class LanguageApplicationServiceTest {
         PayloadDTO payload = new PayloadDTO(payLoadString1);
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
         PayloadDTO helper = org.mockito.Mockito.mock(PayloadDTO.class);
-//                     Mockito.when(mockObjectMapper.readValue(mutationEntity.getPayload().getData(), StateDTO.class)).thenReturn(stateDTO);
+
         Assertions.assertThrows(Exception.class,()-> {
             LanguageDTO languageDTO1 = languageApplicationService.getLanguageByCode(sessionContext, languageDTOMapper);
             assertEquals("N",languageDTO1.getAuthorized());
             assertThat(languageDTO1).isNotNull();
-            System.out.println(languageDTO1);
         });
     }
 
-//---------------------------------------------getStates-------------------------------------
-//    @Test
-//    @DisplayName("JUnit for getStates in application service for try block for checker")
-//    void getStatesTryBlockForChecker() throws JsonProcessingException, FatalException {
-//
-//        MutationEntity unauthorizedEntities = getMutationEntity();
-//        unauthorizedEntities.setStatus("draft");
-//        MutationEntity unauthorizedEntities1 = getMutationEntity();
-//        unauthorizedEntities1.setStatus("closed");
-//        sessionContext.setRole(new String[] { "checker" });
-//        given(mutationsDomainService.getUnauthorizedMutation(
-//                stateDTO1.getTaskCode(),AUTHORIZED_N))
-//                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
-//
-////        given(stateDomainService.getStates()).willReturn(List.of(stateEntity));
-////        given(stateAssembler.convertEntityToDto(stateEntity)).willReturn(stateDTO);
-//        given(stateAssembler.setAuditFields(unauthorizedEntities,stateDTO)).willReturn(stateDTO);
-////        stateDTO.setAuthorized("N");
-//        List<StateDTO> stateDTO1 = stateApplicationService.getStates(sessionContext);
-//        System.out.println("return size : " + stateDTO1.size());
-//        assertThat(stateDTO1).isNotNull();
-//        System.out.println(stateDTO1);
-//    }
-//
-//    @Test
-//    @DisplayName("JUnit for getStates in application service for catch block for checker")
-//    void getStatesCatchBlockForChecker() throws JsonProcessingException, FatalException {
-//
-//        MutationEntity unauthorizedEntities = getMutationEntity();
-////        unauthorizedEntities.setStatus("draft");
-//        MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
-////        unauthorizedEntities1.setStatus("closed");
-//        sessionContext.setRole(new String[] { "" });
-//        given(mutationsDomainService.getUnauthorizedMutation(
-//                stateDTO1.getTaskCode(),AUTHORIZED_N))
-//                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
-//        Assertions.assertThrows(Exception.class,()-> {
-//            List<StateDTO> stateDTO1 = stateApplicationService.getStates(sessionContext);
-//            System.out.println("return size : " + stateDTO1.size());
-//            assertThat(stateDTO1).isNotNull();
-//            System.out.println(stateDTO1);
-//        });
-//    }
+    @Test
+    @DisplayName("JUnit for getLanguages in application service for catch block for checker")
+    void getLanguagesCatchBlockForChecker() throws JsonProcessingException, FatalException {
 
-
-//-----------------------------------------------------------------------------------------
-
+        MutationEntity unauthorizedEntities = getMutationEntity();
+        MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
+        sessionContext.setRole(new String[] { "" });
+        given(mutationsDomainService.getUnauthorizedMutation(
+                languageDTO1.getTaskCode(),AUTHORIZED_N))
+                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
+        Assertions.assertThrows(FatalException.class,()-> {
+            List<LanguageDTO> languageDTO1 = languageApplicationService.getLanguages(sessionContext);
+            assertThat(languageDTO1).isNotNull();
+        });
+    }
 
     @Test
     @DisplayName("JUnit for processLanguage in application service for Try Block")
@@ -208,21 +171,66 @@ class LanguageApplicationServiceTest {
         assertThat(languageEntity).isNotNull();
     }
 
+    @Test
+    @DisplayName("JUnit for getLanguageByCode in application service when Authorize for Negative")
+    void getLanguageByCodeIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
+        given(languageDomainService.getLanguageByCode(languageDTO.getLanguageCode())).willReturn(languageEntity);
+        given(languageAssembler.convertEntityToDto(languageEntity)).willReturn(languageDTO);
+        LanguageDTO languageDTO1 = languageApplicationService.getLanguageByCode(sessionContext, languageDTO);
+        assertNotEquals("N",languageDTO1.getAuthorized());
+        assertThat(languageDTO).isNotNull();
+    }
+
+    @Test
+    @DisplayName("JUnit for getLanguageByCode in application service check Parameter not null")
+    void getLanguageByCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
+        LanguageDTO languageDTOnull=null;
+        LanguageDTO languageDTOEx=new LanguageDTO();
+        languageDTOEx.setLanguageCode("EN");
+        languageDTOEx.setAuthorized("Y");
+
+        LanguageEntityKey languageEntityKey = new LanguageEntityKey();
+        languageEntityKey.setLanguageCode("EN");
+
+        given(languageDomainService.getLanguageByCode(languageDTOEx.getLanguageCode())).willReturn(languageEntity);
+        given(languageAssembler.convertEntityToDto(languageEntity)).willReturn(languageDTO);
+        LanguageDTO languageDTO1 = languageApplicationService.getLanguageByCode(sessionContext, languageDTOEx);
+        assertThat(languageDTOEx.getLanguageCode()).isNotBlank();
+        assertThat(languageDTOEx.getAuthorized()).isNotBlank();
+    }
+
+    @Test
+    @DisplayName("JUnit for code coverage")
+    void getCodeCoverage()
+    {
+        assertThat(languageEntity.toString()).isNotNull();
+        assertThat(languageDTO.toString()).isNotNull();
+        LanguageDTO bankIdentifierDTO2=new LanguageDTO("EN", "ENG", "English", "EN", "English(UK)");
+        LanguageDTO.builder().languageCode("EN").languageCodeAlternate("ENG").languageName("English").localeCode("EN").localeName("English(UK)")
+                .build().toString();
+        LanguageEntityKey languageEntityKey=new LanguageEntityKey("EN");
+        assertThat(languageEntityKey.toString()).isNotNull();
+        languageEntityKey.setLanguageCode("MA");
+        languageEntityKey.keyAsString();
+        languageEntityKey.builder().languageCode("JP").build();
+        assertThat(languageDTO).descriptionText();
+    }
+
     private SessionContext getValidSessionContext () {
         SessionContext sessionContext = SessionContext.builder()
-                .bankCode("").defaultBranchCode("").internalTransactionReferenceNumber("")
+                .bankCode("003").defaultBranchCode("1141").internalTransactionReferenceNumber("")
                 .userTransactionReferenceNumber("").externalTransactionReferenceNumber("")
-                .targetUnit("").postingDate(new Date()).valueDate(new Date()).transactionBranch("")
-                .userId("prash")
+                .targetUnit("dummy_target_unit").postingDate(new Date()).valueDate(new Date()).transactionBranch("")
+                .userId("nikhil")
 //                .accessibleTargetUnits([])
-                .channel("").taskCode("")
+                .channel("Branch").taskCode("LANGUAGE")
                 .originalTransactionReferenceNumber("")
                 .externalBatchNumber(1L)
                 .customAttributes("")
                 .serviceInvocationModeType(Regular)
                 .allTargetUnitsSelected(true)
 //                .mutationType("")
-                .userLocal("")
+                .userLocal("en_US")
                 .originatingModuleCode("")
                 .role(new String[]{"maker"}).build();
         return sessionContext;
@@ -289,14 +297,24 @@ class LanguageApplicationServiceTest {
         languageEntity.setRecordVersion(1);
         return languageEntity;
     }
+
+    private LanguageEntity getLanguagesEntity1()
+    {
+        LanguageEntity languageEntity = new LanguageEntity();
+        languageEntity.setLanguageCode("EN");
+        languageEntity.setLanguageCodeAlternate("ENG");
+        languageEntity.setLanguageName("English");
+        languageEntity.setLocaleCode("EN");
+        languageEntity.setLocaleName("English(UK)");
+        languageEntity.setStatus("closed");
+        languageEntity.setRecordVersion(1);
+        return languageEntity;
+    }
     private LanguageDTO getLanguageDTOUnAuth(){
-        LanguageDTO languageDTO = new LanguageDTO();
-        languageDTO.setLanguageCode("EN");
-        languageDTO.setLanguageCodeAlternate("ENG");
-        languageDTO.setLanguageName("English");
-        languageDTO.setLocaleCode("EN");
-        languageDTO.setLocaleName("English(UK)");
+        LanguageDTO languageDTO = new LanguageDTO("EN", "ENG", "English", "EN", "English(UK)");
+
         languageDTO.setAuthorized("N");
+        languageDTO.setTaskIdentifier("EN");
         return languageDTO;
     }
 
