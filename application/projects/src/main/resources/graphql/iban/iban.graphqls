@@ -1,0 +1,17 @@
+type Iban {
+    ibanCountryCode:String
+    ibanCountryPosition: Int
+    ibanCountryCodeLength:Int
+    ibanCheckDigitPosition: Int
+    ibanCheckDigitLength:Int
+    ibanNationalIdLength:String
+    ibanTotalLength:Int
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    ibanBban:IbanBban
+}

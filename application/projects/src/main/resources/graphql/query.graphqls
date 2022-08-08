@@ -30,5 +30,7 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+    getIbanByIbanCountryCode(sessionContext: SessionContextInput, ibanQuery: IbanInputQuery): Iban
+    getIban(sessionContext: SessionContextInput): [Iban]
 }
 

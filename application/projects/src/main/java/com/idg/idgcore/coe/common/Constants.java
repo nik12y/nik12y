@@ -48,7 +48,8 @@ public final class Constants {
     public static final String BRANCHTYPE_SERVICE ="branchTypeApplicationService";
     public static final String CAPT = "CAPT";
     public static final String CAPT_SERVICE = "captApplicationService";
-
+    public static final String IBAN = "IBAN";
+    public static final String IBAN_SERVICE = "ibanApplicationService";
     private Constants () {
     }
 
