@@ -14,11 +14,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 public class IbanBbanEntity implements Serializable {
+    @Column (name="bank_identifier_position")
     private Integer bankIdentifierPosition;
+    @Column (name="bank_identifier_length")
     private String bankIdentifierLength;
+    @Column (name="branch_identifier_position")
     private String branchIdentifierPosition;
+    @Column (name="branch_identifier_length")
     private String branchIdentifierLength;
+    @Column (name="account_number_position")
     private Integer accountNumberPosition;
+    @Column (name="account_number_length")
     private Integer accountNumberLength;
-
 }

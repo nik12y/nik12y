@@ -3,14 +3,8 @@ package com.idg.idgcore.coe.domain.entity.iban;
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Embedded;
 
 //@Data
 @Setter
@@ -24,16 +18,31 @@ import javax.persistence.Embedded;
 @IdClass (IbanEntityKey.class)
 public class IbanEntity extends AbstractAuditableDomainEntity implements Serializable {
     @Id
+    @Column (name="iban_country_code")
     private String ibanCountryCode;
+    @Column (name="iban_country_position")
     private Integer ibanCountryPosition;
+    @Column (name="iban_country_code_length")
     private Integer ibanCountryCodeLength;
+    @Column (name="iban_check_digit_position")
     private Integer ibanCheckDigitPosition;
+    @Column (name="iban_check_digit_length")
     private Integer ibanCheckDigitLength;
+    @Column (name="iban_national_id_length")
     private String ibanNationalIdLength;
+    @Column (name="iban_total_length")
     private Integer ibanTotalLength;
+    @Column (name="life_cycle_id")
+    private String lifeCycleId;
+    @Column (name="reference_no")
+    private String referenceNo;
+    @Column (name="record_status")
     private String status;
+    @Column (name="record_version")
     private Integer recordVersion;
+    @Column (name="is_authorized")
     private String authorized;
+    @Column (name="last_configuration_action")
     private String lastConfigurationAction;
 
     @Embedded

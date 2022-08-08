@@ -90,7 +90,7 @@ class IbanApplicationServiceTest {
         System.out.println(ibanDTO.toString());
 
         IbanBbanDTO ibanBbanDTO = new IbanBbanDTO(1,"IBAN000001","AM","IB01",5,4);
-        IbanDTO ibanDTO2=new IbanDTO("US",1,1,1,1,"IBAN0001",20,ibanBbanDTO);
+        IbanDTO ibanDTO2=new IbanDTO("US",1,1,1,1,"IBAN0001",20,"","",ibanBbanDTO);
 
         String s = IbanDTO.builder().ibanCountryCode("US").ibanCountryPosition(1)
                 .ibanCountryCodeLength(1).ibanCheckDigitPosition(1).ibanCheckDigitLength(1)
@@ -116,7 +116,7 @@ class IbanApplicationServiceTest {
     {
         IbanBbanEntity ibanBbanEntity = new IbanBbanEntity(1,"IBAN000001","AM","IB01",5,4);
         IbanEntity ibanEntity;
-        ibanEntity = new IbanEntity("US", 1, 1, 1, 1, "IBAN0001", 20,"draft",0,"Y","draft",ibanBbanEntity);
+        ibanEntity = new IbanEntity("US", 1, 1, 1, 1, "IBAN0001",20,"","", "draft",0,"Y","draft",ibanBbanEntity);
         ibanEntity.setIbanBbanEntity(ibanBbanEntity);
         assertThat(ibanEntity).descriptionText();
     }

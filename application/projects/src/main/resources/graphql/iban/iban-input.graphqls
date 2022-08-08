@@ -6,6 +6,8 @@ input IbanInput {
     ibanCheckDigitLength:Int @Digits(integer : 2, fraction : 0, message : "ibanCheckDigitLength.message") @Positive(message : "IBAN Check Digit Length Cannot be negative or zero.")
     ibanNationalIdLength:String @Size(min: 1, max: 40, message: "ibanNationalIdLength.message") @Pattern(regexp: ".[A-Za-z0-9]{1,40}",message: "IBAN National Id Length Invalid pattern")
     ibanTotalLength:Int @Digits(integer : 2, fraction : 0, message : "ibanTotalLength.message") @Positive(message : "IBAN Total Length Cannot be negative or zero.")
+    lifeCycleId:String
+    referenceNo:String
     action : String!
     status : String!
     recordVersion : Int!
@@ -13,5 +15,7 @@ input IbanInput {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
+    lifeCycleId: String
+    referenceNo: String
     ibanBban:IbanBbanInput
 }
