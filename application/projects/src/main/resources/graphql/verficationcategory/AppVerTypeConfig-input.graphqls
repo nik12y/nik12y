@@ -1,0 +1,6 @@
+input AppVerTypeConfigInput {
+    appVerificationTypeId: String @Size(min: 2, max: 10, message: "verificationTypeId.message") @Pattern(regexp:".[A-Za-z0-9]{1,10}",message: "Verification Type Code Invalid pattern")
+    isViewToCustomer: Boolean
+    nature : String @Size(min: 2, max: 10, message: "nature.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: " nature Invalid pattern")
+#    appVerificationCategoryId: String
+}
