@@ -1,0 +1,5 @@
+input ReasonInputQuery {
+    primaryReasonCode: String!
+    authorized : String!
+}
+

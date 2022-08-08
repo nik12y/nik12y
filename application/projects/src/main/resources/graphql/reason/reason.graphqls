@@ -1,0 +1,27 @@
+type Reason {
+    primaryReasonCode : String!
+    primaryReasonDescription : String!
+    primaryAccountBlock : Boolean
+    primaryAccountUnblock : Boolean
+    primaryAccountClosure : Boolean
+    primaryRequestForAccountClosure : Boolean
+    primaryStopPayment : Boolean
+    primaryStopPaymentRevoke : Boolean
+    secondaryReasonCode : String
+    secondaryReasonDescription : String
+    secondaryAccountBlock : Boolean
+    secondaryAccountUnblock : Boolean
+    secondaryAccountClosure : Boolean
+    secondaryRequestForAccountClosure : Boolean
+    secondaryStopPayment : Boolean
+    secondaryStopPaymentRevoke : Boolean
+    applicableCategories : String
+    documentRequiredIfAny : String
+    action : String!
+    status : String!
+    recordVersion : Int
+    createdBy : String
+    creationTime : String
+    lastUpdatedBy : String
+    lastUpdatedTime : String
+}
