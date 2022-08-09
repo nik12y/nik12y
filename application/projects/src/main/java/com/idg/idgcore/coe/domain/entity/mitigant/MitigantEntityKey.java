@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.domain.entity.purpose;
+package com.idg.idgcore.coe.domain.entity.mitigant;
 
 import com.idg.idgcore.domain.AbstractDomainKey;
 import lombok.*;
@@ -17,13 +17,13 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
-public class PurposeEntityKey extends AbstractDomainKey implements Serializable {
+public class MitigantEntityKey extends AbstractDomainKey implements Serializable {
 
     @Id
-    private String purposeCode;
+    private String mitigantCode;
 
     @Override
     public String keyAsString() {
-        return purposeCode;
+        return mitigantCode;
     }
 }

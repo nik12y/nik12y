@@ -1,0 +1,4 @@
+type MitigantQuery {
+    mitigantCode: String!
+    authorized: String!
+}

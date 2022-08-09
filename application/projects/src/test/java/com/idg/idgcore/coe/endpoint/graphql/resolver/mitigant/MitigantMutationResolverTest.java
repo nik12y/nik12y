@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.endpoint.graphql.resolver.purpose;
+package com.idg.idgcore.coe.endpoint.graphql.resolver.mitigant;
 
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
@@ -13,27 +13,15 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestApplication.class)
-class PurposeMutationResolverTest
-{
+public class MitigantMutationResolverTest {
 
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
     @DisplayName("JUnit test for save as draft")
     @Test
-    void processPurposeSaveToDraft() throws IOException {
-        String srcDraft = "request/purpose/draft-maker-draft-purpose.graphqls";
-
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" srcDraft to New ");
-        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
-        System.out.println(" DONE ");
-    }
-
-    @DisplayName(" JUnit test for save as Draft to New ")
-    @Test
-    void processPurposeSaveDraftToNew() throws IOException {
-        String srcDraft = "request/purpose/add-maker-new-purpose.graphqls";
+    void processMitigantSaveToDraft() throws IOException {
+        String srcDraft = "request/mitigant/draft-maker-draft-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
         System.out.println(" srcDraft to New ");
@@ -43,96 +31,97 @@ class PurposeMutationResolverTest
 
     @DisplayName(" JUnit test for Auth the Draft-New Record ")
     @Test
-    void processPurposeSaveDraftToNewAuth() throws IOException {
-        String srcDraft = "request/purpose/authorize-checker-new-purpose.graphqls";
+    void processMitigantSaveDraftToNewAuth() throws IOException {
+        String srcDraft = "request/mitigant/authorize-checker-new-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" authorize-checker-new-purpose ");
+        System.out.println(" authorize-checker-new-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
 
     @DisplayName(" JUnit test for save as draft as updated ")
     @Test
-    void processPurposeSaveDraftToUpdated() throws IOException {
-        String srcDraft = "request/purpose/draft-maker-updated-purpose.graphqls";
+    void processMitigantSaveDraftToUpdated() throws IOException {
+        String srcDraft = "request/mitigant/draft-maker-updated-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" draft-maker-updated-purpose ");
+        System.out.println(" draft-maker-updated-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
 
     @DisplayName(" JUnit test for save draft as updated Auth")
     @Test
-    void processPurposeSaveDraftToUpdatedAuth() throws IOException {
-        String srcDraft = "request/purpose/authorize-checker-updated-purpose.graphqls";
+    void processMitigantSaveDraftToUpdatedAuth() throws IOException {
+        String srcDraft = "request/mitigant/authorize-checker-updated-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" authorize-checker-updated-purpose ");
+        System.out.println(" authorize-checker-updated-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
 
     @DisplayName("JUnit Test for Draft Modify")
     @Test
-    void processPurposeSaveDraftToModify() throws IOException {
-        String srcDraft = "request/purpose/modify-maker-updated-purpose.graphqls";
+    void processMitigantSaveDraftToModify() throws IOException {
+        String srcDraft = "request/mitigant/modify-maker-updated-mitigant.graphqls";
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" modify-maker-updated-purpose ");
+        System.out.println(" modify-maker-updated-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
+
     @DisplayName("JUnit Test for Auth the Draft-Modify Record")
     @Test
-    void processPurposeSaveDraftToModifyAuth() throws IOException {
-        String srcDraft = "request/purpose/authorize-checker-updated-purpose.graphqls";
+    void processMitigantSaveDraftToModifyAuth() throws IOException {
+        String srcDraft = "request/mitigant/authorize-checker-updated-mitigant.graphqls";
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" authorize-checker-modified-purpose ");
+        System.out.println(" authorize-checker-modified-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
 
     @DisplayName(" JUnit test for close draft as closed ")
     @Test
-    void processPurposeCloseDraftToClosed() throws IOException {
-        String srcDraft = "request/purpose/close-maker-closed-purpose.graphqls";
+    void processMitigantCloseDraftToClosed() throws IOException {
+        String srcDraft = "request/mitigant/close-maker-closed-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" close-maker-closed-purpose ");
+        System.out.println(" close-maker-closed-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
 
     @DisplayName(" JUnit test for save auth draft as closed ")
     @Test
-    void processPurposeAuthDraftToClosed() throws IOException {
-        String srcDraft = "request/purpose/authorize-checker-closed-purpose.graphqls";
+    void processMitigantAuthDraftToClosed() throws IOException {
+        String srcDraft = "request/mitigant/authorize-checker-closed-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" authorize-checker-closed-purpose ");
+        System.out.println(" authorize-checker-closed-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
 
     @DisplayName(" JUnit test for reopen as draft as Reopened ")
     @Test
-    void processPurposeReopenDraftToReopened() throws IOException {
-        String srcDraft = "request/purpose/reopen-maker-reopened-purpose.graphqls";
+    void processMitigantReopenDraftToReopened() throws IOException {
+        String srcDraft = "request/mitigant/reopen-maker-reopened-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" reopen-maker-reopened-purpose ");
+        System.out.println(" reopen-maker-reopened-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
 
     @DisplayName(" JUnit test for save as Auth draft as reopened ")
     @Test
-    void processPurposeAuthDraftToReopened() throws IOException {
-        String srcDraft = "request/purpose/authorize-checker-reopened-purpose.graphqls";
+    void processMitigantAuthDraftToReopened() throws IOException {
+        String srcDraft = "request/mitigant/authorize-checker-reopened-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" authorize-checker-reopened-purpose ");
+        System.out.println(" authorize-checker-reopened-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
@@ -140,11 +129,12 @@ class PurposeMutationResolverTest
     @DisplayName(" JUnit test for delete as draft as deleted ")
     @Test
     void processPurposeDeleteDraftToDeleted() throws IOException {
-        String srcDraft = "request/purpose/delete-maker-deleted-purpose.graphqls";
+        String srcDraft = "request/mitigant/delete-maker-deleted-mitigant.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" delete-maker-deleted-purpose ");
+        System.out.println(" delete-maker-deleted-mitigant ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
+
 }
