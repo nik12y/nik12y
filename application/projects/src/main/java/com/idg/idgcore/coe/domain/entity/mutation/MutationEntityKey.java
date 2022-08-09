@@ -19,10 +19,8 @@ public class MutationEntityKey  extends AbstractDomainKey
     implements Serializable
 {
     @Id
-    @Column (name="task_identifier")
     private String taskIdentifier;
     @Id
-    @Column (name="task_code")
     private String taskCode;
 
 
