@@ -13,16 +13,14 @@ import java.util.*;
 @NoArgsConstructor
 @Entity
 @Table (name = "IDGC_COE_FIN_ACC_YEAR_PERIOD_CODES_CNFG")
-//@Inheritance (strategy = InheritanceType.JOINED)
 @ToString
-//@IdClass (FinancialAccountingYearPeriodicCodeKey.class)
 public class FinancialAccountingYearPeriodicCodeEntity extends AbstractAuditableDomainEntity
         implements Serializable
 {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "fin_acc_year_period_codes_id")
-    private Integer finAccYearPeriodCodesId;
+    private Long finAccYearPeriodCodesId;
     @Column (name = "financial_accounting_year_id")
     private Integer financialAccountingYearId;
     private String periodCode;

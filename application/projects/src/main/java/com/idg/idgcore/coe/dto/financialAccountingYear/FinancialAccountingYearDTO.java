@@ -17,7 +17,7 @@ import static com.idg.idgcore.coe.common.Constants.*;
 @SuperBuilder
 @JsonInclude (JsonInclude.Include.NON_NULL)
 public class FinancialAccountingYearDTO extends CoreEngineBaseDTO {
-    private Integer financialAccountingYearId;
+    private Long financialAccountingYearId;
     private String bankCode;
     private String branchCode;
     private Date startDate;

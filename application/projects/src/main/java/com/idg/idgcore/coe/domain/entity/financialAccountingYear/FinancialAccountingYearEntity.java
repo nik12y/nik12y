@@ -19,7 +19,7 @@ public class FinancialAccountingYearEntity extends AbstractAuditableDomainEntity
 {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer financialAccountingYearId;
+    private Long financialAccountingYearId;
     private String bankCode;
     private String branchCode;
     private Date startDate;
