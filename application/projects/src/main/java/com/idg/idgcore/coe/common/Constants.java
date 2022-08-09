@@ -22,6 +22,9 @@ public final class Constants {
     public static final String BANK_IDENTIFIER_SERVICE = "bankIdentifierApplicationService";
     public static final String GROUP_BANKING = "GROUP-BANKING";
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
+
+    public static final String QUESTION_CATEGORY="QUESTION-CAT";
+    public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
     public static final String INACTIVE = "inactive";
