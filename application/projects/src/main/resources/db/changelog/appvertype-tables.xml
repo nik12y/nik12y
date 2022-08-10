@@ -112,12 +112,6 @@
 
         </createTable>
 
-<!--        <addForeignKeyConstraint baseTableName="idgc_coe_app_ver_type_cnfg" baseColumnNames="verification_type_id"-->
-<!--                                 constraintName="idgc_coe_app_ver_type_cnfg_fk"-->
-<!--                                 referencedTableName="idgc_coe_app_ver_type_doc_cnfg"-->
-<!--                                 referencedColumnNames="verification_type_id"-->
-<!--                                 onDelete="CASCADE"/>-->
-
     </changeSet>
 
 </databaseChangeLog>
