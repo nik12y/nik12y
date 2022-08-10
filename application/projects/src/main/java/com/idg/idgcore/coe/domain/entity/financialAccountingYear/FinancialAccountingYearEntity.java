@@ -27,8 +27,14 @@ public class FinancialAccountingYearEntity extends AbstractAuditableDomainEntity
     private String financialAccountingYearCode;
     private String financialAccountingYearName;
     private String periodCodeFrequency;
+
+    private String lifeCycleId;
+    private String referenceNo;
+    @Column(name = "record_status")
     private String status;
+    @Column(name = "record_version")
     private Integer recordVersion;
+    @Column(name = "is_authorized")
     private String authorized;
     private String lastConfigurationAction;
 
