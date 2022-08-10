@@ -2,5 +2,4 @@ type AppVerTypeConfig {
     appVerificationTypeId: String
     isViewToCustomer: Boolean
     nature: String
-#    appVerificationCategoryId: String
 }

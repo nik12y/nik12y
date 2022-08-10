@@ -255,7 +255,7 @@ class AppVerCategoryApplicationServiceTest {
             AppVerCategoryConfigDTO.builder().appVerificationCategoryId("VC0001").verificationCategoryDesc("Address").isExternal(true).appVerTypeConfig(List.of()).build();
             AppVerCategoryConfigEntityKey appVerCategoryConfigEntityKey=new AppVerCategoryConfigEntityKey("VC0001");
             AppVerCategoryConfigEntityKey appVerCategoryConfigEntityKey1=new AppVerCategoryConfigEntityKey();
-            AppVerCategoryConfigEntity appVerCategoryConfigEntity2=new AppVerCategoryConfigEntity("VC0001","Address",'Y',List.of(),"draft",1,"N","draft");
+            AppVerCategoryConfigEntity appVerCategoryConfigEntity2=new AppVerCategoryConfigEntity("VC0001","Address",'Y',List.of(),"LC001","RF001","draft",1,"N","draft");
             AppVerTypeConfigEntity appVerTypeConfigEntity=new AppVerTypeConfigEntity();
             appVerTypeConfigEntity.setAppCategoryTypeId(1);
            assertThat(appVerCategoryConfigEntityKey1.toString()).isNotNull();

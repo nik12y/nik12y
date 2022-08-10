@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import static com.idg.idgcore.coe.common.Constants.TYPE;
 
 @Getter
 @Setter
