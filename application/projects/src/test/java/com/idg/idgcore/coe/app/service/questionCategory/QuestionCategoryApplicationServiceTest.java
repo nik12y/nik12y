@@ -353,7 +353,7 @@ class QuestionCategoryApplicationServiceTest {
         QuestionCatDetailsEntity questionCatDetailsEntity3 = new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes");
 
         return new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
-                'Y', 'Y', List.of(questionCatDetailsEntity3), "draft", 0, "draft", "draft");
+                'Y', 'Y',null,null, List.of(questionCatDetailsEntity3), "draft", 0, "draft", "draft");
 
     }
 
@@ -362,7 +362,7 @@ class QuestionCategoryApplicationServiceTest {
         QuestionCatDetailsEntity questionCatDetailsEntity2 = new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes");
 
         return new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
-                'Y', 'Y', List.of(questionCatDetailsEntity2), "Deleted", 1, null, null);
+                'Y', 'Y',null,null, List.of(questionCatDetailsEntity2), "Deleted", 1, null, null);
 
     }
 

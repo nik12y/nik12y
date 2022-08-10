@@ -30,13 +30,20 @@ public class QuestionCategoryEntity extends AbstractAuditableDomainEntity implem
     private char isShowQuestionCategoryName;
     @Column(name = "is_enable_document_upload")
     private char isEnableDocumentUpload;
+    @Column(name = "life_cycle_id")
+    private String lifeCycleId;
+    @Column(name = "reference_no")
+    private String referenceNo;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "question_category_id")
     private List<QuestionCatDetailsEntity> questionCatDetails = new ArrayList<>();
-
+    @Column(name = "record_status")
     private String status;
+    @Column(name = "record_version")
     private Integer recordVersion;
+    @Column(name = "is_authorized")
     private String authorized;
+    @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
 }

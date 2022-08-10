@@ -69,7 +69,7 @@ class QuestionCategoryDomainServiceTest {
         questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
-                'Y', 'Y', questionCatDetailsEntities1, "new", 1, "Y", "authorized");
+                'Y', 'Y',null,null, questionCatDetailsEntities1, "new", 1, "Y", "authorized");
 
         List<QuestionCategoryDetailsDTO> questionCategoryDetailsDTOList = new ArrayList<>();
         questionCategoryDetailsDTOList.add(new QuestionCategoryDetailsDTO( "Q002", "Mandatory", "Q001", "Q002.Yes"));

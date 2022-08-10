@@ -28,14 +28,14 @@ class QuestionCategoryRepositoryTest {
         questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
-                'Y', 'Y', questionCatDetailsEntities1, "new", 1, "Y", "authorized");
+                'Y', 'Y',null,null, questionCatDetailsEntities1, "new", 1, "Y", "authorized");
 
         iQuestionCategoryRepository.save(questionCategoryEntity1);
 
         List<QuestionCatDetailsEntity> questionCatDetailsEntities2 = new ArrayList<>();
         questionCatDetailsEntities2.add(new QuestionCatDetailsEntity(2, "Q003", "Optional", "Q002", "Q002.Yes"));
 
-        QuestionCategoryEntity questionCategoryEntity2 = new QuestionCategoryEntity("SN002", "Education Loan Question", "Mutual", 'Y', 'Y',
+        QuestionCategoryEntity questionCategoryEntity2 = new QuestionCategoryEntity("SN002", "Education Loan Question", "Mutual", 'Y', 'Y',null,null,
                 questionCatDetailsEntities2, "new", 1, "Y", "authorized");
 
         iQuestionCategoryRepository.save(questionCategoryEntity2);
@@ -62,7 +62,7 @@ class QuestionCategoryRepositoryTest {
         questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
-                'Y', 'Y', questionCatDetailsEntities1, "new", 1, "Y", "authorized");
+                'Y', 'Y',null,null, questionCatDetailsEntities1, "new", 1, "Y", "authorized");
 
         iQuestionCategoryRepository.save(questionCategoryEntity1);
         QuestionCategoryEntity questionCategoryId = iQuestionCategoryRepository.findByQuestionCategoryId("SN001");
@@ -78,7 +78,7 @@ class QuestionCategoryRepositoryTest {
         questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(4, "Q008", "Optional", "Q007", "Q00.Porches"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN009", "Business Loan Question", "Manual",
-                'Y', 'Y', questionCatDetailsEntities1, "draft", 0, "N", "draft");
+                'Y', 'Y',null,null, questionCatDetailsEntities1, "draft", 0, "N", "draft");
 
         QuestionCategoryEntity questionCategoryEntity = iQuestionCategoryRepository.save(questionCategoryEntity1);
 

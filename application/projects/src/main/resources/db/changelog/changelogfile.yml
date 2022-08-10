@@ -49,3 +49,5 @@ databaseChangeLog:
       file: db/changelog/riskcategory-table.xml
   - include:
       file: db/changelog/branchtype-table.xml
+  - include:
+      file: db/changelog/questionCategory-table.xml
