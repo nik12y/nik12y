@@ -45,6 +45,9 @@ public final class Constants {
     public static final String CAPT = "CAPT";
     public static final String CAPT_SERVICE = "captApplicationService";
 
+    public static final String QUE_CHECKLIST  = "QUESTION_CKLIST";
+    public static final String QUE_CHECKLIST_SERVICE = "questionnaireChecklistApplicationService";
+
     private Constants () {
     }
 

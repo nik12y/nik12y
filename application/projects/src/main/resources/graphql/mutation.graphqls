@@ -15,4 +15,7 @@ type Mutation {
     processCapt(sessionContext: SessionContextInput, capt: CaptInput): TransactionStatus
     processModule(sessionContext: SessionContextInput, module: ModuleInput): TransactionStatus
 
+    processQuestionnaireChecklist(sessionContext: SessionContextInput, questionnaireChecklist: QuestionnaireChecklistInput): TransactionStatus
+
+
 }

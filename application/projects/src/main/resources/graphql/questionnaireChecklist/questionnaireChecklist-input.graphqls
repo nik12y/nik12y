@@ -1,0 +1,19 @@
+input QuestionnaireChecklistInput {
+
+    questionChecklistId: String!
+    questionChecklistName : String
+    questionCategory : String
+    effectiveDate : String
+
+
+    questionnaireChecklistDetailsCategory : [QuestionnaireChecklistDetailsCategoryInput]!
+    questionnaireChecklistDisplay : QuestionnaireChecklistDisplayInput!
+
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
