@@ -27,7 +27,7 @@
             </column>
 
             <column name="record_version" type="int4">
-                <!--                <constraints nullable="false"/>-->
+
             </column>
 
             <column name="status" type="varchar(20)">
@@ -35,23 +35,23 @@
             </column>
 
             <column name="authorized" type="bpchar(1)">
-                <!--                <constraints nullable="false"/>-->
+
             </column>
 
             <column name="last_configuration_action" type="varchar(50)">
-                <!--                <constraints nullable="false"/>-->
+
             </column>
 
             <column name="reference_no" type="varchar(18)">
-                <!--                <constraints nullable="false"/>-->
+
             </column>
 
             <column name="trace_info" type="varchar(50)">
-                <!--                <constraints nullable="false"/>-->
+
             </column>
 
             <column name="action" type="varchar(20)">
-                <!--                <constraints nullable="false"/>-->
+
             </column>
 
             <column name="created_by" type="varchar(50)">
