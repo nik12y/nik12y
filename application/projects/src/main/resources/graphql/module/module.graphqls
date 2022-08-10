@@ -1,7 +1,7 @@
 type Module {
     moduleCode: String!
     moduleName : String!
-    bankCode : Int!
+    bankCode : String!
     moduleUsers : Int
     moduleCurrentUsers : Int
     licensed : Boolean!

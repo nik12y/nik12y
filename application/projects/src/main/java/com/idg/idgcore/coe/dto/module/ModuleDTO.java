@@ -20,7 +20,7 @@ import static com.idg.idgcore.coe.common.Constants.MODULE;
 public class ModuleDTO extends CoreEngineBaseDTO {
     private String moduleCode;
     private String moduleName;
-    private Integer bankCode;
+    private String bankCode;
     private Integer moduleUsers;
     private Integer moduleCurrentUsers;
     private boolean licensed;

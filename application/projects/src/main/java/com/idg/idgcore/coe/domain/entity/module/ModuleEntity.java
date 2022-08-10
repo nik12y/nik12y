@@ -34,7 +34,7 @@ public class ModuleEntity extends AbstractAuditableDomainEntity implements Seria
     @Id
     private String moduleCode;
     private String moduleName;
-    private Integer bankCode;
+    private String bankCode;
     private Integer moduleUsers;
     private Integer moduleCurrentUser;
     private char isLicensed;
