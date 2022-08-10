@@ -77,32 +77,5 @@ public class Application {
     public ModelMapper modelMapper () {
         return new ModelMapper();
     }
-    public class LocalCorsConfiguration {
-        @Bean
-        public CorsFilter corsFilter() {
-            final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-            final CorsConfiguration config = new CorsConfiguration();
-            config.setAllowCredentials(true);
-            config.addAllowedOrigin(REACT_URL);
-            config.addAllowedHeader("*");
-            config.addAllowedMethod("*");
-            source.registerCorsConfiguration("/graphql/**", config);
-            return new CorsFilter(source);
-        }
-    }
-    @Bean
-    @CrossOrigin(origins = "http://localhost:3000")
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(final CorsRegistry registry) {
-                registry.addMapping("/graphql/**")
-                        .allowedOrigins("http://localhost:3000")
-                        .allowedOrigins(CorsConfiguration.ALL)
-                        .allowedHeaders(CorsConfiguration.ALL)
-                        .allowedMethods(CorsConfiguration.ALL)
-                ;
-            }
-        };
-    }
+
 }
