@@ -64,6 +64,10 @@ type Query{
     getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear]
     getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
     getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
+    getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
+    getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
+    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
+    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 
 }
 

@@ -43,3 +43,9 @@ databaseChangeLog:
       file: db/changelog/financial-accounting-year-table.xml
   - include:
       file: db/changelog/question-checklist-table.xml
+  - include:
+      file: db/changelog/riskcode-table.xml
+  - include:
+      file: db/changelog/riskcategory-table.xml
+  - include:
+      file: db/changelog/branchtype-table.xml
