@@ -22,7 +22,7 @@ mutation{
             serviceInvocationModeType : Regular
             allTargetUnitsSelected: false
             mutationType: ADDITION
-            userLocal: null
+            userLocal: "en_IN"
             originatingModuleCode: null
         },
         mitigant:{
