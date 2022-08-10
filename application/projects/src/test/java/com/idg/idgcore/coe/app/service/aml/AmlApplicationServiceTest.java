@@ -370,9 +370,9 @@ class AmlApplicationServiceTest {
 
         AmlEntity amlEntity = new AmlEntity("Lending", "Secured Loan",
                                 'Y', "INR", "ER002",
-                                "Mid-Rate", "Debit Indicator", limitEntity,
-                                    "draft",
+                                "Mid-Rate", "Debit Indicator", limitEntity, null, null,
                                     0,
+                                 "draft",
                                     "Y",
                                     "draft");
 
@@ -385,9 +385,9 @@ class AmlApplicationServiceTest {
 
         AmlEntity amlEntity = new AmlEntity("Lending", "Secured Loan",
                 'Y', "INR", "ER002",
-                "Mid-Rate", "Debit Indicator", limitEntity,
-                "DELETED",
+                "Mid-Rate", "Debit Indicator", limitEntity, null, null,
                 1,
+                "DELETED",
                 null,
                 null);
 
