@@ -23,7 +23,6 @@ type Query{
     getLanguages(sessionContext: SessionContextInput): [Language]
     getBranchTypeByCode(sessionContext: SessionContextInput, branchType: BranchTypeInputQuery): BranchType
     getBranches(sessionContext: SessionContextInput): [BranchType]
-
     getGroupBankByCode(sessionContext: SessionContextInput, groupBankQuery: GroupBankingInputQuery): GroupBanking
     getGroupBanks(sessionContext: SessionContextInput):[GroupBanking]
     getCaptByCode(sessionContext: SessionContextInput, captQuery: CaptInputQuery): Capt
@@ -38,6 +37,39 @@ type Query{
     getDayDivisor(sessionContext: SessionContextInput):[InterestMethod]
     getRoundingRules(sessionContext: SessionContextInput):[RoundingRules]
     getCurrencyDetails(sessionContext: SessionContextInput, currencyCode : CurrencyCodeInput) : CurrencyDetails
+
+
+    getAppVerCatChecklistPolicyById(sessionContext: SessionContextInput, appVerCatChecklistPolicyQuery: AppVerCatChecklistPolicyInputQuery): AppVerCatChecklistPolicy
+    getAppVerCatChecklistPolicies(sessionContext: SessionContextInput): [AppVerCatChecklistPolicy]
+    getAppVerCategoryConfigs(sessionContext: SessionContextInput): [AppVerCategoryConfig]
+    getAppVerCategoryConfigByID(sessionContext: SessionContextInput, AppVerCategoryConfigQuery: AppVerCategoryConfigInputQuery): AppVerCategoryConfig
+
+    getBranchParameterByBranchCode(sessionContext: SessionContextInput, branchParameterQuery: BranchParameterInputQuery): BranchParameter
+    getBranchParameters(sessionContext: SessionContextInput): [BranchParameter]
+    getBankParameterByBankCode(sessionContext: SessionContextInput, bankParameterQuery: BankParameterInputQuery): BankParameter
+    getBankParameters(sessionContext: SessionContextInput): [BankParameter]
+    getIbanByIbanCountryCode(sessionContext: SessionContextInput, ibanQuery: IbanInputQuery): Iban
+    getIban(sessionContext: SessionContextInput): [Iban]
+    getAmlByCode(sessionContext: SessionContextInput, amlQuery: AmlInputQuery): Aml
+    getAmls(sessionContext: SessionContextInput): [Aml]
+    getAppVerTypeById(sessionContext: SessionContextInput, appVerTypeQuery: AppVerTypeInputQuery): AppVerType
+    getAppVerTypes(sessionContext: SessionContextInput): [AppVerType]
+    getPurgingByCode(sessionContext: SessionContextInput, purgingQuery: PurgingInputQuery): Purging
+    getPurgingAll(sessionContext: SessionContextInput): [Purging]
+    getBranchSystemDateByCode(sessionContext: SessionContextInput, branchSystemDateQuery: BranchSystemDateInputQuery): BranchSystemDate
+    getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
+    getMitigantByCode(sessionContext: SessionContextInput, mitigantQuery:MitigantInputQuery):Mitigant
+    getMitigantAll(sessionContext: SessionContextInput): [Mitigant]
+    getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
+    getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
+    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
+    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear]
+    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
+    getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
+    getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
+    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
+    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 
 }
 
