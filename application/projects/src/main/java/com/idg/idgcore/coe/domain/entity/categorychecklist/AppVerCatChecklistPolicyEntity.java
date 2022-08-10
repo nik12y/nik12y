@@ -45,13 +45,6 @@ public class AppVerCatChecklistPolicyEntity extends AbstractAuditableDomainEntit
         @Column(name="rule_id")
         private String ruleId;
 
-
-//        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//        @JoinColumn(name = "app_ver_checklist_policy_id")
-//        private List<AppVerChecklistPolicyCategoryEntity> appVerChecklistPolicyCategoryEntity;
-//
-
-
         @Column(name="life_cycle_id")
         private String lifeCycleId;
 
