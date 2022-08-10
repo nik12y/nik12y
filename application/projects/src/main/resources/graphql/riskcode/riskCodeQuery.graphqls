@@ -1,0 +1,4 @@
+input RiskCodeQuery {
+    riskCode: String!
+    authorized: String!
+}

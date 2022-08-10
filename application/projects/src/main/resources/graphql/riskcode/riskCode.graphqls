@@ -1,0 +1,17 @@
+type RiskCode {
+    riskCode: String!
+    riskCodeName : String!
+    riskCodeDescription : String!
+    isAllowDetailsModified  : Boolean!
+    riskMode : String!
+    riskCategoryCode:String!
+   #riskCategoryName:String!
+
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
