@@ -9,6 +9,7 @@ plugins {
     id 'com.palantir.docker' version '0.34.0'
     id 'com.palantir.docker-run' version '0.34.0'
 
+    id 'org.liquibase.gradle' version '2.0.4'
 }
 
 group = 'com.social'
@@ -84,6 +85,18 @@ dependencies {
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.24'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.1'
     implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.9.2'
+
+    implementation group: 'org.liquibase', name: 'liquibase-core'
+    implementation group: 'org.liquibase', name: 'liquibase-maven-plugin', version: '4.11.0'
+    implementation 'org.springframework.boot:spring-boot-starter:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.2'
+    implementation 'org.liquibase:liquibase-core:4.9.1'
+    runtimeOnly 'org.postgresql:postgresql:42.3.6'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.2'
+
+    implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
+
     implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.6.0.0.1'
 }
 
@@ -156,6 +169,34 @@ jacocoTestReport {
         xml.required = false
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/idg/idgcore/Application.class',
+                    '**/config/**',
+                    '**/audit/**',
+                    '**/base/**',
+                    '**/city/**',
+                    '**/state/**',
+                    '**/country/**',
+                    '**/bank/**',
+                    '**/bankgroup/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
+                    '**/branchtype/**',
+                    '**/module/**',
+                    '**/purpose/**',
+                    '**/mapping/**',
+                    '**/memo/**',
+                    '**/common/**',
+                    '**/mutation/**',
+                    '**/process/**',
+                    '**/lov/**',
+                    '**/exception/**'
+            ])
+        }))
     }
 }
 
