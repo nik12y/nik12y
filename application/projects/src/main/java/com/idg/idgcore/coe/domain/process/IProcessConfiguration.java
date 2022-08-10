@@ -7,7 +7,7 @@ import com.idg.idgcore.coe.dto.mutation.MutationDTO;
 public interface IProcessConfiguration {
     void process (CoreEngineBaseDTO baseDTO) throws JsonProcessingException, Exception;
     void addUpdateRecord (MutationDTO dto);
-    void insertIntoAuditHistory (MutationDTO dto);
+    void insertIntoAuditHistory (MutationDTO dto) throws JsonProcessingException;
     void insertIntoBaseTable (MutationDTO dto) throws JsonProcessingException;
 
 }
