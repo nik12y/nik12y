@@ -30,6 +30,13 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+
+    getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]
+    getWeekAllDays(sessionContext: SessionContextInput):[Days]
+    getDayDivisor(sessionContext: SessionContextInput):[InterestMethod]
+    getRoundingRules(sessionContext: SessionContextInput):[RoundingRules]
+    getCurrencyDetails(sessionContext: SessionContextInput, currencyCode : CurrencyCodeInput) : CurrencyDetails
+
     getAppVerTypeById(sessionContext: SessionContextInput, appVerTypeQuery: AppVerTypeInputQuery): AppVerType
     getAppVerTypes(sessionContext: SessionContextInput): [AppVerType]
 }
