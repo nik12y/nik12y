@@ -1,0 +1,53 @@
+mutation{
+    processAppVerCatChecklistPolicy(
+        sessionContext:{
+            bankCode: "003"
+            defaultBranchCode: "1141"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: null
+            userId: "nikhiljagtap"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: "CHECKLIST"
+            localDateTime: ""
+            role: "maker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "es_US"
+            originatingModuleCode: null
+        },
+        appVerCatChecklistPolicy:{
+            appVerChecklistPolicyId:"VCK0001"
+            appVerChecklistPolicyDesc:"Address"
+            domainId:"DM0001"
+            domainCategoryId:"DC0001"
+            eventId:"EV0015"
+            effectiveDate: "2022-07-07"
+            entity:"customer"
+            ruleId:"RL0001"
+
+            action : "delete"
+            status: "deleted"
+            recordVersion : 0
+
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}
