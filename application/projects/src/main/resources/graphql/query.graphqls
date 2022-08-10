@@ -36,6 +36,7 @@ type Query{
     getDayDivisor(sessionContext: SessionContextInput):[InterestMethod]
     getRoundingRules(sessionContext: SessionContextInput):[RoundingRules]
     getCurrencyDetails(sessionContext: SessionContextInput, currencyCode : CurrencyCodeInput) : CurrencyDetails
-
+    getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
+    getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
 }
 

@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/insert-meta-tables-currency-configuration-schema.xml
   - include:
       file: db/changelog/create-config-tables-currency-configuration-schema.xml
+  - include:
+      file: db/changelog/riskcategory-table.xml

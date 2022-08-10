@@ -44,7 +44,9 @@ public final class Constants {
     public static final String BRANCHTYPE_SERVICE ="branchTypeApplicationService";
     public static final String CAPT = "CAPT";
     public static final String CAPT_SERVICE = "captApplicationService";
+    public static final String RISKCATEGORY = "RISKCATEGORY";
 
+    public static final String RISKCATEGORY_SERVICE = "riskCategoryApplicationService";
     private Constants () {
     }
 
