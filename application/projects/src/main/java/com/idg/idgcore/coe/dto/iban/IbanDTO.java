@@ -8,9 +8,6 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import javax.persistence.*;
-
 import static com.idg.idgcore.coe.common.Constants.IBAN;
 
 @ToString (callSuper = true)
@@ -28,10 +25,7 @@ public class IbanDTO extends CoreEngineBaseDTO {
     private Integer ibanCheckDigitLength;
     private String ibanNationalIdLength;
     private Integer ibanTotalLength;
-    private String lifeCycleId;
-    private String referenceNo;
     private IbanBbanDTO ibanBban;
-
 
     @Override
     public String getTaskCode () {

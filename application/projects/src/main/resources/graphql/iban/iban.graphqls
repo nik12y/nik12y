@@ -6,8 +6,6 @@ type Iban {
     ibanCheckDigitLength:Int
     ibanNationalIdLength:String
     ibanTotalLength:Int
-    lifeCycleId:String
-    referenceNo:String
     action : String!
     status : String!
     recordVersion : Int!
