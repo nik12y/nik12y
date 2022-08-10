@@ -5,7 +5,6 @@ import com.idg.idgcore.coe.domain.repository.state.IStateRepository;
 import com.idg.idgcore.coe.domain.service.state.StateDomainService;
 import com.idg.idgcore.coe.dto.state.StateDTO;
 import com.idg.idgcore.datatypes.exceptions.BusinessException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
