@@ -26,8 +26,8 @@ getBankParameterByBankCode(
       originatingModuleCode: ""
     },
     bankParameterQuery:{
-        bankCode:"0002"
-        authorized:"N"
+        bankCode:"0021"
+        authorized:"Y"
       }
     ) {
       bankCode

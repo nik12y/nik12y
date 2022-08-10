@@ -15,7 +15,15 @@ class BankParameterMutationResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
+    @DisplayName(" JUnit Bank Parameter test for save as Draft to New ")
+    @Test
+    void processBankParameterSaveDraftToNewTest() throws IOException {
+        String srcDraft = "request/bankparameter/bankparameter-query-authorize-checker-new.graphqls";
 
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
+        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
+
+    }
 
     @DisplayName("JUnit Bank Parameter test for save as Draft")
     @Test

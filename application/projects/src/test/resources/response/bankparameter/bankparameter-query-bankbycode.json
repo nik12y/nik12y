@@ -1,7 +1,7 @@
 {
   "data": {
     "getBankParameterByBankCode": {
-      "bankCode": "0002",
+      "bankCode": "0021",
       "bankName": "State Bank of India",
       "regulatoryBankCode": "0002",
       "bankConciseName": "State Bank",
@@ -18,8 +18,8 @@
         "city": "MUM"
       },
       "bankParameterContactInfo": {
-        "telephoneNo": "022-4156271",
-        "faxNo": "022-4156271",
+        "telephoneNo": "+919876543210",
+        "faxNo": "919876543210",
         "emailId": "abc@xyz.com",
         "bankWebsite": "www.bob.com"
       },
