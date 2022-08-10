@@ -8,7 +8,7 @@ import com.idg.idgcore.coe.common.*;
 public class TransactionReferenceNumberGenerator implements ITransactionNumberGenerator {
 
     public String generateTransactionReferenceId (SessionContext sessionContext) {
-        UrnGeneratorServiceImpl urnGeneratorService = new UrnGeneratorServiceImpl();
+        UrnGeneratorService urnGeneratorService = new UrnGeneratorService();
         return urnGeneratorService.generateTransactionUrn(sessionContext);
     }
 

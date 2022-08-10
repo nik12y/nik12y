@@ -33,5 +33,12 @@ type Query{
 
     getBranchSystemDateByCode(sessionContext: SessionContextInput, branchSystemDateQuery: BranchSystemDateInputQuery): BranchSystemDate
     getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
+
+    getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]
+    getWeekAllDays(sessionContext: SessionContextInput):[Days]
+    getDayDivisor(sessionContext: SessionContextInput):[InterestMethod]
+    getRoundingRules(sessionContext: SessionContextInput):[RoundingRules]
+    getCurrencyDetails(sessionContext: SessionContextInput, currencyCode : CurrencyCodeInput) : CurrencyDetails
+
 }
 
