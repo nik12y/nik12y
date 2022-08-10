@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="currency_config_meta_insert_tbl" author="rakshit">
+  
+    <comment>Data insertion for meta tables</comment>
+	
+    <insert tableName="all_currency_meta_info">
+      <column name="currency_code" value="AFN"/>
+      <column name="currency_name" value="Afghani"/>
+	  <column name="iso_numeric_code" valueNumeric="971"/>
+      <column name="country_name" value="AFGHANISTAN"/>
+	  <column name="country_code" value="AF"/>
+	  <column name="locale" value="uz_Arab_AF"/>
+    </insert>
+
+    <insert tableName="all_currency_meta_info">
+      <column name="currency_code" value="BHD"/>
+      <column name="currency_name" value="Bahraini Dinar"/>
+      <column name="iso_numeric_code" valueNumeric="48"/>
+      <column name="country_name" value="BAHRAIN"/>
+      <column name="country_code" value="BH"/>
+      <column name="locale" value="ar_BH"/>
+    </insert>
+	
+    <insert tableName="week_days_meta_info">
+      <column name="week_days" value="Monday"/>
+      <column name="abbreviation" value="Mon"/>
+    </insert>
+    <insert tableName="week_days_meta_info">
+     <column name="week_days" value="Tuesday"/>
+	 <column name="abbreviation" value="Tue"/>
+    </insert>
+    <insert tableName="week_days_meta_info">
+     <column name="week_days" value="Thursday"/>
+	 <column name="abbreviation" value="Thu"/>	
+    </insert>
+    <insert tableName="week_days_meta_info">
+      <column name="week_days" value="Friday"/>
+	 <column name="abbreviation" value="Fri"/>
+    </insert>
+    <insert tableName="week_days_meta_info">
+      <column name="week_days" value="Saturday"/>
+	  <column name="abbreviation" value="Sat"/>
+    </insert>
+    <insert tableName="week_days_meta_info">
+      <column name="week_days" value="Sunday"/>
+	  <column name="abbreviation" value="Sun"/>
+    </insert>
+	
+    <insert tableName="rounding_rules_meta_info">
+      <column name="rounding_rule" value="Round Up"/>
+      <column name="instruction_class" value="RoundUpInstructionClass"/>
+    </insert>
+     <insert tableName="rounding_rules_meta_info">
+      <column name="rounding_rule" value="Round Down"/>
+	  <column name="instruction_class" value="RoundDownInstructionClass"/>
+    </insert>
+     <insert tableName="rounding_rules_meta_info">
+     <column name="rounding_rule" value="Round Near"/>
+	 <column name="instruction_class" value="RoundNearInstructionClass"/>
+    </insert>
+     <insert tableName="rounding_rules_meta_info">
+      <column name="rounding_rule" value="Truncate"/>
+	  <column name="instruction_class" value="TruncateInstructionClass"/>
+    </insert>
+	
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="Actual/Actual"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="Actual/365"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="Actual/360"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="30(US)/360"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="30(EURO)/360"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="30(US)/365"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="30(EURO)/365"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+     <column name="interest_method" value="30(US)/Actual"/>
+    </insert>
+    <insert tableName="day_divisor_meta_info">
+      <column name="interest_method" value="30(EURO)/Actual"/>
+    </insert>
+   
+  </changeSet>
+</databaseChangeLog>

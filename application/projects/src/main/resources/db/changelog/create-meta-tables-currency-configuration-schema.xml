@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="currency_config_meta_tbl" author="rakshit">
+  
+  <comment>Meta table creation</comment>
+    <createTable tableName="all_currency_meta_info"
+      remarks="A table to store all currency related information">
+      <column name="currency_code" type="character varying(3)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="currency_name" type="character varying(35)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="iso_numeric_code" type="smallint">
+        <constraints nullable="false"/>
+      </column>
+	   <column name="country_name" type="character varying(100)">
+        <constraints nullable="false"/>
+      </column>
+	   <column name="country_code" type="character varying(2)">
+        <constraints nullable="false"/>
+      </column> 
+	  <column name="locale" type="character varying(15)">
+        <constraints nullable="false"/>
+      </column> 
+    </createTable>
+
+   <createTable tableName="week_days_meta_info"
+      remarks="A table to store days information">
+      <column name="week_days" type="character varying(10)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="abbreviation" type="character varying(3)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+	
+	<createTable tableName="rounding_rules_meta_info"
+      remarks="A table to store amount rounding rules information">
+      <column name="rounding_rule" type="character varying(15)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="instruction_class" type="character varying(35)">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+	
+	<createTable tableName="day_divisor_meta_info"
+      remarks="A table to store day divisor calculation methods information">
+       <column name="sr_no" type="int" autoIncrement="true">
+        <constraints nullable="false" unique="true"/>
+      </column>
+       <column name="interest_method" type="character varying(25)">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>
