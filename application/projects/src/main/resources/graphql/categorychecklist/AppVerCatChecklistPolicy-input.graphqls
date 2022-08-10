@@ -1,0 +1,17 @@
+input AppVerCatChecklistPolicyInput {
+    appVerChecklistPolicyId : String! @Size(min: 1, max: 30, message: "appVerChecklistPolicyId.message") @Pattern(regexp: "[A-Za-z0-9 ]{1,30}",message: "Verfication Category ID Invalid pattern")
+    appVerChecklistPolicyDesc : String! @Size(min: 1, max: 35, message: "appVerChecklistPolicyDesc.message")  @Pattern(regexp: ".[A-Za-z0-9 .,–()/=‘+:?!”%&*<>;{@#_]{1,35}",message: "Verification Category description Invalid pattern")
+    domainId : String!
+    domainCategoryId : String!
+    eventId : String!
+    effectiveDate : String!
+    entity : String!
+    ruleId : String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
