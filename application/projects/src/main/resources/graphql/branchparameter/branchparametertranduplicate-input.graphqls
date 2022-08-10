@@ -1,0 +1,5 @@
+input BranchParameterTranDuplicateInput {
+    tranModuleCode: String
+    tranDuplicationCheckRequired: Boolean
+    tranNoOfDayForDuplicationCheck: Int @Digits(integer : 2, fraction : 0, message : "tranNoOfDayForDuplicationCheck.message") @Positive(message : "TranNo Of Day For Duplication Check Cannot be negative or zero.")
+ }

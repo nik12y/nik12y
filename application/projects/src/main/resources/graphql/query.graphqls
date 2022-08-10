@@ -30,5 +30,7 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+    getBranchParameterByBranchCode(sessionContext: SessionContextInput, branchParameterQuery: BranchParameterInputQuery): BranchParameter
+    getBranchParameters(sessionContext: SessionContextInput): [BranchParameter]
 }
 

@@ -48,6 +48,8 @@ public final class Constants {
     public static final String BRANCHTYPE_SERVICE ="branchTypeApplicationService";
     public static final String CAPT = "CAPT";
     public static final String CAPT_SERVICE = "captApplicationService";
+    public static final String BRANCH_PARAMETER = "BRANCH_PARAMETER";
+    public static final String BRANCH_PARAMETER_SERVICE = "branchParameterApplicationService";
 
     private Constants () {
     }
