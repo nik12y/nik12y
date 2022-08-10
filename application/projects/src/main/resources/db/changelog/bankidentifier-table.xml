@@ -35,15 +35,21 @@
             <column name="internal_address" type="varchar(100)">
             </column>
 
+            <column name="life_cycle_id" type="varchar(50)">
+            </column>
+
+            <column name="reference_no" type="varchar(50)">
+            </column>
+
             <column name="record_version" type="integer">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="status" type="varchar(10)">
+            <column name="record_status" type="varchar(10)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="authorized" type="varchar(1)">
+            <column name="is_authorized" type="varchar(1)">
                 <constraints nullable="false"/>
             </column>
 

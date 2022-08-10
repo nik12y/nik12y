@@ -1,11 +1,11 @@
 input BankIdentifierInput {
-    bankIdentifierCode: String! @Size(min: 8, max: 11, message: "bankIdentifierCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,11}",message: "Bank Identifier Code Invalid pattern")
-    bankIdentifierCodeName: String! @Size(min: 1, max: 100, message: "bankIdentifierCodeName.message") @Pattern(regexp: ".[-A-Za-z0-9@&.:, ]{1,100}",message: "Bank Identifier Name Invalid pattern")
-    bankAddress1: String! @Size(min: 1, max: 100, message: "bankIdentifierAddress1.message") @Pattern(regexp: ".[-A-Za-z0-9!@#'&.*():, ]{1,100}",message: "Bank Address 1 Invalid pattern")
-    bankAddress2: String @Size(min: 1, max: 100, message: "bankIdentifierAddress2.message") @Pattern(regexp: ".[-A-Za-z0-9!@#'&.*():, ]{1,100}",message: "Bank Address 2 Invalid pattern")
-    bankAddress3: String @Size(min: 1, max: 100, message: "bankIdentifierAddress3.message") @Pattern(regexp: ".[-A-Za-z0-9!@#'&.*():, ]{1,100}",message: "Bank Address 3 Invalid pattern")
-    bankAddress4: String @Size(min: 1, max: 100, message: "bankIdentifierAddress4.message") @Pattern(regexp: ".[-A-Za-z0-9!@#'&.*():, ]{1,100}",message: "Bank Address 4 Invalid pattern")
-    internalAddress: String @Size(min: 1, max: 100, message: "internalAddress.message") @Pattern(regexp: ".[-A-Za-z0-9!@#'&.*():, ]{1,100}",message: "Internal Address Invalid pattern")
+    bankIdentifierCode: String! @Size(min: 8, max: 11, message: "bankIdentifierCode.message") @Pattern(regexp: "[A-Za-z0-9]{1,11}",message: "Bank Identifier Code Invalid pattern")
+    bankIdentifierCodeName: String! @Size(min: 1, max: 100, message: "bankIdentifierCodeName.message") @Pattern(regexp: "^[^<>%$@#!%&*_+'=-]*${1,100}",message: "Bank Identifier Name Invalid pattern")
+    bankAddress1: String! @Size(min: 1, max: 100, message: "bankIdentifierAddress1.message") @Pattern(regexp: "^[^<>%$@#!%&*_+'=-]*${1,100}",message: "Bank Address 1 Invalid pattern")
+    bankAddress2: String @Size(min: 1, max: 100, message: "bankIdentifierAddress2.message") @Pattern(regexp: "^[^<>%$@#!%&*_+'=-]*${1,100}",message: "Bank Address 2 Invalid pattern")
+    bankAddress3: String @Size(min: 1, max: 100, message: "bankIdentifierAddress3.message") @Pattern(regexp: "^[^<>%$@#!%&*_+'=-]*${1,100}",message: "Bank Address 3 Invalid pattern")
+    bankAddress4: String @Size(min: 1, max: 100, message: "bankIdentifierAddress4.message") @Pattern(regexp: "^[^<>%$@#!%&*_+'=-]*${1,100}",message: "Bank Address 4 Invalid pattern")
+    internalAddress: String @Size(min: 1, max: 100, message: "internalAddress.message") @Pattern(regexp: "^[^<>%$@#!%&*_+'=-]*${1,100}",message: "Internal Address Invalid pattern")
     action : String!
     status : String!
     recordVersion : Int!

@@ -427,8 +427,10 @@ class BankIdentifierApplicationServiceTest {
                         "EC2M 4XB",
                         "UNITED KINGDOM",
                         "PREMIER PLACE, DEVONSHIRE SQUARE",
-                        "draft",
+                        null,
+                        null,
                         0,
+                        "draft",
                         "Y",
                         "draft");
 
@@ -446,8 +448,10 @@ class BankIdentifierApplicationServiceTest {
                         "EC2M 4XB",
                         "UNITED KINGDOM",
                         "PREMIER PLACE, DEVONSHIRE SQUARE",
-                        "DELETED",
+                        null,
+                        null,
                         1,
+                        "DELETED",
                         null,
                         null);
 
