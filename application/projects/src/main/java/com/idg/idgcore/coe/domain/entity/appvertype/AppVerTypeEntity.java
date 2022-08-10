@@ -20,20 +20,35 @@ public class AppVerTypeEntity extends AbstractAuditableDomainEntity
         implements Serializable {
 
     @Id
+    @Column(name = "verification_type_id")
     private String verificationTypeId;
+    @Column(name = "verification_type_name")
     private String verificationTypeName;
+    @Column(name = "verification_type_desc")
     private String verificationTypeDesc;
+    @Column(name = "is_viewable_to_customer")
     private char isViewableToCustomer;
+    @Column(name = "is_alert_to_be_sent_on_compl")
     private char isAlertToBeSentOnCompl;
+    @Column(name = "is_external")
     private char isExternal;
+    @Column(name = "is_document_required")
     private char isDocumentRequired;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "verification_type_id")
     private List<DocumentsEntity> documents;
 
-    private String status;
+    @Column(name = "life_cycle_id")
+    private String lifeCycleId;
+    @Column(name = "reference_no")
+    private String referenceNo;
+    @Column(name = "record_version")
     private Integer recordVersion;
+    @Column(name = "record_status")
+    private String status;
+    @Column(name = "is_authorized")
     private String authorized;
+    @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
 }

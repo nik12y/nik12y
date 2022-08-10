@@ -20,6 +20,8 @@ public class DocumentsEntity extends AbstractAuditableDomainEntity implements Se
     @Column(name="idgc_coe_app_ver_type_doc_id")
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer idgcCoeAppVerTypeDocId;
+    @Column(name = "document_name")
     private String documentName;
+    @Column(name = "nature")
     private String nature;
 }

@@ -2,6 +2,7 @@ package com.idg.idgcore.coe.domain.assembler.appvertype;
 
 import com.idg.idgcore.coe.domain.entity.appvertype.AppVerTypeEntity;
 import com.idg.idgcore.coe.domain.entity.appvertype.DocumentsEntity;
+import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.dto.appvertype.AppVerTypeDTO;
 import com.idg.idgcore.coe.dto.appvertype.DocumentsDTO;
 import org.junit.jupiter.api.DisplayName;
@@ -85,5 +86,19 @@ class AppVerTypeAssemblerTest {
         assertTrue(appVerTypeDTO.getIsAlertToBeSentOnCompl());
         assertTrue(appVerTypeDTO.getIsExternal());
         assertFalse(appVerTypeDTO.getIsDocumentRequired());
+    }
+
+    @Test
+    @DisplayName(
+            "Should set the authorized field in amlDTO when the authorized field in mutationEntity is not null")
+    void setAuditFieldsWhenAuthorizedIsNotNull() {
+        MutationEntity mutationEntity = new MutationEntity();
+        mutationEntity.setAuthorized("Y");
+        AppVerTypeDTO appVerTypeDTO = AppVerTypeDTO.builder().build();
+
+        AppVerTypeAssembler appVerTypeAssembler = new AppVerTypeAssembler();
+        appVerTypeDTO = appVerTypeAssembler.setAuditFields(mutationEntity, appVerTypeDTO);
+
+        assertEquals("Y", appVerTypeDTO.getAuthorized());
     }
 }

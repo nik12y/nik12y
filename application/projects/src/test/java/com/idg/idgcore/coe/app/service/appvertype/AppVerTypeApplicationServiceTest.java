@@ -365,8 +365,10 @@ class AppVerTypeApplicationServiceTest {
         return new AppVerTypeEntity("VT001", "Identification Proof",
                 "Customer Identification", 'Y', 'Y',
                 'Y', 'Y', List.of(documentsEntity3),
-                "draft",
+                null,
+                null,
                 0,
+                "draft",
                 "Y",
                 "draft");
     }
@@ -378,8 +380,10 @@ class AppVerTypeApplicationServiceTest {
         return new AppVerTypeEntity("VT001", "Identification Proof",
                 "Customer Identification", 'Y', 'Y',
                 'Y', 'Y', List.of(documentsEntity2),
-                "DELETED",
+                null,
+                null,
                 1,
+                "DELETED",
                 null,
                 null);
     }
