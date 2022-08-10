@@ -348,7 +348,7 @@ class StateApplicationServiceTest {
         return stateDTO;
     }
     private StateEntity getStateEntity(){
-        StateEntity stateEntity = new StateEntity("MH","MAHARASHTRA","IN","draft",0, "Y","draft");
+        StateEntity stateEntity = new StateEntity("MH","MAHARASHTRA","IN","LC001","RN001","draft",0, "Y","draft");
         return stateEntity;
     }
     private StateEntity getStatesEntity()
