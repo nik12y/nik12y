@@ -22,11 +22,11 @@ class QuestionRepositoryTest {
     @Test
     void findAllQuestion() {
         QuestionEntity questionEntity = new QuestionEntity("Q01", "Education Loan Purpose", "What is  Loan Purpose ?", "Education Purpose helps to decide the further Application Treatment Workflow",
-                "Radio", "Manual", "Education Amount", "new", 1, "Y", "authorized");
+                "Radio", "Manual", "Education Amount",null,null, "new", 1, "Y", "authorized");
         iQuestionRepository.save(questionEntity);
 
         QuestionEntity questionEntity1 = new QuestionEntity("Q02", "Business Loan Purpose", "What is  Loan Purpose ?", "Business Purpose helps to decide the further Application Treatment Workflow",
-                "Radio", "Fact", "Business Amount", "new", 1, "Y", "authorized");
+                "Radio", "Fact", "Business Amount",null,null, "new", 1, "Y", "authorized");
         iQuestionRepository.save(questionEntity1);
 
         //when - condition
@@ -42,7 +42,7 @@ class QuestionRepositoryTest {
     @Test
     void findByQuestionId() {
         QuestionEntity questionEntity = new QuestionEntity("Q01", "Education Loan Purpose", "What is  Loan Purpose ?", "Education Purpose helps to decide the further Application Treatment Workflow",
-                "Radio", "Manual", "Education Amount", "draft", 0, "Y", "draft");
+                "Radio", "Manual", "Education Amount",null,null, "draft", 0, "Y", "draft");
         iQuestionRepository.save(questionEntity);
 
         QuestionEntity questionEntity1 = iQuestionRepository.findByQuestionId("Q01");
@@ -54,7 +54,7 @@ class QuestionRepositoryTest {
     @Test
     void saveBankTest() {
         QuestionEntity questionEntity = new QuestionEntity("Q01", "Education Loan Purpose", "What is  Loan Purpose ?", "Education Purpose helps to decide the further Application Treatment Workflow",
-                "Radio", "Manual", "Education Amount", "draft", 0, "Y", "draft");
+                "Radio", "Manual", "Education Amount",null,null, "draft", 0, "Y", "draft");
 
         QuestionEntity questionEntity1 = iQuestionRepository.save(questionEntity);
 

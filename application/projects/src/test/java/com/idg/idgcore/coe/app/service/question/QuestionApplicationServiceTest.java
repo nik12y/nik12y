@@ -8,10 +8,9 @@ import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.Payload;
 import com.idg.idgcore.coe.domain.entity.question.QuestionEntity;
 import com.idg.idgcore.coe.domain.entity.question.QuestionEntityKey;
-import com.idg.idgcore.coe.domain.service.audit.process.IProcessConfiguration;
+import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.question.IQuestionDomainService;
-import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.question.QuestionDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -146,33 +145,33 @@ class QuestionApplicationServiceTest {
         System.out.println("Done");
     }
 
-//    @Test
-//    @DisplayName("Junit test for Unauthorized Records else block")
-//    void getQuestionByIdUnauthorizedRecords() throws JsonProcessingException, FatalException {
-//        String payload = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null"+
-//                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":0,\"authorized\":\"N\"," +
-//                "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"QUESTION\",\"taskIdentifier\":\"Q01\"," +
-//                "\"questionId\":\"Q01\",\"questionName\":\"Education Loan Purpose\",\"questionText\":\"What is  Loan Purpose ?\"" +
-//                ",\"questionDescription\":\" Education Purpose helps to decide the further Application Treatment Workflow\"" +
-//                ",\"answerDisplayType\":\"Radio\",\"manualFactBased\":\"Manual\",\"answerValue\":\"Education Amount\"}";
-//
-//        PayloadDTO payloadDTO = new PayloadDTO("{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-//                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":0,\"authorized\":\"N\"," +
-//                "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"QUESTION\",\"taskIdentifier\":\"Q01\"," +
-//                "\"questionId\":\"Q01\",\"questionName\":\"Education Loan Purpose\",\"questionText\":\"What is  Loan Purpose ?\"" +
-//                ",\"questionDescription\":\" Education Purpose helps to decide the further Application Treatment Workflow\"" +
-//                ",\"answerDisplayType\":\"Radio\",\"manualFactBased\":\"Manual\",\"answerValue\":\"Education Amount\"}");
-//
-//        given(mutationsDomainService.getConfigurationByCode(questionDTO.getTaskIdentifier())).willReturn(mutationEntity);
-//        given(mapper.map(mutationEntity.getPayload(), PayloadDTO.class)).willReturn(payloadDTO);
-//        when(objectMapper.readValue(payloadDTO.getData(), QuestionDTO.class)).thenReturn(questionDTO);
-//        given(questionAssembler.setAuditFields(mutationEntity, questionDTO)).willReturn(questionDTO);
-//        QuestionDTO questionDTO1 = questionApplicationService.getQuestionById(sessionContext, questionDTO);
-//        System.out.println("questionDTO1 :" + questionDTO1);
-//        assertEquals("N", questionDTO1.getAuthorized());
-//        assertThat(questionDTO1).isNotNull();
-//        System.out.println("Done");
-//    }
+   /* @Test
+    @DisplayName("Junit test for Unauthorized Records else block")
+    void getQuestionByIdUnauthorizedRecords() throws JsonProcessingException, FatalException {
+        String payload = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null"+
+                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":0,\"authorized\":\"N\"," +
+                "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"QUESTION\",\"taskIdentifier\":\"Q01\"," +
+                "\"questionId\":\"Q01\",\"questionName\":\"Education Loan Purpose\",\"questionText\":\"What is  Loan Purpose ?\"" +
+                ",\"questionDescription\":\" Education Purpose helps to decide the further Application Treatment Workflow\"" +
+                ",\"answerDisplayType\":\"Radio\",\"manualFactBased\":\"Manual\",\"answerValue\":\"Education Amount\"}";
+
+        PayloadDTO payloadDTO = new PayloadDTO("{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":0,\"authorized\":\"N\"," +
+                "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"QUESTION\",\"taskIdentifier\":\"Q01\"," +
+                "\"questionId\":\"Q01\",\"questionName\":\"Education Loan Purpose\",\"questionText\":\"What is  Loan Purpose ?\"" +
+                ",\"questionDescription\":\" Education Purpose helps to decide the further Application Treatment Workflow\"" +
+                ",\"answerDisplayType\":\"Radio\",\"manualFactBased\":\"Manual\",\"answerValue\":\"Education Amount\"}");
+
+        given(mutationsDomainService.getConfigurationByCode(questionDTO.getTaskIdentifier())).willReturn(mutationEntity);
+        given(mapper.map(mutationEntity.getPayload(), PayloadDTO.class)).willReturn(payloadDTO);
+        when(objectMapper.readValue(payloadDTO.getData(), QuestionDTO.class)).thenReturn(questionDTO);
+        given(questionAssembler.setAuditFields(mutationEntity, questionDTO)).willReturn(questionDTO);
+        QuestionDTO questionDTO1 = questionApplicationService.getQuestionById(sessionContext, questionDTO);
+        System.out.println("questionDTO1 :" + questionDTO1);
+        assertEquals("N", questionDTO1.getAuthorized());
+        assertThat(questionDTO1).isNotNull();
+        System.out.println("Done");
+    }*/
 
     @Test
     @DisplayName("JUnit for code coverage")
@@ -195,7 +194,7 @@ class QuestionApplicationServiceTest {
     private QuestionEntity getQuestionEntityKey(){
 
         QuestionEntity questionEntityKey = new QuestionEntity("Q01","Education Loan Purpose","What is  Loan Purpose ?","Education Purpose helps to decide the further Application Treatment Workflow",
-                "Radio","Manual","Education Amount","add",0,"N","unauthorized");
+                "Radio","Manual","Education Amount",null,null,"add",0,"N","unauthorized");
 
         QuestionEntityKey questionEntityKey1 = new QuestionEntityKey("Q01");
         System.out.println(questionEntityKey1);
@@ -205,7 +204,7 @@ class QuestionApplicationServiceTest {
 
     @Test
     @DisplayName("Junit test for process GroupBanking Code")
-    void processTest() throws JsonProcessingException, FatalException {
+    void processTest() throws Exception {
 
         doNothing().when(process).process(questionDTO);
         questionApplicationService.processQuestion(sessionContext, questionDTO);

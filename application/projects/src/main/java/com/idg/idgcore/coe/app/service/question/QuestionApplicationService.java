@@ -9,7 +9,7 @@ import com.idg.idgcore.coe.domain.assembler.audit.MutationAssembler;
 import com.idg.idgcore.coe.domain.assembler.question.QuestionAssembler;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.question.QuestionEntity;
-import com.idg.idgcore.coe.domain.service.audit.process.IProcessConfiguration;
+import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.question.IQuestionDomainService;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
@@ -136,7 +136,7 @@ public class QuestionApplicationService extends AbstractApplicationService
         return questionDTOList;
     }
 
-    @Transactional
+
     public TransactionStatus processQuestion (SessionContext sessionContext, QuestionDTO questionDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {

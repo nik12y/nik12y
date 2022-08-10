@@ -31,9 +31,17 @@ public class QuestionEntity extends AbstractAuditableDomainEntity implements Ser
     private String manualFactBased;
     @Column(name = "answer_values")
     private String answerValue;
+    @Column(name = "life_cycle_id")
+    private String lifeCycleId;
+    @Column(name = "reference_no")
+    private String referenceNo;
 
+    @Column(name = "record_status")
     private String status;
+    @Column(name = "record_version")
     private Integer recordVersion;
+    @Column(name = "is_authorized")
     private String authorized;
+    @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
 }
