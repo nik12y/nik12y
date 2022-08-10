@@ -27,6 +27,7 @@ public class ServiceBeanConfig {
         beanMappings.put(BANK, BANK_SERVICE);
         beanMappings.put(MODULE, MODULE_SERVICE);
         beanMappings.put(CAPT, CAPT_SERVICE);
+        beanMappings.put(BRANCH_SYSTEM_DATE, BRANCH_SYSTEM_DATE_SERVICE);
     }
 
     public Map<String, String> getBeanConfig () {
