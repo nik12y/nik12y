@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="currency_config_dtls_tbl" author="rakshit">
+  
+  <comment>Currency configuration table creation</comment>
+  
+    <createTable tableName="currency_config"
+      remarks="A table to store all currency configuration related information">
+      <column name="currency_code" type="character varying(3)">
+        <constraints nullable="false" unique="true" primaryKey="true"/>
+      </column>
+       <column name="currency_name" type="character varying(35)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="iso_numeric_code" type="smallint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+   <createTable tableName="country_config"
+      remarks="A table to store country configuration information">
+      <column name="currency_code" type="character varying(3)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="country_name" type="character varying(35)">
+        <constraints nullable="false"/>
+      </column>
+	   <column name="country_code" type="character varying(2)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+	
+	<addForeignKeyConstraint baseTableName="country_config" baseColumnNames="currency_code"
+      constraintName="fk_country_config"
+      referencedTableName="currency_config" referencedColumnNames="currency_code" onDelete="CASCADE"/>
+	  
+	  <createTable tableName="currency_dtls_config"
+      remarks="A table to store country configuration detail information">
+      <column name="currency_code" type="character varying(3)">
+        <constraints nullable="false" unique="true" primaryKey="true"/>
+      </column>
+       <column name="locale" type="character varying(15)">
+        <constraints nullable="false"/>
+      </column>
+	   <column name="alternate_currency_code" type="character varying(12)">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="currency_symbol" type="character varying(100)">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="currency_desc" type="character varying(10)">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="currency_category" type="character varying(3)">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="decimals" type="smallint">
+        <constraints nullable="false"/>
+      </column>
+	  <column name="day_divisor" type="character varying(25)">
+        <constraints nullable="false"/>
+      </column>
+	  <column name="spot_days" type="smallint">
+        <constraints nullable="false"/>
+      </column>
+	  <column name="fx_netting_days" type="smallint">
+	  <constraints nullable="true"/>
+      </column>
+	  <column name="settlement_days" type="smallint">
+	  <constraints nullable="true"/>
+      </column>
+	  <column name="calender_code" type="character varying(25)">
+	  <constraints nullable="false"/>
+      </column>
+    </createTable>
+	
+	<addForeignKeyConstraint baseTableName="currency_dtls_config" baseColumnNames="currency_code"
+      constraintName="fk_currency_dtls_config"
+      referencedTableName="currency_config" referencedColumnNames="currency_code" onDelete="CASCADE"/>
+	
+	 <createTable tableName="currency_symb_config"
+      remarks="A table to store currency symbol detail information">
+      <column name="currency_code" type="character varying(3)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="before_formatting" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+	   <column name="after_formatting" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+	   <column name="include_space_formatting" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+	
+	<addForeignKeyConstraint baseTableName="currency_symb_config" baseColumnNames="currency_code"
+      constraintName="fk_currency_symb_config"
+      referencedTableName="currency_dtls_config" referencedColumnNames="currency_code" onDelete="CASCADE"/>
+	  
+	   <createTable tableName="cut_off_config"
+      remarks="A table to store currency cut off detail information">
+      <column name="currency_code" type="character varying(3)">
+        <constraints nullable="false" unique="true" primaryKey="true"/>
+      </column>
+       <column name="days" type="smallint">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="hours" type="smallint">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="minutes" type="smallint">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="enable_mt_103_remit" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="enable_mt_103_stp" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="index_flag" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="enable_mt_202cov" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="cls_currency_flag" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="validate_tag_50f_flag" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="preferred_holiday_1" type="character varying(10)">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="preferred_holiday_2" type="character varying(10)">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="preferred_holiday_3" type="character varying(10)">
+        <constraints nullable="true"/>
+      </column>
+    </createTable>
+	
+	<addForeignKeyConstraint baseTableName="cut_off_config" baseColumnNames="currency_code"
+      constraintName="fk_cut_off_config"
+      referencedTableName="currency_dtls_config" referencedColumnNames="currency_code" onDelete="CASCADE"/>
+	  
+	  <createTable tableName="rounding_rules_config"
+      remarks="A table to rounding rules details">
+      <column name="currency_code" type="character varying(3)">
+        <constraints nullable="false"/>
+      </column>
+       <column name="rounding_rule" type="character varying(10)">
+        <constraints nullable="false"/>
+      </column>
+	  <column name="rounding_unit" type="smallint">
+      </column>
+	   <column name="amt_formt_mask_ptt" type="character varying(40)">
+        <constraints nullable="false"/>
+      </column>
+	  <column name="eur_trans_curr" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="in_leg_currency" type="character varying(3)">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="out_leg_currency" type="character varying(3)">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="euro_close_flag" type="boolean">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="credit_exchange_limit" type="float">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="debit_exchange_limit" type="float">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="extra_field_name" type="character varying(10)">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="extra_field_value" type="character varying(35)">
+        <constraints nullable="true"/>
+      </column>
+	   <column name="country_code" type="character varying(2)">
+        <constraints nullable="true"/>
+      </column>
+	  <column name="country_name" type="character varying(35)">
+        <constraints nullable="true"/>
+      </column>
+    </createTable>
+	<addForeignKeyConstraint baseTableName="rounding_rules_config" baseColumnNames="currency_code"
+      constraintName="fk_rounding_rules_config"
+      referencedTableName="cut_off_config" referencedColumnNames="currency_code" onDelete="CASCADE"/>
+	
+  </changeSet>
+</databaseChangeLog>

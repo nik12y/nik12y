@@ -6,4 +6,5 @@ type TransactionStatus {
     replyMessage: String
     errorCode: String
     isErrorToBeOverridden: String
+    validationErrors: [BusinessValidationError]
 }
