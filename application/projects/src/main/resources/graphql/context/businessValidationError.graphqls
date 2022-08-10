@@ -1,0 +1,5 @@
+type BusinessValidationError {
+    errorCode: String
+    errorMessage: String
+    errorMessageParams: [String]
+}
