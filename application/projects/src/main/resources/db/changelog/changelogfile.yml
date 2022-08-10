@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/language-table.xml
   - include:
       file: db/changelog/audit-table.xml
+  - include:
+      file: db/changelog/state-table.xml

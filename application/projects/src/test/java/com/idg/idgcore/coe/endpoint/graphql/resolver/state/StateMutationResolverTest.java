@@ -2,6 +2,7 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.state;
 
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
+
 import com.idg.idgcore.TestApplication;
 import org.json.JSONException;
 import org.junit.jupiter.api.DisplayName;
