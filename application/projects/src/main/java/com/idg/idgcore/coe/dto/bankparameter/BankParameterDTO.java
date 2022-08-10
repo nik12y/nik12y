@@ -24,8 +24,6 @@ public class BankParameterDTO extends CoreEngineBaseDTO {
     private String regulatoryBankCode;
     private String bankConciseName;
     private String groupBankingCode;
-    private String lifeCycleId;
-    private String referenceNo;
 
     private BankParameterAddressDTO bankParameterAddress;
     private BankParameterContactInfoDTO bankParameterContactInfo;

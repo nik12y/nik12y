@@ -4,8 +4,6 @@ type BankParameter {
     regulatoryBankCode: String
     bankConciseName: String
     groupBankingCode: String
-    lifeCycleId : String
-    referenceNo : String
     action : String!
     status : String!
     recordVersion : Int!

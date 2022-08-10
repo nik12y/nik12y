@@ -4,8 +4,6 @@ input BankParameterInput {
     regulatoryBankCode: String! @Size(min: 1, max: 10, message: "regulatoryBankCode.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,10}",message: "Regulatory Bank Invalid pattern")
     bankConciseName: String! @Size(min: 1, max: 10, message: "bankConciseName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,10}",message: "Bank Concise Name Invalid pattern")
     groupBankingCode: String! @Size(min: 1, max: 10, message: "groupBankingCode.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,10}",message: "Group Banking Code Invalid pattern")
-    lifeCycleId : String
-    referenceNo : String
     action : String!
     status : String!
     recordVersion : Int!

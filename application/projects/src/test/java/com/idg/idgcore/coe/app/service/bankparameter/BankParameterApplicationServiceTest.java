@@ -94,7 +94,7 @@ class BankParameterApplicationServiceTest {
         BankParameterCurrencyDTO bankParameterCurrencyDTO = new BankParameterCurrencyDTO("INR","INDIAN RUPEES",false,"INR","INR");
         BankParameterPreferencesDTO bankParameterPreferencesDTO = new BankParameterPreferencesDTO("Monday","Saturday","Sunday","","April");
         BankParameterForOdLoanDTO bankParameterForOdLoanDTO = new BankParameterForOdLoanDTO("OD_01","Regulated rule for Overdraft decision","LN_01","Regulated rule for Loan decision");
-        BankParameterDTO bankParameterDTO2=new BankParameterDTO("0002","State Bank of India","0002","SBI","SBI","","",bankParameterAddressDTO,bankParameterContactInfoDTO,bankParameterCurrencyDTO,bankParameterPreferencesDTO,bankParameterForOdLoanDTO);
+        BankParameterDTO bankParameterDTO2=new BankParameterDTO("0002","State Bank of India","0002","SBI","SBI",bankParameterAddressDTO,bankParameterContactInfoDTO,bankParameterCurrencyDTO,bankParameterPreferencesDTO,bankParameterForOdLoanDTO);
 
         String s = BankParameterDTO.builder().bankCode("0002").bankName("State Bank of India")
                 .regulatoryBankCode("0002").bankConciseName("SBI").groupBankingCode("SBI").build()
@@ -287,7 +287,7 @@ class BankParameterApplicationServiceTest {
 
     @Test
     @DisplayName("JUnit for processBankParameter in application service for Catch Block")
-    void processStateForCatchBlock() throws FatalException {
+    void processParameterForCatchBlock() throws FatalException {
         SessionContext sessionContext2=null;
         Assertions.assertThrows(Exception.class,()-> {
             bankParameterApplicationService.processBankParameter(sessionContext2, bankParameterDTO);
@@ -332,7 +332,7 @@ class BankParameterApplicationServiceTest {
         bankParameterDTOEx.setAuthorized("Y");
         given(bankParameterDomainService.getBankParameterByBankCode(bankParameterDTOEx.getBankCode())).willReturn(bankParameterEntity);
         given(bankParameterAssembler.convertEntityToDto(bankParameterEntity)).willReturn(bankParameterDTO);
-        BankParameterDTO stateDTO1 = bankParameterApplicationService.getBankParameterByBankCode(sessionContext, bankParameterDTOEx);
+        BankParameterDTO bankParameterDTO1 = bankParameterApplicationService.getBankParameterByBankCode(sessionContext, bankParameterDTOEx);
         assertThat(bankParameterDTOEx.getBankCode()).isNotBlank();
         assertThat(bankParameterDTOEx.getAuthorized()).isNotBlank();
     }
