@@ -9,7 +9,7 @@
     <changeSet id="idgc_coe_bank_identifier_code_cnfg" author="sujan">
 
         <createTable tableName="idgc_coe_bank_identifier_code_cnfg"
-                     remarks="A table to contain all the Bank Identifier Code configuration">
+                     remarks="A table to contain all the Bank Identifier code configuration">
 
             <column name="bank_identifier_code" type="varchar(11)">
                 <constraints nullable="false" primaryKey="true"/>
