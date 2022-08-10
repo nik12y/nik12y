@@ -1,9 +1,18 @@
 package com.idg.idgcore.coe.domain.entity.branchSystem;
 
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
-import lombok.*;
-
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import javax.persistence.Entity;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Inheritance;
+import javax.persistence.IdClass;
+import javax.persistence.Id;
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 
