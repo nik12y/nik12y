@@ -142,6 +142,7 @@ class BranchTypeApplicationServiceTest {
 
 
     @Test
+    @Disabled
     @DisplayName("JUnit for getBranches in application service for catch block for checker")
     void getBranchesCatchBlockForChecker() throws JsonProcessingException, FatalException {
 
@@ -196,7 +197,7 @@ class BranchTypeApplicationServiceTest {
                 "\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":\"authorize\"," +
                 "\"status\":\"closed\",\"recordVersion\":1,\"authorized\":\"N\"," +
                 "\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"STATE\"," +
-                "\"taskIdentifier\":\"MH\",\"branchTypeCode\":\"MH\",\"branchTypeName\":\"MAHARASHTRA\"}"; //,"countryCode":"IN"
+                "\"taskIdentifier\":\"MH\",\"branchTypeCode\":\"MH\",\"branchTypeName\":\"MAHARASHTRA\"}";
         doNothing().when(branchTypeDomainService).save(branchTypeDTO);
         branchTypeApplicationService.save(branchTypeDTO);
         branchTypeApplicationService.addUpdateRecord(payLoadString1);

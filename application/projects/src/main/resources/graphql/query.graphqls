@@ -30,5 +30,13 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+
+    getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
+    getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
+
+    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
+    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
+
+
 }
 
