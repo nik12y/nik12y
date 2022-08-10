@@ -8,7 +8,17 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Inheritance;
+import javax.persistence.IdClass;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import java.io.Serializable;
 import java.util.List;
 
