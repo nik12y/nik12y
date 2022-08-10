@@ -2,27 +2,24 @@ package com.idg.idgcore.coe.app.service.audit;
 
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.app.Interaction;
-import com.idg.idgcore.coe.domain.assembler.audit.*;
-import com.idg.idgcore.coe.domain.assembler.city.*;
-import com.idg.idgcore.coe.domain.assembler.country.*;
+import com.idg.idgcore.coe.domain.assembler.audit.AuditHistoryAssembler;
 import com.idg.idgcore.coe.domain.entity.audit.AuditHistoryEntity;
 import com.idg.idgcore.coe.domain.service.audit.IAuditHistoryDomainService;
 import com.idg.idgcore.coe.dto.audit.AuditHistoryDTO;
+import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.enumerations.core.TransactionMessageType;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.idg.idgcore.datatypes.core.TransactionStatus;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.idg.idgcore.coe.common.Constants.INACTIVE;
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_Y;
+import static com.idg.idgcore.coe.common.Constants.INACTIVE;
 
 @Slf4j
 @Service ("auditHistoryApplicationService")
