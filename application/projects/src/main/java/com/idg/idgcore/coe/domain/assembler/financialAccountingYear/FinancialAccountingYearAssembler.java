@@ -11,7 +11,6 @@ import javax.annotation.*;
 import java.util.*;
 import java.util.stream.*;
 
-import static com.idg.idgcore.coe.common.Constants.*;
 
 @Component
 public class FinancialAccountingYearAssembler {
@@ -31,13 +30,13 @@ public class FinancialAccountingYearAssembler {
         }).collect(Collectors.toList()));
         FinancialAccountingYearEntity outEntity = modelMapper.map(inputDTO,
                 FinancialAccountingYearEntity.class);
-        outEntity.setFinancialAccountingYearPeriodicCodes(periodEntityList);
+        outEntity.setFinancialAccountingYearPeriodicCode(periodEntityList);
         return outEntity;
     }
 
     public FinancialAccountingYearDTO convertEntityToDto (FinancialAccountingYearEntity inEntity) {
         List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = new ArrayList<>();
-        List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = inEntity.getFinancialAccountingYearPeriodicCodes();
+        List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = inEntity.getFinancialAccountingYearPeriodicCode();
         periodDTOList.addAll(periodEntityList.stream().map(dto -> {
             FinancialAccountingYearPeriodicCodeDTO periodDTO = new FinancialAccountingYearPeriodicCodeDTO();
             periodDTO.setPeriodCode(dto.getPeriodCode());
@@ -68,12 +67,5 @@ public class FinancialAccountingYearAssembler {
         return dto;
     }
 
-    public char getCharValueFromBoolean (boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar (Character value) {
-        return value.equals(CHAR_Y);
-    }
 
 }

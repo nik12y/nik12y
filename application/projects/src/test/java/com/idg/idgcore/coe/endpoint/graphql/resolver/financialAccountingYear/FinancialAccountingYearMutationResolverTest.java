@@ -1,17 +1,20 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.financialAccountingYear;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.*;
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
-import com.idg.idgcore.*;
+import com.idg.idgcore.TestApplication;
+import com.idg.idgcore.FileReaderUtil;
 import org.json.JSONException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestApplication.class)
 class FinancialAccountingYearMutationResolverTest {
@@ -19,7 +22,7 @@ class FinancialAccountingYearMutationResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
-    @DisplayName(" draft-delete ")
+    @DisplayName (" draft-delete ")
     @Test
     void processFinancialAccountingYearSaveDraftDelete() throws IOException, JSONException {
         String srcDraft = "request/financialAccountingYear/1/draft-maker-draft-finAccYear.graphqls";
@@ -30,7 +33,9 @@ class FinancialAccountingYearMutationResolverTest {
 
         assertTrue(graphQLResponseDraftDlt.getStatusCode().is2xxSuccessful());
         //                assertThat(graphQLResponseDraftDlt.isOk(), equalTo(true));
-        assertEquals(FileReaderUtil.read("response/financialAccountingYear/success-response-finAccYear.json"),graphQLResponseDraftDlt.getRawResponse().getBody(), true);
+        assertEquals(FileReaderUtil.read("response/financialAccountingYear/success-response-finAccYear.json"),graphQLResponseDraftDlt.getRawResponse().getBody());
+
+
 
     }
 

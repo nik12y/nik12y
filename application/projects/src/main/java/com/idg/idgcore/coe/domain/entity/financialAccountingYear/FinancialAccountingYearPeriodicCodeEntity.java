@@ -22,11 +22,10 @@ public class FinancialAccountingYearPeriodicCodeEntity extends AbstractAuditable
     @Column (name = "fin_acc_year_period_codes_id")
     private Long finAccYearPeriodCodesId;
     @Column (name = "financial_accounting_year_id")
-    private Integer financialAccountingYearId;
+    private Long financialAccountingYearId;
     private String periodCode;
     private Date startDateAccountingPeriod;
     private Date endDateAccountingPeriod;
-
 
 }
 

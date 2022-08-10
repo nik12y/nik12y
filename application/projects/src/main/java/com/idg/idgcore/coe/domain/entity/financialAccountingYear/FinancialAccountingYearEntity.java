@@ -34,5 +34,5 @@ public class FinancialAccountingYearEntity extends AbstractAuditableDomainEntity
 
     @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn (name = "financial_accounting_year_id")//financialAccountingYearId
-    private List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCodes;
+    private List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCode;
 }

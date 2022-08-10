@@ -129,32 +129,6 @@ class BankIdentifierApplicationServiceTest {
 //        });
 //    }
 
-    @Test
-    @DisplayName("JUnit for getBankIdentifiers in application service for try block")
-    void getBankIdentifiersTryBlock() throws JsonProcessingException, FatalException {
-
-        given(bankIdentifierDomainService.getBankIdentifiers()).willReturn(List.of(bankIdentifierEntity1));
-        given(mutationsDomainService.getUnauthorizedMutation(bankIdentifierDTO1.getTaskCode(),AUTHORIZED_N)).willReturn(List.of(mutationEntity));
-
-        String payLoadString ="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null" +
-                ",\"action\":\"authorize\",\"status\":\"closed\",\"recordVersion\":1,\"authorized\":\"N\"" +
-                ",\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"BANKIDENTIFIER\",\"taskIdentifier\":\"NWBKGB2L\"" +
-                ",\"bankIdentifierCode\":\"NWBKGB2L\",\"bankIdentifierCodeName\":\"NATIONAL WESTMINSTER BANK PLC\"" +
-                ",\"bankAddress1\":\"PREMIER PLACE, DEVONSHIRE SQUARE\",\"bankAddress2\":\"LONDON\",\"bankAddress3\":\"EC2M 4XB\"" +
-                ",\"bankAddress4\":\"UNITED KINGDOM\",\"internalAddress\":\"PREMIER PLACE, DEVONSHIRE SQUARE\"}";
-
-        Payload payload=new Payload();
-        payload.setData(payLoadString);
-        mutationEntity.setPayload(payload);
-        String data1 = mutationEntity.getPayload().getData();
-        given(bankIdentifierAssembler.convertEntityToDto(bankIdentifierEntity1)).willReturn(bankIdentifierDTO1);
-        System.out.println(bankIdentifierDTO1);
-        List<BankIdentifierDTO> bankIdentifierDTO2 = bankIdentifierApplicationService.getBankIdentifiers(sessionContext);
-        System.out.println(bankIdentifierDTO1);
-        assertThat(bankIdentifierDTO1).isNotNull();
-        System.out.println(bankIdentifierDTO1);
-
-    }
 
 //    @Test
 //    @DisplayName("JUnit for getBankIdentifiers in application service for catch block")

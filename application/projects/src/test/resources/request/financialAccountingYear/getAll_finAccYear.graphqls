@@ -1,5 +1,5 @@
 query{
-    getFinancialAccountingYearByCode(
+    getFinancialAccountingYears(
         sessionContext:{
             bankCode: "003"
             defaultBranchCode: "11411"
@@ -23,14 +23,9 @@ query{
             allTargetUnitsSelected: false
             userLocal: "en_US"
             originatingModuleCode: null
-        },
-        financialAccountingYear:{
-            bankCode:"PNI"
-            authorized:"Y"
         }
     )
     {
-
         bankCode
         branchCode
         startDate
@@ -38,7 +33,7 @@ query{
         financialAccountingYearCode
         financialAccountingYearName
         periodCodeFrequency
-        financialAccountingYearPeriodicCode {
+        financialAccountingYearPeriodicCode{
             periodCode
             startDateAccountingPeriod
             endDateAccountingPeriod
