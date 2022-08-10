@@ -20,10 +20,16 @@ public class AppVerTypeConfigEntity extends AbstractAuditableDomainEntity
         implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="app_category_type_id")
     private Integer appCategoryTypeId;
 
+    @Column(name="app_verification_type_id")
     private String appVerificationTypeId;
+
+    @Column(name="is_view_to_customer")
     private char isViewToCustomer;
+
+    @Column(name="nature")
     private String nature;
 
 }
