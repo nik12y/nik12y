@@ -10,9 +10,23 @@ type Mutation {
     processBankIdentifier(sessionContext: SessionContextInput, BankIdentifier: BankIdentifierInput): TransactionStatus
     processLanguage(sessionContext: SessionContextInput, language: LanguageInput): TransactionStatus
     processBranchType(sessionContext: SessionContextInput, branchType: BranchTypeInput): TransactionStatus
-
     processGroupBanking(sessionContext: SessionContextInput, groupBanking: GroupBankingInput ): TransactionStatus
     processCapt(sessionContext: SessionContextInput, capt: CaptInput): TransactionStatus
     processModule(sessionContext: SessionContextInput, module: ModuleInput): TransactionStatus
+    processAppVerCategoryConfigs(sessionContext: SessionContextInput, appVerCategoryConfig: AppVerCategoryConfigInput): TransactionStatus
+    processAppVerCatChecklistPolicy(sessionContext: SessionContextInput, appVerCatChecklistPolicy: AppVerCatChecklistPolicyInput): TransactionStatus
+
     processBranchParameter(sessionContext: SessionContextInput, branchParameter: BranchParameterInput): TransactionStatus
+    processBankParameter(sessionContext: SessionContextInput, bankParameter: BankParameterInput): TransactionStatus
+    processIban(sessionContext: SessionContextInput, iban: IbanInput): TransactionStatus
+    processAml(sessionContext: SessionContextInput, aml: AmlInput): TransactionStatus
+    processAppVerType(sessionContext: SessionContextInput, appVerType: AppVerTypeInput): TransactionStatus
+    processQuestionnaireChecklist(sessionContext: SessionContextInput, questionnaireChecklist: QuestionnaireChecklistInput): TransactionStatus
+    processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
+    processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
+    processPurging(sessionContext: SessionContextInput, purging: PurgingInput): TransactionStatus
+    processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus
+    processMitigant(sessionContext: SessionContextInput, mitigant: MitigantInput): TransactionStatus
+    processRiskCategory(sessionContext: SessionContextInput, riskCategory: RiskCategoryInput): TransactionStatus
+    processRiskCode(sessionContext: SessionContextInput, riskCode: RiskCodeInput): TransactionStatus
 }
