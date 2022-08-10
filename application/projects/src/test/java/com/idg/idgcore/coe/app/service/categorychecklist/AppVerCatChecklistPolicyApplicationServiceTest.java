@@ -137,10 +137,10 @@ class AppVerCatChecklistPolicyApplicationServiceTest {
     @Test
     @DisplayName("Should return all getAppVerCatChecklistPolicies when there are no unauthorized")
     void getAppVerCatChecklistPoliciesWhenThereAreNoUnauthorized() throws FatalException {
-        given(appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicys()).willReturn(List.of(appVerCatChecklistPolicyEntity));
+        given(appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicies()).willReturn(List.of(appVerCatChecklistPolicyEntity));
         given(mutationsDomainService.getUnauthorizedMutation(CHECKLIST, AUTHORIZED_N)).willReturn(List.of());
         given(appVerCatChecklistPolicyAssembler.convertEntityToDto(appVerCatChecklistPolicyEntity)).willReturn(appVerCatChecklistPolicyDTO);
-        List<AppVerCatChecklistPolicyDTO> appVerCatChecklistPolicyDTOList = appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicys(sessionContext);
+        List<AppVerCatChecklistPolicyDTO> appVerCatChecklistPolicyDTOList = appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicies(sessionContext);
         assertEquals(1, appVerCatChecklistPolicyDTOList.size());
         assertEquals(appVerCatChecklistPolicyDTO, appVerCatChecklistPolicyDTOList.get(0));
     }
@@ -160,7 +160,7 @@ class AppVerCatChecklistPolicyApplicationServiceTest {
                 appVerCatChecklistPolicyDTO1.getTaskCode(),AUTHORIZED_N))
                 .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
         Assertions.assertThrows(Exception.class,()-> {
-            List<AppVerCatChecklistPolicyDTO> appVerCatChecklistPolicyDTO1 = appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicys(sessionContext1);
+            List<AppVerCatChecklistPolicyDTO> appVerCatChecklistPolicyDTO1 = appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicies(sessionContext1);
             assertThat(appVerCatChecklistPolicyDTO1).isNotNull();
         });
     }
@@ -169,7 +169,7 @@ class AppVerCatChecklistPolicyApplicationServiceTest {
     @DisplayName("JUnit for processAppVerCatChecklistPolicys in application service for Try Block")
     void processAppVerCatChecklistPolicysForTryBlock() throws JsonProcessingException, FatalException {
         doNothing().when(process).process(appVerCatChecklistPolicyDTO);
-        appVerCatChecklistPolicyApplicationService.processAppVerCatChecklistPolicys(sessionContext, appVerCatChecklistPolicyDTO);
+        appVerCatChecklistPolicyApplicationService.processAppVerCatChecklistPolicies(sessionContext, appVerCatChecklistPolicyDTO);
         verify(process, times(1)).process(appVerCatChecklistPolicyDTO);
     }
 
@@ -179,7 +179,7 @@ class AppVerCatChecklistPolicyApplicationServiceTest {
     void processAppVerCatChecklistPolicysForCatchBlock() throws FatalException {
         SessionContext sessionContext2=null;
         Assertions.assertThrows(Exception.class,()-> {
-            appVerCatChecklistPolicyApplicationService.processAppVerCatChecklistPolicys(sessionContext2, appVerCatChecklistPolicyDTO);
+            appVerCatChecklistPolicyApplicationService.processAppVerCatChecklistPolicies(sessionContext2, appVerCatChecklistPolicyDTO);
             assertThat(appVerCatChecklistPolicyDTO).descriptionText();
         });
     }
@@ -280,11 +280,12 @@ class AppVerCatChecklistPolicyApplicationServiceTest {
         AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTOO= new AppVerCatChecklistPolicyDTO();
         AppVerCatChecklistPolicyEntity appVerCatChecklistPolicyEntity5 = new AppVerCatChecklistPolicyEntity();
 //        given(mutationsDomainService.getUnauthorizedMutation(appVerCatChecklistPolicyDTOO.getTaskCode(),AUTHORIZED_N)).willReturn(List.of(mutationEntity3));
-//        given(appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicys()).willReturn(List.of(appVerCatChecklistPolicyEntity5));
+//        given(appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicies()).willReturn(List.of(appVerCatChecklistPolicyEntity5));
 //        given(appVerCatChecklistPolicyAssembler.convertEntityToDto(appVerCatChecklistPolicyEntity5)).willReturn(appVerCatChecklistPolicyDTOO);
 //        given(appVerCatChecklistPolicyAssembler.setAuditFields(mutationEntity,appVerCatChecklistPolicyDTOO)).willReturn(appVerCatChecklistPolicyDTOO);
+        SessionContext sessionContext2=null;
         Assertions.assertThrows(Exception.class,()-> {
-            List<AppVerCatChecklistPolicyDTO> appVerCatChecklistPolicyDTO2 = appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicys(sessionContext1);
+            List<AppVerCatChecklistPolicyDTO> appVerCatChecklistPolicyDTO2 = appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicies(sessionContext2);
             assertThat(sessionContext1.getRole()).isNotEmpty();
             assertThat(sessionContext1.getServiceInvocationModeType()).isNotNull();
         });
@@ -373,6 +374,8 @@ class AppVerCatChecklistPolicyApplicationServiceTest {
         appVerCatChecklistPolicyEntity.setEntity("Customer");
         appVerCatChecklistPolicyEntity.setRuleId("RL0001");
         appVerCatChecklistPolicyEntity.setStatus("draft");
+        appVerCatChecklistPolicyEntity.setLifeCycleId("LC001");
+        appVerCatChecklistPolicyEntity.setReferenceNo("RN001");
         appVerCatChecklistPolicyEntity.setRecordVersion(0);
         return appVerCatChecklistPolicyEntity;
     }

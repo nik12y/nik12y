@@ -45,7 +45,7 @@ class AppVerCatChecklistPolicyDomainServiceTest {
         @DisplayName("Junit test for AppVerCategoryConfigs method ")
         void getAppVerCategoryConfigsReturnStatesList() {
             given(appVerCatChecklistPolicyRepository.findAll()).willReturn(List.of(appVerCatChecklistPolicyEntity));
-            List<AppVerCatChecklistPolicyEntity> appVerCatChecklistPolicyEntityList = appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicys();
+            List<AppVerCatChecklistPolicyEntity> appVerCatChecklistPolicyEntityList = appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicies();
             assertThat(appVerCatChecklistPolicyEntityList).isNotNull();
             assertThat(appVerCatChecklistPolicyEntityList.size()).isEqualTo(1);
         }
@@ -56,7 +56,7 @@ class AppVerCatChecklistPolicyDomainServiceTest {
         void getAppVerCategoryConfigsEmptyStateEntityList()
         {
             given(appVerCatChecklistPolicyRepository.findAll()).willReturn(Collections.emptyList());
-            List<AppVerCatChecklistPolicyEntity> appVerCatChecklistPolicyEntityList = appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicys();
+            List<AppVerCatChecklistPolicyEntity> appVerCatChecklistPolicyEntityList = appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicies();
             assertThat(appVerCatChecklistPolicyEntityList).isEmpty();
             assertThat(appVerCatChecklistPolicyEntityList.size()).isEqualTo(0);
 

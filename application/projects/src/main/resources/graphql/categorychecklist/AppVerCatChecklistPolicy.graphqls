@@ -14,5 +14,4 @@ type AppVerCatChecklistPolicy {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
-#    appVerChecklistPolicyCategory: [AppVerChecklistPolicyCategory]
 }

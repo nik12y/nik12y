@@ -92,7 +92,7 @@ public class AppVerCatChecklistPolicyApplicationService extends AbstractApplicat
     }
 
 
-    public List<AppVerCatChecklistPolicyDTO> getAppVerCatChecklistPolicys (SessionContext sessionContext) throws FatalException {
+    public List<AppVerCatChecklistPolicyDTO> getAppVerCatChecklistPolicies (SessionContext sessionContext) throws FatalException {
 
         if (log.isErrorEnabled()) {
             log.info("In getAppVerCatChecklistPolicys with parameters sessionContext {}", sessionContext);
@@ -105,7 +105,7 @@ public class AppVerCatChecklistPolicyApplicationService extends AbstractApplicat
         try {
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
                     getTaskCode(),AUTHORIZED_N);
-            appVerCatChecklistPolicyDTOList.addAll(appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicys().stream()
+            appVerCatChecklistPolicyDTOList.addAll(appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicies().stream()
                     .map(entity -> appVerCatChecklistPolicyAssembler.convertEntityToDto(entity))
                     .collect(Collectors.toList()));
             appVerCatChecklistPolicyDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
@@ -135,7 +135,7 @@ public class AppVerCatChecklistPolicyApplicationService extends AbstractApplicat
     }
 
     //    @Transactional
-    public TransactionStatus processAppVerCatChecklistPolicys (SessionContext sessionContext, AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO)
+    public TransactionStatus processAppVerCatChecklistPolicies (SessionContext sessionContext, AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO)
             throws FatalException {
         if (log.isErrorEnabled()) {
             log.info("In processAppVerCatChecklistPolicys with parameters sessionContext {}, appVerCatChecklistPolicyDTO {}",

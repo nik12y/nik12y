@@ -8,7 +8,7 @@ import java.util.List;
 public interface IAppVerCatChecklistPolicyDomainService {
 
     AppVerCatChecklistPolicyEntity getConfigurationByCode (AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO);
-    List<AppVerCatChecklistPolicyEntity> getAppVerChecklistPolicys();
+    List<AppVerCatChecklistPolicyEntity> getAppVerChecklistPolicies();
     AppVerCatChecklistPolicyEntity getAppVerChecklistPolicyById (String appVerChecklistPolicyId);
     void save (AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO);
 }

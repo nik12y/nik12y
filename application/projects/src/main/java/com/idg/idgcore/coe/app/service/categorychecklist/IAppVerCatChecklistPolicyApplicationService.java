@@ -10,11 +10,11 @@ import com.idg.idgcore.dto.context.SessionContext;
 import java.util.List;
 
     public interface IAppVerCatChecklistPolicyApplicationService extends IBaseApplicationService {
-        TransactionStatus processAppVerCatChecklistPolicys (SessionContext sessionContext, AppVerCatChecklistPolicyDTO dto) throws FatalException,
+        TransactionStatus processAppVerCatChecklistPolicies (SessionContext sessionContext, AppVerCatChecklistPolicyDTO dto) throws FatalException,
                 JsonProcessingException;
         void save (AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO);
         AppVerCatChecklistPolicyDTO getAppVerCatChecklistPolicyById(SessionContext sessionContext, AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO)
                 throws FatalException, JsonProcessingException;
-        List<AppVerCatChecklistPolicyDTO> getAppVerCatChecklistPolicys (SessionContext sessionContext)
+        List<AppVerCatChecklistPolicyDTO> getAppVerCatChecklistPolicies (SessionContext sessionContext)
                 throws FatalException;
     }

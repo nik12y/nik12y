@@ -42,7 +42,7 @@ public class AppVerCatChecklistPolicyDomainService implements IAppVerCatChecklis
     }
 
     @Override
-    public List<AppVerCatChecklistPolicyEntity> getAppVerChecklistPolicys() {
+    public List<AppVerCatChecklistPolicyEntity> getAppVerChecklistPolicies() {
         return this.appVerCatChecklistPolicyRepository.findAll();
     }
 

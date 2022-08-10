@@ -19,7 +19,7 @@ public class AppVerCatChecklistPolicyMutationResolver implements GraphQLMutation
 
     public TransactionStatus processAppVerCatChecklistPolicy(SessionContext sessionContext, AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO)
             throws FatalException, JsonProcessingException {
-        return this.appVerCatChecklistPolicyApplicationService.processAppVerCatChecklistPolicys(sessionContext, appVerCatChecklistPolicyDTO);
+        return this.appVerCatChecklistPolicyApplicationService.processAppVerCatChecklistPolicies(sessionContext, appVerCatChecklistPolicyDTO);
     }
 
 }

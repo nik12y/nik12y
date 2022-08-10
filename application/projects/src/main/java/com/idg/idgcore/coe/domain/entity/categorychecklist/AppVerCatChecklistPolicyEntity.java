@@ -21,13 +21,28 @@ public class AppVerCatChecklistPolicyEntity extends AbstractAuditableDomainEntit
         implements Serializable {
 
         @Id
+        @Column(name="app_ver_checklist_policy_id")
         private String appVerChecklistPolicyId;
+
+        @Column(name="app_ver_checklist_policy_desc")
         private String appVerChecklistPolicyDesc;
+
+        @Column(name="domain_id")
         private String domainId;
+
+        @Column(name="domain_category_id")
         private String domainCategoryId;
+
+        @Column(name="event_id")
         private String eventId;
+
+        @Column(name="effective_date")
         private Date effectiveDate;
+
+        @Column(name="entity")
         private String entity;
+
+        @Column(name="rule_id")
         private String ruleId;
 
 
@@ -37,9 +52,22 @@ public class AppVerCatChecklistPolicyEntity extends AbstractAuditableDomainEntit
 //
 
 
+        @Column(name="life_cycle_id")
+        private String lifeCycleId;
+
+        @Column(name="reference_no")
+        private String referenceNo;
+
+        @Column(name="record_status")
         private String status;
+
+        @Column(name="record_version")
         private Integer recordVersion;
+
+        @Column(name="is_authorized")
         private String authorized;
+
+        @Column(name="last_configuration_action")
         private String lastConfigurationAction;
 }
 

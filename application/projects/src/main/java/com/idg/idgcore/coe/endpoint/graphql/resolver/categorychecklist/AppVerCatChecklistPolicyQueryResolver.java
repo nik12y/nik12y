@@ -25,6 +25,6 @@ public class AppVerCatChecklistPolicyQueryResolver implements GraphQLQueryResolv
 
     public List<AppVerCatChecklistPolicyDTO> getAppVerCatChecklistPolicies(SessionContext sessionContext)
             throws FatalException {
-        return this.appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicys(sessionContext);
+        return this.appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicies(sessionContext);
     }
 }
