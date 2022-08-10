@@ -2,11 +2,9 @@ package com.idg.idgcore.coe.app.config.kafka;
 
 import com.idg.idgcore.coe.exception.*;
 import com.idg.idgcore.coe.exception.Error;
-import org.apache.kafka.clients.producer.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import java.util.Objects;
 
 @Component
 public class KafkaProducer {

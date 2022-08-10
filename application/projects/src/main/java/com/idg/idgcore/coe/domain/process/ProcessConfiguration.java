@@ -91,9 +91,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
            }
        }
        catch (BusinessException e){
-           if (e instanceof BusinessException) {
                throw e;
-           }
        }
     }
 
@@ -148,7 +146,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
             mutationsDomainService.addUpdate(dto);
         }
         catch (BusinessException e) {
-            throw new BusinessException(e);
+            throw e;
         }
     }
 
