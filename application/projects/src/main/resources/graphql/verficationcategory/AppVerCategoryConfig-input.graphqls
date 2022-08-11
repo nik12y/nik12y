@@ -1,0 +1,13 @@
+input AppVerCategoryConfigInput {
+    appVerificationCategoryId: String! @Size(min: 1, max: 50, message: "appVerificationCategoryId.message") @Pattern(regexp: "[A-Za-z0-9 ]{1,50}",message: "Verfication Category ID Invalid pattern")
+    verificationCategoryDesc : String! @Size(min: 1, max: 100, message: "verificationCategoryDesc.message") @Pattern(regexp: ".[A-Za-z0-9 .,–()/=‘+:?!”%&*<>;{@#_]{1,100}",message: "Verification Category description Invalid pattern")
+    isExternal : Boolean!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    appVerTypeConfig: [AppVerTypeConfigInput]
+}
