@@ -1,0 +1,8 @@
+type BranchParameterMiscellaneous {
+    miscDenominationTrackingRequired: Boolean!
+    miscCurrencyOfDenomination: String!
+    miscWeekBeginDay: String!
+    miscWeeklyOff1: String!
+    miscWeeklyOff2: String!
+    miscFinancialYearBeginMonth: String!
+}

@@ -23,12 +23,18 @@ type Query{
     getLanguages(sessionContext: SessionContextInput): [Language]
     getBranchTypeByCode(sessionContext: SessionContextInput, branchType: BranchTypeInputQuery): BranchType
     getBranches(sessionContext: SessionContextInput): [BranchType]
+
     getGroupBankByCode(sessionContext: SessionContextInput, groupBankQuery: GroupBankingInputQuery): GroupBanking
     getGroupBanks(sessionContext: SessionContextInput):[GroupBanking]
     getCaptByCode(sessionContext: SessionContextInput, captQuery: CaptInputQuery): Capt
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+    getAppVerCategoryConfigs(sessionContext: SessionContextInput): [AppVerCategoryConfig]
+    getAppVerCategoryConfigByID(sessionContext: SessionContextInput, AppVerCategoryConfigQuery: AppVerCategoryConfigInputQuery): AppVerCategoryConfig
+
+    getBranchSystemDateByCode(sessionContext: SessionContextInput, branchSystemDateQuery: BranchSystemDateInputQuery): BranchSystemDate
+    getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
 
     getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
     getQuestions(sessionContext: SessionContextInput):[Question]

@@ -1,0 +1,6 @@
+input BranchParameterContactInfoInput {
+    telephoneNo: String
+    faxNo: String
+    emailId: String
+    bankWebsite: String
+ }

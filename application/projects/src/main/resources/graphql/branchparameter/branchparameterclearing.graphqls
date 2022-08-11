@@ -1,0 +1,4 @@
+type BranchParameterClearing {
+    clearingLocalPaymentBranch: String!
+    clearingCurrencyCode: String!
+}
