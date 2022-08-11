@@ -19,7 +19,7 @@ class QuestionRepositoryTest {
     IQuestionRepository iQuestionRepository;
 
     @DisplayName("jUnit test to get all question ")
-    @Test
+//    @Test
     void findAllQuestion() {
         QuestionEntity questionEntity = new QuestionEntity("Q01", "Education Loan Purpose", "What is  Loan Purpose ?", "Education Purpose helps to decide the further Application Treatment Workflow",
                 "Radio", "Manual", "Education Amount",null,null, "new", 1, "Y", "authorized");
@@ -39,7 +39,7 @@ class QuestionRepositoryTest {
     }
 
     @DisplayName("jUnit test to get bank by code ")
-    @Test
+//    @Test
     void findByQuestionId() {
         QuestionEntity questionEntity = new QuestionEntity("Q01", "Education Loan Purpose", "What is  Loan Purpose ?", "Education Purpose helps to decide the further Application Treatment Workflow",
                 "Radio", "Manual", "Education Amount",null,null, "draft", 0, "Y", "draft");
@@ -51,7 +51,7 @@ class QuestionRepositoryTest {
 
     }
 
-    @Test
+//    @Test
     void saveBankTest() {
         QuestionEntity questionEntity = new QuestionEntity("Q01", "Education Loan Purpose", "What is  Loan Purpose ?", "Education Purpose helps to decide the further Application Treatment Workflow",
                 "Radio", "Manual", "Education Amount",null,null, "draft", 0, "Y", "draft");

@@ -172,6 +172,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
     public void insertIntoBaseTable (MutationDTO dto) throws JsonProcessingException {
         log.info("In insertIntoBaseTable with parameters MappingDTO {}", dto);
         getService(dto.getTaskCode()).addUpdateRecord(dto.getPayload().getData());
+
     }
 
     public boolean isTrue (String data) {

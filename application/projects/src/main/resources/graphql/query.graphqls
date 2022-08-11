@@ -70,5 +70,7 @@ type Query{
 
     getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
     getZakats(sessionContext: SessionContextInput): [Zakat]
+    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
+    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear]
 }
 

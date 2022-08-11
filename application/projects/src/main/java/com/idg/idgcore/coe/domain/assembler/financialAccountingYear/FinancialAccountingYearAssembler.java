@@ -38,23 +38,30 @@ public class FinancialAccountingYearAssembler {
     }
 
     public FinancialAccountingYearDTO convertEntityToDto (FinancialAccountingYearEntity inEntity) {
-        List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = new ArrayList<>();
-        List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = inEntity.getFinancialAccountingYearPeriodicCode();
-        periodDTOList.addAll(periodEntityList.stream().map(dto -> {
-            FinancialAccountingYearPeriodicCodeDTO periodDTO = new FinancialAccountingYearPeriodicCodeDTO();
-
-            periodDTO.setPeriodCode(dto.getPeriodCode());
-            periodDTO.setStartDateAccountingPeriod(formatter.format(dto.getStartDateAccountingPeriod()));
-            periodDTO.setEndDateAccountingPeriod(formatter.format(dto.getEndDateAccountingPeriod()));
-            return periodDTO;
-        }).collect(Collectors.toList()));
-        FinancialAccountingYearDTO outDTO = modelMapper.map(inEntity,
-                FinancialAccountingYearDTO.class);
-
-        outDTO.setStartDate(formatter.format(inEntity.getStartDate()));
-        outDTO.setEndDate(formatter.format(inEntity.getEndDate()));
-        outDTO.setFinancialAccountingYearPeriodicCode(periodDTOList);
-        return outDTO;
+        if (!(inEntity == null)) {
+            List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = new ArrayList<>();
+            List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = inEntity.getFinancialAccountingYearPeriodicCode();
+            periodDTOList.addAll(periodEntityList.stream().map(dto -> {
+                FinancialAccountingYearPeriodicCodeDTO periodDTO = new FinancialAccountingYearPeriodicCodeDTO();
+                periodDTO.setPeriodCode(dto.getPeriodCode());
+                periodDTO.setStartDateAccountingPeriod(
+                        formatter.format(dto.getStartDateAccountingPeriod()));
+                periodDTO.setEndDateAccountingPeriod(
+                        formatter.format(dto.getEndDateAccountingPeriod()));
+                return periodDTO;
+            }).collect(Collectors.toList()));
+            FinancialAccountingYearDTO outDTO = modelMapper.map(inEntity,
+                    FinancialAccountingYearDTO.class);
+            outDTO.setStartDate(formatter.format(inEntity.getStartDate()));
+            outDTO.setEndDate(formatter.format(inEntity.getEndDate()));
+            outDTO.setFinancialAccountingYearPeriodicCode(periodDTOList);
+            return outDTO;
+        }
+        else {
+            FinancialAccountingYearDTO outDTO = modelMapper.map(inEntity,
+                    FinancialAccountingYearDTO.class);
+            return outDTO;
+        }
     }
 
     public FinancialAccountingYearDTO setAuditFields (MutationEntity mutationEntity,

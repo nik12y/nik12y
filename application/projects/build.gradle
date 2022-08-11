@@ -76,6 +76,11 @@ dependencies {
     implementation 'com.idg.idgcore.appcore:com.idg.idgcore.appcore:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.infra:com.idg.idgcore.infra:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.enumeration.fmw:com.idg.idgcore.enumeration.fmw:1.0-SNAPSHOT'
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.9.0'
+
+    implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
+
+
 }
 
 tasks.named('test') {
