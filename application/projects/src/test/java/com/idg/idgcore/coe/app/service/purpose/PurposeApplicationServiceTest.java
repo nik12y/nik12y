@@ -507,7 +507,7 @@ class PurposeApplicationServiceTest {
 
     private PurposeEntity getPurposeEntity(){
         PurposeEntity purposeEntity = new PurposeEntity("PC0007", "test",
-                "test", "test","draft",0, "Y","draft");
+                "test", "test",null, null,0, "draft", "Y","draft");
 
         return purposeEntity;
     }
@@ -515,7 +515,7 @@ class PurposeApplicationServiceTest {
     private PurposeEntity getPurposesEntity(){
 
         PurposeEntity purposeEntity = new PurposeEntity("PC0006", "test6",
-                "test6", "test6", "DELETED",1, null,null);
+                "test6", "test6", null, null,1, "DELETED", null,null);
 
         PurposeEntityKey purposeEntityKey = new PurposeEntityKey("PC0007");
         System.out.println(purposeEntityKey);

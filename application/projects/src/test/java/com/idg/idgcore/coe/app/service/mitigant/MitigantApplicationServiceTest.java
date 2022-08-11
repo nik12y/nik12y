@@ -249,7 +249,7 @@ public class MitigantApplicationServiceTest {
         MitigantDTO.builder().mitigantCode("CR0001").mitigantCodeName("test1").mitigantCodeDesc("test1").isAllowModification(true).isActionable(true).mitigantRiskCode(List.of()).build();
         MitigantEntityKey mitigantEntityKey=new MitigantEntityKey("CR0001");
         MitigantEntityKey mitigantEntityKey1=new MitigantEntityKey();
-        MitigantEntity mitigantEntity2=new MitigantEntity("CR0001","test1","test1",'Y','Y',List.of(),"draft",1,"N","draft");
+        MitigantEntity mitigantEntity2=new MitigantEntity("CR0001","test1","test1",'Y','Y',null,null,List.of(),"draft",1,"N","draft");
         MitigantRiskCodeEntity mitigantRiskEntity=new MitigantRiskCodeEntity();
         mitigantRiskEntity.setMitigantRiskCodeId(1);
         assertThat(mitigantEntityKey1.toString()).isNotNull();

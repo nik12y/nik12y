@@ -45,6 +45,7 @@ public class ServiceBeanConfig {
         beanMappings.put(QUESTION,QUESTION_SERVICE);
         beanMappings.put(QUESTION_CATEGORY,QUESTION_CATEGORY_SERVICE);
 
+        beanMappings.put(ZAKAT, ZAKAT_SERVICE);
     }
 
     public Map<String, String> getBeanConfig () {
