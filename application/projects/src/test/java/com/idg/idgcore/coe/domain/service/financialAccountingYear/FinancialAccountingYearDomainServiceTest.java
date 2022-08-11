@@ -3,6 +3,7 @@ package com.idg.idgcore.coe.domain.service.financialAccountingYear;
 import com.idg.idgcore.coe.domain.entity.financialAccountingYear.*;
 import com.idg.idgcore.coe.domain.repository.financialAccountingYear.*;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
+import com.idg.idgcore.datatypes.exceptions.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 import org.mockito.*;
@@ -78,15 +79,17 @@ class FinancialAccountingYearDomainServiceTest {
         assertThat(financialAccountingYearByCode).isNotNull();
     }
 
-/*
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
     void getConfigurationByCodeCatchBlock() {
         FinancialAccountingYearDTO financialAccountingYearDTO = null;
         assertThrows(BusinessException.class,()-> {
-            FinancialAccountingYearEntity financialAccountingYearByCode = financialAccountingYearDomainService.getConfigurationByCode(financialAccountingYearDTO);
+            FinancialAccountingYearEntity financialAccountingYearByCode = domainService.getConfigurationByCode(financialAccountingYearDTO);
         });
-    }*/
+    }
+
+
+
 
     @Test
     @DisplayName ("JUnit test for getConfigurationByCode for Catch Block method")
@@ -146,8 +149,9 @@ class FinancialAccountingYearDomainServiceTest {
 
     private FinancialAccountingYearDTO getFinancialAccountingYearDTO () {
         List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
-        Date sDate = getDate("2022-01-01");
-        Date eDate = getDate("2022-12-31");
+        String sDate = "2022-01-01";
+        String eDate = "2022-12-31";
+
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 1L, "JAN", sDate, eDate);
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
@@ -165,8 +169,8 @@ class FinancialAccountingYearDomainServiceTest {
         financialAccountingYearDTO.setBankCode("BNP");
         financialAccountingYearDTO.setFinancialAccountingYearId(1L);
         financialAccountingYearDTO.setBranchCode("CBB");
-        financialAccountingYearDTO.setStartDate(getDate("2022-01-01"));
-        financialAccountingYearDTO.setEndDate(getDate("2022-02-28"));
+        financialAccountingYearDTO.setStartDate(sDate);
+        financialAccountingYearDTO.setEndDate(eDate);
         financialAccountingYearDTO.setFinancialAccountingYearCode("FY2022");
         financialAccountingYearDTO.setFinancialAccountingYearName(
                 "Financial Accounting Year FY 2022");

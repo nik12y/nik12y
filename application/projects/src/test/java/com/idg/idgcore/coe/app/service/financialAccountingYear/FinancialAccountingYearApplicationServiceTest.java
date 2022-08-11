@@ -62,7 +62,6 @@ class FinancialAccountingYearApplicationServiceTest {
         sessionContext1 = getErrorSession();
         financialAccountingYearDTO = getFinancialAccountingYearDTOAuthorized();
         financialAccountingYearEntity = getFinancialAccountingYearEntity();
-
         mutationEntity = getMutationEntity();
         financialAccountingYearEntity1 = getCitiesEntity();
         financialAccountingYearEntity2 = getCitiesEntity2();
@@ -79,7 +78,6 @@ class FinancialAccountingYearApplicationServiceTest {
                 financialAccountingYearEntity);
         given(assembler.convertEntityToDto(
                 financialAccountingYearEntity)).willReturn(financialAccountingYearDTO);
-
         FinancialAccountingYearDTO financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYearByCode(
                 sessionContext, financialAccountingYearDTO);
         assertEquals("Y", financialAccountingYearDTO1.getAuthorized());
@@ -124,14 +122,15 @@ class FinancialAccountingYearApplicationServiceTest {
         FinancialAccountingYearEntity financialAccountingYearEntity = getFinancialAccountingYearEntityDeleted();
         FinancialAccountingYearDTO financialAccountingYearDTO = getFinancialAccountingYearDTODeleted();
         MutationEntity unauthorizedEntities = getMutationEntityDeleted();
-        given(domainService.getFinancialAccountingYears()).willReturn(List.of(financialAccountingYearEntity));
-        given(assembler.convertEntityToDto(financialAccountingYearEntity)).willReturn(financialAccountingYearDTO);
-        List<FinancialAccountingYearDTO> financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYears(sessionContext);
+        given(domainService.getFinancialAccountingYears()).willReturn(
+                List.of(financialAccountingYearEntity));
+        given(assembler.convertEntityToDto(financialAccountingYearEntity)).willReturn(
+                financialAccountingYearDTO);
+        List<FinancialAccountingYearDTO> financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYears(
+                sessionContext);
         assertThat(financialAccountingYearEntity.toString()).isNotNull();
         assertThat(financialAccountingYearDTO1).isNotNull();
     }
-
-
 
     @Test
     @DisplayName ("JUnit for getByFinancialAccountingYearCode in application service when Not Authorize in catch block")
@@ -139,12 +138,12 @@ class FinancialAccountingYearApplicationServiceTest {
             JsonProcessingException {
         ModelMapper mapper = new ModelMapper();
         PayloadDTO payload = new PayloadDTO(payLoadString1);
-        System.out.println(" payload : "+payload);
+        System.out.println(" payload : " + payload);
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
         PayloadDTO helper = org.mockito.Mockito.mock(PayloadDTO.class);
-
         Assertions.assertThrows(Exception.class, () -> {
-            FinancialAccountingYearDTO financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYearByCode(sessionContext, financialAccountingYearDTOMapper);
+            FinancialAccountingYearDTO financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYearByCode(
+                    sessionContext, financialAccountingYearDTOMapper);
             assertEquals("N", financialAccountingYearDTO1.getAuthorized());
             assertThat(financialAccountingYearDTO1).isNotNull();
             System.out.println(financialAccountingYearDTO1);
@@ -154,10 +153,10 @@ class FinancialAccountingYearApplicationServiceTest {
     @DisplayName ("Test processFinancialAccountingYear")
     @Test
     void processFinancialAccountingYear () throws JsonProcessingException, FatalException {
-
         financialAccountingYearDTOMapper = getFinancialAccountingYearDTOMapper();
         doNothing().when(process).process(financialAccountingYearDTOMapper);
-        financialAccountingYearApplicationService.processFinancialAccountingYear(sessionContext, financialAccountingYearDTOMapper);
+        financialAccountingYearApplicationService.processFinancialAccountingYear(sessionContext,
+                financialAccountingYearDTOMapper);
         verify(process, times(1)).process(financialAccountingYearDTOMapper);
     }
 
@@ -174,24 +173,35 @@ class FinancialAccountingYearApplicationServiceTest {
 
     @Test
     void getConfigurationByCode () {
-
         FinancialAccountingYearEntity financialAccountingYearEntity = getFinancialAccountingYearEntityDeleted();
         FinancialAccountingYearDTO financialAccountingYearDTO = getFinancialAccountingYearDTODeleted();
-            String code = financialAccountingYearDTO.getBankCode();
-            given(domainService.getFinancialAccountingYearByCode(code)).willReturn(financialAccountingYearEntity);
+        String code = financialAccountingYearDTO.getBankCode();
+        given(domainService.getFinancialAccountingYearByCode(code)).willReturn(
+                financialAccountingYearEntity);
         financialAccountingYearApplicationService.getConfigurationByCode(code);
-            assertThat(financialAccountingYearEntity).isNotNull();
+        assertThat(financialAccountingYearEntity).isNotNull();
     }
 
     @Test
     void save () {
         financialAccountingYearDTOMapper = getFinancialAccountingYearDTOMapper();
         doNothing().when(domainService).save(financialAccountingYearDTOMapper);
-        financialAccountingYearApplicationService.save( financialAccountingYearDTOMapper);
+        financialAccountingYearApplicationService.save(financialAccountingYearDTOMapper);
         verify(domainService, times(1)).save(financialAccountingYearDTOMapper);
-
+    }
+    @Test
+    void testBuilder(){
+        FinancialAccountingYearDTO financialAccountingYearDTODeletedBuilder = getFinancialAccountingYearDTODeletedBuilder();
+        assertThat(financialAccountingYearDTODeletedBuilder.toString()).isNotNull();
     }
 
+    @Test
+    void test(){
+        FinancialAccountingYearEntity financialAccountingYearEntity = getFinancialAccountingYearEntityDeleted();
+        List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCode = financialAccountingYearEntity.getFinancialAccountingYearPeriodicCode();
+        assertThat(financialAccountingYearPeriodicCode.toString()).isNotNull();
+
+    }
     private SessionContext getValidSessionContext () {
         SessionContext sessionContext = SessionContext.builder()
                 .bankCode("003").defaultBranchCode("1141").internalTransactionReferenceNumber("")
@@ -232,8 +242,8 @@ class FinancialAccountingYearApplicationServiceTest {
 
     private FinancialAccountingYearDTO getFinancialAccountingYearDTOAuthorized () {
         List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
-        Date sDate = getDate("2022-01-01");
-        Date eDate = getDate("2022-12-31");
+        String sDate = "2022-01-01";
+        String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 1L, "JAN", sDate, eDate);
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
@@ -258,8 +268,8 @@ class FinancialAccountingYearApplicationServiceTest {
 
     private FinancialAccountingYearDTO getFinancialAccountingYearDTO () {
         List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
-        Date sDate = getDate("2022-01-01");
-        Date eDate = getDate("2022-12-31");
+        String sDate = "2022-01-01";
+        String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 1L, "JAN", sDate, eDate);
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
@@ -307,12 +317,12 @@ class FinancialAccountingYearApplicationServiceTest {
         periodicCodeEntityList.add(entity2);
         periodicCodeEntityList.add(entity3);
         financialAccountingYearEntity =
-                new FinancialAccountingYearEntity(1L, "BNP", "CBB", getDate("2022-01-01"), getDate("2022-02-28"),
+                new FinancialAccountingYearEntity(1L, "BNP", "CBB", getDate("2022-01-01"),
+                        getDate("2022-02-28"),
                         "FY2022", "Financial Accounting Year FY 2022",
-                        "Half-Yearly", "new", 1, "Y", "new",
+                        "Half-Yearly", "new", "1", "new", 1, "Y", "",
                         financialAccountingYearPeriodicCodeList);
         return financialAccountingYearEntity;
-
     }
 
     private FinancialAccountingYearEntity getCitiesEntity () {
@@ -335,11 +345,10 @@ class FinancialAccountingYearApplicationServiceTest {
     }
 
     private FinancialAccountingYearDTO getFinancialAccountingYearDTOUnAuth () {
-
         FinancialAccountingYearDTO financialAccountingYearDTOUnAuth;
         List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
-        Date sDate = getDate("2022-01-01");
-        Date eDate = getDate("2022-01-01");
+        String sDate = "2022-01-01";
+        String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 1L, "JAN", sDate, eDate);
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
@@ -352,14 +361,15 @@ class FinancialAccountingYearApplicationServiceTest {
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
-        financialAccountingYearDTOUnAuth=new FinancialAccountingYearDTO();
+        financialAccountingYearDTOUnAuth = new FinancialAccountingYearDTO();
         financialAccountingYearDTOUnAuth.setFinancialAccountingYearId(1L);
         financialAccountingYearDTOUnAuth.setBankCode("BNP");
         financialAccountingYearDTOUnAuth.setBranchCode("CBB");
         financialAccountingYearDTOUnAuth.setStartDate(sDate);
         financialAccountingYearDTOUnAuth.setEndDate(eDate);
         financialAccountingYearDTOUnAuth.setFinancialAccountingYearCode("FY2022");
-        financialAccountingYearDTOUnAuth.setFinancialAccountingYearName("Financial Accounting Year FY 2022");
+        financialAccountingYearDTOUnAuth.setFinancialAccountingYearName(
+                "Financial Accounting Year FY 2022");
         financialAccountingYearDTOUnAuth.setPeriodCodeFrequency("Half-Yearly");
         financialAccountingYearDTOUnAuth.setStatus("draft");
         financialAccountingYearDTOUnAuth.setRecordVersion(0);
@@ -368,15 +378,15 @@ class FinancialAccountingYearApplicationServiceTest {
         financialAccountingYearDTOUnAuth.setAction("draft");
         financialAccountingYearDTOUnAuth.setTaskCode("FIN_ACC_YEAR");
         financialAccountingYearDTOUnAuth.setTaskIdentifier("BNP");
-        financialAccountingYearDTOUnAuth.setFinancialAccountingYearPeriodicCode(financialAccountingYearPeriodicCodeList);
+        financialAccountingYearDTOUnAuth.setFinancialAccountingYearPeriodicCode(
+                financialAccountingYearPeriodicCodeList);
         return financialAccountingYearDTOUnAuth;
     }
 
     private FinancialAccountingYearDTO getFinancialAccountingYearDTOMapper () {
-
         List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
-        Date sDate = getDate("2022-01-01");
-        Date eDate = getDate("2022-12-31");
+        String sDate = "2022-01-01";
+        String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 1L, "JAN", sDate, eDate);
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
@@ -449,7 +459,6 @@ class FinancialAccountingYearApplicationServiceTest {
 
     private FinancialAccountingYearEntity getFinancialAccountingYearEntityDeleted () {
         FinancialAccountingYearEntity financialAccountingYearEntityDeleted = new FinancialAccountingYearEntity();
-
         List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCodeList = new ArrayList<>();
         FinancialAccountingYearPeriodicCodeEntity entity1 = new FinancialAccountingYearPeriodicCodeEntity(
                 1L, 2021L, "JAN", getDate("2022-01-01"), getDate("2022-12-31"));
@@ -466,22 +475,20 @@ class FinancialAccountingYearApplicationServiceTest {
         periodicCodeEntityList.add(entity2);
         periodicCodeEntityList.add(entity3);
         financialAccountingYearEntityDeleted =
-                new FinancialAccountingYearEntity(1L, "BNP", "CBB", getDate("2022-01-01"), getDate("2022-02-28"),
+                new FinancialAccountingYearEntity(1L, "BNP", "CBB", getDate("2022-01-01"),
+                        getDate("2022-02-28"),
                         "FY2022", "Financial Accounting Year FY 2022",
-                        "Half-Yearly", "new", 1, "Y", "new",
+                        "Half-Yearly", "new", "1", "new", 1, "Y", "",
                         financialAccountingYearPeriodicCodeList);
         financialAccountingYearEntityDeleted.setStatus("deleted");
         financialAccountingYearEntityDeleted.setRecordVersion(1);
-
         return financialAccountingYearEntityDeleted;
     }
 
     private FinancialAccountingYearDTO getFinancialAccountingYearDTODeleted () {
-
-
         List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
-        Date sDate = getDate("2022-01-01");
-        Date eDate = getDate("2022-01-01");
+        String sDate = "2022-01-01";
+        String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 1L, "JAN", sDate, eDate);
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
@@ -494,21 +501,21 @@ class FinancialAccountingYearApplicationServiceTest {
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
-
-        FinancialAccountingYearDTO financialAccountingYearDtoDeleted=new FinancialAccountingYearDTO();
+        FinancialAccountingYearDTO financialAccountingYearDtoDeleted = new FinancialAccountingYearDTO();
         financialAccountingYearDtoDeleted.setFinancialAccountingYearId(1L);
         financialAccountingYearDtoDeleted.setBankCode("BNP");
         financialAccountingYearDtoDeleted.setBranchCode("CBB");
         financialAccountingYearDtoDeleted.setStartDate(sDate);
         financialAccountingYearDtoDeleted.setEndDate(eDate);
         financialAccountingYearDtoDeleted.setFinancialAccountingYearCode("FY2022");
-        financialAccountingYearDtoDeleted.setFinancialAccountingYearName("Financial Accounting Year FY 2022");
+        financialAccountingYearDtoDeleted.setFinancialAccountingYearName(
+                "Financial Accounting Year FY 2022");
         financialAccountingYearDtoDeleted.setPeriodCodeFrequency("Half-Yearly");
         financialAccountingYearDtoDeleted.setRecordVersion(0);
         financialAccountingYearDtoDeleted.setAuthorized("N");
         financialAccountingYearDtoDeleted.setLastConfigurationAction("draft");
-        financialAccountingYearDtoDeleted.setFinancialAccountingYearPeriodicCode(financialAccountingYearPeriodicCodeList);
-
+        financialAccountingYearDtoDeleted.setFinancialAccountingYearPeriodicCode(
+                financialAccountingYearPeriodicCodeList);
         financialAccountingYearDtoDeleted.setStatus("deleted");
         financialAccountingYearDtoDeleted.setTaskCode("FIN_ACC_YEAR");
         financialAccountingYearDtoDeleted.setTaskIdentifier("BNP");
@@ -529,7 +536,7 @@ class FinancialAccountingYearApplicationServiceTest {
     }
 
     private String getpayloadValidString () {
-           String payLoadString = "{\"action\":\"draft\",\"status\":\"draft\",\"recordVersion\":0,\"authorized\":\"N\",\"lastConfigurationAction\":\"draft\",\"taskCode\":\"FIN_ACC_YEAR\",\"taskIdentifier\":\"BNP\",\"bankCode\":\"BNP\",\"branchCode\":\"CBB\",\"startDate\":1640995200000,\"endDate\":1672444800000,\"financialAccountingYearCode\":\"FY2022\",\"financialAccountingYearName\":\"Financial Accounting Year FY 2022\",\"periodCodeFrequency\":\"Half-Yearly\",\"financialAccountingYearPeriodicCode\":[{\"finAccYearPeriodCodesId\":null,\"periodCode\":\"JAN\",\"startDateAccountingPeriod\":1640995200000,\"endDateAccountingPeriod\":1672444800000},{\"finAccYearPeriodCodesId\":null,\"periodCode\":\"FEB\",\"startDateAccountingPeriod\":1640995200000,\"endDateAccountingPeriod\":1672444800000},{\"finAccYearPeriodCodesId\":null,\"periodCode\":\"FC\",\"startDateAccountingPeriod\":1672444800000,\"endDateAccountingPeriod\":1672444800000}]}";
+        String payLoadString = "{\"action\":\"draft\",\"status\":\"draft\",\"recordVersion\":0,\"authorized\":\"N\",\"lastConfigurationAction\":\"draft\",\"taskCode\":\"FIN_ACC_YEAR\",\"taskIdentifier\":\"BNP\",\"bankCode\":\"BNP\",\"branchCode\":\"CBB\",\"startDate\":1640995200000,\"endDate\":1672444800000,\"financialAccountingYearCode\":\"FY2022\",\"financialAccountingYearName\":\"Financial Accounting Year FY 2022\",\"periodCodeFrequency\":\"Half-Yearly\",\"financialAccountingYearPeriodicCode\":[{\"finAccYearPeriodCodesId\":null,\"periodCode\":\"JAN\",\"startDateAccountingPeriod\":1640995200000,\"endDateAccountingPeriod\":1672444800000},{\"finAccYearPeriodCodesId\":null,\"periodCode\":\"FEB\",\"startDateAccountingPeriod\":1640995200000,\"endDateAccountingPeriod\":1672444800000},{\"finAccYearPeriodCodesId\":null,\"periodCode\":\"FC\",\"startDateAccountingPeriod\":1672444800000,\"endDateAccountingPeriod\":1672444800000}]}";
         return payLoadString;
     }
 
@@ -547,39 +554,59 @@ class FinancialAccountingYearApplicationServiceTest {
         return mutationEntity;
     }
 
-    private FinancialAccountingYearDTO getFinancialAccountingYearDTOUnAuthorizedBase () {
-        FinancialAccountingYearDTO financialAccountingYearDTOUnAuth = new FinancialAccountingYearDTO();
-        financialAccountingYearDTOUnAuth.setFinancialAccountingYearCode("BNP");
-        financialAccountingYearDTOUnAuth.setTaskIdentifier("BNP");
-        financialAccountingYearDTOUnAuth.setTaskCode("FIN_ACC_YEAR");
-        financialAccountingYearDTOUnAuth.setAuthorized("N");
-        return financialAccountingYearDTOUnAuth;
-    }
-
-    private FinancialAccountingYearDTO getFinancialAccountingYearDTOUnAuthorized () {
-        FinancialAccountingYearDTO financialAccountingYearDTOUnAuth = new FinancialAccountingYearDTO();
-        financialAccountingYearDTOUnAuth.setFinancialAccountingYearCode("BNP");
-        financialAccountingYearDTOUnAuth.setFinancialAccountingYearName("PUNE");
-        financialAccountingYearDTOUnAuth.setTaskIdentifier("BNP");
-        financialAccountingYearDTOUnAuth.setTaskCode("FIN_ACC_YEAR");
-        financialAccountingYearDTOUnAuth.setStatus("draft");
-        financialAccountingYearDTOUnAuth.setAuthorized("N");
-        financialAccountingYearDTOUnAuth.setRecordVersion(0);
-        financialAccountingYearDTOUnAuth.setLastConfigurationAction("draft");
-        return financialAccountingYearDTOUnAuth;
-    }
-
-    private FinancialAccountingYearDTO getFtchedDTO () {
-        FinancialAccountingYearDTO financialAccountingYearDTOFetched =
-                getFinancialAccountingYearDTOUnAuthorized();
-        financialAccountingYearDTOFetched.setAction("draft");
-        financialAccountingYearDTOFetched.setStatus("draft");
-        financialAccountingYearDTOFetched.setRecordVersion(0);
-        financialAccountingYearDTOFetched.setLastConfigurationAction("draft");
-        financialAccountingYearDTOFetched.setFinancialAccountingYearCode("BNP");
-        financialAccountingYearDTOFetched.setFinancialAccountingYearName("PUNE");
-        FinancialAccountingYearDTO financialAccountingYearDTO = getFinancialAccountingYearDTOUnAuthorized();
-        return financialAccountingYearDTOFetched;
+    private FinancialAccountingYearDTO getFinancialAccountingYearDTODeletedBuilder () {
+        List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
+        String sDate = "2022-01-01";
+        String eDate = "2022-12-31";
+        FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
+                1L, "JAN", sDate, eDate);
+        FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
+        dto2.setPeriodCode("FEB");
+        dto2.setFinAccYearPeriodCodesId(1L);
+        dto2.setStartDateAccountingPeriod(sDate);
+        dto2.setEndDateAccountingPeriod(eDate);
+        FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
+                1L, "FC", sDate, eDate);
+        financialAccountingYearPeriodicCodeList.add(dto1);
+        financialAccountingYearPeriodicCodeList.add(dto2);
+        financialAccountingYearPeriodicCodeList.add(dto3);
+        FinancialAccountingYearDTO financialAccountingYearDtoDeleted = new FinancialAccountingYearDTO();
+        financialAccountingYearDtoDeleted.setFinancialAccountingYearId(1L);
+        financialAccountingYearDtoDeleted.setBankCode("BNP");
+        financialAccountingYearDtoDeleted.setBranchCode("CBB");
+        financialAccountingYearDtoDeleted.setStartDate(sDate);
+        financialAccountingYearDtoDeleted.setEndDate(eDate);
+        financialAccountingYearDtoDeleted.setFinancialAccountingYearCode("FY2022");
+        financialAccountingYearDtoDeleted.setFinancialAccountingYearName(
+                "Financial Accounting Year FY 2022");
+        financialAccountingYearDtoDeleted.setPeriodCodeFrequency("Half-Yearly");
+        financialAccountingYearDtoDeleted.setRecordVersion(0);
+        financialAccountingYearDtoDeleted.setAuthorized("N");
+        financialAccountingYearDtoDeleted.setLastConfigurationAction("draft");
+        financialAccountingYearDtoDeleted.setFinancialAccountingYearPeriodicCode(
+                financialAccountingYearPeriodicCodeList);
+        financialAccountingYearDtoDeleted.setStatus("deleted");
+        financialAccountingYearDtoDeleted.setTaskCode("FIN_ACC_YEAR");
+        financialAccountingYearDtoDeleted.setTaskIdentifier("BNP");
+        financialAccountingYearDtoDeleted.setRecordVersion(1);
+        FinancialAccountingYearDTO financialAccountingYearDtoDeletedBuilder = new FinancialAccountingYearDTO().builder()
+                .financialAccountingYearId(1L)
+                .bankCode("BNP")
+                .branchCode("CBB")
+                .startDate(sDate)
+                .endDate(eDate)
+                .financialAccountingYearCode("FY2022")
+                .financialAccountingYearName("Financial Accounting Year FY 2022")
+                .periodCodeFrequency("Half-Yearly")
+                .recordVersion(0)
+                .authorized("N")
+                .lastConfigurationAction("draft")
+                .financialAccountingYearPeriodicCode(financialAccountingYearPeriodicCodeList)
+                .status("deleted")
+                .taskCode("FIN_ACC_YEAR")
+                .taskIdentifier("BNP")
+                .recordVersion(1).build();
+        return financialAccountingYearDtoDeleted;
     }
 
 }

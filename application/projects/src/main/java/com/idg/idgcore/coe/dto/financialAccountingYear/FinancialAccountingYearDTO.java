@@ -20,8 +20,8 @@ public class FinancialAccountingYearDTO extends CoreEngineBaseDTO {
     private Long financialAccountingYearId;
     private String bankCode;
     private String branchCode;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String financialAccountingYearCode;
     private String financialAccountingYearName;
     private String periodCodeFrequency;

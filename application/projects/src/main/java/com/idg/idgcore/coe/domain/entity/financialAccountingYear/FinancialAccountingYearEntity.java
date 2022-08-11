@@ -25,6 +25,7 @@ public class FinancialAccountingYearEntity extends AbstractAuditableDomainEntity
     private Date startDate;
     private Date endDate;
     private String financialAccountingYearCode;
+    @Column(name = "financial_accounting_year_desc")
     private String financialAccountingYearName;
     private String periodCodeFrequency;
 

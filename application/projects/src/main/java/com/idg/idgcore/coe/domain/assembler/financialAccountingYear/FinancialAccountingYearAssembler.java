@@ -8,13 +8,14 @@ import org.modelmapper.convention.*;
 import org.springframework.stereotype.*;
 
 import javax.annotation.*;
+import java.text.*;
 import java.util.*;
 import java.util.stream.*;
-
 
 @Component
 public class FinancialAccountingYearAssembler {
     private final ModelMapper modelMapper = new ModelMapper();
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostConstruct
     private void setMapperConfig () {
@@ -26,7 +27,9 @@ public class FinancialAccountingYearAssembler {
         List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = inputDTO.getFinancialAccountingYearPeriodicCode();
         List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = new ArrayList<>();
         periodEntityList.addAll(periodDTOList.stream().map(entity -> {
-            return  modelMapper.map(entity, FinancialAccountingYearPeriodicCodeEntity.class);
+            FinancialAccountingYearPeriodicCodeEntity map = modelMapper.map(entity,
+                    FinancialAccountingYearPeriodicCodeEntity.class);
+            return map;
         }).collect(Collectors.toList()));
         FinancialAccountingYearEntity outEntity = modelMapper.map(inputDTO,
                 FinancialAccountingYearEntity.class);
@@ -39,14 +42,17 @@ public class FinancialAccountingYearAssembler {
         List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = inEntity.getFinancialAccountingYearPeriodicCode();
         periodDTOList.addAll(periodEntityList.stream().map(dto -> {
             FinancialAccountingYearPeriodicCodeDTO periodDTO = new FinancialAccountingYearPeriodicCodeDTO();
+
             periodDTO.setPeriodCode(dto.getPeriodCode());
-            periodDTO.setStartDateAccountingPeriod(dto.getStartDateAccountingPeriod());
-            periodDTO.setEndDateAccountingPeriod(dto.getEndDateAccountingPeriod());
+            periodDTO.setStartDateAccountingPeriod(formatter.format(dto.getStartDateAccountingPeriod()));
+            periodDTO.setEndDateAccountingPeriod(formatter.format(dto.getEndDateAccountingPeriod()));
             return periodDTO;
         }).collect(Collectors.toList()));
-
         FinancialAccountingYearDTO outDTO = modelMapper.map(inEntity,
                 FinancialAccountingYearDTO.class);
+
+        outDTO.setStartDate(formatter.format(inEntity.getStartDate()));
+        outDTO.setEndDate(formatter.format(inEntity.getEndDate()));
         outDTO.setFinancialAccountingYearPeriodicCode(periodDTOList);
         return outDTO;
     }
@@ -66,6 +72,5 @@ public class FinancialAccountingYearAssembler {
         dto.setTaskIdentifier(mutationEntity.getTaskIdentifier());
         return dto;
     }
-
 
 }
