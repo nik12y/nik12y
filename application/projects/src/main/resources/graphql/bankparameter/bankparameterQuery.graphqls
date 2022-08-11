@@ -1,0 +1,4 @@
+type BankParameterQuery {
+    bankCode: String!
+    authorized: String!
+}
