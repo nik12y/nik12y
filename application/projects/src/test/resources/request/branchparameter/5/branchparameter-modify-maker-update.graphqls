@@ -1,0 +1,113 @@
+mutation{
+processBranchParameter(
+sessionContext:{
+  bankCode: "0002"
+  defaultBranchCode: "0002"
+  internalTransactionReferenceNumber: null
+  userTransactionReferenceNumber: null
+  externalTransactionReferenceNumber:null
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Prash"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: ["maker"]
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+
+  },
+  branchParameter:{
+    branchCode:"40001"
+    branchName:"culaba West"
+    bankCode:"0002"
+    branchConciseName:"SBI"
+    isBranchAvailableStatus:true
+    bankIdentifierCode:"H1"
+    branchType:"HO"
+    action : "modify"
+    status:"updated"
+    recordVersion : 0
+    branchParameterAddress:{
+        branchAddress1:"Kanakia Business Park 2"
+        branchAddress2:"JB Nagar 2"
+        branchAddress3:"Andheri East 2"
+        branchAddress4:"Mumbai 2"
+        country:"IN"
+        state:"MH"
+        city:"MUM"
+      }
+      branchParameterContactInfo:{
+        telephoneNo:"022-4156271"
+        faxNo:"022-4156271"
+        emailId:"abc@xyz.com"
+        bankWebsite:"www.bob.com"
+      }
+    branchParameterGeneral:{
+      generalCurrencyCode:"INR"
+      generalBranchParent:"5002"
+      generalCountryCode:"IN"
+      generalZonalOfficeCode:"WI"
+      generalZonalOfficeName:"Western India"
+      generalRegionalOfficeCode:"MUM"
+      generalRegionalOfficeName:"Mumbai"
+      generalCutOffTime:""
+    }
+    branchParameterClearing:{
+      clearingLocalPaymentBranch:"Payment"
+      clearingCurrencyCode:"INR"
+    }
+    branchParameterAtm:{
+      atmBranch:"5001"
+      atmInstitutionIdentification:"SBI5"
+      atmInterBranchTransactionCode:"5001"
+      atmIsCustomerFundTransfer:true
+    }
+    branchParameterTimezone:{
+      timeZoneNoOfHours:0
+      timeZoneNoOfMinutes:3
+      timeZoneIsAhead:true
+      timeZoneLevel:"IST (UTC+5:30)"
+    }
+    branchParameterGlobalInterdict:{
+      globalInterdictFunctionId:"FN054"
+    }
+    branchParameterTranDuplicate:{
+      tranModuleCode:"LN"
+      tranDuplicationCheckRequired:true
+      tranNoOfDayForDuplicationCheck:1
+    }
+    branchParameterLocalCurrency:{
+      localCurrencyMsgModCode:"LN"
+      localCurrencyMsgType:"Suppress LCY Message"
+    }
+    branchParameterMiscellaneous:{
+      miscDenominationTrackingRequired:true
+      miscCurrencyOfDenomination:"INR"
+      miscWeekBeginDay:"Monday"
+      miscWeeklyOff1:"Saturday"
+      miscWeeklyOff2:"Sunday"
+      miscFinancialYearBeginMonth:"April"
+    }
+
+  }
+)
+{
+  externalReferenceNumber
+  internalReferenceNumber
+  userReferenceNumber
+  replyCode
+  replyMessage
+  errorCode
+  isErrorToBeOverridden
+}
+}

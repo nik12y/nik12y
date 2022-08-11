@@ -136,5 +136,4 @@ public class MitigantMutationResolverTest {
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
     }
-
 }

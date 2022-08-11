@@ -1,0 +1,4 @@
+input BranchParameterClearingInput {
+    clearingLocalPaymentBranch: String!
+    clearingCurrencyCode: String!
+ }

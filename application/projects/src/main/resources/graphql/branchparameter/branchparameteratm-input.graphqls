@@ -1,0 +1,6 @@
+input BranchParameterAtmInput {
+    atmBranch: String!
+    atmInstitutionIdentification: String! @Size(min: 1, max: 35, message: "atmInstitutionIdentification.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "ATM Institution Identification Invalid pattern")
+    atmInterBranchTransactionCode: String! @Size(min: 1, max: 6, message: "atmInterBranchTransactionCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "ATM InterBranch Transaction Code Invalid pattern")
+    atmIsCustomerFundTransfer: Boolean
+ }

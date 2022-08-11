@@ -1,0 +1,47 @@
+mutation{
+    processBranchSystemDate(
+        sessionContext:{
+            bankCode: "07"
+            defaultBranchCode: "07110"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "aditya"
+            accessibleTargetUnits: null
+            channel: null
+            taskCode: null
+            localDateTime: null
+            role: ["maker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType: ADDITION
+            userLocal: null
+            originatingModuleCode: null
+        },
+        branchSystemDate:{
+            branchCode : "BC0002"
+            currentWorkingDate: "06-08-2022"
+            previousWorkingDate: "10-07-2022"
+            nextWorkingDate: "15-08-2022"
+            action : "delete"
+            status:"deleted"
+            recordVersion : 0
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}
