@@ -3,29 +3,17 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
-//    id 'checkstyle'
     id "name.remal.sonarlint" version "1.5.0"
     id "com.avast.gradle.docker-compose" version "0.16.4"
     id 'com.palantir.docker' version '0.34.0'
     id 'com.palantir.docker-run' version '0.34.0'
 
+    id 'org.liquibase.gradle' version '2.0.4'
 }
 
 group = 'com.social'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = "11"
-
-test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport  //run right after ./gradlew clean build
-}
-jacocoTestReport {                 //configuration for report formats.
-    reports {
-        xml.enabled true
-        csv.enabled true
-        html.enabled true
-    }
-}
 
 String imageName = "$description:$version"
 docker {
@@ -42,9 +30,6 @@ dockerRun {
     clean true
 }
 
-
-
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -55,12 +40,11 @@ repositories {
     mavenCentral()
 }
 
-dockerCompose {
-    useComposeFiles = ['docker-compose.yml']
-    startedServices = ['yb-master', 'yb-tserver']
-    isRequiredBy(test)
-}
-
+//dockerCompose {
+//    useComposeFiles = ['docker-compose.yml']
+//    startedServices = ['yb-master', 'yb-tserver']
+//    isRequiredBy(test)
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
@@ -77,17 +61,30 @@ dependencies {
     runtimeOnly 'com.graphql-java-kickstart:voyager-spring-boot-starter:11.1.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//    runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.1.0'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.24'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.1'
     implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.9.2'
+
+    implementation group: 'org.liquibase', name: 'liquibase-core'
+    implementation group: 'org.liquibase', name: 'liquibase-maven-plugin', version: '4.11.0'
+    implementation 'org.springframework.boot:spring-boot-starter:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.2'
+    implementation 'org.liquibase:liquibase-core:4.9.1'
+    runtimeOnly 'org.postgresql:postgresql:42.3.6'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.2'
+
+    implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
+
     implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.6.0.0.1'
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.8.5'
+
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
 
@@ -109,7 +106,7 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                minimum = 0.4
+                minimum = 0.3
             }
         }
 
@@ -117,34 +114,41 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.90
+                minimum = 0.40
             }
         }
 
-//        rule {
-//            element = 'CLASS'
-//            includes = ['com.idg.*']
-//
-//            limit {
-//                counter = 'LINE'
-//                value = 'TOTALCOUNT'
-//                maximum = 40
-//            }
-//        }
-
         rule {
             element = 'CLASS'
-            includes = ['com.idg.idgcore.coe.app.service.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.assembler.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.entity.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.repository.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.service.branchtype']
-            includes = ['com.idg.idgcore.coe.dto.branchtype']
-            includes = ['com.idg.idgcore.coe.endpoint.graphql.resolver.branchtype']
+            includes = ['com.idg.*']
+            excludes = [
+                    'com/idg/idgcore/Application.class',
+                    '**/config/**',
+                    '**/audit/**',
+                    '**/base/**',
+                    '**/city/**',
+                    '**/state/**',
+                    '**/country/**',
+                    '**/bank/**',
+                    '**/bankgroup/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
+                    '**/branchtype/**',
+                    '**/module/**',
+                    '**/purpose/**',
+                    '**/mapping/**',
+                    '**/memo/**',
+                    '**/common/**',
+                    '**/mutation/**',
+                    '**/process/**',
+                    '**/lov/**',
+                    '**/exception/**'
+            ]
+
             limit {
                 counter = 'LINE'
                 value = 'TOTALCOUNT'
-                maximum = 40
+                maximum = 1500
             }
         }
     }
@@ -157,6 +161,34 @@ jacocoTestReport {
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/idg/idgcore/Application.class',
+                    '**/config/**',
+                    '**/audit/**',
+                    '**/base/**',
+                    '**/city/**',
+                    '**/state/**',
+                    '**/country/**',
+                    '**/bank/**',
+                    '**/bankgroup/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
+                    '**/branchtype/**',
+                    '**/module/**',
+                    '**/purpose/**',
+                    '**/mapping/**',
+                    '**/memo/**',
+                    '**/common/**',
+                    '**/mutation/**',
+                    '**/process/**',
+                    '**/lov/**',
+                    '**/exception/**'
+            ])
+        }))
+    }
 }
 
 springBoot {
@@ -167,8 +199,4 @@ compileJava {
     options.encoding = 'UTF-8'
 }
 
-
-
-
 targetCompatibility = JavaVersion.VERSION_11
-

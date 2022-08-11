@@ -1,0 +1,4 @@
+input BranchParameterLocalCurrencyInput {
+    localCurrencyMsgModCode: String
+    localCurrencyMsgType: String
+ }

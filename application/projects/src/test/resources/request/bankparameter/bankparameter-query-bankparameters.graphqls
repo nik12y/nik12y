@@ -1,0 +1,73 @@
+query{
+getBankParameters(
+    sessionContext:{
+      bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: "preeti"
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: ["maker"]
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+    },
+	)
+    {
+      bankCode
+      bankName
+      regulatoryBankCode
+      bankConciseName
+      groupBankingCode
+      status
+      recordVersion
+        bankParameterAddress{
+          bankAddress1
+          bankAddress2
+          bankAddress3
+          bankAddress4
+          country
+          state
+          city
+        }
+        bankParameterContactInfo{
+          telephoneNo
+          faxNo
+          emailId
+          bankWebsite
+        }
+        bankParameterCurrency{
+          currencyCode
+          currencyName
+          isDenominationTrackingRequired
+          currencyOfDenomination
+          denominationTrackingCurrency
+        }
+        bankParameterPreferences{
+          weekBeginDay
+          weeklyOff1
+          weeklyOff2
+          weeklyOff3
+          financialYearBeginMonth
+        }
+        bankParameterForOdLoan{
+          ruleIdForOd
+          ruleNameForOd
+          ruleIdForLoan
+          ruleNameForLoan
+        }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "data": {
+    "getMitigantByCode": {
+      "mitigantCode": "CR0001",
+      "mitigantCodeName": "test1",
+      "mitigantCodeDesc": "test1",
+      "mitigantRiskCode": [
+        {
+          "riskCode": "RC0001",
+          "riskName": "market risk1"
+        },
+        {
+          "riskCode": "RC0002",
+          "riskName": "market risk2"
+        }
+      ]
+    }
+  }
+}

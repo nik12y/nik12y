@@ -1,0 +1,4 @@
+type AmlQuery {
+    productCategory : String!
+    authorized: String!
+}

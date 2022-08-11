@@ -1,0 +1,4 @@
+type AppVerCatChecklistPolicyQuery {
+    appVerChecklistPolicyId: String!
+    authorized: String!
+}

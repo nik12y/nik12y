@@ -27,7 +27,24 @@ public class ServiceBeanConfig {
         beanMappings.put(BANK, BANK_SERVICE);
         beanMappings.put(MODULE, MODULE_SERVICE);
         beanMappings.put(CAPT, CAPT_SERVICE);
+        beanMappings.put(CATEGORY, VERIFICATION_CATEGORY_SERVICE);
+        beanMappings.put(CHECKLIST, CHECKLIST_SERVICE);
+        beanMappings.put(BRANCH_PARAMETER, BRANCH_PARAMETER_SERVICE);
+        beanMappings.put(BANKPARAMETER, BANKPARAMETER_SERVICE);
+        beanMappings.put(IBAN, IBAN_SERVICE);
+        beanMappings.put(AML, AML_SERVICE);
+        beanMappings.put(APP_VERIFICATION_TYPE, APP_VERIFICATION_TYPE_SERVICE);
+        beanMappings.put(PURGING_POLICY, PURGING_POLICY_SERVICE);
+        beanMappings.put(BRANCH_SYSTEM_DATE, BRANCH_SYSTEM_DATE_SERVICE);
+        beanMappings.put(MITIGANT, MITIGANT_SERVICE);
+        beanMappings.put(RISKCATEGORY,RISKCATEGORY_SERVICE);
+        beanMappings.put(RISKCODE,RISKCODE_SERVICE);
         beanMappings.put(QUE_CHECKLIST, QUE_CHECKLIST_SERVICE);
+        beanMappings.put(FINANCIAL_ACCOUNTING_YEAR, FINANCIAL_ACCOUNTING_YEAR_SERVICE);
+        beanMappings.put(ERROR_OVERRIDE,ERROR_OVERRIDE_SERVICE);
+        beanMappings.put(QUESTION,QUESTION_SERVICE);
+        beanMappings.put(QUESTION_CATEGORY,QUESTION_CATEGORY_SERVICE);
+
     }
 
     public Map<String, String> getBeanConfig () {

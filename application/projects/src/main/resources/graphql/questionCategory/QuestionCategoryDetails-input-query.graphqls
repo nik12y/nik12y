@@ -1,0 +1,5 @@
+input QuestionCategoryDetailsInputQuery{
+ #   queCatDetailId: String!
+    questionId: String!
+    authorize: String!
+}

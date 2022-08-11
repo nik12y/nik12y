@@ -1,0 +1,26 @@
+{
+  "data": {
+    "getAppVerCategoryConfigs": [
+      {
+        "appVerificationCategoryId": "VC0005",
+        "verificationCategoryDesc": "Addresss",
+        "isExternal": true,
+        "appVerTypeConfig": [
+          {
+            "appVerificationTypeId": "V00005",
+            "nature": "mutation"
+          },
+          {
+            "appVerificationTypeId": "V00006",
+            "nature": "mutation"
+          },
+          {
+            "appVerificationTypeId": "V00007",
+            "nature": "mutation"
+          }
+        ]
+      }
+    ]
+  }
+}
+

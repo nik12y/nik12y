@@ -1,0 +1,8 @@
+input MitigantRiskCodeInput {
+    riskCode: String @Size(min: 1, max: 10, message: "riskCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "RiskCode Invalid pattern")
+    riskName :  String @Size(min: 1, max: 100, message: "riskCodeName.message") @Pattern(regexp: ".[A-Za-z0-9_ ]{1,100}",message: "RiskCodeName Invalid pattern")
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
