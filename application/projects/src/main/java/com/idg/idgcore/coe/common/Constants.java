@@ -58,6 +58,7 @@ public final class Constants {
     public static final String BRANCHTYPE_SERVICE ="branchTypeApplicationService";
     public static final String CAPT = "CAPT";
     public static final String CAPT_SERVICE = "captApplicationService";
+    public static final String RISKCODE = "RISKCODE";
     public static final String CATEGORY = "CATEGORY";
     public static final String VERIFICATION_CATEGORY_SERVICE = "verificationCategoryApplicationService";
     public static final String CHECKLIST = "CHECKLIST";
@@ -74,7 +75,8 @@ public final class Constants {
 
     public static final String IBAN = "IBAN";
     public static final String IBAN_SERVICE = "ibanApplicationService";
-    public static final String RISKCATEGORY = "RISKCATEGORY";                                                                                    public static final String RISKCATEGORY_SERVICE = "riskCategoryApplicationService";                                       public static final String RISKCODE = "RISKCODE";
+    public static final String RISKCATEGORY = "RISKCATEGORY";
+    public static final String RISKCATEGORY_SERVICE = "riskCategoryApplicationService";
     public static final String RISKCODE_SERVICE = "riskCodeApplicationService";
     public static final String PURGING_POLICY = "PURGING_POLICY";
     public static final String PURGING_POLICY_SERVICE = "purgingApplicationService";
@@ -86,10 +88,6 @@ public final class Constants {
     public static final String FINANCIAL_ACCOUNTING_YEAR_SERVICE = "financialAccountingYearService";
     public static final String ERROR_OVERRIDE = "ERROR-OVERRIDE";
     public static final String ERROR_OVERRIDE_SERVICE= "errorOverrideService";
-
-
-
-
     private Constants () {
     }
 
