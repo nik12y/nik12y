@@ -134,9 +134,6 @@ public class StateApplicationService extends AbstractApplicationService
     }
 
 
-
-
-//    @Transactional
     public TransactionStatus processState (SessionContext sessionContext, StateDTO stateDTO)
             throws FatalException {
         if (log.isErrorEnabled()) {

@@ -133,7 +133,6 @@ public class BankIdentifierApplicationService  extends AbstractApplicationServic
         return bankIdentifierDTOList;
     }
 
-    @Transactional
     public TransactionStatus processBankIdentifier(SessionContext sessionContext, BankIdentifierDTO bankIdentifierDTO) throws FatalException, JsonProcessingException {
         if (log.isInfoEnabled()) {
             log.info("In processBankIdentifier with parameters sessionContext {}, bankIdentifierDTO {}",

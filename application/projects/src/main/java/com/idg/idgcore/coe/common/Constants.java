@@ -28,6 +28,9 @@ public final class Constants {
     public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
+
+    public static final String BRANCH_SYSTEM_DATE = "BRANCH_SYS_DATE";
+    public static final String BRANCH_SYSTEM_DATE_SERVICE = "branchSystemApplicationService";
     public static final String INACTIVE = "inactive";
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";

@@ -1,0 +1,83 @@
+mutation{
+processBankParameter(
+sessionContext:{
+  bankCode: "0005"
+  defaultBranchCode: "0005"
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Prash"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: ["checker"]
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+  },
+  bankParameter:{
+    bankCode:"0005"
+    bankName:"Yes Bank"
+    regulatoryBankCode:"0005"
+    bankConciseName:"YES"
+    groupBankingCode:"YES"
+    action : "authorize"
+    status:"updated"
+    recordVersion : 0
+    bankParameterAddress:{
+        bankAddress1:"Kanakia Business Park 2"
+        bankAddress2:"JB Nagar 2"
+        bankAddress3:"Andheri East 2"
+        bankAddress4:"Mumbai 2"
+        country:"IN"
+        state:"MH"
+        city:"MUM"
+      }
+      bankParameterContactInfo:{
+        telephoneNo:"022-4156271"
+      faxNo:"022-4156271"
+      emailId:"abc@xyz.com"
+      bankWebsite:"www.bob.com"
+      }
+      bankParameterCurrency:{
+        currencyCode:"INR"
+        currencyName:"INDIAN RUPEES"
+        isDenominationTrackingRequired:false
+        currencyOfDenomination:"INR"
+        denominationTrackingCurrency:"INR"
+      }
+      bankParameterPreferences:{
+        weekBeginDay:"Monday"
+        weeklyOff1:"Saturday"
+        weeklyOff2:"Sunday"
+        weeklyOff3:""
+        financialYearBeginMonth:"April"
+        }
+      bankParameterForOdLoan:{
+         ruleIdForOd:"OD_01"
+        ruleNameForOd:"Regulated rule for Overdraft decision"
+        ruleIdForLoan:"LN_01"
+        ruleNameForLoan:"Regulated rule for Loan decision"
+      }
+  }
+)
+{
+externalReferenceNumber
+internalReferenceNumber
+userReferenceNumber
+replyCode
+replyMessage
+errorCode
+isErrorToBeOverridden
+}
+}

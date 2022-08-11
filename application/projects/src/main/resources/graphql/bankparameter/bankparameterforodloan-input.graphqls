@@ -1,0 +1,6 @@
+input BankParameterForOdLoanInput {
+    ruleIdForOd: String #@Size(min: 1, max: 20, message: "ruleIdForOd.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Rule Id For Od Invalid pattern")
+    ruleNameForOd: String #@Size(min: 1, max: 100, message: "ruleNameForOd.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Rule Name For Od Invalid pattern")
+    ruleIdForLoan: String #@Size(min: 1, max: 20, message: "ruleIdForLoan.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Rule Id For Loan Invalid pattern")
+    ruleNameForLoan: String #@Size(min: 1, max: 100, message: "ruleNameForLoan.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Rule Name For Loan Invalid pattern")
+}

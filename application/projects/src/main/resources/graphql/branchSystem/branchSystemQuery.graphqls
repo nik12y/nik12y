@@ -1,0 +1,4 @@
+type BranchSystemDateQuery {
+    branchCode: String!
+    authorized: String!
+}

@@ -1,0 +1,13 @@
+input BranchSystemDateInput {
+    branchCode: String! @Size(min: 1, max: 16, message: "branchSystemDateCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${2,2}",message: "Branch System Date Code Invalid pattern")
+    currentWorkingDate: String!
+    previousWorkingDate: String!
+    nextWorkingDate: String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
