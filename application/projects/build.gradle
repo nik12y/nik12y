@@ -81,4 +81,116 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+check.dependsOn jacocoTestCoverageVerification, sonarlintMain
+
+ext {
+    jacocoEnabled = System.properties.getProperty("jacocoEnabled") ?: "false"
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.3
+            }
+        }
+
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.40
+            }
+        }
+
+        rule {
+            element = 'CLASS'
+            includes = ['com.idg.*']
+            excludes = [
+                    'com/idg/idgcore/Application.class',
+                    '**/config/**',
+                    '**/audit/**',
+                    '**/base/**',
+                    '**/city/**',
+                    '**/state/**',
+                    '**/country/**',
+                    '**/bank/**',
+                    '**/bankgroup/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
+                    '**/branchtype/**',
+                    '**/module/**',
+                    '**/purpose/**',
+                    '**/mapping/**',
+                    '**/memo/**',
+                    '**/common/**',
+                    '**/mutation/**',
+                    '**/process/**',
+                    '**/lov/**',
+                    '**/exception/**'
+            ]
+
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 1500
+            }
+        }
+    }
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/idg/idgcore/Application.class',
+                    '**/config/**',
+                    '**/audit/**',
+                    '**/base/**',
+                    '**/city/**',
+                    '**/state/**',
+                    '**/country/**',
+                    '**/bank/**',
+                    '**/bankgroup/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
+                    '**/branchtype/**',
+                    '**/module/**',
+                    '**/purpose/**',
+                    '**/mapping/**',
+                    '**/memo/**',
+                    '**/common/**',
+                    '**/mutation/**',
+                    '**/process/**',
+                    '**/lov/**',
+                    '**/exception/**'
+            ])
+        }))
+    }
+}
+
+springBoot {
+    mainClass = 'com.idg.idgcore.Application'
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
 targetCompatibility = JavaVersion.VERSION_17
