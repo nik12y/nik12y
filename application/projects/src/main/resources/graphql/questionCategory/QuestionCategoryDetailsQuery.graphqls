@@ -1,0 +1,11 @@
+type QuestionCategoryDetailsQuery{
+  #  queCatDetailId: String!
+    questionId: String!
+    authorize: String!
+}
+
+
+
+
+
+

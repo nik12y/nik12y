@@ -1,0 +1,7 @@
+type BankParameterPreferences {
+    weekBeginDay: String
+    weeklyOff1: String
+    weeklyOff2: String
+    weeklyOff3: String
+    financialYearBeginMonth: String
+}

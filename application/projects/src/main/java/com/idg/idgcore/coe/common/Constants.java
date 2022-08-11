@@ -14,6 +14,7 @@ public final class Constants {
 
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
+
     public static final String BANK = "BANK";
     public static final String BANK_SERVICE ="bankApplicationService";
     public static final String PURPOSE_SERVICE = "purposeApplicationService";
@@ -21,10 +22,12 @@ public final class Constants {
     public static final String LANGUAGE = "LANGUAGE";
     public static final String LANGUAGE_SERVICE = "languageApplicationService";
     public static final String BANK_IDENTIFIER_SERVICE = "bankIdentifierApplicationService";
+
     public static final String GROUP_BANKING = "GROUP-BANKING";
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
-    public static final String MITIGANT = "MITIGANT";
-    public  static final String MITIGANT_SERVICE = "mitigantApplicationService";
+
+    public static final String QUESTION_CATEGORY="QUESTION-CAT";
+    public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
 
@@ -70,8 +73,6 @@ public final class Constants {
     public static final String RISKCODE_SERVICE = "riskCodeApplicationService";
     public static final String PURGING_POLICY = "PURGING_POLICY";
     public static final String PURGING_POLICY_SERVICE = "purgingApplicationService";
-    public static final String BRANCH_SYSTEM_DATE = "BRANCH_SYS_DATE";
-    public static final String BRANCH_SYSTEM_DATE_SERVICE = "branchSystemApplicationService";
     public static final String MITIGANT = "MITIGANT";
     public  static final String MITIGANT_SERVICE = "mitigantApplicationService";
     public static final String QUE_CHECKLIST  = "QUESTION_CKLIST";

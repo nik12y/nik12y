@@ -10,12 +10,14 @@ type Mutation {
     processBankIdentifier(sessionContext: SessionContextInput, BankIdentifier: BankIdentifierInput): TransactionStatus
     processLanguage(sessionContext: SessionContextInput, language: LanguageInput): TransactionStatus
     processBranchType(sessionContext: SessionContextInput, branchType: BranchTypeInput): TransactionStatus
+
     processGroupBanking(sessionContext: SessionContextInput, groupBanking: GroupBankingInput ): TransactionStatus
     processCapt(sessionContext: SessionContextInput, capt: CaptInput): TransactionStatus
     processModule(sessionContext: SessionContextInput, module: ModuleInput): TransactionStatus
     processAppVerCategoryConfigs(sessionContext: SessionContextInput, appVerCategoryConfig: AppVerCategoryConfigInput): TransactionStatus
     processAppVerCatChecklistPolicy(sessionContext: SessionContextInput, appVerCatChecklistPolicy: AppVerCatChecklistPolicyInput): TransactionStatus
 
+    processQuestionCategory(sessionContext: SessionContextInput,questionCategory: QuestionCategoryInput): TransactionStatus
     processBranchParameter(sessionContext: SessionContextInput, branchParameter: BranchParameterInput): TransactionStatus
     processBankParameter(sessionContext: SessionContextInput, bankParameter: BankParameterInput): TransactionStatus
     processIban(sessionContext: SessionContextInput, iban: IbanInput): TransactionStatus

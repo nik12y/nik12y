@@ -1,0 +1,52 @@
+query{
+    getQuestionCategoryById(
+        sessionContext:{
+            bankCode: "05"
+            defaultBranchCode: "1392"
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "nikhil"
+            accessibleTargetUnits: null
+            channel: null
+            taskCode: null
+            localDateTime: null
+            role: ["maker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType: ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+        },
+        questionCategoryQuery:{
+            questionCategoryId:"SN004"
+            authorized:"Y"
+        }
+    ) {
+        questionCategoryId
+        questionCategoryName
+        questionDisplay
+        isShowQuestionCategoryName
+        isEnableDocumentUpload
+        questionCategoryDetails {
+            questionNature
+            questionId
+            questionNature
+            parentQuestionId
+            displayCondition
+        }
+        status
+        recordVersion
+        createdBy
+        creationTime
+        lastUpdatedBy
+        lastUpdatedTime
+    }
+}

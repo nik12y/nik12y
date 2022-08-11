@@ -1,0 +1,5 @@
+type Limit {
+    limitCode : String
+    limitAmount : Float
+    limitCurrency : String
+}

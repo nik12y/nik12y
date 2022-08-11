@@ -1,0 +1,55 @@
+mutation{
+    processAml(
+        sessionContext:{
+            bankCode: "05"
+            defaultBranchCode: "1392"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "sujan"
+            accessibleTargetUnits: null
+            channel: null
+            taskCode: null
+            localDateTime: null
+            role: ["checker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType: ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+        },
+        aml:{
+            productCategory:"Lending"
+            productDescription:"Secured Loan"
+            isProductType:true
+            productLimitCurrency:"INR"
+            exchangeRateCode:"ER002"
+            exchangeRateType:"Mid-Rate"
+            debitCreditIndicator:"Debit Indicator"
+            limit:{
+                limitCode:"LM01"
+                limitAmount:100000.00
+                limitCurrency:"INR"
+            }
+            action : "authorize"
+            status:"new"
+            recordVersion : 0
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

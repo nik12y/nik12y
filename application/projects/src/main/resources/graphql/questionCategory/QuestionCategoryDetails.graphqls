@@ -1,0 +1,7 @@
+type QuestionCategoryDetails{
+ #   queCatDetailId: String!
+    questionId: String!
+    questionNature: String!
+    parentQuestionId: String!
+    displayCondition: String!
+}
