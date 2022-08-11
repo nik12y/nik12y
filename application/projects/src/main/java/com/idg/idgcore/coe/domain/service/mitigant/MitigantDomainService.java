@@ -1,9 +1,12 @@
-package com.idg.idgcore.coe.domain.service.purpose;
+package com.idg.idgcore.coe.domain.service.mitigant;
 
+import com.idg.idgcore.coe.domain.assembler.mitigant.MitigantAssembler;
 import com.idg.idgcore.coe.domain.assembler.purpose.PurposeAssembler;
+import com.idg.idgcore.coe.domain.entity.mitigant.MitigantEntity;
 import com.idg.idgcore.coe.domain.entity.purpose.PurposeEntity;
+import com.idg.idgcore.coe.domain.repository.mitigant.IMitigantRepository;
 import com.idg.idgcore.coe.domain.repository.purpose.IPurposeRepository;
-import com.idg.idgcore.coe.dto.purpose.PurposeDTO;
+import com.idg.idgcore.coe.dto.mitigant.MitigantDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +18,19 @@ import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class PurposeDomainService implements IPurposeDomainService {
+public class MitigantDomainService implements IMitigantDomainService{
 
     @Autowired
-    private IPurposeRepository purposeRepository;
+    private IMitigantRepository mitigantRepository;
 
     @Autowired
-    private PurposeAssembler purposeAssembler;
-
+    private MitigantAssembler mitigantAssembler;
 
     @Override
-    public PurposeEntity getConfigurationByCode(PurposeDTO purposeDTO) {
-        PurposeEntity purposeEntity = null;
+    public MitigantEntity getConfigurationByCode(MitigantDTO mitigantDTO) {
+        MitigantEntity mitigantEntity = null;
         try {
-            purposeEntity = this.purposeRepository.findByPurposeCode(purposeDTO.getPurposeCode());
+            mitigantEntity = this.mitigantRepository.findByMitigantCode(mitigantDTO.getMitigantCode());
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {
@@ -36,19 +38,19 @@ public class PurposeDomainService implements IPurposeDomainService {
             }
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
-        return purposeEntity;
+        return mitigantEntity;
     }
 
     @Override
-    public List<PurposeEntity> getPurposes() {
-        return this.purposeRepository.findAll();
+    public List<MitigantEntity> getMitigantAll() {
+        return this.mitigantRepository.findAll();
     }
 
     @Override
-    public PurposeEntity getPurposeByCode(String purposeCode) {
-        PurposeEntity purposeEntity = null;
+    public MitigantEntity getMitigantByCode(String mitigantCode) {
+        MitigantEntity mitigantEntity = null;
         try {
-            purposeEntity = this.purposeRepository.findByPurposeCode(purposeCode);
+            mitigantEntity = this.mitigantRepository.findByMitigantCode(mitigantCode);
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {
@@ -56,14 +58,14 @@ public class PurposeDomainService implements IPurposeDomainService {
             }
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
-        return purposeEntity;
+        return mitigantEntity;
     }
 
     @Override
-    public void save(PurposeDTO purposeDTO) {
+    public void save(MitigantDTO mitigantDTO) {
         try {
-            PurposeEntity purposeEntity = purposeAssembler.convertDtoToEntity(purposeDTO);
-            this.purposeRepository.save(purposeEntity);
+            MitigantEntity mitigantEntity = mitigantAssembler.convertDtoToEntity(mitigantDTO);
+            this.mitigantRepository.save(mitigantEntity);
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {
