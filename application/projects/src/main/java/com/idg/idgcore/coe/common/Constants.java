@@ -11,7 +11,6 @@ public final class Constants {
     public static final String CITY = "CITY";
     public static final String STATE = "STATE";
     public static final String STATE_SERVICE = "stateApplicationService";
-
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
     public static final String BANK = "BANK";
@@ -38,7 +37,6 @@ public final class Constants {
     public static final String ZAKAT_SERVICE = "zakatApplicationService";
 
     public static final String INACTIVE = "inactive";
-
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
     public static final String CHECKER = "checker";

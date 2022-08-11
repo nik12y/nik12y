@@ -1,0 +1,51 @@
+mutation{
+    processRiskCategory(
+        sessionContext:{
+            bankCode: "03"
+            defaultBranchCode: "03110"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: null
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "Chaetll"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: null
+            localDateTime: null
+            role: "maker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "en_US"
+            originatingModuleCode: "null"
+        },
+        riskCategory:{
+            riskCategoryCode:"HKB"
+            riskCategoryName:"Baharein Branch"
+            riskCategoryDescription:"Name of the Baharein Branch Type"
+            lastUpdatedBy:"Chaetll"
+            lastUpdatedTime:""
+            createdBy:"Chaetll"
+            creationTime:""
+
+            action : "delete"
+            status:"deleted"
+            recordVersion : 0
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}
