@@ -1,0 +1,10 @@
+type BankParameterAddress {
+    bankAddress1: String
+    bankAddress2: String
+    bankAddress3: String
+    bankAddress4: String
+    country: String
+    state: String
+    city: String
+
+}

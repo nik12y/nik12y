@@ -26,8 +26,8 @@ mutation{
             originatingModuleCode: null
         },
         groupBanking:{
-            bankGroupCode: "SBI"
-            bankGroupName: "State Bank Of India Of Mumbai"
+            bankGroupCode: "CBI"
+            bankGroupName: "Central Bank Of India Of Mumbai"
             action : "modify"
             status:"updated"
             recordVersion : 0

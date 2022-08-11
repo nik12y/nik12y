@@ -1,0 +1,7 @@
+type BranchParameterAtm {
+    atmBranch: String!
+    atmInstitutionIdentification: String!
+    atmInterBranchTransactionCode: String!
+    atmIsCustomerFundTransfer: Boolean
+
+}

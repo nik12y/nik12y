@@ -1,0 +1,6 @@
+type BranchParameterContactInfo {
+    telephoneNo: String
+    faxNo: String
+    emailId: String
+    bankWebsite: String
+}

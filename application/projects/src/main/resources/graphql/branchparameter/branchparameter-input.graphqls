@@ -1,0 +1,27 @@
+input BranchParameterInput {
+    branchCode: String! @Size(min: 2, max: 16, message: "branchCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "Branch Code Invalid pattern")
+    branchName: String! @Size(min: 1, max: 100, message: "branchName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Branch Name Invalid pattern")
+    bankCode: String! @Size(min: 4, max: 4, message: "bankCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "Bank Code Invalid pattern")
+    branchConciseName: String! @Size(min: 1, max: 10, message: "bankConciseName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,10}",message: "Bank Concise Name Invalid pattern")
+    isBranchAvailableStatus: Boolean!
+    bankIdentifierCode: String @Size(min: 1, max: 11, message: "bankIdentifierCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "Bank Identifier Code Invalid pattern")
+    branchType: String! @Size(min: 1, max: 8, message: "branchType.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "Branch Type Invalid pattern")
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    branchParameterAddress:BranchParameterAddressInput
+    branchParameterContactInfo:BranchParameterContactInfoInput
+    branchParameterGeneral:BranchParameterGeneralInput
+    branchParameterClearing:BranchParameterClearingInput
+    branchParameterAtm:BranchParameterAtmInput
+    branchParameterTimezone: BranchParameterTimezoneInput
+    branchParameterGlobalInterdict: BranchParameterGlobalInterdictInput
+    branchParameterTranDuplicate: BranchParameterTranDuplicateInput
+    branchParameterLocalCurrency: BranchParameterLocalCurrencyInput
+    branchParameterMiscellaneous: BranchParameterMiscellaneousInput
+
+}

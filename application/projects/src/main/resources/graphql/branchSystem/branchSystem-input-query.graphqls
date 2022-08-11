@@ -1,0 +1,4 @@
+input BranchSystemDateInputQuery {
+    branchCode: String!
+    authorized: String!
+}

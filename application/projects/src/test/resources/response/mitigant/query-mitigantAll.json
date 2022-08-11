@@ -1,0 +1,40 @@
+{
+  "data": {
+    "getMitigantAll": [
+      {
+        "mitigantCode": "CR0001",
+        "mitigantCodeName": "test1",
+        "mitigantCodeDesc": "test1",
+        "mitigantRiskCode": [
+          {
+            "riskCode": "RC0001",
+            "riskName": "market risk1"
+          },
+          {
+            "riskCode": "RC0002",
+            "riskName": "market risk2"
+          }
+        ],
+        "isAllowModification": true,
+        "isActionable": true
+      },
+      {
+        "mitigantCode": "CR0002",
+        "mitigantCodeName": "test2",
+        "mitigantCodeDesc": "test2",
+        "mitigantRiskCode": [
+          {
+            "riskCode": "RC0001",
+            "riskName": "market risk1"
+          },
+          {
+            "riskCode": "RC0002",
+            "riskName": "market risk2"
+          }
+        ],
+        "isAllowModification": true,
+        "isActionable": true
+      }
+    ]
+  }
+}

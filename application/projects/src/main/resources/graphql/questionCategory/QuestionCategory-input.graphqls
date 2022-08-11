@@ -1,0 +1,15 @@
+input QuestionCategoryInput{
+    questionCategoryId: String! @Size(min: 2, max: 10, message: "questionCategoryId.message") @Pattern(regexp: "[A-Za-z0-9]{0,10}",message: "QuestionCategoryId Invalid pattern")
+    questionCategoryName: String!@Size(min: 3, max: 35, message: "questionCategoryName.message") @Pattern(regexp: "[ A-Za-z ?''()-]{0,35}",message: "QuestionCategoryName Invalid pattern")
+    questionDisplay: String! @Size(min: 2, max: 100, message: "questionDisplay.message") @Pattern(regexp: "[ A-Za-z ?''()-]{0,100}",message: "QuestionDisplay Invalid pattern")
+    isShowQuestionCategoryName: Boolean!
+    isEnableDocumentUpload: Boolean!
+    questionCategoryDetails: [QuestionCategoryDetailsInput]
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
