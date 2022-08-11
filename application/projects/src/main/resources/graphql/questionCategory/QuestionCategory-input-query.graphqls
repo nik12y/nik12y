@@ -1,0 +1,5 @@
+input QuestionCategoryInputQuery{
+    questionCategoryId: String!
+#    questionCategoryDetails:[QuestionCategoryDetailsInputQuery]
+    authorized : String!
+}

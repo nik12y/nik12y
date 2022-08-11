@@ -43,6 +43,8 @@ public class ServiceBeanConfig {
         beanMappings.put(FINANCIAL_ACCOUNTING_YEAR, FINANCIAL_ACCOUNTING_YEAR_SERVICE);
         beanMappings.put(ERROR_OVERRIDE,ERROR_OVERRIDE_SERVICE);
         beanMappings.put(QUESTION,QUESTION_SERVICE);
+        beanMappings.put(QUESTION_CATEGORY,QUESTION_CATEGORY_SERVICE);
+
     }
 
     public Map<String, String> getBeanConfig () {

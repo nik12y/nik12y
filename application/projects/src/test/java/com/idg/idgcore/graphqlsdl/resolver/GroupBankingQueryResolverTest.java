@@ -13,7 +13,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestApplication.class)
-public class GroupBankingQueryResolverTest {
+class GroupBankingQueryResolverTest {
 
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
@@ -21,7 +21,7 @@ public class GroupBankingQueryResolverTest {
     @DisplayName("JUnit test for list of GroupBanks")
     @Test
     void getAllGroupBanks() throws IOException {
-        String srcDraft = "requestBankGroup/query-bankgroups.graphqls";
+        String srcDraft = "request/bankgroup/query-bankgroups.graphqls";
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
         System.out.println(" srcDraft ");
@@ -32,8 +32,7 @@ public class GroupBankingQueryResolverTest {
     @Test
     @DisplayName("JUnit test for Get GroupBank By Code")
     void getGroupBankByCode() throws IOException {
-        String srcDraft="requestBankGroup/query-bankgroup-bycode.graphqls";
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/bankgroup/query-bankgroup-bycode.graphqls");
         System.out.println(" srcDraft ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println("Done");

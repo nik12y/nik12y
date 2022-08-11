@@ -4,7 +4,6 @@ public final class Constants {
     public static final String EMPTY_STRING = "";
     public static final char CHAR_Y = 'Y';
     public static final char CHAR_N = 'N';
-
     public static final String STRING_Y = "Y";
     public static final String STRING_N = "N";
     public static final String COUNTRY = "COUNTRY";
@@ -27,6 +26,9 @@ public final class Constants {
     public static final String QUESTION = "QUESTION";
     public static final String QUESTION_SERVICE = "questionApplicationService";
 
+
+    public static final String QUESTION_CATEGORY="QUESTION-CAT";
+    public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
 

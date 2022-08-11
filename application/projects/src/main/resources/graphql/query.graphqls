@@ -46,6 +46,9 @@ type Query{
     getCurrencyDetails(sessionContext: SessionContextInput, currencyCode : CurrencyCodeInput) : CurrencyDetails
 
 
+    getQuestionCategoryById(sessionContext: SessionContextInput, questionCategoryQuery: QuestionCategoryInputQuery): QuestionCategory
+    getQuestionsCategories(sessionContext: SessionContextInput):[QuestionCategory]
+
     getAppVerCatChecklistPolicyById(sessionContext: SessionContextInput, appVerCatChecklistPolicyQuery: AppVerCatChecklistPolicyInputQuery): AppVerCatChecklistPolicy
     getAppVerCatChecklistPolicies(sessionContext: SessionContextInput): [AppVerCatChecklistPolicy]
     getAppVerCategoryConfigs(sessionContext: SessionContextInput): [AppVerCategoryConfig]
