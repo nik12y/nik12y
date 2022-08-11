@@ -1,0 +1,4 @@
+input ZakatInputQuery {
+    zakatYear : Int!
+    authorized : String!
+}
