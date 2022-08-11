@@ -1,0 +1,59 @@
+mutation{
+processIban(
+sessionContext:{
+  bankCode: "0002"
+  defaultBranchCode: "0002"
+  internalTransactionReferenceNumber: null
+  userTransactionReferenceNumber: null
+  externalTransactionReferenceNumber:null
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Prash"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: ["checker"]
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+
+  },
+  iban:{
+    ibanCountryCode:"AU"
+    ibanCountryPosition:1
+    ibanCountryCodeLength:1
+    ibanCheckDigitPosition:1
+    ibanCheckDigitLength:1
+    ibanNationalIdLength:"IBAN0001"
+    ibanTotalLength:20
+    action : "authorize"
+    status:"new"
+    recordVersion : 0
+    ibanBban:{
+      bankIdentifierPosition:1
+      bankIdentifierLength:"IBAN000001"
+      branchIdentifierPosition:"AM"
+      branchIdentifierLength:"IB01"
+      accountNumberPosition:5
+      accountNumberLength:4
+    }
+  }
+)
+{
+  externalReferenceNumber
+  internalReferenceNumber
+  userReferenceNumber
+  replyCode
+  replyMessage
+  errorCode
+  isErrorToBeOverridden
+}
+}

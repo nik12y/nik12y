@@ -21,11 +21,11 @@ query {
             customAttributes: null
             serviceInvocationModeType: Regular
             allTargetUnitsSelected: false
-            userLocal: null
+            userLocal: "en_US"
             originatingModuleCode: null
         },
         purposeQuery:{
-            purposeCode:"PC0014"
+            purposeCode:"PC006"
             authorized:"Y"
         }
     ) {
