@@ -35,6 +35,11 @@ databaseChangeLog:
       file: db/changelog/purpose-table.xml
   - include:
       file: db/changelog/mitigant-table.xml
+  - include:
+      file: db/changelog/bankGroup-table.xml
+  - include:
+      file: db/changelog/question-table.xml
+
 #  - include:
 #      file: db/changelog/city-table.xml
 #  - include:
