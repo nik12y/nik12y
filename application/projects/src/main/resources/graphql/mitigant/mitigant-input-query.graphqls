@@ -1,0 +1,4 @@
+input MitigantInputQuery {
+    mitigantCode: String!
+    authorized : String!
+}

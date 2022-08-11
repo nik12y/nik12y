@@ -73,8 +73,6 @@ public final class Constants {
     public static final String RISKCODE_SERVICE = "riskCodeApplicationService";
     public static final String PURGING_POLICY = "PURGING_POLICY";
     public static final String PURGING_POLICY_SERVICE = "purgingApplicationService";
-    public static final String BRANCH_SYSTEM_DATE = "BRANCH_SYS_DATE";
-    public static final String BRANCH_SYSTEM_DATE_SERVICE = "branchSystemApplicationService";
     public static final String MITIGANT = "MITIGANT";
     public  static final String MITIGANT_SERVICE = "mitigantApplicationService";
     public static final String QUE_CHECKLIST  = "QUESTION_CKLIST";
