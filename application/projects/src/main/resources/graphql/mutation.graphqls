@@ -17,6 +17,10 @@ type Mutation {
     processAppVerCategoryConfigs(sessionContext: SessionContextInput, appVerCategoryConfig: AppVerCategoryConfigInput): TransactionStatus
     processAppVerCatChecklistPolicy(sessionContext: SessionContextInput, appVerCatChecklistPolicy: AppVerCatChecklistPolicyInput): TransactionStatus
 
+    processQuestion(sessionContext: SessionContextInput, question: QuestionInput ): TransactionStatus
+
+
+
     processQuestionCategory(sessionContext: SessionContextInput,questionCategory: QuestionCategoryInput): TransactionStatus
     processBranchParameter(sessionContext: SessionContextInput, branchParameter: BranchParameterInput): TransactionStatus
     processBankParameter(sessionContext: SessionContextInput, bankParameter: BankParameterInput): TransactionStatus

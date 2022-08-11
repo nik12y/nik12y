@@ -14,7 +14,6 @@ public final class Constants {
 
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
-
     public static final String BANK = "BANK";
     public static final String BANK_SERVICE ="bankApplicationService";
     public static final String PURPOSE_SERVICE = "purposeApplicationService";
@@ -22,9 +21,11 @@ public final class Constants {
     public static final String LANGUAGE = "LANGUAGE";
     public static final String LANGUAGE_SERVICE = "languageApplicationService";
     public static final String BANK_IDENTIFIER_SERVICE = "bankIdentifierApplicationService";
-
     public static final String GROUP_BANKING = "GROUP-BANKING";
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
+    public static final String QUESTION = "QUESTION";
+    public static final String QUESTION_SERVICE = "questionApplicationService";
+
 
     public static final String QUESTION_CATEGORY="QUESTION-CAT";
     public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";

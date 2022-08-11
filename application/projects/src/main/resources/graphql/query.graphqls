@@ -35,6 +35,9 @@ type Query{
     getMitigantByCode(sessionContext: SessionContextInput, mitigantQuery:MitigantInputQuery):Mitigant
     getMitigantAll(sessionContext: SessionContextInput): [Mitigant]
 
+    getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
+    getQuestions(sessionContext: SessionContextInput):[Question]
+
     getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]
     getWeekAllDays(sessionContext: SessionContextInput):[Days]
     getDayDivisor(sessionContext: SessionContextInput):[InterestMethod]
