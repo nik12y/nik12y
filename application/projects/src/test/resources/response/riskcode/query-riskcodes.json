@@ -1,0 +1,25 @@
+{
+  "data": {
+    "getRiskCodes": [
+      {
+        "riskCode": "NWBKGB2L",
+        "riskCodeName": "NATIONAL WESTMINSTER BANK PLC",
+        "riskCodeDescription": "PREMIER PLACE, DEVONSHIRE SQUARE",
+        "riskCodeIsAllowedDetailsModified": "True",
+        "riskMode": "dsfdfs",
+        "riskCategoryCode": "rcc001"
+
+      },
+      {
+        "riskCode": "NTSBDEB1",
+        "riskCodeName": "N26 BANK GMBH",
+        "riskCodeDescription": "KLOSTERSTRASSE 62",
+        "riskCodeIsAllowedDetailsModified": "True",
+        "riskMode": "dsfdfs",
+        "riskCategoryCode": "rcc002"
+
+
+      }
+    ]
+  }
+}
