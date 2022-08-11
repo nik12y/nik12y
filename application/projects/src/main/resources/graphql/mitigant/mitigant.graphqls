@@ -1,0 +1,15 @@
+type Mitigant {
+    mitigantCode: String!
+    mitigantCodeName : String
+    mitigantCodeDesc : String
+    mitigantRiskCode: [MitigantRiskCode]
+    isAllowModification : Boolean
+    isActionable : Boolean
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

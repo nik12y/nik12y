@@ -1,0 +1,14 @@
+{
+  "data": {
+    "getGroupBankByCode": {
+      "bankGroupCode": "CBI",
+      "bankGroupName": "Crime Bank of India",
+      "status": "active",
+      "recordVersion": 1,
+      "createdBy": "Nikhil",
+      "creationTime": "2022-07-25 21:49:00.124",
+      "lastUpdatedBy": "Nikhil",
+      "lastUpdatedTime": "2022-07-25 21:49:00.124"
+    }
+  }
+}

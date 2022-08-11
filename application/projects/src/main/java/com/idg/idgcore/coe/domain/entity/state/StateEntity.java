@@ -30,14 +30,30 @@ import java.io.Serializable;
 public class StateEntity extends AbstractAuditableDomainEntity
         implements Serializable {
     @Id
+    @Column(name="state_code")
     private String stateCode;
+
+    @Column(name="state_name")
     private String stateName;
 
     @Column(name = "country_code", updatable = false)
     private String countryCode;
 
+    @Column(name="life_cycle_id")
+    private String lifeCycleId;
+
+    @Column(name="reference_no")
+    private String referenceNo;
+
+    @Column(name="record_status")
     private String status;
+
+    @Column(name="record_version")
     private Integer recordVersion;
+
+    @Column(name="is_authorized")
     private String authorized;
+
+    @Column(name="last_configuration_action")
     private String lastConfigurationAction;
 }

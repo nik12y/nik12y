@@ -1,0 +1,7 @@
+input BankParameterCurrencyInput {
+    currencyCode: String! #@Size(min: 1, max: 3, message: "currencyCode.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Currency Code Invalid pattern")
+    currencyName: String! #@Size(min: 1, max: 50, message: "currencyName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "currency Name Invalid pattern")
+    isDenominationTrackingRequired: Boolean! @Pattern(regexp: "^(?i)(true|false)$",message: "Denomination Tracking Required Invalid pattern")
+    currencyOfDenomination: String! #@Size(min: 1, max: 50, message: "currencyOfDenomination.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Currency Of Denomination Invalid pattern")
+    denominationTrackingCurrency: String! #@Size(min: 1, max: 3, message: "denominationTrackingCurrency.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Denomination Tracking Currency Invalid pattern")
+}

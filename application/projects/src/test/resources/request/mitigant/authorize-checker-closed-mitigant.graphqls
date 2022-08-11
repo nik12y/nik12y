@@ -1,0 +1,56 @@
+mutation{
+    processMitigant(
+        sessionContext:{
+            bankCode: "03"
+            defaultBranchCode: "03110"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "aditya"
+            accessibleTargetUnits: null
+            channel: null
+            taskCode: null
+            localDateTime: null
+            role: ["checker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType: ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+        },
+        mitigant:{
+            mitigantCode: "CR0001"
+            mitigantCodeName: "test1"
+            mitigantCodeDesc : "test1"
+            mitigantRiskCode: [{
+                riskCode: "RC0001"
+                riskName: "market risk1"
+            },
+                {
+                    riskCode: "RC0002"
+                    riskName: "market risk2"
+                }]
+            isAllowModification: true
+            isActionable: true
+            action : "authorize"
+            status:"closed"
+            recordVersion : 1
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

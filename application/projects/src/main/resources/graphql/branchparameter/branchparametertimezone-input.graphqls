@@ -1,0 +1,6 @@
+input BranchParameterTimezoneInput {
+    timeZoneNoOfHours: Int @Digits(integer : 2, fraction : 0, message : "timeZoneNoOfHours.message") @PositiveOrZero(message : "TimeZone No Of Hours Cannot be negative or zero.")
+    timeZoneNoOfMinutes: Int @Digits(integer : 2, fraction : 0, message : "timeZoneNoOfMinutes.message") @PositiveOrZero(message : "TimeZone No Of Minutes Cannot be negative or zero.")
+    timeZoneIsAhead: Boolean
+    timeZoneLevel: String
+ }

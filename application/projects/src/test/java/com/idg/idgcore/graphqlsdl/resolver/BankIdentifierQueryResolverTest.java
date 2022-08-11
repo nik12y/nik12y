@@ -25,7 +25,6 @@ public class BankIdentifierQueryResolverTest {
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/bankidentifier/query-bankidentifiers.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
-//        assertEquals(FileReaderUtil.read("response/bankidentifier/query-bankidentifiers.json"),graphQLResponse.getRawResponse().getBody(), true);
     }
 
     @Test
@@ -33,6 +32,5 @@ public class BankIdentifierQueryResolverTest {
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/bankidentifier/query-bankidentifier-bycode.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
-//        assertEquals(FileReaderUtil.read("response/bankidentifier/query-bankidentifier-bycode.json"),graphQLResponse.getRawResponse().getBody(), true);
     }
 }

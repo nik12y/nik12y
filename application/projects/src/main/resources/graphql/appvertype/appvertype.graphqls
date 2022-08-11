@@ -1,0 +1,17 @@
+type AppVerType {
+    verificationTypeId : String!
+    verificationTypeName : String!
+    verificationTypeDesc : String!
+    isViewableToCustomer : Boolean!
+    isAlertToBeSentOnCompl : Boolean!
+    isExternal : Boolean!
+    isDocumentRequired : Boolean!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    documents: [Documents]
+}

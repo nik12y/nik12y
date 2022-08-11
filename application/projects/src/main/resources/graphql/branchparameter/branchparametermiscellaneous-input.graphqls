@@ -1,0 +1,8 @@
+input BranchParameterMiscellaneousInput {
+    miscDenominationTrackingRequired: Boolean!
+    miscCurrencyOfDenomination: String! @Size(min: 3, max: 3, message: "miscCurrencyOfDenomination.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "Misc Currency Of Denomination Invalid pattern")
+    miscWeekBeginDay: String!
+    miscWeeklyOff1: String!
+    miscWeeklyOff2: String!
+    miscFinancialYearBeginMonth: String!
+ }
