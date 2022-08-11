@@ -1,0 +1,6 @@
+type BankParameterForOdLoan {
+    ruleIdForOd: String
+    ruleNameForOd: String
+    ruleIdForLoan: String
+    ruleNameForLoan: String
+}

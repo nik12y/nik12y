@@ -22,4 +22,6 @@ type SessionContext {
     mutationType: MutationType
     userLocal: String
     originatingModuleCode: String
+    engineCode: String
+    screenCode: String
 }

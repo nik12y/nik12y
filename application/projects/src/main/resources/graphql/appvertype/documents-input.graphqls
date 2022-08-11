@@ -1,0 +1,8 @@
+input DocumentsInput {
+    documentName: String @Size(min: 1, max: 100, message: "documentName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Document Name Invalid pattern")
+    nature: String @Size(min: 1, max: 50, message: "nature.message") @Pattern(regexp: ".[A-Za-z0-9]{1,50}",message: " Nature Invalid pattern")
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

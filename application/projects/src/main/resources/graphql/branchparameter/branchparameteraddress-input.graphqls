@@ -1,0 +1,10 @@
+input BranchParameterAddressInput {
+    branchAddress1: String @Size(min: 0, max: 100, message: "branchAddress1.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Branch Address 1 is Invalid pattern.")
+    branchAddress2: String @Size(min: 0, max: 100, message: "branchAddress2.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Branch Address 2 is Invalid pattern.")
+    branchAddress3: String @Size(min: 0, max: 100, message: "branchAddress3.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Branch Address 3 is Invalid pattern.")
+    branchAddress4: String @Size(min: 0, max: 100, message: "branchAddress4.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Branch Address 4 is Invalid pattern.")
+    country: String! #@Size(min: 2, max: 2, message: "country.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "Country Code Invalid pattern")
+    state: String #@Size(min: 3, max: 3, message: "state.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "State Code Invalid pattern")
+    city: String! #@Size(min: 3, max: 3, message: "city.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "City Code Invalid pattern")
+
+ }

@@ -1,0 +1,4 @@
+type AppVerTypeQuery {
+    verificationTypeId: String!
+    authorized: String!
+}

@@ -1,0 +1,12 @@
+input PurgingInput {
+    moduleCode: String! @Size(min: 2, max: 2, message: "moduleCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${2,2}",message: "Module Code Invalid pattern")
+    tranMaintenanceStatus : String! @Size(min: 1, max: 20, message: "tranMaintenanceStatus.message") @Pattern(regexp: "[A-Za-z]{1,100}",message: "tranMaintenanceStatus Invalid pattern")
+    retentionPeriod : Int! @Digits(integer : 6, fraction : 0, message : "retentionPeriod.message") @PositiveOrZero(message : "Retention Period Cannot be negative")
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

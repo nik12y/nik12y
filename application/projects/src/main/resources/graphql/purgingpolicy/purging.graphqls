@@ -1,0 +1,12 @@
+type Purging {
+    moduleCode: String!
+    tranMaintenanceStatus : String!
+    retentionPeriod : Int!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

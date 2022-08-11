@@ -1,0 +1,27 @@
+type BranchParameter {
+    branchCode: String!
+    branchName: String!
+    bankCode: String!
+    branchConciseName: String!
+    isBranchAvailableStatus: Boolean!
+    bankIdentifierCode: String
+    branchType: String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    branchParameterAddress:BranchParameterAddress
+    branchParameterContactInfo:BranchParameterContactInfo
+    branchParameterGeneral:BranchParameterGeneral
+    branchParameterClearing:BranchParameterClearing
+    branchParameterAtm:BranchParameterAtm
+    branchParameterTimezone: BranchParameterTimezone
+    branchParameterGlobalInterdict: BranchParameterGlobalInterdict
+    branchParameterTranDuplicate: BranchParameterTranDuplicate
+    branchParameterLocalCurrency: BranchParameterLocalCurrency
+    branchParameterMiscellaneous: BranchParameterMiscellaneous
+
+}
