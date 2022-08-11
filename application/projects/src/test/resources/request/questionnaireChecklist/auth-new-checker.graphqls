@@ -1,5 +1,5 @@
 mutation{
-    processQuestionnaireChecklist(
+        questionnaireChecklist:{
         sessionContext:{
             bankCode: ""
             defaultBranchCode: ""

@@ -6,7 +6,7 @@ input QuestionnaireChecklistInput {
     effectiveDate : String
 
 
-    questionnaireChecklistDetailsCategory : [QuestionnaireChecklistDetailsCategoryInput]!
+    questionnaireChecklistDetailsCategory : QuestionnaireChecklistDetailsCategoryInput
     questionnaireChecklistDisplay : QuestionnaireChecklistDisplayInput!
 
     action : String!

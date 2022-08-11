@@ -8,8 +8,7 @@ import org.modelmapper.convention.*;
 import org.springframework.stereotype.*;
 
 import javax.annotation.*;
-import java.util.*;
-import java.util.stream.*;
+
 
 @Component
 public class QuestionnaireChecklistAssembler {
@@ -26,27 +25,24 @@ public class QuestionnaireChecklistAssembler {
         /**
          * For Questionnaire Checklist Details List
          */
-        List<QuestionnaireChecklistDetailsCategoryDTO> checklistDetailsCategoryDTOList = questionnaireChecklistDTO.getQuestionnaireChecklistDetailsCategory();
-        List<QuestionnaireChecklistDetailsCategoryEntity> checklistDetailsCategoryEntityList = new ArrayList<>();
-        checklistDetailsCategoryEntityList.addAll(
-                checklistDetailsCategoryDTOList.stream().map(entity -> {
-                    return modelMapper.map(entity,
-                            QuestionnaireChecklistDetailsCategoryEntity.class);
-                }).collect(Collectors.toList()));
+        QuestionnaireChecklistDetailsCategoryDTO detailsDTO = questionnaireChecklistDTO.getQuestionnaireChecklistDetailsCategory();
+        QuestionnaireChecklistDetailsCategoryEntity detailsEntity = modelMapper.map(
+                detailsDTO,
+                QuestionnaireChecklistDetailsCategoryEntity.class);
         /**
          * For Questionnaire Checklist Display Details
          */
-        QuestionnaireChecklistDisplayDTO questionnaireChecklistDisplayDTO = questionnaireChecklistDTO.getQuestionnaireChecklistDisplay();
-        QuestionnaireChecklistDisplayEntity checklistDetailsCategoryDTO = modelMapper.map(
-                questionnaireChecklistDisplayDTO, QuestionnaireChecklistDisplayEntity.class);
+        QuestionnaireChecklistDisplayDTO displayDTO = questionnaireChecklistDTO.getQuestionnaireChecklistDisplay();
+        QuestionnaireChecklistDisplayEntity displayEntity = modelMapper.map(
+                displayDTO, QuestionnaireChecklistDisplayEntity.class);
         /**
          * For Questionnaire Checklist
          */
         QuestionnaireChecklistEntity questionnaireChecklistEntity = modelMapper.map(
                 questionnaireChecklistDTO, QuestionnaireChecklistEntity.class);
-        questionnaireChecklistEntity.setChecklistDetailsCategoryEntities(
-                checklistDetailsCategoryEntityList);
-        questionnaireChecklistEntity.setChecklistDisplayEntity(checklistDetailsCategoryDTO);
+        questionnaireChecklistEntity.setQuestionnaireChecklistDetailsCategory(
+                detailsEntity);
+        questionnaireChecklistEntity.setChecklistDisplayEntity(displayEntity);
         return questionnaireChecklistEntity;
     }
 
@@ -54,13 +50,10 @@ public class QuestionnaireChecklistAssembler {
         /**
          * For Questionnaire Checklist Details List
          */
-        List<QuestionnaireChecklistDetailsCategoryDTO> checklistDetailsDTOList = new ArrayList<>();
-        List<QuestionnaireChecklistDetailsCategoryEntity> checklistDetailsCategoryEntityList = inEntity.getChecklistDetailsCategoryEntities();
-        checklistDetailsDTOList.addAll(checklistDetailsCategoryEntityList.stream().map(dto -> {
-            QuestionnaireChecklistDetailsCategoryDTO checklistDetailsDTO = new QuestionnaireChecklistDetailsCategoryDTO();
-            checklistDetailsDTO.setQuestionCategoryId(dto.getQuestionCategoryId());
-            return checklistDetailsDTO;
-        }).collect(Collectors.toList()));
+        QuestionnaireChecklistDetailsCategoryEntity detailsEntity = inEntity.getQuestionnaireChecklistDetailsCategory();
+        QuestionnaireChecklistDetailsCategoryDTO detailsDTO = modelMapper.map(
+                detailsEntity, QuestionnaireChecklistDetailsCategoryDTO.class);
+
         /**
          * For Questionnaire Checklist Display Details
          */
@@ -72,7 +65,7 @@ public class QuestionnaireChecklistAssembler {
          */
         QuestionnaireChecklistDTO questionnaireChecklistDTO = modelMapper.map(inEntity,
                 QuestionnaireChecklistDTO.class);
-        questionnaireChecklistDTO.setQuestionnaireChecklistDetailsCategory(checklistDetailsDTOList);
+        questionnaireChecklistDTO.setQuestionnaireChecklistDetailsCategory(detailsDTO);
         questionnaireChecklistDTO.setQuestionnaireChecklistDisplay(checklistDisplayDTO);
         return questionnaireChecklistDTO;
     }

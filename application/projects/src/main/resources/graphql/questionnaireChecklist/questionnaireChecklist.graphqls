@@ -13,6 +13,6 @@ type QuestionnaireChecklist {
     lastUpdatedBy: String
     lastUpdatedTime: String
 
-    questionnaireChecklistDetailsCategory : [QuestionnaireChecklistDetailsCategory]
+    questionnaireChecklistDetailsCategory : QuestionnaireChecklistDetailsCategory
     questionnaireChecklistDisplay : QuestionnaireChecklistDisplay
 }

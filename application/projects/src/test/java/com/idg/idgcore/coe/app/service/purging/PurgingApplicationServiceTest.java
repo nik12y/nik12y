@@ -346,14 +346,14 @@ public class PurgingApplicationServiceTest {
     }
 
     private PurgingEntity getPurgingEntity(){
-        PurgingEntity purgingEntity = new PurgingEntity("LN", "closed", 5, "active", 1, "Y", "authorized");
+        PurgingEntity purgingEntity = new PurgingEntity("LN", "closed", 5, "active", "1", "Y", 1,"authorized","");
 
         return purgingEntity;
     }
 
     private PurgingEntity getPurgingAllEntity(){
 
-        PurgingEntity purgingEntity = new PurgingEntity("LN", "closed", 5, "active", 1, "Y", "authorized");
+        PurgingEntity purgingEntity = new PurgingEntity("LN", "closed", 5, "active", "1", "Y", 1,"authorized","");
 
         PurgingEntityKey purgingEntityKey = new PurgingEntityKey("LN");
         System.out.println(purgingEntityKey);

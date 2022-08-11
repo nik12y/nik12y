@@ -1,6 +1,5 @@
 package com.idg.idgcore.coe.domain.entity.questionnaireChecklist;
 
-import com.idg.idgcore.coe.domain.entity.country.*;
 import com.idg.idgcore.domain.*;
 import lombok.*;
 
@@ -25,16 +24,19 @@ public class QuestionnaireChecklistEntity extends AbstractAuditableDomainEntity 
     private String questionCategory;
     private Date effectiveDate;
 
+    private String lifeCycleId;
+    private String referenceNo;
+    @Column(name = "record_status")
     private String status;
+    @Column(name = "record_version")
     private Integer recordVersion;
+    @Column(name = "is_authorized")
     private String authorized;
     private String lastConfigurationAction;
 
 
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn (name = "question_checklist_id")//questionChecklistId
-    private List<QuestionnaireChecklistDetailsCategoryEntity> checklistDetailsCategoryEntities;
-
+    @Embedded
+    private QuestionnaireChecklistDetailsCategoryEntity questionnaireChecklistDetailsCategory;
     @Embedded
     private QuestionnaireChecklistDisplayEntity checklistDisplayEntity;
 

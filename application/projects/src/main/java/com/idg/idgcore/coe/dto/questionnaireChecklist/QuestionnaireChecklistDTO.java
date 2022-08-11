@@ -24,7 +24,7 @@ public class QuestionnaireChecklistDTO extends CoreEngineBaseDTO {
     private String questionCategory;
     private String effectiveDate;
 
-    private List<QuestionnaireChecklistDetailsCategoryDTO> questionnaireChecklistDetailsCategory;
+    private QuestionnaireChecklistDetailsCategoryDTO questionnaireChecklistDetailsCategory;
     private QuestionnaireChecklistDisplayDTO questionnaireChecklistDisplay;
 
     @Override

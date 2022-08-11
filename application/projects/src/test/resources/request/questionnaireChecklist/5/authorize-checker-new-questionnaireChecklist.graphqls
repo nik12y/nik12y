@@ -1,34 +1,35 @@
 mutation{
     processQuestionnaireChecklist(
         sessionContext:{
-            bankCode: ""
-            defaultBranchCode: ""
+            bankCode: "003"
+            defaultBranchCode: "1141"
             internalTransactionReferenceNumber: ""
-            userTransactionReferenceNumber: ""
-            externalTransactionReferenceNumber: ""
-            targetUnit: ""
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
             postingDate: ""
             valueDate: ""
-            transactionBranch: ""
-            userId: "Preeti"
-            accessibleTargetUnits: [""]
-            channel: ""
-            taskCode: ""
+            transactionBranch: null
+            userId: "sujan"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: "QUESTION_CKLIST"
             localDateTime: ""
-            role: "maker"
-            originalTransactionReferenceNumber: ""
+            role: "checker"
+            originalTransactionReferenceNumber: null
             externalBatchNumber: 1
-            customAttributes: ""
+            customAttributes: null
             serviceInvocationModeType : Regular
             allTargetUnitsSelected: false
             mutationType:   ADDITION
-            userLocal: ""
-            originatingModuleCode: ""
+            userLocal: "es_US"
+            originatingModuleCode: null
         },
         questionnaireChecklist:{
-            questionChecklistId:"CC"
-            questionChecklistName:"test1"
-            questionCategory:"tt"
+            questionChecklistId:"CG"
+            questionChecklistName:"CGADH"
+            questionCategory: "IN"
+
             questionnaireChecklistDetailsCategory:{
                 questionCategoryId:"test"
             }
@@ -36,11 +37,10 @@ mutation{
                 ruleId:"ruleid"
             }
 
-            action : "add"
+            action : "authorize"
             status:"new"
-            recordVersion : 0
+            recordVersion : 1
         }
-
     )
     {
         externalReferenceNumber
@@ -49,5 +49,6 @@ mutation{
         replyCode
         replyMessage
         errorCode
+        isErrorToBeOverridden
     }
 }
