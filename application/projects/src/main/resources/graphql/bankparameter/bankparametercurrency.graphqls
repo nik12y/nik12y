@@ -1,0 +1,7 @@
+type BankParameterCurrency {
+    currencyCode: String
+    currencyName: String
+    isDenominationTrackingRequired: Boolean!
+    currencyOfDenomination: String
+    denominationTrackingCurrency: String
+}

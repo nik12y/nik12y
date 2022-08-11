@@ -1,0 +1,4 @@
+type BranchParameterQuery {
+    branchCode: String!
+    authorized: String!
+}

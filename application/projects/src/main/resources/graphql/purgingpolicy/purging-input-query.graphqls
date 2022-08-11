@@ -1,0 +1,4 @@
+input PurgingInputQuery {
+    moduleCode: String!
+    authorized : String!
+}
