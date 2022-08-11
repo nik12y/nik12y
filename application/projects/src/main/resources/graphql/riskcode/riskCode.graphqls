@@ -5,7 +5,7 @@ type RiskCode {
     isAllowDetailsModified  : Boolean!
     riskMode : String!
     riskCategoryCode:String!
-   #riskCategoryName:String!
+
 
     action : String!
     status : String!
