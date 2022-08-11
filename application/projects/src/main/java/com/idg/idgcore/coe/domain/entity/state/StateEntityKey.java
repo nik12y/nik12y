@@ -21,9 +21,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-
-@Inheritance(strategy = InheritanceType.JOINED)
 @ToString
+@Inheritance(strategy = InheritanceType.JOINED)
+
 public class StateEntityKey extends AbstractDomainKey
         implements Serializable {
     @Id

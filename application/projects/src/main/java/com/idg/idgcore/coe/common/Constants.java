@@ -25,8 +25,9 @@ public final class Constants {
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
-    public static final String APP_VERIFICATION_TYPE = "APPVERTYPE";
-    public static final String APP_VERIFICATION_TYPE_SERVICE = "appVerTypeApplicationService";
+
+    public static final String BRANCH_SYSTEM_DATE = "BRANCH_SYS_DATE";
+    public static final String BRANCH_SYSTEM_DATE_SERVICE = "branchSystemApplicationService";
     public static final String INACTIVE = "inactive";
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
