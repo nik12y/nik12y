@@ -1,0 +1,6 @@
+input BankParameterContactInfoInput {
+    telephoneNo: String #@Size(min: 1, max: 16, message: "telephoneNo.message") @Pattern(regexp: "(0/91)?[7-9][0-9]{9}",message: "Telephone Number is Invalid pattern.")
+    faxNo: String #@Size(min: 1, max: 16, message: "faxNo.message") @Pattern(regexp: "(0/91)?[7-9][0-9]{9}",message: "Fax Number is Invalid pattern.")
+    emailId: String @Size(min: 1, max: 20, message: "emailId.message") @Pattern(regexp: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+",message: "Email is Invalid pattern.")
+    bankWebsite: String
+ }

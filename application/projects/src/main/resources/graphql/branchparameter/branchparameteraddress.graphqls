@@ -1,0 +1,10 @@
+type BranchParameterAddress {
+    branchAddress1: String
+    branchAddress2: String
+    branchAddress3: String
+    branchAddress4: String
+    country: String
+    state: String
+    city: String
+
+}

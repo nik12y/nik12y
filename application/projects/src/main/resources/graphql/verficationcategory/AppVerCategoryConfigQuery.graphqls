@@ -1,0 +1,4 @@
+type AppVerCategoryConfigQuery {
+    appVerificationCategoryId: String!
+    authorized: String!
+}

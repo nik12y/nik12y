@@ -1,0 +1,8 @@
+input IbanBbanInput {
+    bankIdentifierPosition:Int! @Digits(integer : 1, fraction : 0, message : "bankIdentifierPosition.message") @Positive(message : "Bank Identifier Position Cannot be negative or zero.")
+    bankIdentifierLength:String! @Size(min: 1, max: 10, message: "bankIdentifierLength.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "Bank Identifier Length Invalid pattern")
+    branchIdentifierPosition:String! @Size(min: 1, max: 2, message: "branchIdentifierPosition.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=0-9]*${1,2}",message: "Branch Identifier Position Invalid pattern")
+    branchIdentifierLength:String @Size(min: 1, max: 10, message: "branchIdentifierLength.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "Branch Identifier Length Invalid pattern")
+    accountNumberPosition:Int! @Digits(integer : 2, fraction : 0, message : "accountNumberPosition.message") @Positive(message : "Account Number Position Cannot be negative or zero.")
+    accountNumberLength:Int @Range(min : 1, max : 16, message : "accountNumberLength.message")
+ }

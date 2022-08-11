@@ -1,0 +1,15 @@
+input MitigantInput {
+    mitigantCode: String! @Size(min: 1, max: 10, message: "mitigantCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "Mitigant Code Invalid pattern")
+    mitigantCodeName : String! @Size(min: 1, max: 100, message: "mitiganCodeName.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "Mitigant Code Name Invalid pattern")
+    mitigantCodeDesc : String! @Size(min: 1, max: 100, message: "mitiganCodeDescription.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "Mitigant Code Description Invalid pattern")
+    mitigantRiskCode: [MitigantRiskCodeInput]
+    isAllowModification : Boolean
+    isActionable : Boolean
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

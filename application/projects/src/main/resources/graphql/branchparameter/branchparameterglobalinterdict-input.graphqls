@@ -1,0 +1,4 @@
+input BranchParameterGlobalInterdictInput {
+    globalInterdictFunctionId: String @Size(min: 1, max: 16, message: "globalInterdictFunctionId.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,16}",message: "Global Interdict FunctionId Invalid pattern")
+
+ }

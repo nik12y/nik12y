@@ -1,0 +1,4 @@
+type QuestionQuery {
+    questionId: String!
+    authorized: String!
+}

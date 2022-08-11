@@ -1,0 +1,76 @@
+{
+  "data": {
+    "getQuestionsCategories": [
+      {
+        "questionCategoryId": "SN002",
+        "questionCategoryName": "Education loan",
+        "questionDisplay": "Yes",
+        "isShowQuestionCategoryName": true,
+        "isEnableDocumentUpload": true,
+        "questionCategoryDetails": [],
+        "status": "active",
+        "recordVersion": 1,
+        "createdBy": "NikhilYadav",
+        "creationTime": "2022-08-08 15:51:03.536",
+        "lastUpdatedBy": "NikhilYadav",
+        "lastUpdatedTime": "2022-08-08 15:51:03.536"
+      },
+      {
+        "questionCategoryId": "SN001",
+        "questionCategoryName": "Education loan",
+        "questionDisplay": "Yes",
+        "isShowQuestionCategoryName": true,
+        "isEnableDocumentUpload": true,
+        "questionCategoryDetails": [],
+        "status": "active",
+        "recordVersion": 1,
+        "createdBy": "NikhilYadav",
+        "creationTime": "2022-08-08 15:19:37.527",
+        "lastUpdatedBy": "NikhilYadav",
+        "lastUpdatedTime": "2022-08-08 15:19:37.527"
+      },
+      {
+        "questionCategoryId": "SN004",
+        "questionCategoryName": "Education loan",
+        "questionDisplay": "Yes",
+        "isShowQuestionCategoryName": true,
+        "isEnableDocumentUpload": true,
+        "questionCategoryDetails": [
+          {
+            "questionId": "Q005",
+            "questionNature": "Mandatory",
+            "parentQuestionId": "Q004",
+            "displayCondition": "Yes"
+          }
+        ],
+        "status": "active",
+        "recordVersion": 1,
+        "createdBy": "NikhilYadav",
+        "creationTime": "2022-08-08 15:55:10.169",
+        "lastUpdatedBy": "NikhilYadav",
+        "lastUpdatedTime": "2022-08-08 15:55:10.169"
+      },
+      {
+        "questionCategoryId": "SN003",
+        "questionCategoryName": "Education loan",
+        "questionDisplay": "Yes",
+        "isShowQuestionCategoryName": true,
+        "isEnableDocumentUpload": true,
+        "questionCategoryDetails": [
+          {
+            "questionId": "Q004",
+            "questionNature": "Mandatory",
+            "parentQuestionId": "Q003",
+            "displayCondition": "Yes"
+          }
+        ],
+        "status": "active",
+        "recordVersion": 1,
+        "createdBy": "NikhilYadav",
+        "creationTime": "2022-08-08 15:54:40.72",
+        "lastUpdatedBy": "NikhilYadav",
+        "lastUpdatedTime": "2022-08-08 15:54:40.72"
+      }
+    ]
+  }
+}
