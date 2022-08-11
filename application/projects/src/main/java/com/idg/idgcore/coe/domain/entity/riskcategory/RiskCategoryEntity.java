@@ -29,12 +29,18 @@ public class RiskCategoryEntity extends AbstractAuditableDomainEntity
         private String riskCategoryName;
         @Column(name = "risk_category_description")
         private String riskCategoryDescription;
-
-        private String status;
+        @Column(name = "life_cycle_id")
+        private String lifeCycleId;
+        @Column(name = "reference_no")
+        private String referenceNo;
+                @Column(name = "record_version")
         private Integer recordVersion;
+        @Column(name = "record_status")
+        private String status;
+        @Column(name = "is_authorized")
         private String authorized;
+        @Column(name = "last_configuration_action")
         private String lastConfigurationAction;
-
     }
 
 

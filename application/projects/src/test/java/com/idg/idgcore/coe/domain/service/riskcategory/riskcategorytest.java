@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.domain.riskcategory;
+package com.idg.idgcore.coe.domain.service.riskcategory;
 
 import com.idg.idgcore.coe.domain.assembler.riskcategory.RiskCategoryAssembler;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
