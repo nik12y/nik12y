@@ -24,6 +24,8 @@ public final class Constants {
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
+    public static final String REASON = "REASON";
+    public static final String REASON_SERVICE = "reasonApplicationService";
     public static final String INACTIVE = "inactive";
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
