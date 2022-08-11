@@ -138,7 +138,7 @@ public class ZakatApplicationService extends AbstractApplicationService
     }
 
 
-    @Transactional
+
     public TransactionStatus processZakat(SessionContext sessionContext, ZakatDTO zakatDTO)throws FatalException, JsonProcessingException {
         if (log.isInfoEnabled()) {
             log.info("In processZakat with parameters sessionContext {}, zakatDTO {}",
