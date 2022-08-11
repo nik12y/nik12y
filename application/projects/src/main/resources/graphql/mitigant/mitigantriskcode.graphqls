@@ -1,0 +1,8 @@
+type MitigantRiskCode {
+    riskCode: String!
+    riskName: String!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

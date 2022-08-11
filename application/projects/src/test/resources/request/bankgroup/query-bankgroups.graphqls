@@ -33,7 +33,6 @@ query{
         createdBy
         creationTime
         lastUpdatedBy
-        lastUpdatedTime
 
     }
 }

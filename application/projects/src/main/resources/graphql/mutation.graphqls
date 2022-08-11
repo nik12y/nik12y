@@ -15,5 +15,10 @@ type Mutation {
     processCapt(sessionContext: SessionContextInput, capt: CaptInput): TransactionStatus
     processModule(sessionContext: SessionContextInput, module: ModuleInput): TransactionStatus
     processRiskCategory(sessionContext: SessionContextInput, riskCategory: RiskCategoryInput): TransactionStatus
+    processAppVerCategoryConfigs(sessionContext: SessionContextInput, appVerCategoryConfig: AppVerCategoryConfigInput): TransactionStatus
+    processAppVerCatChecklistPolicy(sessionContext: SessionContextInput, appVerCatChecklistPolicy: AppVerCatChecklistPolicyInput): TransactionStatus
+    processQuestion(sessionContext: SessionContextInput, question: QuestionInput ): TransactionStatus
+    processZakat(sessionContext: SessionContextInput, zakat: ZakatInput): TransactionStatus
+
 
 }

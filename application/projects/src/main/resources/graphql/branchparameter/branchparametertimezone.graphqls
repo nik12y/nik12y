@@ -1,0 +1,7 @@
+type BranchParameterTimezone {
+    timeZoneNoOfHours: Int
+    timeZoneNoOfMinutes: Int
+    timeZoneIsAhead: Boolean
+    timeZoneLevel: String
+
+}

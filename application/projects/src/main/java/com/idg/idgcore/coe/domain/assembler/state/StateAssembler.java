@@ -49,13 +49,4 @@ public class StateAssembler {
         return stateDTO;
     }
 
-
-//    public char getCharValueFromBoolean(boolean value) {
-//        return value ? CHAR_Y : CHAR_N;
-//    }
-//
-//    public boolean getBooleanValueFromChar(Character value) {
-//        return value.equals(CHAR_Y);
-//
-//    }
 }

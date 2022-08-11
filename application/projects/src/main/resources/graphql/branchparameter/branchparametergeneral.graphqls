@@ -1,0 +1,10 @@
+type BranchParameterGeneral {
+    generalCurrencyCode: String!
+    generalBranchParent: String
+    generalCountryCode: String!
+    generalZonalOfficeCode: String
+    generalZonalOfficeName: String
+    generalRegionalOfficeCode: String
+    generalRegionalOfficeName: String
+    generalCutOffTime: String
+}
