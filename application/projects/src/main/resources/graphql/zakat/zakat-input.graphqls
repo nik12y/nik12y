@@ -1,5 +1,5 @@
 input ZakatInput{
-    zakatYear : Int! @Size(min: 4, max: 4, message: "zakatYear.message") @Pattern(regexp: ".[0-9]{4,4}",message: "Zakat Year Invalid pattern")
+    zakatYear : Int!  @Range(min : 1900, max : 9999, message : "zakatYear.message")
     startDateOfRamadan : String
     action : String!
     status : String!

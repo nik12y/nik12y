@@ -95,38 +95,6 @@ class ZakatApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getZakatByYear in application service when not Authorize")
-    @MockitoSettings(strictness = Strictness.STRICT_STUBS)
-    void getZakatByYearIsNotAuthorize() throws FatalException, JsonProcessingException {
-
-        ZakatDTO zakatDTO = new ZakatDTO();
-        zakatDTO.setAction("add");
-        zakatDTO.setStatus("new");
-        zakatDTO.setRecordVersion(1);
-        zakatDTO.setAuthorized("N");
-        zakatDTO.setLastConfigurationAction("unauthorized");
-        zakatDTO.setTaskCode("ZAKAT");
-        zakatDTO.setTaskIdentifier("2021");
-        zakatDTO.setZakatYear(2021);
-        zakatDTO.setStartDateOfRamadan("2021-04-13");
-
-        PayloadDTO payLoadString = new PayloadDTO("{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":1," +
-                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\"," +
-                "\"taskCode\":\"ZAKAT\",\"taskIdentifier\":\"2021\",\"zakatYear\":\"2021\",\"startDateOfRamadan\":\"2021-04-13\"}");
-
-        ZakatDTO zakatDTOMapper = new ZakatDTO();
-        given(mutationsDomainService.getConfigurationByCode(zakatDTOAuthorized.getTaskIdentifier())).willReturn(mutationEntity);
-        given(mapper.map(mutationEntity.getPayload(), PayloadDTO.class)).willReturn(payLoadString);
-        given(objectMapper.readValue(payLoadString.getData(), ZakatDTO.class)).willReturn(zakatDTO);
-        given(zakatAssembler.setAuditFields(mutationEntity, zakatDTO)).willReturn(zakatDTO);
-        zakatDTOMapper = zakatApplicationService.getZakatByYear(sessionContext, zakatDTO);
-        assertEquals("N", zakatDTOMapper.getAuthorized());
-        assertThat(zakatDTOMapper).isNotNull();
-
-    }
-
-    @Test
     @DisplayName("JUnit for getZakatByYear in application service when Authorize for Negative")
     void getZakatByYearIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
         given(zakatDomainService.getZakatByYear(zakatDTOAuthorized.getZakatYear())).willReturn(zakatEntity);
@@ -215,8 +183,8 @@ class ZakatApplicationServiceTest {
     @DisplayName("JUnit for save in application service")
     void save() {
         ZakatDTO zakatDTO = new ZakatDTO(2021,"2021-04-13");
-        ZakatEntity zakatEntity = new ZakatEntity(2021,getDate("2021-04-13"),"draft",
-                0, "Y", "draft");
+        ZakatEntity zakatEntity = new ZakatEntity(2021,getDate("2021-04-13"),null,null,
+                0,"draft", "Y", "draft");
         doNothing().when(zakatDomainService).save(zakatDTO);
         zakatApplicationService.save(zakatDTO);
         verify(zakatDomainService, times(1)).save(zakatDTO);
