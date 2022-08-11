@@ -34,7 +34,11 @@ public final class Constants {
 
     public static final String BRANCH_SYSTEM_DATE = "BRANCH_SYS_DATE";
     public static final String BRANCH_SYSTEM_DATE_SERVICE = "branchSystemApplicationService";
+    public static final String ZAKAT = "ZAKAT";
+    public static final String ZAKAT_SERVICE = "zakatApplicationService";
+
     public static final String INACTIVE = "inactive";
+
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
     public static final String CHECKER = "checker";
