@@ -1,0 +1,7 @@
+input BankParameterPreferencesInput {
+    weekBeginDay: String! #@Size(min: 1, max: 12, message: "weekBeginDay.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Week Begin Day Invalid pattern")
+    weeklyOff1: String! #@Size(min: 1, max: 12, message: "weeklyOff1.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Weekly Off1 Invalid pattern")
+    weeklyOff2: String! #@Size(min: 1, max: 12, message: "weeklyOff2.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Weekly Off2 Invalid pattern")
+    weeklyOff3: String #@Size(min: 1, max: 12, message: "weeklyOff3.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Weekly Off3 Invalid pattern")
+    financialYearBeginMonth: String! #@Size(min: 1, max: 20, message: "financialYearBeginMonth.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,125}",message: "Financial Year Begin Month Invalid pattern")
+}

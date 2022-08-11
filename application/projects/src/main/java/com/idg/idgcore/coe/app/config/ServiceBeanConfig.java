@@ -42,7 +42,10 @@ public class ServiceBeanConfig {
         beanMappings.put(QUE_CHECKLIST, QUE_CHECKLIST_SERVICE);
         beanMappings.put(FINANCIAL_ACCOUNTING_YEAR, FINANCIAL_ACCOUNTING_YEAR_SERVICE);
         beanMappings.put(ERROR_OVERRIDE,ERROR_OVERRIDE_SERVICE);
+        beanMappings.put(QUESTION,QUESTION_SERVICE);
+        beanMappings.put(QUESTION_CATEGORY,QUESTION_CATEGORY_SERVICE);
 
+        beanMappings.put(ZAKAT, ZAKAT_SERVICE);
     }
 
     public Map<String, String> getBeanConfig () {

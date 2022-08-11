@@ -1,0 +1,46 @@
+mutation{
+    processZakat(
+        sessionContext:{
+
+            bankCode: "010"
+            defaultBranchCode: "01113"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target_unit"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "Priya"
+            accessibleTargetUnits: [null]
+            channel: "Branch"
+            taskCode: null
+            localDateTime: null
+            role: "maker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+
+        },
+        zakat:{
+            zakatYear : 2021
+            startDateOfRamadan : "2021-04-16"
+            action : "modify"
+            status:	"updated"
+            recordVersion : 0
+        })
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

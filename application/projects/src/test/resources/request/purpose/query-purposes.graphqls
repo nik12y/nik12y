@@ -21,7 +21,7 @@ query {
             customAttributes: null
             serviceInvocationModeType: Regular
             allTargetUnitsSelected: false
-            userLocal: null
+            userLocal: "en_US"
             originatingModuleCode: null
         })
     {

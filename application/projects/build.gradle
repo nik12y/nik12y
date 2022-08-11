@@ -3,7 +3,6 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
-//    id 'checkstyle'
     id "name.remal.sonarlint" version "1.5.0"
     id "com.avast.gradle.docker-compose" version "0.16.4"
     id 'com.palantir.docker' version '0.34.0'
@@ -14,7 +13,7 @@ plugins {
 
 group = 'com.social'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "11"
+sourceCompatibility = "17"
 
 test {
     useJUnitPlatform()
@@ -43,9 +42,6 @@ dockerRun {
     clean true
 }
 
-
-
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -53,6 +49,10 @@ configurations {
 }
 
 repositories {
+    maven {
+        url "https://gitlab.idigicloudtech.com/api/v4/projects/15/packages/maven"
+        name "GitLab"
+    }
     mavenCentral()
 }
 
@@ -61,7 +61,6 @@ repositories {
 //    startedServices = ['yb-master', 'yb-tserver']
 //    isRequiredBy(test)
 //}
-
 
 dependencies {
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
@@ -78,7 +77,6 @@ dependencies {
     runtimeOnly 'com.graphql-java-kickstart:voyager-spring-boot-starter:11.1.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//    runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.1.0'
@@ -95,14 +93,14 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql:42.3.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.2'
 
-    implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
-
-    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.6.0.0.1'
-    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.8.5'
-
+    implementation 'com.idg.idgcore.fmw.dto:com.idg.idgcore.fmw.dto:1.0-SNAPSHOT'
+    implementation 'com.idg.idgcore.datatype:com.idg.idgcore.datatype:1.0-SNAPSHOT'
+    implementation 'com.idg.idgcore.appcore:com.idg.idgcore.appcore:1.0-SNAPSHOT'
+    implementation 'com.idg.idgcore.infra:com.idg.idgcore.infra:1.0-SNAPSHOT'
+    implementation 'com.idg.idgcore.enumeration.fmw:com.idg.idgcore.enumeration.fmw:1.0-SNAPSHOT'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
 
@@ -124,7 +122,7 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                minimum = 0.4
+                minimum = 0.3
             }
         }
 
@@ -132,34 +130,41 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.90
+                minimum = 0.40
             }
         }
 
-//        rule {
-//            element = 'CLASS'
-//            includes = ['com.idg.*']
-//
-//            limit {
-//                counter = 'LINE'
-//                value = 'TOTALCOUNT'
-//                maximum = 40
-//            }
-//        }
-
         rule {
             element = 'CLASS'
-            includes = ['com.idg.idgcore.coe.app.service.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.assembler.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.entity.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.repository.branchtype']
-            includes = ['com.idg.idgcore.coe.domain.service.branchtype']
-            includes = ['com.idg.idgcore.coe.dto.branchtype']
-            includes = ['com.idg.idgcore.coe.endpoint.graphql.resolver.branchtype']
+            includes = ['com.idg.*']
+            excludes = [
+                    'com/idg/idgcore/Application.class',
+                    '**/config/**',
+                    '**/audit/**',
+                    '**/base/**',
+                    '**/city/**',
+                    '**/state/**',
+                    '**/country/**',
+                    '**/bank/**',
+                    '**/bankgroup/**',
+                    '**/bankidentifier/**',
+                    '**/capt/**',
+                    '**/branchtype/**',
+                    '**/module/**',
+                    '**/purpose/**',
+                    '**/mapping/**',
+                    '**/memo/**',
+                    '**/common/**',
+                    '**/mutation/**',
+                    '**/process/**',
+                    '**/lov/**',
+                    '**/exception/**'
+            ]
+
             limit {
                 counter = 'LINE'
                 value = 'TOTALCOUNT'
-                maximum = 40
+                maximum = 1500
             }
         }
     }
@@ -210,8 +215,4 @@ compileJava {
     options.encoding = 'UTF-8'
 }
 
-
-
-
-targetCompatibility = JavaVersion.VERSION_11
-
+targetCompatibility = JavaVersion.VERSION_17

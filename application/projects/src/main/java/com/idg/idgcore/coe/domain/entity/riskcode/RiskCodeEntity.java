@@ -23,6 +23,7 @@ import java.io.Serializable;
 public class RiskCodeEntity extends AbstractAuditableDomainEntity
         implements Serializable {
         @Id
+
      //   @Column(name = "risk_code")
         private String riskCode;
       //  @Column(name = "risk_code_name")
@@ -38,6 +39,34 @@ public class RiskCodeEntity extends AbstractAuditableDomainEntity
         private Integer recordVersion;
         private String authorized;
         private String lastConfigurationAction;
+
+        @Column(name = "risk_code")
+        private String riskCode;
+        @Column(name = "risk_code_name")
+        private String riskCodeName;
+       @Column(name = "risk_code_description")
+        private String riskCodeDescription;
+       @Column(name="risk_category_code")
+        private String riskCategoryCode;
+
+        @Column(name = "is_allow_details_modified")
+        private Character isAllowDetailsModified;
+        @Column(name= "risk_mode")
+        private String riskMode;
+
+    @Column(name = "life_cycle_id")
+    private String lifeCycleId;
+    @Column(name = "reference_no")
+    private String referenceNo;
+    @Column(name = "record_version")
+    private Integer recordVersion;
+    @Column(name = "record_status")
+    private String status;
+    @Column(name = "is_authorized")
+    private String authorized;
+    @Column(name = "last_configuration_action")
+    private String lastConfigurationAction;
+
 
     }
 

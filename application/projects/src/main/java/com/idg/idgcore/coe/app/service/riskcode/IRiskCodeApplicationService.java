@@ -22,14 +22,3 @@ public interface IRiskCodeApplicationService extends IBaseApplicationService {
     List<RiskCodeDTO> getRiskCodes(SessionContext sessionContext) throws FatalException;
 
 }
-
-    /*NIKHIL CHANGES
-TransactionStatus processRiskCategory (SessionContext sessionContext, RiskCategoryDTO dto)
-        throws FatalException, JsonProcessingException;
-    void save (RiskCategoryDTO countryDTO);
-    RiskCategoryDTO getRiskCategoryBYCode (SessionContext sessionContext, RiskCategoryDTO riskCategoryDTO)
-            throws FatalException, JsonProcessingException;
-    List<RiskCategoryDTO> getRiskCategories (SessionContext sessionContext) throws FatalException;
-
-}
-*/
