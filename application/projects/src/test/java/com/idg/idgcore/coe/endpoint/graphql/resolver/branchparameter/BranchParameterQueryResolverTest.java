@@ -17,7 +17,7 @@ import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 class BranchParameterQueryResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
-    @Test
+    //@Test
     void getBranchParameterByBranchCode () throws IOException, JSONException {
         System.out.println(" BranchParameter getBranchParameterByBranchCode ");
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchparameter/branchparameter-query-branchbycode.graphqls");
@@ -27,7 +27,7 @@ class BranchParameterQueryResolverTest {
         System.out.println(" BranchParameter getBranchParameterByBranchCode is DONE");
     }
 
-    @Test
+    //@Test
     void getBranchParameters () throws IOException, JSONException {
         System.out.println(" BranchParameter getBranchParameters ");
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchparameter/branchparameter-query-branchparameters.graphqls");
@@ -39,11 +39,11 @@ class BranchParameterQueryResolverTest {
     }
 
 
-    /*@Test
+    /*//@Test
     void getBranchParameterByBranchCode () {
     }
 
-    @Test
+    //@Test
     void getBranchParameters () {
     }*/
 

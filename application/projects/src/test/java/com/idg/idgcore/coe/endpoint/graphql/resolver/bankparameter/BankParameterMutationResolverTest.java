@@ -16,7 +16,7 @@ class BankParameterMutationResolverTest {
     GraphQLTestTemplate graphQLTestTemplate;
 
     @DisplayName(" JUnit Bank Parameter test for save as Draft to New ")
-    @Test
+    ////@Test
     void processBankParameterSaveDraftToNewTest() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-query-authorize-checker-new.graphqls";
 
@@ -26,7 +26,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName("JUnit Bank Parameter test for save as Draft")
-    @Test
+    ////@Test
     void processBankParameterSaveDraft() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-draft-maker-draft.graphqls";
 
@@ -36,7 +36,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for save as Draft to New ")
-    @Test
+    ////@Test
     void processBankParameterSaveDraftToNew() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-add-maker-new.graphqls";
 
@@ -46,7 +46,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for Authorize the Draft-New record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveDraftToNewAuthorize() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-authorize-checker-new.graphqls";
 
@@ -56,7 +56,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for Active Close record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveClose() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-close-maker-closed.graphqls";
 
@@ -66,7 +66,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for Authorize Close record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveAuthorizeClose() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-authorize-checker-closed.graphqls";
 
@@ -76,7 +76,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for Reopen record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveReopen() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-reopen-maker-reopened.graphqls";
 
@@ -86,7 +86,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for Authorize Reopen record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveAuthorizeReopen() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-authorize-checker-reopened.graphqls";
 
@@ -96,7 +96,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for draft-maker-draft-update record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveDraftForUpdate() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-draft-maker-draft-update.graphqls";
 
@@ -106,7 +106,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for modify-maker-updated. record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveUpdateDraft() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-modify-maker-updated.graphqls";
 
@@ -116,7 +116,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for authorize-checker-updated record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveAuthorizeUpdateDraft() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-authorize-checker-updated.graphqls";
 
@@ -126,7 +126,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for draft-maker-draft-delete record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveDeleteDraft() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-draft-maker-draft-delete.graphqls";
 
@@ -136,7 +136,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for delete-maker-deleted record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveDelete() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-delete-maker-deleted-new.graphqls";
 
@@ -146,7 +146,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for add-maker-new-delete record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveDeleteNew() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-add-maker-new-delete.graphqls";
 
@@ -156,7 +156,7 @@ class BankParameterMutationResolverTest {
     }
 
     @DisplayName(" JUnit Bank Parameter test for add-maker-new-delete record  ")
-    @Test
+    ////@Test
     void processBankParameterSaveDeleteNewAdd() throws IOException {
         String srcDraft = "request/bankparameter/bankparameter-delete-maker-deleted-new.graphqls";
 
