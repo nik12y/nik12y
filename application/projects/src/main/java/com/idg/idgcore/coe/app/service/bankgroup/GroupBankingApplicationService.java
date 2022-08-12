@@ -50,10 +50,10 @@ public class GroupBankingApplicationService extends AbstractApplicationService
     @Autowired
     private GroupBankingAssembler groupBankingAssembler;
 
-    public GroupBankingDTO getGroupBankByCode (SessionContext sessionContext, GroupBankingDTO groupBankingDTO)
+    public GroupBankingDTO getGroupBankByCode(SessionContext sessionContext, GroupBankingDTO groupBankingDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In getCountryByCode with parameters sessionContext {}, countryDTO {}",
+            log.info("In getGroupBankByCode with parameters sessionContext {}, groupBankingDTO {}",
                     sessionContext, groupBankingDTO);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
@@ -65,32 +65,28 @@ public class GroupBankingApplicationService extends AbstractApplicationService
                 GroupBankingEntity groupBankingEntity = iGroupBankingDomainService.getGroupBankByCode(
                         groupBankingDTO.getBankGroupCode());
                 result = groupBankingAssembler.convertEntityToDto(groupBankingEntity);
-            }
-            else {
+            } else {
                 MutationEntity mutationEntity = mutationsDomainService.getConfigurationByCode(
                         groupBankingDTO.getTaskIdentifier());
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), GroupBankingDTO.class);
-                result = groupBankingAssembler.setAuditFields(mutationEntity,result);
+                result = groupBankingAssembler.setAuditFields(mutationEntity, result);
                 fillTransactionStatus(transactionStatus);
             }
-        }
-        catch (JsonProcessingException jpe) {
+        } catch (JsonProcessingException jpe) {
             ExceptionUtil.handleException(JSON_PARSING_ERROR);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
-        }
-        finally {
+        } finally {
             Interaction.close();
         }
         return result;
     }
 
-    public List<GroupBankingDTO> getGroupBanks (SessionContext sessionContext) throws FatalException {
+    public List<GroupBankingDTO> getGroupBanks(SessionContext sessionContext) throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In getCountries with parameters sessionContext {}", sessionContext);
+            log.info("In getGroupBanks with parameters sessionContext {}", sessionContext);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
@@ -100,7 +96,7 @@ public class GroupBankingApplicationService extends AbstractApplicationService
 
         try {
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
+                    getTaskCode(), AUTHORIZED_N);
             groupBankingDTOList.addAll(iGroupBankingDomainService.getGroupBanks().stream()
                     .map(entity -> groupBankingAssembler.convertEntityToDto(entity))
                     .collect(Collectors.toList()));
@@ -109,9 +105,8 @@ public class GroupBankingApplicationService extends AbstractApplicationService
                 GroupBankingDTO groupBankingDTO = null;
                 try {
                     groupBankingDTO = objectMapper.readValue(data, GroupBankingDTO.class);
-                    groupBankingDTO = groupBankingAssembler.setAuditFields(entity,groupBankingDTO);
-                }
-                catch (JsonProcessingException e) {
+                    groupBankingDTO = groupBankingAssembler.setAuditFields(entity, groupBankingDTO);
+                } catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return groupBankingDTO;
@@ -121,21 +116,19 @@ public class GroupBankingApplicationService extends AbstractApplicationService
                             Collectors.maxBy(Comparator.comparing(GroupBankingDTO::getRecordVersion)),
                             Optional::get))).values().stream().collect(Collectors.toList());
             fillTransactionStatus(transactionStatus);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
-        }
-        finally {
+        } finally {
             Interaction.close();
         }
         return groupBankingDTOList;
     }
 
-    @Transactional
-    public TransactionStatus processGroupBanking (SessionContext sessionContext, GroupBankingDTO groupBankingDTO)
+
+    public TransactionStatus processGroupBanking(SessionContext sessionContext, GroupBankingDTO groupBankingDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In processCountry with parameters sessionContext {}, countryDTO {}",
+            log.info("In processGroupBanking with parameters sessionContext {}, groupBankingDTO {}",
                     sessionContext, groupBankingDTO);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
@@ -144,14 +137,11 @@ public class GroupBankingApplicationService extends AbstractApplicationService
             prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
             process.process(groupBankingDTO);
             fillTransactionStatus(transactionStatus);
-        }
-        catch (FatalException fatalException) {
+        } catch (FatalException fatalException) {
             fillTransactionStatus(transactionStatus, fatalException);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
-        }
-        finally {
+        } finally {
             if (!Interaction.isLastInteraction()) {
                 Interaction.close();
             }
@@ -160,34 +150,31 @@ public class GroupBankingApplicationService extends AbstractApplicationService
     }
 
     @Override
-    public void addUpdateRecord (String data) throws JsonProcessingException {
+    public void addUpdateRecord(String data) throws JsonProcessingException {
         ObjectMapper objMapper = new ObjectMapper();
         GroupBankingDTO groupBankingDTO = objMapper.readValue(data, GroupBankingDTO.class);
         save(groupBankingDTO);
     }
 
     @Override
-    public CoreEngineBaseDTO getConfigurationByCode (String code) {
+    public CoreEngineBaseDTO getConfigurationByCode(String code) {
         return groupBankingAssembler.convertEntityToDto(iGroupBankingDomainService.getGroupBankByCode(code));
     }
 
     @Override
-    public void save (GroupBankingDTO groupBankingDTO) {
+    public void save(GroupBankingDTO groupBankingDTO) {
         iGroupBankingDomainService.save(groupBankingDTO);
     }
 
-    private boolean isAuthorized (final String authorized) {
+    private boolean isAuthorized(final String authorized) {
         Predicate<String> isAuthorized = s -> s.equals("Y");
         return isAuthorized.test(authorized);
     }
 
-    private String getTaskCode () {
+    private String getTaskCode() {
         return GroupBankingDTO.builder().build().getTaskCode();
     }
 
-    private boolean isChecker (String[] role) {
-        return Arrays.stream(role).anyMatch(CHECKER::equals);
-    }
 
 }
 

@@ -1,0 +1,25 @@
+{
+  "data": {
+    "getQuestionCategoryById": {
+      "questionCategoryId": "SN004",
+      "questionCategoryName": "Education loan",
+      "questionDisplay": "Yes",
+      "isShowQuestionCategoryName": true,
+      "isEnableDocumentUpload": true,
+      "questionCategoryDetails": [
+        {
+          "questionNature": "Mandatory",
+          "questionId": "Q005",
+          "parentQuestionId": "Q004",
+          "displayCondition": "Yes"
+        }
+      ],
+      "status": "active",
+      "recordVersion": 1,
+      "createdBy": "NikhilYadav",
+      "creationTime": "2022-08-08 15:55:10.169",
+      "lastUpdatedBy": "NikhilYadav",
+      "lastUpdatedTime": "2022-08-08 15:55:10.169"
+    }
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "data": {
+    "getBranchParameters": [
+      {
+        "bankCode": "0002",
+        "branchCode": "30001",
+        "branchName": "culaba West",
+        "branchConciseName": "SBI",
+        "isBranchAvailableStatus": true,
+        "bankIdentifierCode": "H1",
+        "branchType": "HO",
+        "branchParameterAddress": {
+          "branchAddress1": "Kanakia Business Park 2",
+          "branchAddress2": "JB Nagar 2",
+          "branchAddress3": "Andheri East 2",
+          "branchAddress4": "Mumbai 2",
+          "country": "IN",
+          "state": "MH",
+          "city": "MUM"
+        },
+        "branchParameterContactInfo": {
+          "telephoneNo": "022-4156271",
+          "faxNo": "022-4156271",
+          "emailId": "abc@xyz.com",
+          "bankWebsite": "www.bob.com"
+        },
+        "branchParameterGeneral": {
+          "generalCurrencyCode": "INR",
+          "generalBranchParent": "5002",
+          "generalCountryCode": "IN",
+          "generalZonalOfficeCode": "WI",
+          "generalZonalOfficeName": "Western India",
+          "generalRegionalOfficeCode": "MUM",
+          "generalRegionalOfficeName": "Mumbai",
+          "generalCutOffTime": ""
+        },
+        "branchParameterClearing": {
+          "clearingLocalPaymentBranch": "Payment",
+          "clearingCurrencyCode": "INR"
+        },
+        "branchParameterAtm": {
+          "atmBranch": "5001",
+          "atmIsCustomerFundTransfer": true,
+          "atmInstitutionIdentification": "SBI5",
+          "atmInterBranchTransactionCode": "5001"
+        },
+        "branchParameterTimezone": {
+          "timeZoneNoOfHours": 0,
+          "timeZoneNoOfMinutes": 3,
+          "timeZoneIsAhead": true,
+          "timeZoneLevel": "IST (UTC+5:30)"
+        },
+        "branchParameterGlobalInterdict": {
+          "globalInterdictFunctionId": "FN04"
+        },
+        "branchParameterTranDuplicate": {
+          "tranModuleCode": "LN",
+          "tranDuplicationCheckRequired": true,
+          "tranNoOfDayForDuplicationCheck": null
+        },
+        "branchParameterLocalCurrency": {
+          "localCurrencyMsgModCode": "LN",
+          "localCurrencyMsgType": "Suppress LCY Message"
+        },
+        "branchParameterMiscellaneous": {
+          "miscDenominationTrackingRequired": true,
+          "miscCurrencyOfDenomination": "INR",
+          "miscWeekBeginDay": "Monday",
+          "miscWeeklyOff1": "Saturday",
+          "miscWeeklyOff2": "Sunday",
+          "miscFinancialYearBeginMonth": "April"
+        }
+      },
+      {
+        "bankCode": "0002",
+        "branchCode": "20001",
+        "branchName": "Dadar West",
+        "branchConciseName": "SBI",
+        "isBranchAvailableStatus": true,
+        "bankIdentifierCode": "H1",
+        "branchType": "HO",
+        "branchParameterAddress": {
+          "branchAddress1": "Kanakia Business Park 2",
+          "branchAddress2": "JB Nagar 2",
+          "branchAddress3": "Andheri East 2",
+          "branchAddress4": "Mumbai 2",
+          "country": "IN",
+          "state": "MH",
+          "city": "MUM"
+        },
+        "branchParameterContactInfo": {
+          "telephoneNo": "022-4156271",
+          "faxNo": "022-4156271",
+          "emailId": "abc@xyz.com",
+          "bankWebsite": "www.bob.com"
+        },
+        "branchParameterGeneral": {
+          "generalCurrencyCode": "INR",
+          "generalBranchParent": "5002",
+          "generalCountryCode": "IN",
+          "generalZonalOfficeCode": "WI",
+          "generalZonalOfficeName": "Western India",
+          "generalRegionalOfficeCode": "MUM",
+          "generalRegionalOfficeName": "Mumbai",
+          "generalCutOffTime": ""
+        },
+        "branchParameterClearing": {
+          "clearingLocalPaymentBranch": "Payment",
+          "clearingCurrencyCode": "INR"
+        },
+        "branchParameterAtm": {
+          "atmBranch": "5001",
+          "atmIsCustomerFundTransfer": true,
+          "atmInstitutionIdentification": "SBI5",
+          "atmInterBranchTransactionCode": "5001"
+        },
+        "branchParameterTimezone": {
+          "timeZoneNoOfHours": 0,
+          "timeZoneNoOfMinutes": 3,
+          "timeZoneIsAhead": true,
+          "timeZoneLevel": "IST (UTC+5:30)"
+        },
+        "branchParameterGlobalInterdict": {
+          "globalInterdictFunctionId": "FN03"
+        },
+        "branchParameterTranDuplicate": {
+          "tranModuleCode": "LN",
+          "tranDuplicationCheckRequired": true,
+          "tranNoOfDayForDuplicationCheck": null
+        },
+        "branchParameterLocalCurrency": {
+          "localCurrencyMsgModCode": "LN",
+          "localCurrencyMsgType": "Suppress LCY Message"
+        },
+        "branchParameterMiscellaneous": {
+          "miscDenominationTrackingRequired": true,
+          "miscCurrencyOfDenomination": "INR",
+          "miscWeekBeginDay": "Monday",
+          "miscWeeklyOff1": "Saturday",
+          "miscWeeklyOff2": "Sunday",
+          "miscFinancialYearBeginMonth": "April"
+        }
+      },
+      {
+        "bankCode": "0002",
+        "branchCode": "40001",
+        "branchName": "culaba West",
+        "branchConciseName": "SBI",
+        "isBranchAvailableStatus": true,
+        "bankIdentifierCode": "H1",
+        "branchType": "HO",
+        "branchParameterAddress": {
+          "branchAddress1": "Kanakia Business Park 2",
+          "branchAddress2": "JB Nagar 2",
+          "branchAddress3": "Andheri East 2",
+          "branchAddress4": "Mumbai 2",
+          "country": "IN",
+          "state": "MH",
+          "city": "MUM"
+        },
+        "branchParameterContactInfo": {
+          "telephoneNo": "022-4156271",
+          "faxNo": "022-4156271",
+          "emailId": "abc@xyz.com",
+          "bankWebsite": "www.bob.com"
+        },
+        "branchParameterGeneral": {
+          "generalCurrencyCode": "INR",
+          "generalBranchParent": "5002",
+          "generalCountryCode": "IN",
+          "generalZonalOfficeCode": "WI",
+          "generalZonalOfficeName": "Western India",
+          "generalRegionalOfficeCode": "MUM",
+          "generalRegionalOfficeName": "Mumbai",
+          "generalCutOffTime": ""
+        },
+        "branchParameterClearing": {
+          "clearingLocalPaymentBranch": "Payment",
+          "clearingCurrencyCode": "INR"
+        },
+        "branchParameterAtm": {
+          "atmBranch": "5001",
+          "atmIsCustomerFundTransfer": true,
+          "atmInstitutionIdentification": "SBI5",
+          "atmInterBranchTransactionCode": "5001"
+        },
+        "branchParameterTimezone": {
+          "timeZoneNoOfHours": 0,
+          "timeZoneNoOfMinutes": 3,
+          "timeZoneIsAhead": true,
+          "timeZoneLevel": "IST (UTC+5:30)"
+        },
+        "branchParameterGlobalInterdict": {
+          "globalInterdictFunctionId": "FN05"
+        },
+        "branchParameterTranDuplicate": {
+          "tranModuleCode": "LN",
+          "tranDuplicationCheckRequired": true,
+          "tranNoOfDayForDuplicationCheck": null
+        },
+        "branchParameterLocalCurrency": {
+          "localCurrencyMsgModCode": "LN",
+          "localCurrencyMsgType": "Suppress LCY Message"
+        },
+        "branchParameterMiscellaneous": {
+          "miscDenominationTrackingRequired": true,
+          "miscCurrencyOfDenomination": "INR",
+          "miscWeekBeginDay": "Monday",
+          "miscWeeklyOff1": "Saturday",
+          "miscWeeklyOff2": "Sunday",
+          "miscFinancialYearBeginMonth": "April"
+        }
+      },
+      {
+        "bankCode": "0002",
+        "branchCode": "10001",
+        "branchName": "Bandra East",
+        "branchConciseName": "SBI",
+        "isBranchAvailableStatus": true,
+        "bankIdentifierCode": "H1",
+        "branchType": "HO",
+        "branchParameterAddress": {
+          "branchAddress1": "Kanakia Business Park 2",
+          "branchAddress2": "JB Nagar 2",
+          "branchAddress3": "Andheri East 2",
+          "branchAddress4": "Mumbai 2",
+          "country": "IN",
+          "state": "MH",
+          "city": "MUM"
+        },
+        "branchParameterContactInfo": {
+          "telephoneNo": "022-4156271",
+          "faxNo": "022-4156271",
+          "emailId": "abc@xyz.com",
+          "bankWebsite": "www.bob.com"
+        },
+        "branchParameterGeneral": {
+          "generalCurrencyCode": "INR",
+          "generalBranchParent": "5002",
+          "generalCountryCode": "IN",
+          "generalZonalOfficeCode": "WI",
+          "generalZonalOfficeName": "Western India",
+          "generalRegionalOfficeCode": "MUM",
+          "generalRegionalOfficeName": "Mumbai",
+          "generalCutOffTime": ""
+        },
+        "branchParameterClearing": {
+          "clearingLocalPaymentBranch": "Payment",
+          "clearingCurrencyCode": "INR"
+        },
+        "branchParameterAtm": {
+          "atmBranch": "5001",
+          "atmIsCustomerFundTransfer": true,
+          "atmInstitutionIdentification": "SBI5",
+          "atmInterBranchTransactionCode": "5001"
+        },
+        "branchParameterTimezone": {
+          "timeZoneNoOfHours": 0,
+          "timeZoneNoOfMinutes": 3,
+          "timeZoneIsAhead": true,
+          "timeZoneLevel": "IST (UTC+5:30)"
+        },
+        "branchParameterGlobalInterdict": {
+          "globalInterdictFunctionId": "FN02"
+        },
+        "branchParameterTranDuplicate": {
+          "tranModuleCode": "LN",
+          "tranDuplicationCheckRequired": true,
+          "tranNoOfDayForDuplicationCheck": null
+        },
+        "branchParameterLocalCurrency": {
+          "localCurrencyMsgModCode": "LN",
+          "localCurrencyMsgType": "Suppress LCY Message"
+        },
+        "branchParameterMiscellaneous": {
+          "miscDenominationTrackingRequired": true,
+          "miscCurrencyOfDenomination": "INR",
+          "miscWeekBeginDay": "Monday",
+          "miscWeeklyOff1": "Saturday",
+          "miscWeeklyOff2": "Sunday",
+          "miscFinancialYearBeginMonth": "April"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="idgc_coe_mitigant_code_cnfg" author="aditya">
+
+        <createTable tableName="idgc_coe_mitigant_code_cnfg"
+                     remarks="A table to contain all the Mitigant configuration">
+
+            <column name="mitigant_code" type="varchar(10)">
+                <constraints unique="true" nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="mitigant_code_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="mitigant_code_desc" type="char(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_allow_modification" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_actionable" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="life_cycle_id" type="varchar(50)">
+            </column>
+
+            <column name="reference_no" type="varchar(50)">
+            </column>
+
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+
+        <addUniqueConstraint
+                columnNames="mitigant_code" tableName="idgc_coe_mitigant_code_cnfg"
+                constraintName="idgc_coe_mitigant_code_cnfg_pk"/>
+
+    </changeSet>
+
+    <changeSet id="idgc_coe_mitigant_risk_code_cnfg" author="aditya">
+
+        <createTable tableName="idgc_coe_mitigant_risk_code_cnfg"
+                     remarks="Child table which is the documents required table of Mitigant Code configuration">
+
+            <column name="mitigant_risk_code_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="mitigant_code" type="varchar(10)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="risk_code" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="risk_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

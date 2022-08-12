@@ -1,0 +1,4 @@
+type ZakatQuery {
+    zakatYear : Int!
+    authorized: String!
+}

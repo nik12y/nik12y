@@ -1,0 +1,17 @@
+input AppVerTypeInput {
+    verificationTypeId : String! @Size(min: 1, max: 10, message: "verificationTypeId.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "Verification Type ID Invalid pattern")
+    verificationTypeName : String! @Size(min: 1, max: 35, message: "verificationTypeName.message") @Pattern(regexp: "^[^<>%$@#!%&*_+=]*${1,35}",message: "Verification Type Name Invalid pattern")
+    verificationTypeDesc : String! @Size(min: 1, max: 100, message: "verificationTypeDesc.message") @Pattern(regexp: "^[^<>%$@#!%&*_+=]*${1,100}",message: "Verification Type Description Invalid pattern")
+    isViewableToCustomer : Boolean
+    isAlertToBeSentOnCompl : Boolean
+    isExternal : Boolean
+    isDocumentRequired : Boolean
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    documents: [DocumentsInput]
+}

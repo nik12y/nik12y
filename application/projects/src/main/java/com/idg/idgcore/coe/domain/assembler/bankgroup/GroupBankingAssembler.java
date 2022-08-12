@@ -9,12 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
-
 @Component
 public class GroupBankingAssembler {
-    private ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @PostConstruct
     private void setMapperConfig() {
@@ -23,13 +20,11 @@ public class GroupBankingAssembler {
     }
 
     public GroupBankingEntity convertDtoToEntity(GroupBankingDTO groupBankingDTO) {
-        GroupBankingEntity groupBankingEntity = modelMapper.map(groupBankingDTO, GroupBankingEntity.class);
-        return groupBankingEntity;
+        return modelMapper.map(groupBankingDTO, GroupBankingEntity.class);
     }
 
     public GroupBankingDTO convertEntityToDto(GroupBankingEntity groupBankingEntity) {
-        GroupBankingDTO groupBankingDTO = modelMapper.map(groupBankingEntity, GroupBankingDTO.class);
-        return groupBankingDTO;
+        return modelMapper.map(groupBankingEntity, GroupBankingDTO.class);
     }
 
     public GroupBankingDTO setAuditFields(MutationEntity mutationEntity, GroupBankingDTO groupBankingDTO) {
@@ -46,12 +41,6 @@ public class GroupBankingAssembler {
         groupBankingDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
         return groupBankingDTO;
     }
-        public char getCharValueFromBoolean ( boolean value){
-            return value ? CHAR_Y : CHAR_N;
-        }
 
-        public boolean getBooleanValueFromChar (Character value){
-            return value.equals(CHAR_Y);
-        }
     }
 

@@ -1,0 +1,16 @@
+type Question{
+    questionId: String!
+    questionName: String!
+    questionText: String!
+    questionDescription: String!
+    answerDisplayType: String!
+    manualFactBased: String!
+    answerValue: String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
