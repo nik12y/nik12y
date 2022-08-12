@@ -1,0 +1,53 @@
+mutation{
+    processQuestionnaireChecklist(
+        sessionContext:{
+            bankCode: ""
+            defaultBranchCode: ""
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: ""
+            externalTransactionReferenceNumber: ""
+            targetUnit: ""
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: ""
+            userId: "Preeti"
+            accessibleTargetUnits: [""]
+            channel: ""
+            taskCode: ""
+            localDateTime: ""
+            role: "maker"
+            originalTransactionReferenceNumber: ""
+            externalBatchNumber: 1
+            customAttributes: ""
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: ""
+            originatingModuleCode: ""
+        },
+        questionnaireChecklist:{
+            questionChecklistId:"CC"
+            questionChecklistName:"test1"
+            questionCategory:"tt"
+            questionnaireChecklistDetailsCategory:{
+                questionCategoryId:"test"
+            }
+            questionnaireChecklistDisplay:{
+                ruleId:"ruleid"
+            }
+
+            action : "add"
+            status:"new"
+            recordVersion : 0
+        }
+
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+    }
+}

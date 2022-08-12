@@ -21,7 +21,7 @@ class BranchTypeQueryResolverTest {
     GraphQLTestTemplate graphQLTestTemplate;
 
     @DisplayName("JUnit test for Get the record by code")
-    @Test
+    //@Test
     void getBranchTypeByCodeQuery() throws IOException, JSONException {
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchtyperequest/query-branchtype-bycode.graphqls");
@@ -31,7 +31,7 @@ class BranchTypeQueryResolverTest {
     }
 
     @DisplayName("JUnit test for Get all the records")
-    @Test
+    //@Test
     void getBranchesQuery() throws IOException, JSONException {
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchtyperequest/query-branchtypes.graphqls");

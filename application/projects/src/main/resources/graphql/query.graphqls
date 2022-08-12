@@ -5,8 +5,6 @@ type Query{
     getStates(sessionContext: SessionContextInput): [State]
     getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
     getCities(sessionContext: SessionContextInput): [City]
-    getBankIdentifierByCode(sessionContext: SessionContextInput, bankIdentifierQuery: BankIdentifierInputQuery): BankIdentifier
-    getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
     getPurposeByCode(sessionContext: SessionContextInput, purposeQuery: PurposeInputQuery): Purpose
     getPurposes(sessionContext: SessionContextInput): [Purpose]
@@ -15,23 +13,18 @@ type Query{
     getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
     getBankByCode(sessionContext: SessionContextInput, bank: BankInputQuery): Bank
     getBanks(sessionContext: SessionContextInput): [Bank]
-
+    getBankIdentifierByCode(sessionContext: SessionContextInput, bankIdentifierQuery: BankIdentifierInputQuery): BankIdentifier
+    getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
     getLanguageByCode(sessionContext: SessionContextInput, languageQuery: LanguageInputQuery): Language
     getLanguages(sessionContext: SessionContextInput): [Language]
     getBranchTypeByCode(sessionContext: SessionContextInput, branchType: BranchTypeInputQuery): BranchType
     getBranches(sessionContext: SessionContextInput): [BranchType]
-
     getGroupBankByCode(sessionContext: SessionContextInput, groupBankQuery: GroupBankingInputQuery): GroupBanking
     getGroupBanks(sessionContext: SessionContextInput):[GroupBanking]
     getCaptByCode(sessionContext: SessionContextInput, captQuery: CaptInputQuery): Capt
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
-    getAppVerCategoryConfigs(sessionContext: SessionContextInput): [AppVerCategoryConfig]
-    getAppVerCategoryConfigByID(sessionContext: SessionContextInput, AppVerCategoryConfigQuery: AppVerCategoryConfigInputQuery): AppVerCategoryConfig
-    getBranchSystemDateByCode(sessionContext: SessionContextInput, branchSystemDateQuery: BranchSystemDateInputQuery): BranchSystemDate
-    getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
-
     getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
     getQuestions(sessionContext: SessionContextInput):[Question]
     getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]
@@ -59,9 +52,20 @@ type Query{
     getAppVerTypes(sessionContext: SessionContextInput): [AppVerType]
     getPurgingByCode(sessionContext: SessionContextInput, purgingQuery: PurgingInputQuery): Purging
     getPurgingAll(sessionContext: SessionContextInput): [Purging]
+    getBranchSystemDateByCode(sessionContext: SessionContextInput, branchSystemDateQuery: BranchSystemDateInputQuery): BranchSystemDate
+    getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
     getMitigantByCode(sessionContext: SessionContextInput, mitigantQuery:MitigantInputQuery):Mitigant
     getMitigantAll(sessionContext: SessionContextInput): [Mitigant]
     getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
     getZakats(sessionContext: SessionContextInput): [Zakat]
+    getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
+    getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
+    #    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
+    #    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear] #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    #    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
+    #    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
+    #    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
+
 }
 
