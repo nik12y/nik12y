@@ -1,9 +1,9 @@
 package com.idg.idgcore.coe.domain.service.reason;
 
+import com.idg.idgcore.coe.dto.reason.ReasonDTO;
 import com.idg.idgcore.coe.domain.assembler.reason.ReasonAssembler;
 import com.idg.idgcore.coe.domain.entity.reason.ReasonEntity;
 import com.idg.idgcore.coe.domain.repository.reason.IReasonRepository;
-import com.idg.idgcore.coe.dto.reason.ReasonDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +39,10 @@ public class ReasonDomainService implements IReasonDomainService {
         return this.reasonRepository.findAll();
     }
 
-    public ReasonEntity getReasonByCode (String primaryReasonCode) {
+    public ReasonEntity getReasonByCode (String reasonCode) {
         ReasonEntity reasonEntity = null;
         try {
-            reasonEntity = this.reasonRepository.findByPrimaryReasonCode(primaryReasonCode);
+            reasonEntity = this.reasonRepository.findByPrimaryReasonCode(reasonCode);
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {
