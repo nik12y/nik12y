@@ -1,0 +1,102 @@
+query{
+getBranchParameters(
+    sessionContext:{
+      bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: "preeti"
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: ["maker"]
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+    },
+
+    ) {
+      bankCode
+      branchCode
+      branchName
+      branchConciseName
+      isBranchAvailableStatus
+      bankIdentifierCode
+      branchType
+
+    	branchParameterAddress{
+        branchAddress1
+        branchAddress2
+        branchAddress3
+        branchAddress4
+        country
+        state
+        city
+      }
+    	branchParameterContactInfo{
+        telephoneNo
+        faxNo
+        emailId
+        bankWebsite
+      }
+      branchParameterGeneral{
+        generalCurrencyCode
+        generalBranchParent
+        generalCountryCode
+        generalZonalOfficeCode
+        generalZonalOfficeName
+        generalRegionalOfficeCode
+        generalRegionalOfficeName
+        generalCutOffTime
+
+      }
+    	branchParameterClearing{
+        clearingLocalPaymentBranch
+        clearingCurrencyCode
+      }
+    	branchParameterAtm{
+        atmBranch
+        atmIsCustomerFundTransfer
+        atmInstitutionIdentification
+        atmInterBranchTransactionCode
+
+      }
+    	branchParameterTimezone{
+        timeZoneNoOfHours
+        timeZoneNoOfMinutes
+        timeZoneIsAhead
+        timeZoneLevel
+      }
+			branchParameterGlobalInterdict{
+        globalInterdictFunctionId
+      }
+    	branchParameterTranDuplicate{
+        tranModuleCode
+        tranDuplicationCheckRequired
+        tranNoOfDayForDuplicationCheck
+      }
+    	branchParameterLocalCurrency{
+        localCurrencyMsgModCode
+        localCurrencyMsgType
+      }
+    branchParameterMiscellaneous{
+      miscDenominationTrackingRequired
+      miscCurrencyOfDenomination
+      miscWeekBeginDay
+      miscWeeklyOff1
+      miscWeeklyOff2
+      miscFinancialYearBeginMonth
+    }
+  }
+}

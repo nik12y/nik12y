@@ -1,0 +1,8 @@
+type Documents {
+    documentName: String
+    nature: String
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

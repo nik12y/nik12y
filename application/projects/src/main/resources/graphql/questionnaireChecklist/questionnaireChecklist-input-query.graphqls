@@ -1,0 +1,5 @@
+input QuestionnaireChecklistInputQuery {
+    questionChecklistId: String!
+    authorized : String!
+}
+

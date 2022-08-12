@@ -1,0 +1,83 @@
+mutation{
+processBankParameter(
+sessionContext:{
+  bankCode: "0002"
+  defaultBranchCode: "0002"
+  internalTransactionReferenceNumber: null
+  userTransactionReferenceNumber: null
+  externalTransactionReferenceNumber:null
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Prash"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: ["maker"]
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+  },
+  bankParameter:{
+    bankCode:"0002"
+    bankName:"State Bank of India"
+    regulatoryBankCode:"0002"
+    bankConciseName:"State Bank"
+    groupBankingCode:"SBI"
+    action : "add"
+    status:"new"
+    recordVersion : 0
+      bankParameterAddress:{
+         bankAddress1:"Kanakia Business Park"
+        bankAddress2:"JB Nagar"
+        bankAddress3:"Andheri East"
+        bankAddress4:"Mumbai"
+        country:"IN"
+        state:"MH"
+        city:"MUM"
+      }
+      bankParameterContactInfo:{
+        telephoneNo:"+91-9876543210"
+        faxNo:"022-4156271"
+        emailId:"abc@xyz.com"
+        bankWebsite:"www.sbi.com"
+      }
+      bankParameterCurrency:{
+        currencyCode:"INR"
+        currencyName:"INDIAN RUPEES"
+        isDenominationTrackingRequired:false
+        currencyOfDenomination:"INR"
+        denominationTrackingCurrency:"INR"
+      }
+      bankParameterPreferences:{
+        weekBeginDay:"Monday"
+        weeklyOff1:"Saturday"
+        weeklyOff2:"Sunday"
+        weeklyOff3:""
+        financialYearBeginMonth:"April"
+      }
+      bankParameterForOdLoan:{
+        ruleIdForOd:"OD_01"
+        ruleNameForOd:"Regulated rule for Overdraft decision"
+        ruleIdForLoan:"LN_01"
+        ruleNameForLoan:"Regulated rule for Loan decision"
+      }
+  }
+)
+{
+  externalReferenceNumber
+  internalReferenceNumber
+  userReferenceNumber
+  replyCode
+  replyMessage
+  errorCode
+  isErrorToBeOverridden
+}
+}

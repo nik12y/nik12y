@@ -26,7 +26,7 @@ query {
             originatingModuleCode: null
         },
         groupBankQuery:{
-            bankGroupCode:"CBI"
+            bankGroupCode:"SBI"
             authorized:"Y"
         }
     )

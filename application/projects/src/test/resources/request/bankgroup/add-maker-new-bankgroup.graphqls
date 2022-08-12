@@ -15,7 +15,7 @@ mutation{
             channel: "Branch"
             taskCode: "GROUP-BANKING"
             localDateTime: ""
-            role: "maker"
+            role: ["maker"]
             originalTransactionReferenceNumber: null
             externalBatchNumber: 1
             customAttributes: null
@@ -26,8 +26,8 @@ mutation{
             originatingModuleCode: null
         },
         groupBanking:{
-           bankGroupCode:"SBI"
-           bankGroupName:"State Bank Of India"
+            bankGroupCode: "CBI"
+            bankGroupName: "Central Bank Of India Of Mumbai"
             action : "add"
             status:"new"
             recordVersion : 0

@@ -1,0 +1,20 @@
+input RiskCategoryInput {
+    riskCategoryCode: String! @Size(min: 2, max: 10,message: "riskCategoryCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "Risk Category Code Invalid pattern")
+    riskCategoryName : String! @Size(min: 1, max: 100, message: "riskCategoryName.message") @Pattern(regexp: ".[A-Za-z0-9 ]{1,100}",message: "Risk Category Name Invalid pattern")
+    riskCategoryDescription : String! @Size(min: 1, max: 100, message: "riskCategoryDescription.message") @Pattern(regexp: ".[A-Za-z0-9 ]{1,100}",message: "Risk Category Description Invalid pattern")
+
+
+
+
+
+    #    riskCategoryCode: String!
+#    riskCategoryName: String!
+#    riskCategoryDescription : String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
