@@ -74,8 +74,8 @@ class CaptMutationResolverTest {
     void processCaptSaveDraftToUpdated () throws IOException, JSONException {
         String srcDraft = "request/Capt/4/draft-maker-draft-capt.graphqls";
         GraphQLResponse graphQLResponseDraft = graphQLTestTemplate.postForResource(srcDraft);
-       /* String srcDraftUpdate = "request/Capt/4/draft-maker-updated-capt.graphqls";
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraftUpdate);*/
+        String srcDraftUpdate = "request/Capt/4/draft-maker-updated-capt.graphqls";
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraftUpdate);
         String srcNew = "request/Capt/4/add-maker-new-capt.graphqls";
         GraphQLResponse graphQLResponseNew = graphQLTestTemplate.postForResource(srcNew);
         String srcDraftAut = "request/Capt/4/authorize-checker-new-capt.graphqls";

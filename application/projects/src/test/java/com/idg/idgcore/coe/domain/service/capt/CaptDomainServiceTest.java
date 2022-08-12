@@ -3,7 +3,6 @@ package com.idg.idgcore.coe.domain.service.capt;
 import com.idg.idgcore.coe.domain.entity.capt.CaptEntity;
 import com.idg.idgcore.coe.domain.repository.capt.ICaptRepository;
 import com.idg.idgcore.coe.dto.capt.CaptDTO;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
