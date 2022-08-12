@@ -10,7 +10,6 @@ type Mutation {
     processBankIdentifier(sessionContext: SessionContextInput, BankIdentifier: BankIdentifierInput): TransactionStatus
     processLanguage(sessionContext: SessionContextInput, language: LanguageInput): TransactionStatus
     processBranchType(sessionContext: SessionContextInput, branchType: BranchTypeInput): TransactionStatus
-
     processGroupBanking(sessionContext: SessionContextInput, groupBanking: GroupBankingInput ): TransactionStatus
     processCapt(sessionContext: SessionContextInput, capt: CaptInput): TransactionStatus
     processModule(sessionContext: SessionContextInput, module: ModuleInput): TransactionStatus
@@ -19,7 +18,18 @@ type Mutation {
     processAppVerCatChecklistPolicy(sessionContext: SessionContextInput, appVerCatChecklistPolicy: AppVerCatChecklistPolicyInput): TransactionStatus
     processQuestion(sessionContext: SessionContextInput, question: QuestionInput ): TransactionStatus
     processZakat(sessionContext: SessionContextInput, zakat: ZakatInput): TransactionStatus
-
-    processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
-
+    processQuestionnaireChecklist(sessionContext: SessionContextInput, questionnaireChecklist: QuestionnaireChecklistInput): TransactionStatus
+    processQuestionCategory(sessionContext: SessionContextInput,questionCategory: QuestionCategoryInput): TransactionStatus
+    processMitigant(sessionContext: SessionContextInput, mitigant: MitigantInput): TransactionStatus
+    processBranchParameter(sessionContext: SessionContextInput, branchParameter: BranchParameterInput): TransactionStatus
+    processBankParameter(sessionContext: SessionContextInput, bankParameter: BankParameterInput): TransactionStatus
+    processIban(sessionContext: SessionContextInput, iban: IbanInput): TransactionStatus
+    processAml(sessionContext: SessionContextInput, aml: AmlInput): TransactionStatus
+    processAppVerType(sessionContext: SessionContextInput, appVerType: AppVerTypeInput): TransactionStatus
+    processPurging(sessionContext: SessionContextInput, purging: PurgingInput): TransactionStatus
+    processRiskCode(sessionContext: SessionContextInput, riskCode: RiskCodeInput): TransactionStatus
+    #    processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
+    #    processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
+    #    processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus
 }
+
