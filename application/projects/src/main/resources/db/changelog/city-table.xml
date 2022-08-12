@@ -9,7 +9,7 @@
     <changeSet id="idgc_coe_city_code_cnfg" author="PreetiS">
 
         <createTable tableName="idgc_coe_city_code_cnfg"
-                     remarks="A table to contain all the Citi configuration">
+                     remarks="A table to contain all the city config">
 
             <column name="city_code" type="varchar(3)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -30,7 +30,6 @@
             <column name="state_code" type="varchar(2)">
                 <constraints nullable="false"/>
             </column>
-
 
             <column name="life_cycle_id" type="varchar(50)">
             </column>
