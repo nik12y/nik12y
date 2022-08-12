@@ -19,6 +19,4 @@ type Mutation {
     processAppVerCatChecklistPolicy(sessionContext: SessionContextInput, appVerCatChecklistPolicy: AppVerCatChecklistPolicyInput): TransactionStatus
     processQuestion(sessionContext: SessionContextInput, question: QuestionInput ): TransactionStatus
     processZakat(sessionContext: SessionContextInput, zakat: ZakatInput): TransactionStatus
-
-
 }
