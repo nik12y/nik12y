@@ -25,8 +25,10 @@ import java.io.Serializable;
 @ToString
 @TypeDef (name = "json", typeClass = JsonType.class)
 @IdClass (MutationEntityKey.class)
-public class MutationEntity extends AbstractAuditableDomainEntity
-    implements Serializable {
+public class MutationEntity
+    extends AbstractAuditableDomainEntity
+    implements Serializable
+{
     @Id
     private String taskIdentifier;
     @Id
