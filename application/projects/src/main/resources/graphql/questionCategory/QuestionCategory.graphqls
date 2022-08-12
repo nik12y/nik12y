@@ -1,0 +1,15 @@
+type QuestionCategory{
+    questionCategoryId: String!
+    questionCategoryName: String!
+    questionDisplay: String!
+    isShowQuestionCategoryName: Boolean!
+    isEnableDocumentUpload: Boolean!
+    questionCategoryDetails: [QuestionCategoryDetails]
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

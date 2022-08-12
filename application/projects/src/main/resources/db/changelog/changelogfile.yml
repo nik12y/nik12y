@@ -4,13 +4,13 @@ databaseChangeLog:
   - include:
       file: db/changelog/audit-table.xml
   - include:
-      file: db/changelog/branchsystem-table.xml
-  - include:
       file: db/changelog/create-meta-tables-currency-configuration-schema.xml
   - include:
       file: db/changelog/insert-meta-tables-currency-configuration-schema.xml
   - include:
       file: db/changelog/create-config-tables-currency-configuration-schema.xml
+  - include:
+      file: db/changelog/riskcategory-table.xml
   - include:
       file: db/changelog/state-table.xml
   - include:
@@ -38,16 +38,21 @@ databaseChangeLog:
   - include:
       file: db/changelog/mitigant-table.xml
   - include:
-      file: db/changelog/city-table.xml
+      file: db/changelog/bankGroup-table.xml
   - include:
-      file: db/changelog/error-override-table.xml
+      file: db/changelog/question-table.xml
+  - include:
+      file: db/changelog/riskcode-table.xml                                                           
+  - include:
+      file: db/changelog/questionCategory-table.xml
+  - include:
+      file: db/changelog/zakat-table.xml
   - include:
       file: db/changelog/financial-accounting-year-table.xml
   - include:
       file: db/changelog/question-checklist-table.xml
   - include:
-      file: db/changelog/riskcode-table.xml
+      file: db/changelog/error-override-table.xml
   - include:
-      file: db/changelog/riskcategory-table.xml
-  - include:
-      file: db/changelog/branchtype-table.xml
+      file: db/changelog/city-table.xml
+

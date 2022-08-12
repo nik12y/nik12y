@@ -1,0 +1,11 @@
+input BranchParameterGeneralInput {
+    generalCurrencyCode: String!
+    generalBranchParent: String @Size(min: 1, max: 16, message: "generalBranchParent.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,16}",message: "General Branch Parent Invalid pattern")
+    generalCountryCode: String!
+    generalZonalOfficeCode: String @Size(min: 1, max: 35, message: "generalZonalOfficeCode.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,35}",message: "General Zonal Office Code Invalid pattern")
+    generalZonalOfficeName: String @Size(min: 1, max: 35, message: "generalZonalOfficeName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,35}",message: "General Zonal Office Name Invalid pattern")
+    generalRegionalOfficeCode: String @Size(min: 1, max: 35, message: "generalRegionalOfficeCode.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,35}",message: "General Regional Office Code Invalid pattern")
+    generalRegionalOfficeName: String @Size(min: 1, max: 35, message: "generalRegionalOfficeName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,35}",message: "General Regional Office Name Invalid pattern")
+    generalCutOffTime: String
+
+ }

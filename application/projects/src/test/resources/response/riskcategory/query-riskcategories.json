@@ -1,0 +1,18 @@
+{
+  "data": {
+    "getRiskCategories": [
+      {
+        "riskCategoryCode": "NWBKGB2L",
+        "riskCategoryCodeName": "NATIONAL WESTMINSTER BANK PLC",
+        "riskCategoryDescription": "PREMIER PLACE, DEVONSHIRE SQUARE"
+
+      },
+      {
+        "riskCategoryCode": "NTSBDEB1",
+        "riskCategoryCodeName": "N26 BANK GMBH",
+        "riskCategoryDescription": "KLOSTERSTRASSE 62"
+
+      }
+    ]
+  }
+}

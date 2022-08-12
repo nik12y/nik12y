@@ -2,20 +2,19 @@ package com.idg.idgcore.coe.app.service.bankgroup;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.idg.idgcore.coe.app.config.MappingConfig;
 import com.idg.idgcore.coe.domain.assembler.bankgroup.GroupBankingAssembler;
 import com.idg.idgcore.coe.domain.entity.bankgroup.GroupBankingEntity;
+import com.idg.idgcore.coe.domain.entity.bankgroup.GroupBankingEntityKey;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.Payload;
-import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
+import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.bankgroup.IGroupBankingDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.dto.bankgroup.GroupBankingDTO;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
+import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
-import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
 import com.idg.idgcore.dto.context.SessionContext;
-import com.idg.idgcore.enumerations.core.MutationType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,315 +23,481 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.common.Constants.GROUP_BANKING;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GroupBankingApplicationServiceTest {
-    @Mock
-    private ModelMapper mapper = new ModelMapper();
-    @Mock
-    ObjectMapper objectMapper = new ObjectMapper();
-    @Mock
-    private IProcessConfiguration process;
-    @Mock
-    private MappingConfig mappingConfig;
-    @Mock
-    private IMutationsDomainService mutationsDomainService;
-    @Mock
-    private GroupBankingAssembler groupBankingAssembler;
-    @Mock
-    private IGroupBankingDomainService iGroupBankingDomainService;
-    @Mock
-    BusinessException expectedException;
-
-    @Mock
-    MutationEntity mutationEntity;
-    SessionContext sessionContext;
-    GroupBankingEntity groupBankingEntity;
-    GroupBankingEntity groupBankingEntityNe;
-
-    GroupBankingDTO groupBankingDTO;
-    String payloads;
-    GroupBankingEntity groupBankingEntityAuth;
-    GroupBankingDTO groupBankingDTOAuth;
-    GroupBankingDTO groupBankingDTONe;
 
     @InjectMocks
-    private GroupBankingApplicationService groupBankingApplicationService;
+    GroupBankingApplicationService groupBankingApplicationService;
+    @Mock
+    private ProcessConfiguration process;
+    @Mock
+    GroupBankingAssembler groupBankingAssembler;
+    @Mock
+    private IGroupBankingDomainService iGroupBankingDomainService;
 
-    @Test
-    void contextLoads() {
-        assertThat(groupBankingApplicationService).isNotNull();
-    }
-
+    @Autowired
+    private MutationEntity mutationEntity;
+    @Autowired
+    private MutationEntity mutationEntity2;
+    @Mock
+    private IMutationsDomainService mutationsDomainService;
+    private SessionContext sessionContext;
+    private SessionContext sessionContext1;
+    private GroupBankingEntity groupBankingEntity;
+    private GroupBankingDTO groupBankingDTO;
+    private GroupBankingDTO groupBankingDTOUnAuth;
+    private GroupBankingDTO groupBankingDTO1;
+    private GroupBankingEntity groupBankingEntity1;
+    private GroupBankingEntity groupBankingEntity2;
+    private GroupBankingDTO groupBankDTOMapper2;
 
     @BeforeEach
     void setUp() {
-        mutationEntity = getMutationEntity();
-        List<GroupBankingDTO> groupBankingDTOList = getGroupBankingDTOsList();
         sessionContext = getValidSessionContext();
-        groupBankingEntity = getGroupBankingEntity();
-        groupBankingDTO = getGroupBankingDTO();
-        payloads = getPayloads();
-        groupBankingEntityAuth = getGroupBankingEntityAuth();
-        groupBankingDTOAuth = getGroupBankingDTOAuth();
-        groupBankingDTONe = getGroupBankingDTONe();
-        groupBankingEntityNe = getGroupBankingEntityNe();
-
-        AbstractAuditableDomainEntity abstractAuditableDomainEntity = getAbstractAuditableDomainEntity();
+        sessionContext1 = getErrorSession();
+        groupBankingDTO = getBankGroupDTOAuthorized();
+        groupBankingEntity = getBankGroupEntity();
+        groupBankingDTOUnAuth = getBankGroupDTOUnAuth();
+        groupBankDTOMapper2 = getBankGroupDTOMapper();
+        mutationEntity = getMutationEntity();
+        groupBankingEntity1 = getBankGroupEntity();
+        groupBankingEntity2 = getBankGroupEntity2();
+        groupBankingDTO1 = getBankGroupDTO();
+        mutationEntity2 = getMutationEntityJsonError();
     }
 
     @Test
-    @DisplayName("JUnit Test for getGroupBanks for empty list")
-    void getGroupBanksEmptyList() throws FatalException {
-        given(iGroupBankingDomainService.getGroupBanks()).willReturn(Collections.emptyList());
-        List<GroupBankingDTO> groupBanks = groupBankingApplicationService.getGroupBanks(sessionContext);
-        assertThat(groupBanks).isEmpty();
-        System.out.println("Done");
+    @DisplayName("JUnit for getBankIdentifierByCode where return the bank identifier when the authorized is Y")
+    void getBankIdentifierByCodeWhenAuthorizedIsYThenReturnBankIdentifier() throws FatalException, JsonProcessingException {
+        given(
+                iGroupBankingDomainService.getGroupBankByCode(
+                        groupBankingDTO.getBankGroupCode()))
+                .willReturn(groupBankingEntity);
+        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity))
+                .willReturn(groupBankingDTO);
+        GroupBankingDTO result =
+                groupBankingApplicationService.getGroupBankByCode(
+                        sessionContext, groupBankingDTO);
+        assertEquals(groupBankingDTO, result);
     }
 
     @Test
-    @DisplayName("JUnit Test for getGroupBanks for Unauthorized and Authorized records")
-    void getGroupBanks() throws FatalException {
+    @DisplayName("JUnit for getBankIdentifiers where return all bank identifiers when there are no unauthorized mutations")
+    void getBankIdentifiersWhenThereAreNoUnauthorizedMutationsThenReturnAllBankIdentifiers() throws FatalException {
+        given(iGroupBankingDomainService.getGroupBanks())
+                .willReturn(List.of(groupBankingEntity));
+        given(mutationsDomainService.getUnauthorizedMutation(GROUP_BANKING, AUTHORIZED_N))
+                .willReturn(List.of());
+        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity))
+                .willReturn(groupBankingDTO);
 
-        List<GroupBankingEntity> groupBankingEntityList = new ArrayList<>();
-        groupBankingEntityList.add(groupBankingEntity);
-        groupBankingEntityList.add(groupBankingEntityAuth);
+        List<GroupBankingDTO> groupBankingDTOList =
+                groupBankingApplicationService.getGroupBanks(sessionContext);
 
-        List<MutationEntity> unauthorizedEntites = new ArrayList<>();
-        unauthorizedEntites.add(mutationEntity);
+        assertEquals(1, groupBankingDTOList.size());
+        assertEquals(groupBankingDTO, groupBankingDTOList.get(0));
+    }
 
-        given(iGroupBankingDomainService.getGroupBanks()).willReturn(groupBankingEntityList);
+    @Test
+    @DisplayName("JUnit for getBankIdentifierByCode in application service when Authorize try Block")
+    void getBankIdentifierByCodeIsAuthorize() throws FatalException, JsonProcessingException {
+
+        given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTO.getBankGroupCode())).willReturn(groupBankingEntity);
         given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
-
-       // given(mutationsDomainService.getUnauthorizedMutation(groupBankingDTO.getTaskCode())).willReturn(unauthorizedEntites);
-        Payload payload = new Payload();
-        payload.setData(payloads);
-        mutationEntity.setPayload(payload);
-        ObjectMapper objectMapper = mock(ObjectMapper.class);
-
-        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
-        List<GroupBankingDTO> groupBanks = groupBankingApplicationService.getGroupBanks(sessionContext);
-        assertThat(groupBanks).isNotNull();
-        System.out.println("Done");
+        GroupBankingDTO groupBankingDTO = groupBankingApplicationService.getGroupBankByCode(sessionContext, this.groupBankingDTO);
+        assertEquals("Y", groupBankingDTO.getAuthorized());
+        assertThat(groupBankingDTO).isNotNull();
     }
 
     @Test
-    @DisplayName("JUnit test cases for Authorized the user")
-    void getGroupBankByCode() throws FatalException, JsonProcessingException {
-        given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTOAuth.getBankGroupCode())).willReturn(groupBankingEntityAuth);
-        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
-        GroupBankingDTO groupBankByCode = groupBankingApplicationService.getGroupBankByCode(sessionContext, groupBankingDTOAuth);
-        // assertThat(groupBankingDTO.getAuthorized()).isEqualTo("Y");
-        assertEquals("Y", groupBankingDTOAuth.getAuthorized());
-        System.out.println(groupBankByCode);
-        //assertThat(groupBankByCode).isNotNull();
-        //  assertThat(groupBankByCode).describedAs("is not a valid records");
-        System.out.println("Done");
-    }
+    @DisplayName("JUnit for getBankIdentifierByCode in application service when Not Authorize in catch block")
+    void getBankIdentifierByCodeWhenNotAuthorizeCatchBlock() throws FatalException, JsonProcessingException {
 
-    @Test
-    @DisplayName("JUnit test when invalid pattern passed by maker")
-    void getByCodeGroupBankCodeIsNotValid() throws FatalException, JsonProcessingException {
-        given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTONe.getBankGroupCode())).willReturn(groupBankingEntityNe);
-        given(groupBankingAssembler.convertEntityToDto(groupBankingEntityNe)).willReturn(groupBankingDTONe);
-        assertEquals("N", groupBankingDTONe.getAuthorized());
-        String payloads = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"draft\",\"status\":\"draft\",\"recordVersion\":0," +
-                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"Csm&\"," +
-                "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
-                "\"taskCode\":\"GROUP-BANKING\"}";
-        given(mutationsDomainService.getConfigurationByCode(groupBankingDTO.getTaskIdentifier())).willReturn(mutationEntity);
-
-        Payload payload = new Payload();
-        payload.setData(payloads);
-        mutationEntity.setPayload(payload);
-        ObjectMapper objectMapper = mock(ObjectMapper.class);
-
-    //assertThat(groupBankByCode).describedAs("Bank Group Code must have minimum 3 char ");
-    assertEquals("Bank Group Code must have minimum 3 char and proper pattern",groupBankingDTONe.getBankGroupCode());
-}
-
-
-
-    @Test
-    @DisplayName("JUnit test case for Unauthorized Records Passed")
-    void getGroupBankByCodeForUnauthorized() throws FatalException, JsonProcessingException {
-//        given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTO.getBankGroupCode())).willReturn(groupBankingEntity);
-//        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
-
-        String payloads="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":1," +
+        String payLoadString1 = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
                 "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
                 "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
                 "\"taskCode\":\"GROUP-BANKING\"}";
-        given(mutationsDomainService.getConfigurationByCode(groupBankingDTO.getTaskIdentifier())).willReturn(mutationEntity);
 
-        Payload payload=new Payload();
-                payload.setData(payloads);
-                mutationEntity.setPayload(payload);
-                ObjectMapper objectMapper = mock(ObjectMapper.class);
-       //         given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
-        GroupBankingDTO groupBankByCode = groupBankingApplicationService.getGroupBankByCode(sessionContext, groupBankingDTO);
-            System.out.println(groupBankByCode);
-            assertEquals("N",groupBankingDTO.getAuthorized());
+        given(mutationsDomainService.getConfigurationByCode(groupBankingDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity2);
+        ModelMapper mapper = new ModelMapper();
+        PayloadDTO payload = new PayloadDTO(payLoadString1);
+        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
+        PayloadDTO helper = org.mockito.Mockito.mock(PayloadDTO.class);
+
+        Assertions.assertThrows(Exception.class, () -> {
+            GroupBankingDTO groupBankByCode = groupBankingApplicationService.getGroupBankByCode(sessionContext, groupBankDTOMapper2);
+            assertEquals("N", groupBankByCode.getAuthorized());
             assertThat(groupBankByCode).isNotNull();
-            System.out.println("Done");
+        });
     }
 
-    private MutationEntity  getMutationEntity(){
-        MutationEntity mutationEntity=new MutationEntity();
-        mutationEntity.setTaskCode("GROUP-BANKING");
-        mutationEntity.setTaskIdentifier("CBI");
-        mutationEntity.setLastConfigurationAction("unauthorized");
-        mutationEntity.setAuthorized("N");
-        mutationEntity.setRecordVersion(1);
-        mutationEntity.setStatus("new");
-        mutationEntity.setAction("add");
-        return  mutationEntity;
+//    @Test
+//    @DisplayName("JUnit for getBankIdentifiers in application service for try block")
+//    void getBankIdentifiersTryBlock() throws FatalException {
+//
+//        given(iGroupBankingDomainService.getGroupBanks()).willReturn(List.of(groupBankingEntity1));
+//        given(mutationsDomainService.getUnauthorizedMutation(groupBankingDTO1.getTaskCode(), AUTHORIZED_N)).willReturn(List.of(mutationEntity));
+//
+//        String payLoadString = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+//                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
+//                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
+//                "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
+//                "\"taskCode\":\"GROUP-BANKING\"}";
+//
+//        Payload payload = new Payload();
+//        payload.setData(payLoadString);
+//        mutationEntity.setPayload(payload);
+//        String data1 = mutationEntity.getPayload().getData();
+//        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity1)).willReturn(groupBankingDTO1);
+//
+//        List<GroupBankingDTO> bankIdentifierDTO2 = groupBankingApplicationService.getGroupBanks(sessionContext);
+//        assertThat(groupBankingDTO1).isNotNull();
+//    }
+
+    @Test
+    @DisplayName("JUnit for getBankIdentifiers in application service for catch block for checker")
+    void getBankIdentifiersCatchBlockForChecker() throws JsonProcessingException, FatalException {
+
+        MutationEntity unauthorizedEntities = getMutationEntity();
+        MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
+        sessionContext.setRole(new String[]{""});
+        given(mutationsDomainService.getUnauthorizedMutation(
+                groupBankingDTO1.getTaskCode(), AUTHORIZED_N))
+                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
+        Assertions.assertThrows(FatalException.class, () -> {
+            List<GroupBankingDTO> bankingDTOList = groupBankingApplicationService.getGroupBanks(sessionContext);
+            assertThat(bankingDTOList).isNotNull();
+        });
     }
 
-    private List<GroupBankingDTO> getGroupBankingDTOsList(){
-        List<GroupBankingDTO> groupBankingDTOList = new ArrayList<>();
-        GroupBankingDTO groupBankingDTO1=new GroupBankingDTO("YES","Yes bank of India");
-        GroupBankingDTO groupBankingDTO2=new GroupBankingDTO("BDO","Bank Of Badoda");
-        GroupBankingDTO groupBankingDTO3=new GroupBankingDTO("BNP","BNP Paribas");
-        groupBankingDTOList.add(groupBankingDTO1);
-        groupBankingDTOList.add(groupBankingDTO2);
-        groupBankingDTOList.add(groupBankingDTO3);
-        return groupBankingDTOList;
+    @Test
+    @DisplayName("JUnit for processBankIdentifier in application service for Try Block")
+    void processBankIdentifierForTryBlock() throws JsonProcessingException, FatalException {
+
+        doNothing().when(process).process(groupBankingDTO);
+        groupBankingApplicationService.processGroupBanking(sessionContext, groupBankingDTO);
+        verify(process, times(1)).process(groupBankingDTO);
     }
 
-    private SessionContext getValidSessionContext(){
-        SessionContext sessionContext=new SessionContext();
-        sessionContext.setBankCode("");
-        //   sessionContext.setAccessibleTargetUnits();
-        sessionContext.setChannel("");                           sessionContext.setDefaultBranchCode("");
-        sessionContext.setCustomAttributes("");                  sessionContext.setAllTargetUnitsSelected(false);
-        // sessionContext.setExternalBatchNumber();
-        sessionContext.setExternalTransactionReferenceNumber(""); sessionContext.setInternalTransactionReferenceNumber("");
-        sessionContext.setLocalDateTime(new Date());              sessionContext.setMutationType(MutationType.ADDITION);
-        //  sessionContext.setAccessibleTargetUnits("");
-        sessionContext.setDefaultBranchCode("");                sessionContext.getOriginalTransactionReferenceNumber();
-        sessionContext.setOriginatingModuleCode("");            sessionContext.setRole(new String[] {"checker"});
-        sessionContext.setServiceInvocationModeType(Regular);   sessionContext.setPostingDate(new Date());
-        sessionContext.setTargetUnit("");                       sessionContext.setTaskCode("GROUP-BANKING");
-        sessionContext.setTransactionBranch("");                sessionContext.setUserId("");
-        sessionContext.setUserTransactionReferenceNumber("");   sessionContext.setValueDate(new Date());
-        return  sessionContext;
+    @Test
+    @DisplayName("JUnit for processBankIdentifier in application service for Catch Block")
+    void processBankIdentifierForCatchBlock() throws FatalException {
+        SessionContext sessionContext2 = null;
+        Assertions.assertThrows(Exception.class, () -> {
+            groupBankingApplicationService.processGroupBanking(sessionContext2, groupBankingDTO);
+            assertThat(groupBankingDTO).descriptionText();
+        });
     }
 
-    private GroupBankingEntity getGroupBankingEntity(){
-        GroupBankingEntity groupBankingEntity=new GroupBankingEntity();
-        groupBankingEntity.setBankGroupCode("CBI");
-        groupBankingEntity.setBankGroupName("Crime Bank of India");
-        groupBankingEntity.setStatus("new");
-        groupBankingEntity.setAuthorized("N");
-        groupBankingEntity.setRecordVersion(1);
-        groupBankingEntity.setLastConfigurationAction("unauthorized");
-        return  groupBankingEntity;
+    @Test
+    @DisplayName("JUnit for addUpdateRecord in application service")
+    void addUpdateRecordTest() throws JsonProcessingException {
+
+        String payLoadString1 = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
+                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
+                "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
+                "\"taskCode\":\"GROUP-BANKING\"}";
+
+        doNothing().when(iGroupBankingDomainService).save(groupBankingDTO);
+        groupBankingApplicationService.save(groupBankingDTO);
+        groupBankingApplicationService.addUpdateRecord(payLoadString1);
+        verify(iGroupBankingDomainService, times(1)).save(groupBankingDTO);
     }
 
-    private GroupBankingEntity getGroupBankingEntityNe(){
-        GroupBankingEntity groupBankingEntityNe=new GroupBankingEntity();
-        groupBankingEntityNe.setBankGroupCode("Csm&");
-        groupBankingEntityNe.setBankGroupName("Crime Bank of India");
-        groupBankingEntityNe.setStatus("draft");
-        groupBankingEntityNe.setAuthorized("N");
-        groupBankingEntityNe.setRecordVersion(0);
-        groupBankingEntityNe.setLastConfigurationAction("unauthorized");
-        return  groupBankingEntityNe;
+    @Test
+    @DisplayName("JUnit for ConfigurationByCode in application service")
+    void getConfigurationByCodeTest() {
+        String code = groupBankingDTO.getBankGroupCode();
+        given(iGroupBankingDomainService.getGroupBankByCode(code)).willReturn(groupBankingEntity);
+        groupBankingApplicationService.getConfigurationByCode(code);
+        assertThat(groupBankingEntity).isNotNull();
     }
 
-    private  GroupBankingDTO getGroupBankingDTO(){
-        GroupBankingDTO groupBankingDTO=new GroupBankingDTO();
+    @Test
+    @DisplayName("JUnit for getByBankIdentifierCode in application service when Authorize for Negative")
+    void getBankIdentifierByCodeIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
+        given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTO.getBankGroupCode())).willReturn(groupBankingEntity);
+        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
+        GroupBankingDTO bankIdentifierDTO1 = groupBankingApplicationService.getGroupBankByCode(sessionContext, groupBankingDTO);
+        assertNotEquals("N", bankIdentifierDTO1.getAuthorized());
+        assertThat(groupBankingDTO).isNotNull();
+    }
+
+    @Test
+    @DisplayName("JUnit for getBankIdentifierByCode in application service check Parameter not null")
+    void getBankIdentifierByCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
+        GroupBankingDTO bankIdentifierDTOnull = null;
+        GroupBankingDTO groupBankingDTO = new GroupBankingDTO();
         groupBankingDTO.setBankGroupCode("CBI");
-        groupBankingDTO.setBankGroupName("Crime Bank of India");
-        groupBankingDTO.setStatus("new");
-        groupBankingDTO.setAuthorized("N");
-        groupBankingDTO.setRecordVersion(1);
-        groupBankingDTO.setTaskCode(GROUP_BANKING);
-        groupBankingDTO.setLastConfigurationAction("unauthorized");
+        groupBankingDTO.setAuthorized("Y");
+        given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTO.getBankGroupCode())).willReturn(groupBankingEntity);
+        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(this.groupBankingDTO);
+        GroupBankingDTO bankIdentifierDTO1 = groupBankingApplicationService.getGroupBankByCode(sessionContext, groupBankingDTO);
+        assertThat(groupBankingDTO.getBankGroupCode()).isNotBlank();
+        assertThat(groupBankingDTO.getAuthorized()).isNotBlank();
+    }
+
+  /*  @Test
+    @DisplayName("JUnit for getBankIdentifiers in application service for try block negative scenario for SessionContext some field not be null")
+    void getBankIdentifiersTryBlockNegative() throws FatalException {
+        String payLoadString = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":0," +
+                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
+                "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
+                "\"taskCode\":\"GROUP-BANKING\"}";
+
+        MutationEntity mutationEntity5 = new MutationEntity();
+        mutationEntity5.setTaskIdentifier("CBI");
+        mutationEntity5.setTaskCode(GROUP_BANKING);
+        mutationEntity5.setPayload(new Payload(payLoadString));
+        mutationEntity5.setStatus("new");
+        mutationEntity5.setAuthorized("N");
+        mutationEntity5.setRecordVersion(0);
+        mutationEntity5.setAction("add");
+        mutationEntity5.setLastConfigurationAction("unauthorized");
+        mutationEntity5.setCreatedBy("NIKHIL");
+        mutationEntity5.setLastUpdatedBy("mohan");
+
+        GroupBankingDTO bankIdentifierDTOO = new GroupBankingDTO();
+
+        GroupBankingEntityKey groupBankingEntityKey = new GroupBankingEntityKey();
+        groupBankingEntityKey.setBankGroupCode("CBI");
+
+        GroupBankingEntity groupBankingEntity = new GroupBankingEntity();
+        given(mutationsDomainService.getUnauthorizedMutation(bankIdentifierDTOO.getTaskCode(), AUTHORIZED_N)).willReturn(List.of(mutationEntity5));
+        given(iGroupBankingDomainService.getGroupBanks()).willReturn(List.of(groupBankingEntity));
+        Payload payload = new Payload();
+        payload.setData(payLoadString);
+        mutationEntity5.setPayload(payload);
+        String data1 = mutationEntity5.getPayload().getData();
+        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(bankIdentifierDTOO);
+        given(groupBankingAssembler.setAuditFields(mutationEntity5, bankIdentifierDTOO)).willReturn(bankIdentifierDTOO);
+
+        List<GroupBankingDTO> bankIdentifierDTO2 = groupBankingApplicationService.getGroupBanks(sessionContext);
+        assertThat(sessionContext.getRole()).isNotEmpty();
+        assertThat(sessionContext.getServiceInvocationModeType()).isNotNull();
+    }*/
+
+    @Test
+    @DisplayName("JUnit for code coverage")
+    void getCodeCoverage() {
+        assertThat(groupBankingEntity.toString()).isNotNull();
+        assertThat(groupBankingDTO.toString()).isNotNull();
+        GroupBankingDTO bankIdentifierDTO2 = new GroupBankingDTO("CBI",
+                "Central Bank of India");
+        GroupBankingDTO.builder().bankGroupCode("CBI")
+                .bankGroupName("Central Bank of India").authorized("N")
+                .taskCode(GROUP_BANKING)
+                .taskIdentifier("CBI").build().toString();
+        GroupBankingEntityKey groupBankingEntityKey = new GroupBankingEntityKey("CBI");
+        assertThat(groupBankingEntityKey.toString()).isNotNull();
+        groupBankingEntityKey.setBankGroupCode("CBI");
+        groupBankingEntityKey.keyAsString();
+        GroupBankingEntityKey.builder().bankGroupCode("CBI").build();
+        assertThat(groupBankingDTO).descriptionText();
+    }
+
+    private SessionContext getValidSessionContext() {
+        SessionContext sessionContext =
+                SessionContext.builder()
+                        .bankCode("003")
+                        .defaultBranchCode("1141")
+                        .internalTransactionReferenceNumber("")
+                        .userTransactionReferenceNumber("")
+                        .externalTransactionReferenceNumber("")
+                        .targetUnit("dummy_target")
+                        .postingDate(new Date())
+                        .valueDate(new Date())
+                        .transactionBranch("")
+                        .userId("nikhil")
+                        //                .accessibleTargetUnits([])
+                        .channel("Branch")
+                        .taskCode(GROUP_BANKING)
+                        .originalTransactionReferenceNumber("")
+                        .externalBatchNumber(1L)
+                        .customAttributes("")
+                        .serviceInvocationModeType(Regular)
+                        .allTargetUnitsSelected(true)
+                        //                .mutationType("")
+                        .userLocal("en_US")
+                        .originatingModuleCode("")
+                        .role(new String[]{"maker"})
+                        .build();
+        return sessionContext;
+    }
+
+    private SessionContext getErrorSession() {
+        SessionContext sessionContextError =
+                SessionContext.builder()
+                        .bankCode("")
+                        .defaultBranchCode("")
+                        .internalTransactionReferenceNumber("")
+                        .userTransactionReferenceNumber("")
+                        .externalTransactionReferenceNumber("")
+                        .targetUnit("")
+                        .postingDate(new Date())
+                        .valueDate(new Date())
+                        .transactionBranch("")
+                        .userId("prash")
+                        //                .accessibleTargetUnits([])
+                        .channel("")
+                        .taskCode("")
+                        .originalTransactionReferenceNumber("")
+                        .externalBatchNumber(null)
+                        .customAttributes("")
+                        .serviceInvocationModeType(null)
+                        .allTargetUnitsSelected(true)
+                        //                .mutationType("")
+                        .userLocal("")
+                        .originatingModuleCode("")
+                        .role(new String[]{"maker"})
+                        .build();
+        return sessionContextError;
+    }
+
+    private GroupBankingDTO getBankGroupDTOAuthorized() {
+        GroupBankingDTO groupBankingDTO = new GroupBankingDTO();
+
+        groupBankingDTO.setBankGroupCode("CBI");
+        groupBankingDTO.setBankGroupName("Central Bank of India");
+
+        groupBankingDTO.setAuthorized("Y");
+
         return groupBankingDTO;
     }
-    private  GroupBankingDTO getGroupBankingDTONe(){
-        GroupBankingDTO groupBankingDTONe=new GroupBankingDTO();
-        groupBankingDTONe.setBankGroupCode("Csm&");
-        groupBankingDTONe.setBankGroupName("Crime Bank of India");
-        groupBankingDTONe.setStatus("draft");
-        groupBankingDTONe.setAuthorized("N");
-        groupBankingDTONe.setRecordVersion(0);
-        groupBankingDTONe.setTaskCode(GROUP_BANKING);
-        groupBankingDTONe.setLastConfigurationAction("unauthorized");
-        return groupBankingDTONe;
-    }
-    private GroupBankingEntity getGroupBankingEntityAuth(){
-        GroupBankingEntity groupBankingEntityAuth=new GroupBankingEntity();
-        groupBankingEntityAuth.setBankGroupCode("CBI");
-        groupBankingEntityAuth.setBankGroupName("Crim Bank of India");
-        groupBankingEntityAuth.setStatus("active");
-        groupBankingEntityAuth.setAuthorized("Y");
-        groupBankingEntityAuth.setRecordVersion(1);
-        groupBankingEntityAuth.setLastConfigurationAction("authorized");
-        return groupBankingEntityAuth;
+
+    private GroupBankingDTO getBankGroupDTO() {
+        GroupBankingDTO groupBankingDTO = new GroupBankingDTO();
+        groupBankingDTO.setBankGroupCode("CBI");
+        groupBankingDTO.setBankGroupName("Central Bank of India");
+
+        groupBankingDTO.setTaskCode(GROUP_BANKING);
+        groupBankingDTO.setStatus("DELETED");
+        groupBankingDTO.setRecordVersion(1);
+        return groupBankingDTO;
     }
 
-    private  GroupBankingDTO getGroupBankingDTOAuth(){
-        GroupBankingDTO groupBankingDTOAuth=new GroupBankingDTO();
-        groupBankingDTOAuth.setBankGroupCode("CBI");
-        groupBankingDTOAuth.setBankGroupName("Crim Bank of India");
-        groupBankingDTOAuth.setStatus("active");
-        groupBankingDTOAuth.setAuthorized("Y");
-        groupBankingDTOAuth.setRecordVersion(1);
-        groupBankingDTOAuth.setLastConfigurationAction("authorized");
-        return groupBankingDTOAuth;
+    private GroupBankingEntity getBankIdentifierEntity() {
+        GroupBankingEntity groupBankingEntity =
+                new GroupBankingEntity(
+                        "CBI",
+                        "Central Bank of India",
+                        null,
+                        null,
+                        "draft",
+                        0,
+                        "Y",
+                        "draft");
+
+        return groupBankingEntity;
     }
 
-    private AbstractAuditableDomainEntity getAbstractAuditableDomainEntity() {
-        AbstractAuditableDomainEntity abstractAuditableDomainEntity = new AbstractAuditableDomainEntity();
-        abstractAuditableDomainEntity.setCreatedBy("Nikhil");
-        abstractAuditableDomainEntity.setCreationTime(new Date());
-        abstractAuditableDomainEntity.setLastUpdatedBy("Prashant");
-        abstractAuditableDomainEntity.setLastUpdatedTime(new Date());
-        return abstractAuditableDomainEntity;
+    private GroupBankingEntity getBankGroupEntity() {
+
+        GroupBankingEntity groupBankingEntity1 =
+                new GroupBankingEntity(
+                        "CBI",
+                        "Central Bank of India",
+                        null,
+                        null,
+                        "DELETED",
+                        1,
+                        "N",
+                        "unauthorized");
+
+        return groupBankingEntity1;
     }
 
-    private String getPayloads(){
-        String payloads="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":1," +
-                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
-                "\"groupBankName\":\"Crim Bank Of India\",\"taskIdentifier\":\"CBI\"," +
-                "\"taskCode\":\"GROUP-BANKING\"}";
-        return payloads;
+    private GroupBankingEntity getBankGroupEntity2() {
+        GroupBankingEntity groupBankingEntity2 = new GroupBankingEntity();
+        groupBankingEntity2.setBankGroupCode("CBI");
+        groupBankingEntity2.setBankGroupName("Central Bank of India");
+        groupBankingEntity2.setAuthorized("N");
+        groupBankingEntity2.setStatus("closed");
+        groupBankingEntity2.setRecordVersion(1);
+        return groupBankingEntity2;
     }
 
+    private GroupBankingDTO getBankGroupDTOUnAuth() {
 
+        GroupBankingDTO groupBankingDTO =
+                new GroupBankingDTO(
+                        "CBI",
+                        "Central Bank of India");
 
-
-    @Test
-    void processGroupBanking() {
+        groupBankingDTO.setAuthorized("N");
+        groupBankingDTO.setTaskIdentifier("CBI");
+        return groupBankingDTO;
     }
 
-    @Test
-    void addUpdateRecord() {
+    private GroupBankingDTO getBankGroupDTOMapper() {
+
+        GroupBankingDTO groupBankDTOMapper2 =
+                GroupBankingDTO.builder()
+                        .bankGroupCode("CBI")
+                        .bankGroupName("Central Bank of India")
+                        .authorized("N")
+                        .taskCode(GROUP_BANKING)
+                        .taskIdentifier("CBI")
+                        .build();
+        return groupBankDTOMapper2;
     }
 
-    @Test
-    void getConfigurationByCode() {
+    private MutationEntity getMutationEntity() {
+        String payLoadString =
+                "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+                        "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
+                        "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
+                        "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
+                        "\"taskCode\":\"GROUP-BANKING\"}";
+
+        MutationEntity mutationEntity = new MutationEntity();
+        mutationEntity.setTaskIdentifier("CBI");
+        mutationEntity.setTaskCode(GROUP_BANKING);
+        mutationEntity.setPayload(new Payload(payLoadString));
+        mutationEntity.setStatus("closed");
+        mutationEntity.setAuthorized("N");
+        mutationEntity.setRecordVersion(1);
+        mutationEntity.setAction("add");
+        mutationEntity.setLastConfigurationAction("unauthorized");
+
+        return mutationEntity;
     }
 
-    @Test
-    void save() {
+    private MutationEntity getMutationEntityJsonError() {
+        String payLoadString1 =
+                "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+                        "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
+                        "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
+                        "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
+                        "\"taskCode\":\"GROUP-BANKING\"}";
+
+        MutationEntity mutationEntity2 = new MutationEntity();
+        mutationEntity2.setTaskIdentifier("CBI");
+        mutationEntity2.setTaskCode(GROUP_BANKING);
+        mutationEntity2.setPayload(new Payload(payLoadString1));
+        mutationEntity2.setStatus("closed");
+        mutationEntity2.setAuthorized("N");
+        mutationEntity2.setRecordVersion(1);
+        mutationEntity2.setAction("add");
+        mutationEntity2.setLastConfigurationAction("unauthorized");
+
+        return mutationEntity2;
     }
 }
