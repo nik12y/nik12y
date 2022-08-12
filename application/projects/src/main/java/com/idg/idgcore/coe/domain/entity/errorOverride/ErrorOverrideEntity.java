@@ -24,8 +24,13 @@ public class ErrorOverrideEntity extends AbstractAuditableDomainEntity implement
     private String functionCode;
     private String batchType;
 
+    private String lifeCycleId;
+    private String referenceNo;
+    @Column(name = "record_status")
     private String status;
+    @Column(name = "record_version")
     private Integer recordVersion;
+    @Column(name = "is_authorized")
     private String authorized;
     private String lastConfigurationAction;
 

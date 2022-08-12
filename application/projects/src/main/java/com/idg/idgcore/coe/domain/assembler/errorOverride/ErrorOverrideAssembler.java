@@ -23,7 +23,6 @@ public class ErrorOverrideAssembler {
     }
 
     public ErrorOverrideEntity convertDtoToEntity (ErrorOverrideDTO errorOverrideDTO) {
-        System.out.println("-------------errorOverrideDTO : "+errorOverrideDTO);
         ErrorOverrideEntity errorOverrideEntity = modelMapper.map(errorOverrideDTO,
                 ErrorOverrideEntity.class);
         errorOverrideEntity.setIsConfirmationRequired(
@@ -42,7 +41,6 @@ public class ErrorOverrideAssembler {
     }
 
     public ErrorOverrideDTO convertEntityToDto (ErrorOverrideEntity errorOverrideEntity) {
-        System.out.println("errorOverrideEntity ---- ["+errorOverrideEntity+"]");
         ErrorOverrideDTO errorOverrideDTO = modelMapper.map(errorOverrideEntity,
                 ErrorOverrideDTO.class);
         errorOverrideDTO.setIsConfirmationRequired(getBooleanValueFromChar(errorOverrideEntity.getIsConfirmationRequired()));
