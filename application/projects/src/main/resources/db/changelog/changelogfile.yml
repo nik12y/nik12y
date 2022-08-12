@@ -42,3 +42,7 @@ databaseChangeLog:
       file: db/changelog/questionCategory-table.xml
   - include:
       file: db/changelog/zakat-table.xml
+  - include:
+      file: db/changelog/financial-accounting-year-table.xml
+
+

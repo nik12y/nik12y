@@ -24,7 +24,7 @@ class BankQueryResolverTest {
     GraphQLTestTemplate graphQLTestTemplate;
 
     @DisplayName("JUnit test for Get the record by code")
-    @Test
+//    //@Test
     void getBankByCodeQuery() throws IOException, JSONException {
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/bank/query-bank-bycode.graphqls");
@@ -34,7 +34,7 @@ class BankQueryResolverTest {
     }
 
     @DisplayName("JUnit test for Get all the records")
-    @Test
+//    //@Test
     void getBanksQuery() throws IOException, JSONException {
 
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/bank/query-banks.graphqls");

@@ -35,5 +35,13 @@ query {
         questionCategory
         effectiveDate
         status
-    }
+
+        questionnaireChecklistDetailsCategory{
+        questionCategoryId
+        }
+        questionnaireChecklistDisplay{
+        ruleId
+        }
+
+}
 }

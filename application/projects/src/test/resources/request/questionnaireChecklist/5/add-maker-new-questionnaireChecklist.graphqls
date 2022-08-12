@@ -29,6 +29,7 @@ mutation{
             questionChecklistId:"CG"
             questionChecklistName:"CGADH"
             questionCategory: "IN"
+            effectiveDate : "2022-01-22"
 
             questionnaireChecklistDetailsCategory:{
                 questionCategoryId:"test"

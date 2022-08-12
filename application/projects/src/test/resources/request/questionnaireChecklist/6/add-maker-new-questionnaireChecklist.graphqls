@@ -29,6 +29,7 @@ mutation{
             questionChecklistId:"GA"
             questionChecklistName:"GOA"
             questionCategory: "IN"
+            effectiveDate:"2222-01-01"
 
             questionnaireChecklistDetailsCategory:{
                 questionCategoryId:"test"

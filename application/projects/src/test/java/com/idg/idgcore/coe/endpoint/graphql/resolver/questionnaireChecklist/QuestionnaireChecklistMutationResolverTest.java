@@ -29,6 +29,9 @@ class QuestionnaireChecklistMutationResolverTest {
     void processQuestionnaireChecklistSaveDraftDelete() throws IOException, JSONException {
         String srcDraft = "request/questionnaireChecklist/1/draft-maker-draft-questionnaireChecklist.graphqls";
         GraphQLResponse graphQLResponseDraft = graphQLTestTemplate.postForResource(srcDraft);
+        System.out.println("1-------------------");
+
+
 
         String srcDraftDelete = "request/questionnaireChecklist/1/delete-maker-deleted-questionnaireChecklist.graphqls";
         GraphQLResponse graphQLResponseDraftDlt = graphQLTestTemplate.postForResource(srcDraftDelete);

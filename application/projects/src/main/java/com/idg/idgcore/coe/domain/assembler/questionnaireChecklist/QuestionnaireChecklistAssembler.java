@@ -8,11 +8,14 @@ import org.modelmapper.convention.*;
 import org.springframework.stereotype.*;
 
 import javax.annotation.*;
-
+import java.text.*;
+import java.util.Date;
 
 @Component
 public class QuestionnaireChecklistAssembler {
     private final ModelMapper modelMapper = new ModelMapper();
+
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostConstruct
     private void setMapperConfig () {
@@ -21,7 +24,7 @@ public class QuestionnaireChecklistAssembler {
     }
 
     public QuestionnaireChecklistEntity convertDtoToEntity (
-            QuestionnaireChecklistDTO questionnaireChecklistDTO) {
+            QuestionnaireChecklistDTO questionnaireChecklistDTO) throws ParseException {
         /**
          * For Questionnaire Checklist Details List
          */
@@ -43,6 +46,7 @@ public class QuestionnaireChecklistAssembler {
         questionnaireChecklistEntity.setQuestionnaireChecklistDetailsCategory(
                 detailsEntity);
         questionnaireChecklistEntity.setChecklistDisplayEntity(displayEntity);
+        questionnaireChecklistEntity.setEffectiveDate(formatter.parse(questionnaireChecklistDTO.getEffectiveDate()));
         return questionnaireChecklistEntity;
     }
 
@@ -67,6 +71,7 @@ public class QuestionnaireChecklistAssembler {
                 QuestionnaireChecklistDTO.class);
         questionnaireChecklistDTO.setQuestionnaireChecklistDetailsCategory(detailsDTO);
         questionnaireChecklistDTO.setQuestionnaireChecklistDisplay(checklistDisplayDTO);
+        questionnaireChecklistDTO.setEffectiveDate(formatter.format(inEntity.getEffectiveDate()));
         return questionnaireChecklistDTO;
     }
 

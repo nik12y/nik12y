@@ -10,7 +10,7 @@ mutation{
             postingDate: ""
             valueDate: ""
             transactionBranch: null
-            userId: "sujan"
+            userId: "Prash"
             accessibleTargetUnits: null
             channel: "Branch"
             taskCode: "QUESTION_CKLIST"
@@ -29,6 +29,7 @@ mutation{
             questionChecklistId:"DL"
             questionChecklistName:"DELHI"
             questionCategory: "IN"
+            effectiveDate:"2222-01-01"
 
             questionnaireChecklistDetailsCategory:{
                 questionCategoryId:"test"

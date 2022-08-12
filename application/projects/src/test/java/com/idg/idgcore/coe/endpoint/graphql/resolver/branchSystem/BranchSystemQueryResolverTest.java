@@ -19,13 +19,13 @@ public class BranchSystemQueryResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
-    @Test
+    //@Test
     void getBranchSystemDateByCode() throws IOException, JSONException {
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchSystem/query-branchSystem-bycode.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
     }
 
-    @Test
+    //@Test
     void getBranchSystemDateAll() throws IOException, JSONException {
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchSystem/query-branchSystem-All.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));

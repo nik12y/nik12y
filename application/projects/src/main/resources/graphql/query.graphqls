@@ -70,5 +70,8 @@ type Query{
 
     getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
     getZakats(sessionContext: SessionContextInput): [Zakat]
+    getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
+    getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
+
 }
 

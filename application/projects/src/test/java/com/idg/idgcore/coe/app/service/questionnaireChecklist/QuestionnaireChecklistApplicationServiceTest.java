@@ -18,6 +18,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.*;
 import org.springframework.beans.factory.annotation.*;
 
+import java.text.*;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
@@ -36,7 +37,6 @@ class QuestionnaireChecklistApplicationServiceTest {
     private MutationEntity mutationEntity;
     private MutationEntity mutationEntity2;
     private SessionContext sessionContext;
-
     private QuestionnaireChecklistDTO questionnaireChecklistDTOUnAuth;
     private QuestionnaireChecklistDTO questionnaireChecklistDTO;
     private QuestionnaireChecklistEntity questionnaireChecklistEntity;
@@ -47,7 +47,7 @@ class QuestionnaireChecklistApplicationServiceTest {
     @BeforeEach
     void setUp () {
         sessionContext = getValidSessionContext();
-         questionnaireChecklistEntity = getQuestionnaireChecklistEntity();
+        questionnaireChecklistEntity = getQuestionnaireChecklistEntity();
         questionnaireChecklistDTOUnAuth = getQuestionnaireChecklistDTOUnAuthorized();
         questionnaireChecklistDTOUnAuth.setAuthorized("N");
         questionnaireChecklistEntityUnAut = getQuestionnaireChecklistEntity();
@@ -62,8 +62,7 @@ class QuestionnaireChecklistApplicationServiceTest {
     @Test
     @DisplayName ("JUnit for getBankByCode in application service when Authorize")
     void getQuestionnaireChecklistByCodeWithAuthRecord () throws FatalException {
-
-        QuestionnaireChecklistDTO questionnaireChecklistDTOAuth= getQuestionnaireChecklistDTOAuthorized();
+        QuestionnaireChecklistDTO questionnaireChecklistDTOAuth = getQuestionnaireChecklistDTOAuthorized();
         given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
                 questionnaireChecklistDTOAuth.getQuestionChecklistId())).willReturn(
                 questionnaireChecklistEntity);
@@ -78,8 +77,163 @@ class QuestionnaireChecklistApplicationServiceTest {
         assertThat(questionnaireChecklistDTO.toString()).isNotNull();
     }
 
+    @DisplayName ("JUnit test for processQuestionnaireChecklist method")
+    @Test
+    void processQuestionnaireChecklistWithNew () throws JsonProcessingException, FatalException {
+        QuestionnaireChecklistDTO questionnaireChecklistDTOAuth = getQuestionnaireChecklistDTOAuthorized();
+        doNothing().when(processConfiguration).process(questionnaireChecklistDTOAuth);
+        questionnaireChecklistApplicationService.processQuestionnaireChecklist(sessionContext,
+                questionnaireChecklistDTOAuth);
+        verify(processConfiguration, times(1)).process(questionnaireChecklistDTOAuth);
+    }
 
+    @DisplayName ("JUnit test for addUpdateRecord method")
+        //    @Test
+    void addUpdateRecord () throws JsonProcessingException, FatalException {
+        String payloadStr = getpayloadValidString();
+        QuestionnaireChecklistDTO questionnaireChecklistDTO = getQuestionnaireChecklistDTOForSave();
+        doNothing().when(questionnaireChecklistDomainService).save(questionnaireChecklistDTO);
+        questionnaireChecklistApplicationService.save(questionnaireChecklistDTO);
+        questionnaireChecklistApplicationService.addUpdateRecord(payloadStr);
+        verify(questionnaireChecklistDomainService, times(1)).save(questionnaireChecklistDTO);
+    }
 
+    /**
+     * New test cases
+     */
+    @Test
+    @DisplayName ("JUnit for ConfigurationByCode in application service")
+    void getConfigurationByCodeTest () {
+        String code = questionnaireChecklistDTO.getQuestionChecklistId();
+        given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
+                code)).willReturn(questionnaireChecklistEntity);
+        questionnaireChecklistApplicationService.getConfigurationByCode(code);
+        assertThat(questionnaireChecklistEntity).isNotNull();
+    }
+
+    @Test
+    void getTestEntityAll () {
+        QuestionnaireChecklistEntity questionnaireChecklistEntityAll = getQuestionnaireChecklistEntityAll();
+        String code = questionnaireChecklistDTO.getQuestionChecklistId();
+        given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
+                code)).willReturn(questionnaireChecklistEntity);
+        questionnaireChecklistApplicationService.getConfigurationByCode(code);
+        assertThat(questionnaireChecklistEntityAll.toString()).isNotNull();
+        assertThat(questionnaireChecklistDTO.toString()).isNotNull();
+    }
+
+    @Test
+    void getTestDtoAll () {
+        QuestionnaireChecklistDTO questionnaireChecklistdto = getQuestionnaireChecklistDtoAll();
+        assertThat(questionnaireChecklistdto.toString()).isNotNull();
+    }
+
+    @Test
+    void getTestDtoBuilder () {
+        QuestionnaireChecklistDTO questionnaireChecklistdto = getQuestionnaireChecklistDtoBuilder();
+        assertThat(questionnaireChecklistdto.toString()).isNotNull();
+    }
+
+    @Test
+    void getTestEntityKey () {
+        QuestionnaireChecklistEntityKey questionnaireChecklistEntityAll = new QuestionnaireChecklistEntityKey();
+        questionnaireChecklistEntityAll.setQuestionChecklistId("testKey");
+        assertThat(questionnaireChecklistEntityAll.toString()).isNotNull();
+        assertThat(questionnaireChecklistEntityAll.getQuestionChecklistId()).isNotNull();
+    }
+
+    @Test
+    void getTestEntityKeyBuilder () {
+        QuestionnaireChecklistEntityKey questionnaireChecklistEntityAll = new QuestionnaireChecklistEntityKey().builder()
+                .questionChecklistId("testKey").build();
+        assertThat(questionnaireChecklistEntityAll.toString()).isNotNull();
+        assertThat(questionnaireChecklistDTO.toString()).isNotNull();
+    }
+
+    @Test
+    void getTestdtoBuilder () {
+        QuestionnaireChecklistDTO questionnaireChecklistEntityAll = getQuestionnaireChecklistDTOBUilder();
+        assertThat(questionnaireChecklistEntityAll.toString()).isNotNull();
+        assertThat(questionnaireChecklistDTO.toString()).isNotNull();
+    }
+
+    @Test
+    @DisplayName ("JUnit for processQuestionnaireChecklist in application service for Try Block")
+    void processQuestionnaireChecklistForTryBlock ()
+            throws JsonProcessingException, FatalException {
+        doNothing().when(processConfiguration).process(questionnaireChecklistDTO);
+        questionnaireChecklistApplicationService.processQuestionnaireChecklist(sessionContext,
+                questionnaireChecklistDTO);
+        verify(processConfiguration, times(1)).process(questionnaireChecklistDTO);
+    }
+
+    //    @Test
+    @DisplayName ("JUnit for processQuestionnaireChecklist in application service for Catch Block")
+    void processQuestionnaireChecklistForCatchBlock () throws FatalException {
+        SessionContext sessionContext2 = null;
+        Assertions.assertThrows(Exception.class, () -> {
+            questionnaireChecklistApplicationService.processQuestionnaireChecklist(sessionContext2,
+                    questionnaireChecklistDTO);
+            assertThat(questionnaireChecklistDTO).descriptionText();
+        });
+    }
+
+    /**
+     * Negative Test Cases
+     */
+    @Test
+    @DisplayName ("JUnit for getBankByCode in application service when Authorize for Negative")
+    void getQuestionnaireChecklistBankByCodeIsAuthorizeForNegative () throws FatalException {
+        given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
+                questionnaireChecklistDTO.getQuestionChecklistId())).willReturn(
+                questionnaireChecklistEntity);
+        given(questionnaireChecklistAssembler.convertEntityToDto(
+                questionnaireChecklistEntity)).willReturn(questionnaireChecklistDTO);
+        QuestionnaireChecklistDTO questionnaireChecklistDTO1 = questionnaireChecklistApplicationService.getQuestionnaireChecklistById(
+                sessionContext, questionnaireChecklistDTO);
+        assertNotEquals("N", questionnaireChecklistDTO1.getAuthorized());
+        assertThat(questionnaireChecklistDTO).isNotNull();
+    }
+
+    /*@Test
+    @DisplayName("JUnit for getBankByCode in application service when UnAuthorize fetch no Record from database")
+    void getQuestionnaireChecklistBankByCodeNotAuthorizeNull() throws FatalException {
+        QuestionnaireChecklistDTO questionnaireChecklistDTO=null;
+        QuestionnaireChecklistDTO questionnaireChecklistDTOEx=new QuestionnaireChecklistDTO();
+        questionnaireChecklistDTOEx.setBankCode("BB");
+        questionnaireChecklistDTOEx.setAuthorized("N");
+        given(mutationsDomainService.getConfigurationByCode(questionnaireChecklistDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
+        QuestionnaireChecklistDTO questionnaireChecklistDTO1 = questionnaireChecklistApplicationService.getBankByCode(sessionContext, questionnaireChecklistDTOEx);
+        assertNotEquals("Y",questionnaireChecklistDTO1.getAuthorized());
+        assertNull(questionnaireChecklistDTOnull);
+    }*/
+
+    @Test
+    @DisplayName ("JUnit for getBankByCode in application service check Parameter not null")
+    void getQuestionnaireChecklistBankByCodeIsAuthorizeCheckParameter () throws FatalException {
+        QuestionnaireChecklistDTO questionnaireChecklistDTOEx = getQuestionnaireChecklistDTO();
+        questionnaireChecklistDTOEx.setQuestionChecklistId("BB");
+        questionnaireChecklistDTOEx.setAuthorized("Y");
+        given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
+                questionnaireChecklistDTOEx.getQuestionChecklistId())).willReturn(
+                questionnaireChecklistEntity);
+        given(questionnaireChecklistAssembler.convertEntityToDto(
+                questionnaireChecklistEntity)).willReturn(null);
+        QuestionnaireChecklistDTO questionnaireChecklistDTO = questionnaireChecklistApplicationService.getQuestionnaireChecklistById(
+                sessionContext, questionnaireChecklistDTOEx);
+        assertThat(questionnaireChecklistDTO).isNull();
+        assertThat(questionnaireChecklistDTOEx.getQuestionChecklistId()).isNotBlank();
+        assertThat(questionnaireChecklistDTOEx.getAuthorized()).isNotBlank();
+    }
+
+    /*@Test
+    @DisplayName("JUnit for getBankByCode in application service when Not Authorize in try block for Negative when getAuthorized unexpected is Y")
+    void getQuestionnaireChecklistBankByCodeWhenNotAuthorizeTryBlockForNegative() throws JsonProcessingException, FatalException {
+        given(mutationsDomainService.getConfigurationByCode(questionnaireChecklistDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
+        QuestionnaireChecklistDTO questionnaireChecklistDTO1 = questionnaireChecklistApplicationService.getBankByCode(sessionContext,questionnaireChecklistDTOMapper);
+        assertNotEquals("Y",questionnaireChecklistDTO1.getAuthorized());
+        assertThat(questionnaireChecklistDTO1).isNotNull();
+    }*/
 
   /*  @Test
     @DisplayName ("JUnit for getBankByCode in application service when Not Authorize in catch block")
@@ -98,8 +252,8 @@ class QuestionnaireChecklistApplicationServiceTest {
             assertThat(questionnaireChecklistDTO1).isNotNull();
         });
     }*/
-    /*//
-    @Test
+    //
+/*    @Test
     @DisplayName("JUnit for getQuestionnaireChecklists in application service for catch block for checker")
     void getQuestionnaireChecklistsCatchBlockForChecker() throws JsonProcessingException, FatalException {
 
@@ -145,7 +299,7 @@ class QuestionnaireChecklistApplicationServiceTest {
         assertThat(questionnaireChecklistDTO1).isNotNull();
     }*/
 
-   /* @Test
+    @Test
     @DisplayName ("JUnit for getQuestionnaireChecklist in application service for catch block")
     void getQuestionnaireChecklistsForException () throws FatalException {
         SessionContext sessionContext1 = null;
@@ -156,136 +310,23 @@ class QuestionnaireChecklistApplicationServiceTest {
         });
     }
 
-    @Test
-    @DisplayName ("JUnit for getStates in application service for catch block")
-    void getQuestionnaireChecklistsException () throws FatalException {
-        SessionContext sessionContext = getInValidSessionContext();
-        given(questionnaireChecklistDomainService.getQuestionnaireChecklists()).willReturn(
-                List.of(questionnaireChecklistEntity));
-        given(mutationsDomainService.getConfigurationByCode(
-                questionnaireChecklistDTO.getTaskIdentifier())).willReturn(
-                (MutationEntity) List.of(mutationEntity));
-        given(questionnaireChecklistAssembler.convertEntityToDto(questionnaireChecklistEntity)).willReturn(
-                questionnaireChecklistDTO);
-        Assertions.assertThrows(Exception.class, () -> {
-            List<QuestionnaireChecklistDTO> cities = questionnaireChecklistApplicationService.getQuestionnaireChecklists(
-                    sessionContext);
-            assertThat(cities).isNotNull();
-        });
-    }*/
-
-    @DisplayName ("JUnit test for processQuestionnaireChecklist method")
-    @Test
-    void processQuestionnaireChecklistWithNew () throws JsonProcessingException, FatalException {
-        QuestionnaireChecklistDTO questionnaireChecklistDTOAuth= getQuestionnaireChecklistDTOAuthorized();
-
-        doNothing().when(processConfiguration).process(questionnaireChecklistDTOAuth);
-        questionnaireChecklistApplicationService.processQuestionnaireChecklist(sessionContext,
-                questionnaireChecklistDTOAuth);
-        verify(processConfiguration, times(1)).process(questionnaireChecklistDTOAuth);
-
-    }
-
-    @DisplayName ("JUnit test for addUpdateRecord method")
-//    @Test
-    void addUpdateRecord () throws JsonProcessingException, FatalException {
-        String payloadStr = getpayloadValidString();
-        QuestionnaireChecklistDTO questionnaireChecklistDTO = getQuestionnaireChecklistDTOForSave();
-        doNothing().when(questionnaireChecklistDomainService).save(questionnaireChecklistDTO);
-        questionnaireChecklistApplicationService.save(questionnaireChecklistDTO);
-        questionnaireChecklistApplicationService.addUpdateRecord(payloadStr);
-        verify(questionnaireChecklistDomainService, times(1)).save(questionnaireChecklistDTO);
-    }
-
-    /**
-     * New test cases
-     */
-    @Test
-    @DisplayName ("JUnit for ConfigurationByCode in application service")
-    void getConfigurationByCodeTest () {
-        String code = questionnaireChecklistDTO.getQuestionChecklistId();
-        given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
-                code)).willReturn(questionnaireChecklistEntity);
-        questionnaireChecklistApplicationService.getConfigurationByCode(code);
-        assertThat(questionnaireChecklistEntity).isNotNull();
-    }
-
-  /*  @Test
-    @DisplayName ("JUnit for processQuestionnaireChecklist in application service for Try Block")
-    void processQuestionnaireChecklistForTryBlock ()
-            throws JsonProcessingException, FatalException {
-        doNothing().when(processConfiguration).process(questionnaireChecklistDTO);
-        questionnaireChecklistApplicationService.processQuestionnaireChecklist(sessionContext,
-                questionnaireChecklistDTO);
-        verify(processConfiguration, times(1)).process(questionnaireChecklistDTO);
-    }*/
-
-//    @Test
-    @DisplayName ("JUnit for processQuestionnaireChecklist in application service for Catch Block")
-    void processQuestionnaireChecklistForCatchBlock () throws FatalException {
-        SessionContext sessionContext2 = null;
-        Assertions.assertThrows(Exception.class, () -> {
-            questionnaireChecklistApplicationService.processQuestionnaireChecklist(sessionContext2,
-                    questionnaireChecklistDTO);
-            assertThat(questionnaireChecklistDTO).descriptionText();
-        });
-    }
-
-    /**
-     * Negative Test Cases
-     */
-    @Test
-    @DisplayName ("JUnit for getBankByCode in application service when Authorize for Negative")
-    void getQuestionnaireChecklistBankByCodeIsAuthorizeForNegative () throws FatalException {
-        given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
-                questionnaireChecklistDTO.getQuestionChecklistId())).willReturn(questionnaireChecklistEntity);
-        given(questionnaireChecklistAssembler.convertEntityToDto(
-                questionnaireChecklistEntity)).willReturn(questionnaireChecklistDTO);
-        QuestionnaireChecklistDTO questionnaireChecklistDTO1 = questionnaireChecklistApplicationService.getQuestionnaireChecklistById(
-                sessionContext, questionnaireChecklistDTO);
-        assertNotEquals("N", questionnaireChecklistDTO1.getAuthorized());
-        assertThat(questionnaireChecklistDTO).isNotNull();
-    }
-
-    /*@Test
-    @DisplayName("JUnit for getBankByCode in application service when UnAuthorize fetch no Record from database")
-    void getQuestionnaireChecklistBankByCodeNotAuthorizeNull() throws FatalException {
-        QuestionnaireChecklistDTO questionnaireChecklistDTO=null;
-        QuestionnaireChecklistDTO questionnaireChecklistDTOEx=new QuestionnaireChecklistDTO();
-        questionnaireChecklistDTOEx.setBankCode("BB");
-        questionnaireChecklistDTOEx.setAuthorized("N");
-        given(mutationsDomainService.getConfigurationByCode(questionnaireChecklistDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
-        QuestionnaireChecklistDTO questionnaireChecklistDTO1 = questionnaireChecklistApplicationService.getBankByCode(sessionContext, questionnaireChecklistDTOEx);
-        assertNotEquals("Y",questionnaireChecklistDTO1.getAuthorized());
-        assertNull(questionnaireChecklistDTOnull);
-    }*/
-
-    @Test
-    @DisplayName ("JUnit for getBankByCode in application service check Parameter not null")
-    void getQuestionnaireChecklistBankByCodeIsAuthorizeCheckParameter () throws FatalException {
-        QuestionnaireChecklistDTO questionnaireChecklistDTOEx = getQuestionnaireChecklistDTO();
-        questionnaireChecklistDTOEx.setQuestionChecklistId("BB");
-        questionnaireChecklistDTOEx.setAuthorized("Y");
-        given(questionnaireChecklistDomainService.getQuestionnaireChecklistById(
-                questionnaireChecklistDTOEx.getQuestionChecklistId())).willReturn(
-                questionnaireChecklistEntity);
-        given(questionnaireChecklistAssembler.convertEntityToDto(
-                questionnaireChecklistEntity)).willReturn(null);
-        QuestionnaireChecklistDTO questionnaireChecklistDTO  = questionnaireChecklistApplicationService.getQuestionnaireChecklistById(
-                sessionContext, questionnaireChecklistDTOEx);
-        assertThat(questionnaireChecklistDTO).isNull();
-        assertThat(questionnaireChecklistDTOEx.getQuestionChecklistId()).isNotBlank();
-        assertThat(questionnaireChecklistDTOEx.getAuthorized()).isNotBlank();
-    }
-
-    /*@Test
-    @DisplayName("JUnit for getBankByCode in application service when Not Authorize in try block for Negative when getAuthorized unexpected is Y")
-    void getQuestionnaireChecklistBankByCodeWhenNotAuthorizeTryBlockForNegative() throws JsonProcessingException, FatalException {
-        given(mutationsDomainService.getConfigurationByCode(questionnaireChecklistDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
-        QuestionnaireChecklistDTO questionnaireChecklistDTO1 = questionnaireChecklistApplicationService.getBankByCode(sessionContext,questionnaireChecklistDTOMapper);
-        assertNotEquals("Y",questionnaireChecklistDTO1.getAuthorized());
-        assertThat(questionnaireChecklistDTO1).isNotNull();
-    }*/
+   /*  @Test
+     @DisplayName ("JUnit for getStates in application service for catch block")
+     void getQuestionnaireChecklistsException () throws FatalException {
+         SessionContext sessionContext = getInValidSessionContext();
+         given(questionnaireChecklistDomainService.getQuestionnaireChecklists()).willReturn(
+                 List.of(questionnaireChecklistEntity));
+         given(mutationsDomainService.getConfigurationByCode(
+                 questionnaireChecklistDTO.getTaskIdentifier())).willReturn(
+                 (MutationEntity) List.of(mutationEntity));
+         given(questionnaireChecklistAssembler.convertEntityToDto(questionnaireChecklistEntity)).willReturn(
+                 questionnaireChecklistDTO);
+         Assertions.assertThrows(Exception.class, () -> {
+             List<QuestionnaireChecklistDTO> cities = questionnaireChecklistApplicationService.getQuestionnaireChecklists(
+                     sessionContext);
+             assertThat(cities).isNotNull();
+         });
+     }*/
 
     private SessionContext getValidSessionContext () {
         SessionContext sessionContext = SessionContext.builder().bankCode("02")
@@ -296,7 +337,8 @@ class QuestionnaireChecklistApplicationServiceTest {
                 .taskCode("QUESTION_CKLIST").localDateTime(new Date())
                 .originalTransactionReferenceNumber("").externalBatchNumber(1L)
                 .customAttributes("").serviceInvocationModeType(ServiceInvocationModeType.Regular)
-                .allTargetUnitsSelected(true).userLocal("").originatingModuleCode("").mutationType(MutationType.ADDITION)
+                .allTargetUnitsSelected(true).userLocal("").originatingModuleCode("")
+                .mutationType(MutationType.ADDITION)
                 .role(new String[] { "maker" }).build();
         return sessionContext;
     }
@@ -306,7 +348,8 @@ class QuestionnaireChecklistApplicationServiceTest {
                 .internalTransactionReferenceNumber(null).userTransactionReferenceNumber("")
                 .externalTransactionReferenceNumber(null).targetUnit("").postingDate(new Date())
                 .valueDate(new Date()).transactionBranch("").userId("TestMaker").channel("")
-                .taskCode("QUESTION_CKLIST").originalTransactionReferenceNumber("").externalBatchNumber(1L)
+                .taskCode("QUESTION_CKLIST").originalTransactionReferenceNumber("")
+                .externalBatchNumber(1L)
                 .customAttributes("").serviceInvocationModeType(null)
                 .allTargetUnitsSelected(true).userLocal("").originatingModuleCode("")
                 .role(null).build();
@@ -315,7 +358,6 @@ class QuestionnaireChecklistApplicationServiceTest {
 
     private QuestionnaireChecklistDTO getQuestionnaireChecklistDTOAuthorized () {
         QuestionnaireChecklistDTO questionnaireChecklistDTOMapper = new QuestionnaireChecklistDTO();
-
         QuestionnaireChecklistDisplayDTO checklistDisplayDTO = new QuestionnaireChecklistDisplayDTO();
         QuestionnaireChecklistDetailsCategoryDTO checklistDetailsCategoryDTO = new QuestionnaireChecklistDetailsCategoryDTO();
         /**
@@ -327,7 +369,7 @@ class QuestionnaireChecklistApplicationServiceTest {
          */
         List<QuestionnaireChecklistDetailsCategoryDTO> detailsDTOList = new ArrayList<>();
         QuestionnaireChecklistDetailsCategoryDTO entity1 = new QuestionnaireChecklistDetailsCategoryDTO(
-                1L,  "test");
+                1L, "test");
         QuestionnaireChecklistDetailsCategoryDTO entity2 = new QuestionnaireChecklistDetailsCategoryDTO();
         entity2.setQuestionChecklistDetailsId(2L);
         entity2.setQuestionCategoryId("test1");
@@ -343,7 +385,6 @@ class QuestionnaireChecklistApplicationServiceTest {
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDisplay(
                 checklistDisplayDTO);
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDetailsCategory(entity1);
-
         questionnaireChecklistDTOMapper.setTaskIdentifier("BB");
         questionnaireChecklistDTOMapper.setAction("authorize");
         questionnaireChecklistDTOMapper.setStatus("active");
@@ -352,8 +393,40 @@ class QuestionnaireChecklistApplicationServiceTest {
         questionnaireChecklistDTOMapper.setAuthorized("Y");
         questionnaireChecklistDTOMapper.setTaskCode("QUESTION_CKLIST");
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDetailsCategory(entity1);
+        return questionnaireChecklistDTOMapper;
+    }
 
-
+    private QuestionnaireChecklistDTO getQuestionnaireChecklistDTOBUilder () {
+        QuestionnaireChecklistDisplayDTO checklistDisplayDTO = new QuestionnaireChecklistDisplayDTO();
+        QuestionnaireChecklistDetailsCategoryDTO checklistDetailsCategoryDTO = new QuestionnaireChecklistDetailsCategoryDTO();
+        /**
+         * QuestionnaireChecklistDisplayDTO
+         */
+        checklistDisplayDTO.setRuleId("ruleid");
+        /**
+         * QuestionnaireChecklistDetailsCategoryDTO
+         */
+        List<QuestionnaireChecklistDetailsCategoryDTO> detailsDTOList = new ArrayList<>();
+        QuestionnaireChecklistDetailsCategoryDTO entity1 = new QuestionnaireChecklistDetailsCategoryDTO(
+                1L, "test");
+        QuestionnaireChecklistDetailsCategoryDTO entity2 = new QuestionnaireChecklistDetailsCategoryDTO();
+        entity2.setQuestionChecklistDetailsId(2L);
+        entity2.setQuestionCategoryId("test1");
+        detailsDTOList.add(entity1);
+        detailsDTOList.add(entity2);
+        checklistDetailsCategoryDTO.setQuestionChecklistDetailsId(1L);
+        /**
+         * QuestionnaireChecklistDTO
+         */
+        QuestionnaireChecklistDTO questionnaireChecklistDTOMapper = new QuestionnaireChecklistDTO().builder()
+                .questionChecklistId("BB").questionChecklistName("testbb").questionCategory("tt")
+                .questionnaireChecklistDisplay(
+                        checklistDisplayDTO)
+                .questionnaireChecklistDetailsCategory(entity1).taskIdentifier("BB")
+                .action("authorize").status("active").recordVersion(1).authorized("N")
+                .lastConfigurationAction("authorized")
+                .taskCode("QUESTION_CKLIST")
+                .questionnaireChecklistDetailsCategory(entity1).build();
         return questionnaireChecklistDTOMapper;
     }
 
@@ -370,7 +443,7 @@ class QuestionnaireChecklistApplicationServiceTest {
          */
         List<QuestionnaireChecklistDetailsCategoryDTO> detailsDTOList = new ArrayList<>();
         QuestionnaireChecklistDetailsCategoryDTO entity1 = new QuestionnaireChecklistDetailsCategoryDTO(
-                1L,  "test");
+                1L, "test");
         QuestionnaireChecklistDetailsCategoryDTO entity2 = new QuestionnaireChecklistDetailsCategoryDTO();
         entity2.setQuestionChecklistDetailsId(2L);
         entity2.setQuestionCategoryId("test1");
@@ -386,7 +459,6 @@ class QuestionnaireChecklistApplicationServiceTest {
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDisplay(
                 checklistDisplayDTO);
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDetailsCategory(entity1);
-
         questionnaireChecklistDTOMapper.setTaskIdentifier("BB");
         questionnaireChecklistDTOMapper.setAction("authorize");
         questionnaireChecklistDTOMapper.setStatus("active");
@@ -395,7 +467,6 @@ class QuestionnaireChecklistApplicationServiceTest {
         questionnaireChecklistDTOMapper.setLastConfigurationAction("authorized");
         questionnaireChecklistDTOMapper.setTaskCode("QUESTION_CKLIST");
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDetailsCategory(entity1);
-
         return questionnaireChecklistDTOMapper;
     }
 
@@ -412,7 +483,7 @@ class QuestionnaireChecklistApplicationServiceTest {
          */
         List<QuestionnaireChecklistDetailsCategoryDTO> detailsDTOList = new ArrayList<>();
         QuestionnaireChecklistDetailsCategoryDTO entity1 = new QuestionnaireChecklistDetailsCategoryDTO(
-                1L,  "test");
+                1L, "test");
         QuestionnaireChecklistDetailsCategoryDTO entity2 = new QuestionnaireChecklistDetailsCategoryDTO();
         entity2.setQuestionChecklistDetailsId(2L);
         entity2.setQuestionCategoryId("test1");
@@ -430,17 +501,12 @@ class QuestionnaireChecklistApplicationServiceTest {
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDisplay(
                 checklistDisplayDTO);
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDetailsCategory(entity1);
-
         questionnaireChecklistDTOMapper.setTaskCode("BB");
         questionnaireChecklistDTOMapper.setStatus("DELETED");
         questionnaireChecklistDTOMapper.setRecordVersion(1);
-
-
         questionnaireChecklistDTOMapper.setTaskCode("QUESTION_CKLIST");
         questionnaireChecklistDTOMapper.setTaskIdentifier("BB");
-
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDetailsCategory(entity1);
-
         questionnaireChecklistDTOMapper.setAuthorized("N");
         return questionnaireChecklistDTOMapper;
     }
@@ -459,8 +525,6 @@ class QuestionnaireChecklistApplicationServiceTest {
         List<QuestionnaireChecklistDetailsCategoryEntity> detailsEntityList = new ArrayList<>();
         QuestionnaireChecklistDetailsCategoryEntity entity1 = new QuestionnaireChecklistDetailsCategoryEntity(
                 "test");
-
-
         /**
          * QuestionnaireChecklistEntity
          */
@@ -476,6 +540,96 @@ class QuestionnaireChecklistApplicationServiceTest {
         return questionnaireChecklistEntity;
     }
 
+    private QuestionnaireChecklistEntity getQuestionnaireChecklistEntityAll () {
+        QuestionnaireChecklistDisplayEntity checklistDisplayEntity = new QuestionnaireChecklistDisplayEntity();
+        QuestionnaireChecklistDetailsCategoryEntity checklistDetailsCategoryEntity = new QuestionnaireChecklistDetailsCategoryEntity();
+        /**
+         * QuestionnaireChecklistDisplayEntity
+         */
+        checklistDisplayEntity.setRuleId("ruleid");
+        /**
+         * QuestionnaireChecklistDetailsCategoryEntity
+         */
+        List<QuestionnaireChecklistDetailsCategoryEntity> detailsEntityList = new ArrayList<>();
+        QuestionnaireChecklistDetailsCategoryEntity entity1 = new QuestionnaireChecklistDetailsCategoryEntity(
+                "test");
+        /**
+         * QuestionnaireChecklistEntity
+         */
+        QuestionnaireChecklistEntity questionnaireChecklistEntity = new QuestionnaireChecklistEntity(
+                "BB", "testbb", "tt", getDate("2022-02-01"), "deleted", "Lid", "refNo", 1, "Y",
+                "Y", entity1, checklistDisplayEntity);
+        questionnaireChecklistEntity.setEffectiveDate(getDate("2022-02-01"));
+        questionnaireChecklistEntity.setLifeCycleId("1");
+        questionnaireChecklistEntity.setReferenceNo("ref");
+        questionnaireChecklistEntity.setLastConfigurationAction("draft");
+        return questionnaireChecklistEntity;
+    }
+
+    private QuestionnaireChecklistDTO getQuestionnaireChecklistDtoAll () {
+        QuestionnaireChecklistDisplayDTO checklistDisplayDto = new QuestionnaireChecklistDisplayDTO();
+        QuestionnaireChecklistDetailsCategoryDTO checklistDetailsCategoryDto = new QuestionnaireChecklistDetailsCategoryDTO();
+        /**
+         * QuestionnaireChecklistDisplayDto
+         */
+        checklistDisplayDto.setRuleId("ruleid");
+        /**
+         * QuestionnaireChecklistDetailsCategoryDTO
+         */
+        List<QuestionnaireChecklistDetailsCategoryDTO> detailsDtoList = new ArrayList<>();
+        QuestionnaireChecklistDetailsCategoryDTO dto = new QuestionnaireChecklistDetailsCategoryDTO(
+                1L,
+                "test");
+        /**
+         * QuestionnaireChecklistDto
+         */
+        QuestionnaireChecklistDTO questionnaireChecklistDto = new QuestionnaireChecklistDTO(
+                "BB", "testbb", "tt", "2022-02-01", dto, checklistDisplayDto);
+        questionnaireChecklistDto.setLastConfigurationAction("draft");
+        questionnaireChecklistDto.setEffectiveDate("2022-02-01");
+        QuestionnaireChecklistDTO builderee = new QuestionnaireChecklistDTO().builder()
+                .questionChecklistId("ListID")
+                .questionChecklistName("tryttest name ").questionCategory("TT")
+                .effectiveDate("2222-02-02").questionnaireChecklistDetailsCategory(dto)
+                .questionnaireChecklistDisplay(checklistDisplayDto).build();
+        return questionnaireChecklistDto;
+    }
+
+    private QuestionnaireChecklistDTO getQuestionnaireChecklistDtoBuilder () {
+        QuestionnaireChecklistDisplayDTO checklistDisplayDto = new QuestionnaireChecklistDisplayDTO();
+        QuestionnaireChecklistDetailsCategoryDTO checklistDetailsCategoryDto = new QuestionnaireChecklistDetailsCategoryDTO();
+        /**
+         * QuestionnaireChecklistDisplayDto
+         */
+        checklistDisplayDto.setRuleId("ruleid");
+        /**
+         * QuestionnaireChecklistDetailsCategoryDTO
+         */
+        List<QuestionnaireChecklistDetailsCategoryDTO> detailsDtoList = new ArrayList<>();
+        QuestionnaireChecklistDetailsCategoryDTO dto = new QuestionnaireChecklistDetailsCategoryDTO(
+                1L,
+                "test");
+        /**
+         * QuestionnaireChecklistDto
+         */
+        QuestionnaireChecklistDTO questionnaireChecklistDto = new QuestionnaireChecklistDTO().builder()
+                .questionChecklistId("ListID")
+                .questionChecklistName("tryttest name ").questionCategory("TT")
+                .effectiveDate("2222-02-02").questionnaireChecklistDetailsCategory(dto)
+                .questionnaireChecklistDisplay(checklistDisplayDto).build();
+        return questionnaireChecklistDto;
+    }
+
+    private Date getDate (String s) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(s);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private QuestionnaireChecklistDTO getQuestionnaireChecklistDTOMapper () {
         QuestionnaireChecklistDTO questionnaireChecklistDTOMapper = new QuestionnaireChecklistDTO();
         QuestionnaireChecklistDisplayDTO checklistDisplayDTO = new QuestionnaireChecklistDisplayDTO();
@@ -489,7 +643,7 @@ class QuestionnaireChecklistApplicationServiceTest {
          */
         List<QuestionnaireChecklistDetailsCategoryDTO> detailsDTOList = new ArrayList<>();
         QuestionnaireChecklistDetailsCategoryDTO entity1 = new QuestionnaireChecklistDetailsCategoryDTO(
-                1L,  "test");
+                1L, "test");
         QuestionnaireChecklistDetailsCategoryDTO entity2 = new QuestionnaireChecklistDetailsCategoryDTO();
         entity2.setQuestionChecklistDetailsId(2L);
         entity2.setQuestionCategoryId("test1");
@@ -507,13 +661,9 @@ class QuestionnaireChecklistApplicationServiceTest {
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDisplay(
                 checklistDisplayDTO);
         questionnaireChecklistDTOMapper.setQuestionnaireChecklistDetailsCategory(entity1);
-
-
-
         questionnaireChecklistDTOMapper.setAuthorized("N");
         questionnaireChecklistDTOMapper.setTaskCode("QUESTION_CKLIST");
         questionnaireChecklistDTOMapper.setTaskIdentifier("BB");
-
         return questionnaireChecklistDTOMapper;
     }
 
@@ -530,7 +680,7 @@ class QuestionnaireChecklistApplicationServiceTest {
          */
         List<QuestionnaireChecklistDetailsCategoryDTO> detailsDTOList = new ArrayList<>();
         QuestionnaireChecklistDetailsCategoryDTO entity1 = new QuestionnaireChecklistDetailsCategoryDTO(
-                1L,  "test");
+                1L, "test");
         QuestionnaireChecklistDetailsCategoryDTO entity2 = new QuestionnaireChecklistDetailsCategoryDTO();
         entity2.setQuestionChecklistDetailsId(2L);
         entity2.setQuestionCategoryId("test1");
@@ -548,12 +698,10 @@ class QuestionnaireChecklistApplicationServiceTest {
         questionnaireChecklistDTO.setQuestionnaireChecklistDisplay(
                 checklistDisplayDTO);
         questionnaireChecklistDTO.setQuestionnaireChecklistDetailsCategory(entity1);
-
         questionnaireChecklistDTO.setAuthorized("Y");
         questionnaireChecklistDTO.setTaskCode("BB");
         questionnaireChecklistDTO.setStatus("DELETED");
         questionnaireChecklistDTO.setRecordVersion(1);
-
         return questionnaireChecklistDTO;
     }
 
@@ -629,7 +777,6 @@ class QuestionnaireChecklistApplicationServiceTest {
 
     private QuestionnaireChecklistDTO getQuestionnaireChecklistDTODeleted () {
         QuestionnaireChecklistDTO questionnaireChecklistDtoDeleted = new QuestionnaireChecklistDTO();
-
         questionnaireChecklistDtoDeleted.setAction("");
         questionnaireChecklistDtoDeleted.setStatus("deleted");
         questionnaireChecklistDtoDeleted.setTaskCode("QUESTION_CKLIST");
@@ -664,7 +811,7 @@ class QuestionnaireChecklistApplicationServiceTest {
          */
         List<QuestionnaireChecklistDetailsCategoryEntity> detailsEntityList = new ArrayList<>();
         QuestionnaireChecklistDetailsCategoryEntity entity1 = new QuestionnaireChecklistDetailsCategoryEntity(
- "test");
+                "test");
         /**
          * QuestionnaireChecklistEntity
          */

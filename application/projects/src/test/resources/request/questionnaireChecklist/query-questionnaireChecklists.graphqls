@@ -29,9 +29,13 @@ query{
         questionChecklistId
         questionChecklistName
         questionCategory
-        questionCategoryId
-        ruleId
         effectiveDate
+        questionnaireChecklistDetailsCategory{
+            questionCategoryId
+        }
+        questionnaireChecklistDisplay{
+            ruleId
+        }
 
 
     }
