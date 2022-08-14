@@ -1,0 +1,11 @@
+input ZakatInput{
+    zakatYear : Int!  @Range(min : 1900, max : 9999, message : "zakatYear.message")
+    startDateOfRamadan : String
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

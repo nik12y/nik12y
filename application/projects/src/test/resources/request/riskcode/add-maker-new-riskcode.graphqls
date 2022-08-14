@@ -1,0 +1,54 @@
+mutation{
+    processRiskCode(
+        sessionContext:{
+            bankCode: "03"
+            defaultBranchCode: "03110"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: null
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "Chaetll"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: null
+            localDateTime: null
+            role: "maker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "en_US"
+            originatingModuleCode: "null"
+        },
+        riskCode:{
+            riskCode:"HKB"
+            riskCodeDescription:"HongKong Branch"
+            riskCodeName:"Name of the HongKong Branch Type"
+            riskCategoryCode: "dfgh"
+            riskMode :"Internal"
+            isAllowDetailsModified:true
+            lastUpdatedBy:"Chaetll"
+            lastUpdatedTime:""
+            createdBy:"Chaetll"
+            creationTime:""
+
+            action : "add"
+            status:"new"
+            recordVersion : 0
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

@@ -1,0 +1,4 @@
+input QuestionnaireChecklistDetailsCategoryInput {
+
+     questionCategoryId : String
+}

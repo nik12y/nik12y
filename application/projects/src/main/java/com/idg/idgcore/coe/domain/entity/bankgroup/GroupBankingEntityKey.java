@@ -14,6 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
 public class GroupBankingEntityKey extends AbstractDomainKey implements Serializable {

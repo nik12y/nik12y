@@ -1,0 +1,5 @@
+type QuestionCategoryQuery{
+    questionCategoryId: String!
+ #   questionCategoryDetails: QuestionCategoryDetailsQuery
+    authorize: String!
+}
