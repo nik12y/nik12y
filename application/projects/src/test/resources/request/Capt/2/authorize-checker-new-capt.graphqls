@@ -1,0 +1,50 @@
+mutation{
+processCapt(
+sessionContext:{
+  bankCode: ""
+  defaultBranchCode: ""
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Pranay"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: "checker"
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+  },
+		capt:{
+		    clearingPaymentTypeCode: "AB"
+			clearingPaymentTypeName : "TESTCAPT"
+			networkType : "TESTCAPT"
+			compositeClearingOrPaymentCalendar : true
+			weeklyOff1 : "SUNDAY"
+			weeklyOff2 : "MONDAY"
+			weeklyOff3 : "TUESDAY"
+			action : "authorize"
+			status:"new"
+			recordVersion : 1
+}
+)
+{
+externalReferenceNumber
+internalReferenceNumber
+userReferenceNumber
+replyCode
+replyMessage
+errorCode
+isErrorToBeOverridden
+}
+}

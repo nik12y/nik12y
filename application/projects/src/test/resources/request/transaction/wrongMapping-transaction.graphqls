@@ -1,0 +1,69 @@
+mutation{
+processTransaction(
+sessionContext:{
+  bankCode: ""
+  defaultBranchCode: ""
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Preeti"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: "maker"
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+  },
+		transaction:{
+		    transactionCode: "AS"
+			transactionDescription : "TESTTransaction"
+			transactionSwiftCode : "BOI"
+			externalTxnCode : "TEST4"
+			misHead : "TEST"
+			immediate : true
+			onValueDate : true
+			afterXDaysValueDate : true
+			afterXDays : true
+            noOfDays : 2
+            intradayManualRelease : true
+            statementDateDerivation : "TEST"
+            amlTracking : true
+            productGroup : "TEST"
+            availableBalanceCheckApplicableBatch : true
+            availableBalanceCheckApplicableOnline : true
+            pricingOnTransactionCount : true
+            pricingTurnoverInclusion: true
+            pricingBalanceInclusive : true
+            turnoverLimit : true
+            coverAccount : true
+            pricingPenaltyInclusive : true
+            considerForAccountStatusChange : true
+            chequeMandatory : true
+            interBranchInLcy : true
+            thirdPartyDealingSystemTransactionCode : true
+            action : "draft"
+            status:"rejected"
+            recordVersion : 0
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

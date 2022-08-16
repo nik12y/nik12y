@@ -16,15 +16,14 @@ import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.capt.ICaptDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.exception.*;
+import com.idg.idgcore.datatypes.exceptions.*;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.enumerations.core.TransactionMessageType;
-import com.idg.idgcore.datatypes.exceptions.FatalException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -139,7 +138,6 @@ public class CaptApplicationService extends AbstractApplicationService
         return captDTOList;
     }
 
-    @Transactional
     public TransactionStatus processCapt (SessionContext sessionContext, CaptDTO captDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
