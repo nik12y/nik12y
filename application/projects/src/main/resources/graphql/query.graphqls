@@ -70,8 +70,8 @@ type Query{
     getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
     #    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
     #    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear] #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
-    #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
-    #    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
+    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
     #    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
     #    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 

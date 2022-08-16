@@ -31,7 +31,7 @@ type Mutation {
     processPurging(sessionContext: SessionContextInput, purging: PurgingInput): TransactionStatus
     processRiskCode(sessionContext: SessionContextInput, riskCode: RiskCodeInput): TransactionStatus
     #    processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
-    #    processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
+    processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
     #    processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus
 }
 

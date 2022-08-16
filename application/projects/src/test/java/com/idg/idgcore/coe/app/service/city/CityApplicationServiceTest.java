@@ -243,7 +243,7 @@ class CityApplicationServiceTest {
     }
 
     private CityEntity getCityEntity () {
-        CityEntity cityEntity = new CityEntity("MU", "MUMBAI", "28 June 2022", "IN", "MH", "draft",
+        CityEntity cityEntity = new CityEntity("MU", "MUMBAI", "28 June 2022", "IN", "MH", "","","draft",
                 0, "Y", "draft");
         return cityEntity;
     }
