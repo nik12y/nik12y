@@ -25,6 +25,8 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+    getTransactionByCode(sessionContext: SessionContextInput, transactionQuery: TransactionInputQuery): Transaction
+    getTransactions(sessionContext: SessionContextInput): [Transaction]
     getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
     getQuestions(sessionContext: SessionContextInput):[Question]
     getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]
