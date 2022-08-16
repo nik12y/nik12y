@@ -1,0 +1,6 @@
+type ErrorOverrideConversions {
+    branchCode: String
+    functionCodeOverride: String
+    newErrorCode: String
+
+}

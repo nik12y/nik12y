@@ -1,0 +1,7 @@
+type ErrorOverrideLanguageDetails {
+    languageCode: String!
+    languageName: String!
+    localeCode: String!
+    localeName: String!
+
+}
