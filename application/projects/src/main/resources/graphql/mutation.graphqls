@@ -33,5 +33,5 @@ type Mutation {
 #    processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus
 #    processMitigant(sessionContext: SessionContextInput, mitigant: MitigantInput): TransactionStatus
 #    processRiskCategory(sessionContext: SessionContextInput, riskCategory: RiskCategoryInput): TransactionStatus
-#    processRiskCode(sessionContext: SessionContextInput, riskCode: RiskCodeInput): TransactionStatus
+    processRiskCode(sessionContext: SessionContextInput, riskCode: RiskCodeInput): TransactionStatus
 }

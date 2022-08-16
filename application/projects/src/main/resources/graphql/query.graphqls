@@ -72,8 +72,8 @@ type Query{
 #    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
 #    getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
 #    getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
-#    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
-#    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
+    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
+    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 
     getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
     getZakats(sessionContext: SessionContextInput): [Zakat]
