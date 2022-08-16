@@ -11,21 +11,43 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "IDGC_COE_LANGUAGE_CODE_CNFG")
+@Table(name = "idgc_coe_language_code_cnfg")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
 @IdClass(LanguageEntityKey.class)
 public class LanguageEntity extends AbstractAuditableDomainEntity implements Serializable{
     @Id
+    @Column(name = "language_code")
     private String languageCode;
+
+    @Column(name = "language_code_alternate")
     private String languageCodeAlternate;
+
+    @Column(name = "language_name")
     private String languageName;
+
+    @Column(name = "locale_code")
     private String localeCode;
+
+    @Column(name = "locale_name")
     private String localeName;
 
-    private String status;
+    @Column(name = "life_cycle_id")
+    private String lifeCycleId;
+
+    @Column(name = "reference_no")
+    private String referenceNo;
+
+    @Column(name = "record_version")
     private Integer recordVersion;
+
+    @Column(name = "record_status")
+    private String status;
+
+    @Column(name = "is_authorized")
     private String authorized;
+
+    @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
 
 }
