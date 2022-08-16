@@ -11,6 +11,7 @@ public final class Constants {
     public static final String CITY = "CITY";
     public static final String STATE = "STATE";
     public static final String STATE_SERVICE = "stateApplicationService";
+
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
     public static final String BANK = "BANK";
@@ -28,6 +29,8 @@ public final class Constants {
     public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
+    public static final String REASON = "REASON";
+    public static final String REASON_SERVICE = "reasonApplicationService";
 
     public static final String BRANCH_SYSTEM_DATE = "BRANCH_SYS_DATE";
     public static final String BRANCH_SYSTEM_DATE_SERVICE = "branchSystemApplicationService";

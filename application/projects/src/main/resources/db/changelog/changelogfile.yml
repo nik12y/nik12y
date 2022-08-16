@@ -42,7 +42,7 @@ databaseChangeLog:
   - include:
       file: db/changelog/question-table.xml
   - include:
-      file: db/changelog/riskcode-table.xml
+      file: db/changelog/riskcode-table.xml                                                           
   - include:
       file: db/changelog/questionCategory-table.xml
   - include:
@@ -55,6 +55,8 @@ databaseChangeLog:
       file: db/changelog/error-override-table.xml
   - include:
       file: db/changelog/city-table.xml
+  - include:
+      file: db/changelog/reason-table.xml
   - include:
       file: db/changelog/capt-table.xml
   -  include:

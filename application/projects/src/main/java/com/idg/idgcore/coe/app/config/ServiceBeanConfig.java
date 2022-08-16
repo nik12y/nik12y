@@ -27,6 +27,7 @@ public class ServiceBeanConfig {
         beanMappings.put(BANK, BANK_SERVICE);
         beanMappings.put(MODULE, MODULE_SERVICE);
         beanMappings.put(CAPT, CAPT_SERVICE);
+        beanMappings.put(REASON, REASON_SERVICE);
         beanMappings.put(CATEGORY, VERIFICATION_CATEGORY_SERVICE);
         beanMappings.put(CHECKLIST, CHECKLIST_SERVICE);
         beanMappings.put(BRANCH_PARAMETER, BRANCH_PARAMETER_SERVICE);
