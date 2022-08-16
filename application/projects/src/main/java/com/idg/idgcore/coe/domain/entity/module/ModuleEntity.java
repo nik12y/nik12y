@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Setter
@@ -32,19 +27,35 @@ import java.io.Serializable;
 public class ModuleEntity extends AbstractAuditableDomainEntity implements Serializable
 {
     @Id
+    @Column(name="module_code")
     private String moduleCode;
+    @Column(name="module_name")
     private String moduleName;
+    @Column(name="bank_code")
     private String bankCode;
+    @Column(name="module_users")
     private Integer moduleUsers;
+    @Column(name="module_current_user")
     private Integer moduleCurrentUser;
+    @Column(name="is_licensed")
     private char isLicensed;
+    @Column(name="is_purge_available")
     private char isPurgeAvailable;
+    @Column(name="is_udf")
     private char isUdf;
+    @Column(name="is_installed")
     private char isInstalled;
-
+    @Column(name="life_cycle_id")
+    private String lifeCycleId;
+    @Column (name="reference_no")
+    private String referenceNo;
+    @Column (name="record_status")
     private String status;
+    @Column (name="record_version")
     private Integer recordVersion;
+    @Column (name="is_authorized")
     private String authorized;
+    @Column (name="last_configuration_action")
     private String lastConfigurationAction;
 
 }
