@@ -387,7 +387,7 @@ class RiskCategoryApplicationServiceTest {
         return riskcategoryDTO;
     }
     private RiskCategoryEntity getStateEntity(){
-        RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity("MH001","MAHARASHTRA","MAHA","draft",0, "Y","draft");
+        RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity("MH001","MAHARASHTRA","MAHA",null, null,0,"draft", "Y","draft");
 
         return riskCategoryEntity;
     }
