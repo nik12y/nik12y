@@ -31,7 +31,8 @@ type Query{
     getModules(sessionContext: SessionContextInput): [Module]
     getReasonByCode(sessionContext: SessionContextInput, reasonQuery: ReasonInputQuery): Reason
     getReasons(sessionContext: SessionContextInput): [Reason]
-
+    getTransactionByCode(sessionContext: SessionContextInput, transactionQuery: TransactionInputQuery): Transaction
+    getTransactions(sessionContext: SessionContextInput): [Transaction]
     getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
     getQuestions(sessionContext: SessionContextInput):[Question]
     getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]

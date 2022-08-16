@@ -59,4 +59,7 @@ databaseChangeLog:
       file: db/changelog/reason-table.xml
   - include:
       file: db/changelog/capt-table.xml
-
+  -  include:
+      file: db/changelog/transaction-table.xml
+  - include:
+      file: db/changelog/module-table.xml

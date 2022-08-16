@@ -14,6 +14,7 @@ type Mutation {
     processCapt(sessionContext: SessionContextInput, capt: CaptInput): TransactionStatus
     processModule(sessionContext: SessionContextInput, module: ModuleInput): TransactionStatus
     processReason(sessionContext: SessionContextInput, reason: ReasonInput): TransactionStatus
+    processTransaction(sessionContext: SessionContextInput, transaction: TransactionInput): TransactionStatus
     processRiskCategory(sessionContext: SessionContextInput, riskCategory: RiskCategoryInput): TransactionStatus
     processAppVerCategoryConfigs(sessionContext: SessionContextInput, appVerCategoryConfig: AppVerCategoryConfigInput): TransactionStatus
     processAppVerCatChecklistPolicy(sessionContext: SessionContextInput, appVerCatChecklistPolicy: AppVerCatChecklistPolicyInput): TransactionStatus

@@ -45,7 +45,7 @@ public class ServiceBeanConfig {
         beanMappings.put(ERROR_OVERRIDE,ERROR_OVERRIDE_SERVICE);
         beanMappings.put(QUESTION,QUESTION_SERVICE);
         beanMappings.put(QUESTION_CATEGORY,QUESTION_CATEGORY_SERVICE);
-
+        beanMappings.put(TRANSACTION, TRANSACTION_SERVICE);
         beanMappings.put(ZAKAT, ZAKAT_SERVICE);
     }
 
