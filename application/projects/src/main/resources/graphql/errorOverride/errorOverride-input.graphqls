@@ -1,0 +1,19 @@
+input ErrorOverrideInput {
+    errorCode: String! @Size(min: 1, max: 10, message: "errorOverride.errorCode.message")
+    errorMessage: String! @Size(min: 1, max: 100, message: "errorOverride.errorMessage.message")
+    typeOfMessage: String! @Size(min: 1, max: 20, message: "errorOverride.typeOfMessage.message")
+    isConfirmationRequired: Boolean
+    functionCode: String! @Size(min: 1, max: 35, message: "errorOverride.functionCode.message")
+    batchType: String @Size(min: 1, max: 20, message: "errorOverride.batchType.message")
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+
+    errorOverrideConversions: ErrorOverrideConversionsInput
+    errorOverrideLanguageDetails: ErrorOverrideLanguageDetailsInput
+
+}

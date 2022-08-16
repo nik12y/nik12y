@@ -5,6 +5,8 @@ type Query{
     getStates(sessionContext: SessionContextInput): [State]
     getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
     getCities(sessionContext: SessionContextInput): [City]
+    getBankIdentifierByCode(sessionContext: SessionContextInput, bankIdentifierQuery: BankIdentifierInputQuery): BankIdentifier
+    getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
     getLOV(sessionContext: SessionContextInput!,lovRequest:LOVRequest!):LOVResponse
     getPurposeByCode(sessionContext: SessionContextInput, purposeQuery: PurposeInputQuery): Purpose
     getPurposes(sessionContext: SessionContextInput): [Purpose]
@@ -13,6 +15,8 @@ type Query{
     getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
     getBankByCode(sessionContext: SessionContextInput, bank: BankInputQuery): Bank
     getBanks(sessionContext: SessionContextInput): [Bank]
+    getPurposeByCode(sessionContext: SessionContextInput, purposeQuery: PurposeInputQuery): Purpose
+    getPurposes(sessionContext: SessionContextInput): [Purpose]
     getBankIdentifierByCode(sessionContext: SessionContextInput, bankIdentifierQuery: BankIdentifierInputQuery): BankIdentifier
     getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
     getLanguageByCode(sessionContext: SessionContextInput, languageQuery: LanguageInputQuery): Language
@@ -25,6 +29,10 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
+    getReasonByCode(sessionContext: SessionContextInput, reasonQuery: ReasonInputQuery): Reason
+    getReasons(sessionContext: SessionContextInput): [Reason]
+    getTransactionByCode(sessionContext: SessionContextInput, transactionQuery: TransactionInputQuery): Transaction
+    getTransactions(sessionContext: SessionContextInput): [Transaction]
     getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
     getQuestions(sessionContext: SessionContextInput):[Question]
     getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]

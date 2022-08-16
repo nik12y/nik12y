@@ -55,4 +55,11 @@ databaseChangeLog:
       file: db/changelog/error-override-table.xml
   - include:
       file: db/changelog/city-table.xml
-
+  - include:
+      file: db/changelog/reason-table.xml
+  - include:
+      file: db/changelog/capt-table.xml
+  -  include:
+      file: db/changelog/transaction-table.xml
+  - include:
+      file: db/changelog/module-table.xml
