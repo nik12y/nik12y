@@ -1,0 +1,35 @@
+type Transaction {
+    transactionCode : String!
+    transactionDescription : String!
+    transactionSwiftCode : String
+    externalTxnCode : String
+    misHead : String
+    immediate : Boolean!
+    onValueDate : Boolean
+    afterXDaysValueDate : Boolean
+    afterXDays : Boolean
+    noOfDays : Int
+    intradayManualRelease : Boolean
+    statementDateDerivation : String
+    amlTracking : Boolean
+    productGroup : String
+    availableBalanceCheckApplicableBatch : Boolean
+    availableBalanceCheckApplicableOnline : Boolean
+    pricingOnTransactionCount : Boolean
+    pricingTurnoverInclusion : Boolean
+    pricingBalanceInclusive : Boolean
+    turnoverLimit : Boolean
+    coverAccount : Boolean
+    pricingPenaltyInclusive : Boolean
+    considerForAccountStatusChange : Boolean
+    chequeMandatory : Boolean
+    interBranchInLcy : Boolean
+    thirdPartyDealingSystemTransactionCode : Boolean
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

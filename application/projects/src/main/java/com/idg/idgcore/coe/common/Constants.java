@@ -69,9 +69,13 @@ public final class Constants {
     public static final String BANKPARAMETER = "BANKPARAMETER";
     public static final String BANKPARAMETER_SERVICE = "bankParameterApplicationService";
 
+    public static final String TRANSACTION = "TRANSACTION";
+    public static final String TRANSACTION_SERVICE = "transactionApplicationService";
+
     public static final String IBAN = "IBAN";
     public static final String IBAN_SERVICE = "ibanApplicationService";
     public static final String RISKCATEGORY = "RISKCATEGORY";
+
     public static final String RISKCATEGORY_SERVICE = "riskCategoryApplicationService";
     public static final String RISKCODE_SERVICE = "riskCodeApplicationService";
     public static final String PURGING_POLICY = "PURGING_POLICY";
