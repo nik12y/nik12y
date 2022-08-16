@@ -147,27 +147,27 @@ class GroupBankingApplicationServiceTest {
     }
 
 //    @Test
-    @DisplayName("JUnit for getBankIdentifiers in application service for try block")
-    void getBankIdentifiersTryBlock() throws FatalException {
-
-        given(iGroupBankingDomainService.getGroupBanks()).willReturn(List.of(groupBankingEntity1));
-        given(mutationsDomainService.getUnauthorizedMutation(groupBankingDTO1.getTaskCode(), AUTHORIZED_N)).willReturn(List.of(mutationEntity));
-
-        String payLoadString = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
-                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
-                "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
-                "\"taskCode\":\"GROUP-BANKING\"}";
-
-        Payload payload = new Payload();
-        payload.setData(payLoadString);
-        mutationEntity.setPayload(payload);
-        String data1 = mutationEntity.getPayload().getData();
-        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity1)).willReturn(groupBankingDTO1);
-
-        List<GroupBankingDTO> bankIdentifierDTO2 = groupBankingApplicationService.getGroupBanks(sessionContext);
-        assertThat(groupBankingDTO1).isNotNull();
-    }
+//    @DisplayName("JUnit for getBankIdentifiers in application service for try block")
+//    void getBankIdentifiersTryBlock() throws FatalException {
+//
+//        given(iGroupBankingDomainService.getGroupBanks()).willReturn(List.of(groupBankingEntity1));
+//        given(mutationsDomainService.getUnauthorizedMutation(groupBankingDTO1.getTaskCode(), AUTHORIZED_N)).willReturn(List.of(mutationEntity));
+//
+//        String payLoadString = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
+//                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
+//                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
+//                "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
+//                "\"taskCode\":\"GROUP-BANKING\"}";
+//
+//        Payload payload = new Payload();
+//        payload.setData(payLoadString);
+//        mutationEntity.setPayload(payload);
+//        String data1 = mutationEntity.getPayload().getData();
+//        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity1)).willReturn(groupBankingDTO1);
+//
+//        List<GroupBankingDTO> bankIdentifierDTO2 = groupBankingApplicationService.getGroupBanks(sessionContext);
+//        assertThat(groupBankingDTO1).isNotNull();
+//    }
 
     @Test
     @DisplayName("JUnit for getBankIdentifiers in application service for catch block for checker")
@@ -253,7 +253,7 @@ class GroupBankingApplicationServiceTest {
         assertThat(groupBankingDTO.getAuthorized()).isNotBlank();
     }
 
-//    @Test
+  /*  @Test
     @DisplayName("JUnit for getBankIdentifiers in application service for try block negative scenario for SessionContext some field not be null")
     void getBankIdentifiersTryBlockNegative() throws FatalException {
         String payLoadString = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
@@ -292,7 +292,7 @@ class GroupBankingApplicationServiceTest {
         List<GroupBankingDTO> bankIdentifierDTO2 = groupBankingApplicationService.getGroupBanks(sessionContext);
         assertThat(sessionContext.getRole()).isNotEmpty();
         assertThat(sessionContext.getServiceInvocationModeType()).isNotNull();
-    }
+    }*/
 
     @Test
     @DisplayName("JUnit for code coverage")

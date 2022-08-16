@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -33,17 +28,31 @@ import java.io.Serializable;
 public class CaptEntity extends AbstractAuditableDomainEntity implements Serializable
 {
     @Id
+    @Column(name="clearing_payment_type_code")
     private String clearingPaymentTypeCode;
+    @Column(name="clearing_payment_type_name")
     private String clearingPaymentTypeName;
+    @Column(name="network_type")
     private String networkType;
+    @Column(name="is_clearing_payment_calender")
     private char isClearingPaymentCalender;
+    @Column(name="weekly_off1")
     private String weeklyOff1;
+    @Column(name="weekly_off2")
     private String weeklyOff2;
+    @Column(name="weekly_off3")
     private String weeklyOff3;
-
+    @Column(name="life_cycle_id")
+    private String lifeCycleId;
+    @Column (name="reference_no")
+    private String referenceNo;
+    @Column (name="record_status")
     private String status;
+    @Column (name="record_version")
     private Integer recordVersion;
+    @Column (name="is_authorized")
     private String authorized;
+    @Column (name="last_configuration_action")
     private String lastConfigurationAction;
 
 }

@@ -1,6 +1,6 @@
 query {
-    getCountryByCode(
-        sessionContext:{
+    getCaptAll(
+        sessionContext: {
             bankCode: ""
             defaultBranchCode: ""
             internalTransactionReferenceNumber: ""
@@ -23,9 +23,14 @@ query {
             userLocal: ""
             originatingModuleCode: ""
         },
-        countryQuery:{
-            countryCode:"US"
-            authorized:"Y"
-        }
-    )
+
+    ) {
+        clearingPaymentTypeCode
+    	clearingPaymentTypeName
+    	networkType
+    	compositeClearingOrPaymentCalendar
+    	weeklyOff1
+    	weeklyOff2
+    	weeklyOff3
+    }
 }
