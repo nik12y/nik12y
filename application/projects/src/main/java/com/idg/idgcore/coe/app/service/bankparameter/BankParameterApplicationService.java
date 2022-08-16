@@ -145,7 +145,6 @@ public class BankParameterApplicationService extends AbstractApplicationService
         return bankParameterDTOList;
     }
 
-    @Transactional
     public TransactionStatus processBankParameter (SessionContext sessionContext,
             BankParameterDTO bankParameterDTO)
             throws FatalException {

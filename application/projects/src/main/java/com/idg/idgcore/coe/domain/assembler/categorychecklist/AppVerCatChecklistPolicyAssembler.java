@@ -8,12 +8,13 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.text.*;
 
 @Component
 public class AppVerCatChecklistPolicyAssembler {
 
     private ModelMapper modelMapper = new ModelMapper();
-
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     @PostConstruct
     private void setMapperConfig() {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -27,6 +28,7 @@ public class AppVerCatChecklistPolicyAssembler {
 
     public AppVerCatChecklistPolicyDTO convertEntityToDto(AppVerCatChecklistPolicyEntity appVerCatChecklistPolicyEntity){
         AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO = modelMapper.map(appVerCatChecklistPolicyEntity, AppVerCatChecklistPolicyDTO.class);
+        appVerCatChecklistPolicyDTO.setEffectiveDate(formatter.format(appVerCatChecklistPolicyEntity.getEffectiveDate()));
         return appVerCatChecklistPolicyDTO;
     }
 
