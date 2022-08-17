@@ -15,7 +15,6 @@ public class AppVerCatChecklistPolicyAssembler {
 
     private ModelMapper modelMapper = new ModelMapper();
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
     @PostConstruct
     private void setMapperConfig() {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

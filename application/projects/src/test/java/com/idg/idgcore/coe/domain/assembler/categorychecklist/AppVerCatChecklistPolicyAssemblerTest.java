@@ -41,7 +41,7 @@ class AppVerCatChecklistPolicyAssemblerTest {
             appVerCatChecklistPolicyEntity.setAppVerChecklistPolicyDesc("Address");
             appVerCatChecklistPolicyEntity.setDomainId("DM0001");
             appVerCatChecklistPolicyEntity.setDomainCategoryId("DC0001");
-        appVerCatChecklistPolicyEntity.setEffectiveDate(getDate("2022-07-20"));
+            appVerCatChecklistPolicyEntity.setEffectiveDate(getDate("2022-07-20"));
             appVerCatChecklistPolicyEntity.setEventId("EV0001");
             appVerCatChecklistPolicyEntity.setEntity("Customer");
             appVerCatChecklistPolicyEntity.setRuleId("RL0001");
@@ -74,7 +74,4 @@ class AppVerCatChecklistPolicyAssemblerTest {
             return null;
         }
     }
-    }
-
-
-
+}

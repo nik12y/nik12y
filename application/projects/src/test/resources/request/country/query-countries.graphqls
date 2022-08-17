@@ -13,7 +13,7 @@ query {
             userId: "nikhiljagtap"
             accessibleTargetUnits: null
             channel: "Branch"
-            taskCode: "COUNTRY"
+            taskCode: "CATEGORY"
             localDateTime: ""
             role: "maker"
             originalTransactionReferenceNumber: null

@@ -1,0 +1,17 @@
+{
+  "data": {
+    "getErrorOverrideByCode": {
+      "errorCode": "ERR-CHD-04",
+      "errorMessage": "PAN input is mandatory for the cash transaction above INR 50K",
+      "typeOfMessage": "Ignore",
+      "isConfirmationRequired": true,
+      "functionCode": "Cash Deposit/Withdrawal",
+      "errorOverrideLanguageDetails": {
+        "localeCode": "EN",
+        "localeName": "New Error Cod",
+        "languageCode": "ENG",
+        "languageName": "English"
+      }
+    }
+  }
+}
