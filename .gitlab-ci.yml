@@ -65,10 +65,6 @@ Deploy:
   stage: Deploy 
   before_script:
     - chmod 400 $SSH_KEY
-    - echo "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
-       docker stop  $CI_PROJECT_NAME &&
-       docker rm $CI_PROJECT_NAME &&
-      docker run -d -p 8081:8099 --restart=always --name $CI_PROJECT_NAME $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID"
   script:
     - echo "Deploying application..."
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $BACKEND_SERVER
