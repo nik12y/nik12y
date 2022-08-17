@@ -141,7 +141,6 @@ public class IbanApplicationService extends AbstractApplicationService
         return ibanDTOList;
     }
 
-    @Transactional
     public TransactionStatus processIban (SessionContext sessionContext,
             IbanDTO ibanDTO)
             throws FatalException {

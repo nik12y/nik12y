@@ -8,10 +8,13 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.text.*;
 
 @Component
 public class ZakatAssembler {
     private ModelMapper modelMapper = new ModelMapper();
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
 
     @PostConstruct
     private void setMapperConfig() {
@@ -19,14 +22,17 @@ public class ZakatAssembler {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
     }
 
-    public ZakatEntity convertDtoToEntity(ZakatDTO zakatDTO){
-        return modelMapper.map(zakatDTO, ZakatEntity.class);
+    public ZakatEntity convertDtoToEntity(ZakatDTO zakatDTO) throws ParseException {
+        ZakatEntity zakatEntity = modelMapper.map(zakatDTO, ZakatEntity.class);
+        zakatEntity.setStartDateOfRamadan(formatter.parse(zakatDTO.getStartDateOfRamadan()));
+        return zakatEntity;
     }
 
     public ZakatDTO convertEntityToDto(ZakatEntity zakatEntity){
-        return modelMapper.map(zakatEntity, ZakatDTO.class);
+        ZakatDTO zakatDTO = modelMapper.map(zakatEntity, ZakatDTO.class);
+        zakatDTO.setStartDateOfRamadan(formatter.format(zakatEntity.getStartDateOfRamadan()));
+        return zakatDTO;
     }
-
 
     public ZakatDTO setAuditFields (MutationEntity mutationEntity, ZakatDTO zakatDTO) {
         zakatDTO.setAction(mutationEntity.getAction());

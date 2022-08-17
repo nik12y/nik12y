@@ -1,0 +1,45 @@
+query{
+    getCountryByCode(
+        sessionContext:{
+            bankCode: "003"
+            defaultBranchCode: "11411"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: null
+            userId: "nikhiljagtap"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: "COUNTRY"
+            localDateTime: ""
+            role: ["maker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType:Regular
+            allTargetUnitsSelected: false
+            userLocal: "en_US"
+            originatingModuleCode: null
+        },
+        countryQuery:{
+            countryCode:"IN"
+            authorized:"Y"
+        }
+    ) {
+        countryCode
+        countryName
+        numericCountryCode
+        alternateCountryCode
+        regionCode
+        limitCurrency
+        overallLimit
+        ibanRequired
+        euMember
+        clearingCodeBicPlus
+        generateMt205
+        defaultClearingNetwork
+    }
+}

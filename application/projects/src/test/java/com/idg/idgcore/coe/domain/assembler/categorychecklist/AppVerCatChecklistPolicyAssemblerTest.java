@@ -9,6 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.text.*;
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,7 +41,7 @@ class AppVerCatChecklistPolicyAssemblerTest {
             appVerCatChecklistPolicyEntity.setAppVerChecklistPolicyDesc("Address");
             appVerCatChecklistPolicyEntity.setDomainId("DM0001");
             appVerCatChecklistPolicyEntity.setDomainCategoryId("DC0001");
-//        appVerCatChecklistPolicyEntity.setEffectiveDate(2022-07-20);
+            appVerCatChecklistPolicyEntity.setEffectiveDate(getDate("2022-07-20"));
             appVerCatChecklistPolicyEntity.setEventId("EV0001");
             appVerCatChecklistPolicyEntity.setEntity("Customer");
             appVerCatChecklistPolicyEntity.setRuleId("RL0001");
@@ -55,11 +58,20 @@ class AppVerCatChecklistPolicyAssemblerTest {
             appVerCatChecklistPolicyDTO.setAppVerChecklistPolicyDesc("Address");
             appVerCatChecklistPolicyDTO.setDomainId("DM0001");
             appVerCatChecklistPolicyDTO.setDomainCategoryId("DC0001");
-//        appVerCatChecklistPolicyEntity.setEffectiveDate(2022-07-20);
+            appVerCatChecklistPolicyDTO.setEffectiveDate("2022-07-20");
             appVerCatChecklistPolicyDTO.setEventId("EV0001");
             appVerCatChecklistPolicyDTO.setEntity("Customer");
             appVerCatChecklistPolicyDTO.setRuleId("RL0001");
             AppVerCatChecklistPolicyEntity appVerCatChecklistPolicyEntity=appVerCatChecklistPolicyAssembler.convertDtoToEntity(appVerCatChecklistPolicyDTO);
             assertThat(appVerCatChecklistPolicyEntity).descriptionText();
         }
+    private Date getDate (String s) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(s);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+}
