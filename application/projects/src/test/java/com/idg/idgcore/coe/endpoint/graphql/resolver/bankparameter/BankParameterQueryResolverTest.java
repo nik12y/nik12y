@@ -18,7 +18,7 @@ class BankParameterQueryResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
-   @Test
+   ////@Test
     void getBankParameterByBankCode () throws IOException, JSONException {
         System.out.println(" Bankparameter getBankParameterByBankCode ");
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/bankparameter/bankparameter-query-bankbycode.graphqls");
@@ -27,7 +27,7 @@ class BankParameterQueryResolverTest {
         System.out.println(" Bankparameter getBankParameterByBankCode is DONE");
     }
 
-    @Test
+    ////@Test
     void getBankParameters () throws IOException, JSONException {
         System.out.println(" Bankparameter getBankParameters ");
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/bankparameter/bankparameter-query-bankparameters.graphqls");

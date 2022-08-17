@@ -1,0 +1,55 @@
+query{
+  getReasons(
+    sessionContext:{
+      bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: ""
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: "maker"
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+   }
+
+	) {
+			primaryReasonCode
+			primaryReasonDescription
+			primaryAccountBlock
+			primaryAccountUnblock
+			primaryAccountClosure
+			primaryRequestForAccountClosure
+			primaryStopPayment
+			primaryStopPaymentRevoke
+			secondaryReasonCode
+			secondaryReasonDescription
+			secondaryAccountBlock
+			secondaryAccountUnblock
+			secondaryAccountClosure
+			secondaryRequestForAccountClosure
+			secondaryStopPayment
+			secondaryStopPaymentRevoke
+			applicableCategories
+			documentRequiredIfAny
+			status
+			recordVersion
+			createdBy
+			creationTime
+			lastUpdatedBy
+			lastUpdatedTime
+}
+}

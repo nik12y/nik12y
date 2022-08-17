@@ -1,0 +1,56 @@
+mutation{
+    processQuestionnaireChecklist(
+        sessionContext:{
+            bankCode: "003"
+            defaultBranchCode: "1141"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: null
+            userId: "Preeti "
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: "QUESTION_CKLIST"
+            localDateTime: ""
+            role: "maker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "es_US"
+            originatingModuleCode: null
+        },
+        questionnaireChecklist:{
+            questionChecklistId:"GA"
+            questionChecklistName:"GOA"
+            questionCategory: "IN"
+            effectiveDate:"2222-01-01"
+
+            questionnaireChecklistDetailsCategory:{
+                questionCategoryId:"test"
+            }
+            questionnaireChecklistDisplay:{
+                ruleId:"ruleid"
+            }
+
+            action : "close"
+            status:"closed"
+            recordVersion : 0
+
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

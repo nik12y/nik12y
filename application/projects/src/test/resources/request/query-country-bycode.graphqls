@@ -23,7 +23,7 @@ query {
             userLocal: ""
             originatingModuleCode: ""
         },
-        country:{
+        countryQuery:{
             countryCode:"US"
             authorized:"Y"
         }
