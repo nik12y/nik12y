@@ -1,7 +1,7 @@
 input QuestionnaireChecklistInput {
 
-    questionChecklistId: String!
-    questionChecklistName : String
+    questionChecklistId: String! @Size(min: 1, max: 10, message: "questionChecklistId.errorCode.message") @Pattern(regexp: "[A-Za-z0-9]{1,10}",message: "Questionaire Checklist Id Invalid pattern")
+    questionChecklistName : String @Size(min: 1, max: 10, message: "questionChecklistId.errorCode.message") @Pattern(regexp: ".[A-Za-z0-9 .,–()/=‘+:?!”%&*<>;{@#_]{1,10}",message: "Questionaire Checklist Name Invalid pattern")
     questionCategory : String
     effectiveDate : String
 
