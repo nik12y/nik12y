@@ -16,7 +16,7 @@ Test:
       - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
   cache:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
+      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -30,7 +30,7 @@ Code Build :       # This job runs in the build stage, which runs first.
   stage: Build
   cache:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
+      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -42,7 +42,7 @@ Code Build :       # This job runs in the build stage, which runs first.
     - dev
   artifacts:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/build/libs
+      - /builds/idgCore/middleware-coreengine/application/projects/build/libs
 
 Build Image:
   stage: Docker
