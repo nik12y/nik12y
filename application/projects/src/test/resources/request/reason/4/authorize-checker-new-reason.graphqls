@@ -1,0 +1,61 @@
+mutation{
+processReason(
+sessionContext:{
+  bankCode: ""
+  defaultBranchCode: ""
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Preeti"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: "checker"
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+  },
+		reason:{
+		  primaryReasonCode: "AS"
+			primaryReasonDescription : "PTESTREASON"
+			primaryAccountBlock : true
+			primaryAccountUnblock : true
+			primaryAccountClosure : true
+			primaryRequestForAccountClosure : true
+			primaryStopPayment : true
+			primaryStopPaymentRevoke : true
+			secondaryReasonCode : "AB"
+			secondaryReasonDescription : "STESTREASON"
+			secondaryAccountBlock : true
+			secondaryAccountUnblock : true
+			secondaryAccountClosure : true
+			secondaryRequestForAccountClosure : true
+			secondaryStopPayment : true
+			secondaryStopPaymentRevoke : true
+			applicableCategories : "TEST"
+			documentRequiredIfAny : "TEST"
+            action : "authorize"
+            status:"new"
+            recordVersion : 1
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

@@ -1,11 +1,8 @@
 package com.idg.idgcore.coe.domain.service.riskcategory;
 
-import com.idg.idgcore.coe.domain.entity.branchtype.BranchTypeEntity;
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntity;
-import com.idg.idgcore.coe.domain.repository.branchtype.IBranchTypeRepository;
 import com.idg.idgcore.coe.domain.repository.riskcategory.IRiskCategoryRepository;
-import com.idg.idgcore.coe.domain.service.branchtype.BranchTypeDomainService;
-import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
+import com.idg.idgcore.coe.domain.service.riskcategory.RiskCategoryDomainService;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;

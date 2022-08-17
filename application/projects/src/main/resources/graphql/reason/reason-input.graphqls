@@ -1,0 +1,28 @@
+input ReasonInput {
+        primaryReasonCode : String! @Size(min: 1, max: 16, message: "primaryReasonCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,16}",message: "Primary Reason Code Invalid pattern")
+        primaryReasonDescription : String! @Size(min: 1, max: 40, message: "primaryReasonDescription.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,40}",message: "Primary Reason Description Invalid pattern")
+        primaryAccountBlock : Boolean
+        primaryAccountUnblock : Boolean
+        primaryAccountClosure : Boolean
+        primaryRequestForAccountClosure : Boolean
+        primaryStopPayment : Boolean
+        primaryStopPaymentRevoke : Boolean
+        secondaryReasonCode : String @Size(min: 1, max: 40, message: "secondaryReasonCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,40}",message: "Secondary Reason Code Invalid pattern")
+        secondaryReasonDescription : String @Size(min: 1, max: 40, message: "secondaryReasonDescription.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,40}",message: "Secondary Reason Description Invalid pattern")
+        secondaryAccountBlock : Boolean
+        secondaryAccountUnblock : Boolean
+        secondaryAccountClosure : Boolean
+        secondaryRequestForAccountClosure : Boolean
+        secondaryStopPayment : Boolean
+        secondaryStopPaymentRevoke : Boolean
+        applicableCategories : String
+        documentRequiredIfAny : String @Size(min: 1, max: 100, message: "documentRequiredIfAny.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,40}",message: "Document Required If Any Invalid pattern")
+        action : String!
+        status : String!
+        recordVersion : Int
+        createdBy : String
+        creationTime : String
+        lastUpdatedBy : String
+        lastUpdatedTime : String
+}
+

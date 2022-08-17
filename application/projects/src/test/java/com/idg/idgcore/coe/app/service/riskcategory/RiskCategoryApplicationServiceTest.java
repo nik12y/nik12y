@@ -3,17 +3,12 @@ package com.idg.idgcore.coe.app.service.riskcategory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
-import com.idg.idgcore.coe.app.service.branchtype.BranchTypeApplicationService;
-import com.idg.idgcore.coe.domain.assembler.branchtype.BranchTypeAssembler;
 import com.idg.idgcore.coe.domain.assembler.riskcategory.RiskCategoryAssembler;
-import com.idg.idgcore.coe.domain.entity.branchtype.BranchTypeEntity;
-import com.idg.idgcore.coe.domain.entity.branchtype.BranchTypeEntityKey;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.Payload;
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntity;
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntityKey;
 import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
-import com.idg.idgcore.coe.domain.service.branchtype.IBranchTypeDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.riskcategory.IRiskCategoryDomainService;
 import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
@@ -21,6 +16,10 @@ import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,6 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
 
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
+import static com.idg.idgcore.coe.common.Constants.RISKCATEGORY;
 import static com.idg.idgcore.coe.common.Constants.*;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -389,6 +390,8 @@ class RiskCategoryApplicationServiceTest {
         return riskcategoryDTO;
     }
     private RiskCategoryEntity getStateEntity(){
+//        RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity("MH001","MAHARASHTRA","MAHA","draft",0, "Y","draft");
+        //RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity();
         RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity("MH001","MAHARASHTRA","MAHA","draft",0, "Y","draft");
 
         return riskCategoryEntity;

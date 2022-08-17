@@ -1,9 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.riskcategory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.branchtype.IBranchTypeApplicationService;
 import com.idg.idgcore.coe.app.service.riskcategory.IRiskCategoryApplicationService;
-import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;

@@ -6,7 +6,7 @@ import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import static com.idg.idgcore.coe.common.Constants.*;
+import static com.idg.idgcore.coe.common.Constants.RISKCATEGORY;
 
 @ToString(callSuper = true)
 @Getter

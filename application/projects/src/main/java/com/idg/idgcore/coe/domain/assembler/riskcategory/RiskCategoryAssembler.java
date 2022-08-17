@@ -1,5 +1,7 @@
 package com.idg.idgcore.coe.domain.assembler.riskcategory;
 
+import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
+import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntity;
 import com.idg.idgcore.coe.domain.entity.branchtype.BranchTypeEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntity;
@@ -13,6 +15,7 @@ import javax.annotation.PostConstruct;
 
 import static com.idg.idgcore.coe.common.Constants.CHAR_N;
 import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
+
 @Component
 public class RiskCategoryAssembler {
 
