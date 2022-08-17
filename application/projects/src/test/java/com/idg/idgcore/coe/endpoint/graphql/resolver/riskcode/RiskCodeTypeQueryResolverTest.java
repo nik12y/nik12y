@@ -24,7 +24,7 @@ class RiskCodeTypeQueryResolverTest {
     @Test
     void getRiskCodeTypeByCodeQuery() throws IOException, JSONException {
 
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/riskcodetyperequest/query-riskcodetype-bycode.graphqls");
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/riskcode/query-riskcode-bycode.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
        // assertEquals(FileReaderUtil.read("response/get-bank-by-code-query.json"),graphQLResponse.getRawResponse().getBody(), true);
 
@@ -34,7 +34,7 @@ class RiskCodeTypeQueryResolverTest {
     @Test
     void getBranchesQuery() throws IOException, JSONException {
 
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/riskcoderequest/query-riskcodes.graphqls");
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/riskcode/query-riskcodes.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
      //   assertEquals(FileReaderUtil.read("response/get-banks-query.json"),graphQLResponse.getRawResponse().getBody(), true);
 
