@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.app.service.module;
+package com.idg.idgcore.coe.app.service.reason;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,24 +7,23 @@ import com.idg.idgcore.app.Interaction;
 import com.idg.idgcore.coe.app.config.MappingConfig;
 import com.idg.idgcore.coe.domain.assembler.audit.*;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
-import com.idg.idgcore.coe.dto.module.ModuleDTO;
+import com.idg.idgcore.coe.dto.reason.ReasonDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
-import com.idg.idgcore.coe.domain.assembler.module.ModuleAssembler;
-import com.idg.idgcore.coe.domain.entity.module.ModuleEntity;
+import com.idg.idgcore.coe.domain.assembler.reason.ReasonAssembler;
+import com.idg.idgcore.coe.domain.entity.reason.ReasonEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
-import com.idg.idgcore.coe.domain.service.module.IModuleDomainService;
+import com.idg.idgcore.coe.domain.service.reason.IReasonDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.exception.*;
+import com.idg.idgcore.datatypes.exceptions.*;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.enumerations.core.TransactionMessageType;
-import com.idg.idgcore.datatypes.exceptions.FatalException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -40,9 +39,9 @@ import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
-@Service ("moduleApplicationService")
-public class ModuleApplicationService extends AbstractApplicationService
-        implements IModuleApplicationService
+@Service ("reasonApplicationService")
+public class ReasonApplicationService extends AbstractApplicationService
+        implements IReasonApplicationService
 {
     ModelMapper mapper = new ModelMapper();
     @Autowired
@@ -52,35 +51,35 @@ public class ModuleApplicationService extends AbstractApplicationService
     @Autowired
     private IMutationsDomainService mutationsDomainService;
     @Autowired
-    private IModuleDomainService moduleDomainService;
+    private IReasonDomainService reasonDomainService;
     @Autowired
-    private ModuleAssembler moduleAssembler;
+    private ReasonAssembler reasonAssembler;
     @Autowired
     private MutationAssembler mutationAssembler;
 
-    public ModuleDTO getModuleByCode (SessionContext sessionContext, ModuleDTO moduleDTO)
+    public ReasonDTO getReasonByCode (SessionContext sessionContext, ReasonDTO reasonDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In getModuleByCode with parameters sessionContext {}, moduleDTO {}",
-                    sessionContext, moduleDTO);
+            log.info("In getReasonByCode with parameters sessionContext {}, reasonDTO {}",
+                    sessionContext, reasonDTO);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
-        ModuleDTO result = null;
+        ReasonDTO result = null;
         try {
-            if (isAuthorized(moduleDTO.getAuthorized())) {
-                ModuleEntity moduleEntity = moduleDomainService.getModuleByCode(
-                        moduleDTO.getModuleCode());
-                result = moduleAssembler.convertEntityToDto(moduleEntity);
+            if (isAuthorized(reasonDTO.getAuthorized())) {
+                ReasonEntity reasonEntity = reasonDomainService.getReasonByCode(
+                        reasonDTO.getPrimaryReasonCode());
+                result = reasonAssembler.convertEntityToDto(reasonEntity);
             }
             else {
                 MutationEntity mutationEntity = mutationsDomainService.getConfigurationByCode(
-                        moduleDTO.getTaskIdentifier());
+                        reasonDTO.getTaskIdentifier());
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
-                result = objectMapper.readValue(payload.getData(), ModuleDTO.class);
-                result = moduleAssembler.setAuditFields(mutationEntity,result);
+                result = objectMapper.readValue(payload.getData(), ReasonDTO.class);
+                result = reasonAssembler.setAuditFields(mutationEntity,result);
                 fillTransactionStatus(transactionStatus);
             }
         }
@@ -96,7 +95,7 @@ public class ModuleApplicationService extends AbstractApplicationService
         return result;
     }
 
-    public List<ModuleDTO> getModules (SessionContext sessionContext) throws FatalException {
+    public List<ReasonDTO> getReasons (SessionContext sessionContext) throws FatalException {
         if (log.isInfoEnabled()) {
             log.info("In getCountries with parameters sessionContext {}", sessionContext);
         }
@@ -104,29 +103,29 @@ public class ModuleApplicationService extends AbstractApplicationService
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         ObjectMapper objectMapper = new ObjectMapper();
-        List<ModuleDTO> moduleDTOList = new ArrayList<>();
+        List<ReasonDTO> reasonDTOList = new ArrayList<>();
 
         try {
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
                     getTaskCode(),AUTHORIZED_N);
-            moduleDTOList.addAll(moduleDomainService.getModules().stream()
-                    .map(entity -> moduleAssembler.convertEntityToDto(entity))
+            reasonDTOList.addAll(reasonDomainService.getReasons().stream()
+                    .map(entity -> reasonAssembler.convertEntityToDto(entity))
                     .collect(Collectors.toList()));
-            moduleDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            reasonDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
-                ModuleDTO moduleDTO = null;
+                ReasonDTO reasonDTO = null;
                 try {
-                    moduleDTO = objectMapper.readValue(data, ModuleDTO.class);
-                    moduleDTO = moduleAssembler.setAuditFields(entity,moduleDTO);
+                    reasonDTO = objectMapper.readValue(data, ReasonDTO.class);
+                    reasonDTO = reasonAssembler.setAuditFields(entity,reasonDTO);
                 }
                 catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
-                return moduleDTO;
+                return reasonDTO;
             }).collect(Collectors.toList()));
-            moduleDTOList = moduleDTOList.stream().collect(
-                    Collectors.groupingBy(ModuleDTO::getModuleCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(ModuleDTO::getRecordVersion)),
+            reasonDTOList = reasonDTOList.stream().collect(
+                    Collectors.groupingBy(ReasonDTO::getPrimaryReasonCode, Collectors.collectingAndThen(
+                            Collectors.maxBy(Comparator.comparing(ReasonDTO::getRecordVersion)),
                             Optional::get))).values().stream().collect(Collectors.toList());
             fillTransactionStatus(transactionStatus);
         }
@@ -136,21 +135,20 @@ public class ModuleApplicationService extends AbstractApplicationService
         finally {
             Interaction.close();
         }
-        return moduleDTOList;
+        return reasonDTOList;
     }
 
-    @Transactional
-    public TransactionStatus processModule (SessionContext sessionContext, ModuleDTO moduleDTO)
+    public TransactionStatus processReason (SessionContext sessionContext, ReasonDTO reasonDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In processModule with parameters sessionContext {}, moduleDTO {}",
-                    sessionContext, moduleDTO);
+            log.info("In processReason with parameters sessionContext {}, reasonDTO {}",
+                    sessionContext, reasonDTO);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
         try {
             Interaction.begin(sessionContext);
             prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
-            process.process(moduleDTO);
+            process.process(reasonDTO);
             fillTransactionStatus(transactionStatus);
         }
         catch (FatalException fatalException) {
@@ -170,18 +168,18 @@ public class ModuleApplicationService extends AbstractApplicationService
     @Override
     public void addUpdateRecord (String data) throws JsonProcessingException {
         ObjectMapper objMapper = new ObjectMapper();
-        ModuleDTO moduleDTO = objMapper.readValue(data, ModuleDTO.class);
-        save(moduleDTO);
+        ReasonDTO reasonDTO = objMapper.readValue(data, ReasonDTO.class);
+        save(reasonDTO);
     }
 
     @Override
     public CoreEngineBaseDTO getConfigurationByCode (String code) {
-        return moduleAssembler.convertEntityToDto(moduleDomainService.getModuleByCode(code));
+        return reasonAssembler.convertEntityToDto(reasonDomainService.getReasonByCode(code));
     }
 
     @Override
-    public void save (ModuleDTO moduleDTO) {
-        moduleDomainService.save(moduleDTO);
+    public void save (ReasonDTO reasonDTO) {
+        reasonDomainService.save(reasonDTO);
     }
 
     private boolean isAuthorized (final String authorized) {
@@ -190,7 +188,7 @@ public class ModuleApplicationService extends AbstractApplicationService
     }
 
     private String getTaskCode () {
-        return ModuleDTO.builder().build().getTaskCode();
+        return ReasonDTO.builder().build().getTaskCode();
     }
 
 }

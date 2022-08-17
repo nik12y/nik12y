@@ -25,12 +25,12 @@ public final class Constants {
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
     public static final String QUESTION = "QUESTION";
     public static final String QUESTION_SERVICE = "questionApplicationService";
-
-
     public static final String QUESTION_CATEGORY="QUESTION-CAT";
     public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
+    public static final String REASON = "REASON";
+    public static final String REASON_SERVICE = "reasonApplicationService";
 
     public static final String BRANCH_SYSTEM_DATE = "BRANCH_SYS_DATE";
     public static final String BRANCH_SYSTEM_DATE_SERVICE = "branchSystemApplicationService";
@@ -38,7 +38,6 @@ public final class Constants {
     public static final String ZAKAT_SERVICE = "zakatApplicationService";
 
     public static final String INACTIVE = "inactive";
-
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
     public static final String CHECKER = "checker";
@@ -73,9 +72,13 @@ public final class Constants {
     public static final String BANKPARAMETER = "BANKPARAMETER";
     public static final String BANKPARAMETER_SERVICE = "bankParameterApplicationService";
 
+    public static final String TRANSACTION = "TRANSACTION";
+    public static final String TRANSACTION_SERVICE = "transactionApplicationService";
+
     public static final String IBAN = "IBAN";
     public static final String IBAN_SERVICE = "ibanApplicationService";
     public static final String RISKCATEGORY = "RISKCATEGORY";
+
     public static final String RISKCATEGORY_SERVICE = "riskCategoryApplicationService";
     public static final String RISKCODE_SERVICE = "riskCodeApplicationService";
     public static final String PURGING_POLICY = "PURGING_POLICY";

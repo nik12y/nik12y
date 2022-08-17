@@ -1,0 +1,4 @@
+type ReasonQuery {
+    primaryReasonCode: String!
+    authorized: String!
+}

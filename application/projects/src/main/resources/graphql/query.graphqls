@@ -29,12 +29,10 @@ type Query{
     getCaptAll(sessionContext: SessionContextInput): [Capt]
     getModuleByCode(sessionContext: SessionContextInput, moduleQuery: ModuleInputQuery): Module
     getModules(sessionContext: SessionContextInput): [Module]
-    getAppVerCategoryConfigs(sessionContext: SessionContextInput): [AppVerCategoryConfig]
-    getAppVerCategoryConfigByID(sessionContext: SessionContextInput, AppVerCategoryConfigQuery: AppVerCategoryConfigInputQuery): AppVerCategoryConfig
-    getBranchSystemDateByCode(sessionContext: SessionContextInput, branchSystemDateQuery: BranchSystemDateInputQuery): BranchSystemDate
-    getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
-    getMitigantByCode(sessionContext: SessionContextInput, mitigantQuery:MitigantInputQuery):Mitigant
-    getMitigantAll(sessionContext: SessionContextInput): [Mitigant]
+    getReasonByCode(sessionContext: SessionContextInput, reasonQuery: ReasonInputQuery): Reason
+    getReasons(sessionContext: SessionContextInput): [Reason]
+    getTransactionByCode(sessionContext: SessionContextInput, transactionQuery: TransactionInputQuery): Transaction
+    getTransactions(sessionContext: SessionContextInput): [Transaction]
     getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
     getQuestions(sessionContext: SessionContextInput):[Question]
     getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]
@@ -42,6 +40,8 @@ type Query{
     getDayDivisor(sessionContext: SessionContextInput):[InterestMethod]
     getRoundingRules(sessionContext: SessionContextInput):[RoundingRules]
     getCurrencyDetails(sessionContext: SessionContextInput, currencyCode : CurrencyCodeInput) : CurrencyDetails
+    getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
+    getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
     getQuestionCategoryById(sessionContext: SessionContextInput, questionCategoryQuery: QuestionCategoryInputQuery): QuestionCategory
     getQuestionsCategories(sessionContext: SessionContextInput):[QuestionCategory]
     getAppVerCatChecklistPolicyById(sessionContext: SessionContextInput, appVerCatChecklistPolicyQuery: AppVerCatChecklistPolicyInputQuery): AppVerCatChecklistPolicy
@@ -64,6 +64,17 @@ type Query{
     getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
     getMitigantByCode(sessionContext: SessionContextInput, mitigantQuery:MitigantInputQuery):Mitigant
     getMitigantAll(sessionContext: SessionContextInput): [Mitigant]
+
+    getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
+    getZakats(sessionContext: SessionContextInput): [Zakat]
+    getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
+    getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
+    #    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
+    #    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear] #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    #    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
+    #    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
+    #    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 #    getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
 #    getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
 #    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
@@ -75,7 +86,5 @@ type Query{
     getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
     getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 
-    getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
-    getZakats(sessionContext: SessionContextInput): [Zakat]
 }
 
