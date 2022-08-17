@@ -72,8 +72,8 @@ type Query{
     #    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear] #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
     getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
     getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
-    #    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
-    #    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
+    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
+    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 
 }
 
