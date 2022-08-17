@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.assembler.branchSystem;
+package com.idg.idgcore.coe.domain.assembler.branchSystem;
 
 import com.idg.idgcore.coe.domain.assembler.branchSystem.BranchSystemDateAssembler;
 import com.idg.idgcore.coe.domain.entity.branchSystem.BranchSystemDateEntity;

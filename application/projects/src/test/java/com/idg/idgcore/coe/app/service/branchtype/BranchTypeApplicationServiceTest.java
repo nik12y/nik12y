@@ -102,12 +102,24 @@ class BranchTypeApplicationServiceTest {
     @DisplayName("JUnit for get-By-BranchTypeCode in application service when Authorize try Block")
     void getBranchTypeByCodeIsAuthorize() throws FatalException {
         given(branchTypeDomainService.getBranchTypeByCode(branchTypeDTO.getBranchTypeCode())).willReturn(branchTypeEntity);
+//        System.out.println((branchTypeDomainService.getBranchTypeByCode(branchTypeDTO.getBranchTypeCode())).willReturn(branchTypeEntity));
         given(branchTypeAssembler.convertEntityToDto(branchTypeEntity)).willReturn(branchTypeDTO);
         BranchTypeDTO branchTypeDTO1 = branchTypeApplicationService.getBranchTypeByCode(sessionContext, branchTypeDTO);
         assertEquals("Y",branchTypeDTO1.getAuthorized());
         assertThat(branchTypeDTO1).isNotNull();
     }
 
+
+//    @Test
+//    @DisplayName("JUnit for the get-By-BranchTypeCode in application service when not-Autorized try Block")
+//    void getBranchTypeByCodeIsNotAuthorised() throws FatalException{
+//        given(branchTypeDomainService.getBranchTypeByCode((branchTypeDTO.getBranchTypeCode()))).willReturn(branchTypeEntity);
+//        given(branchTypeAssembler.convertEntityToDto(branchTypeEntity)).willReturn(branchTypeDTO);
+//        BranchTypeDTO branchTypeDTO1 = branchTypeApplicationService.getBranchTypeByCode(sessionContext, branchTypeDTO);
+//        assertEquals("N",branchTypeDTO1.getAuthorized());
+//        assertThat(branchTypeDTO1).isNotNull();
+//
+//    }
 
 
 
@@ -141,26 +153,26 @@ class BranchTypeApplicationServiceTest {
 
 
 
-    @Test
-    @Disabled
-    @DisplayName("JUnit for getBranches in application service for catch block for checker")
-    void getBranchesCatchBlockForChecker() throws JsonProcessingException, FatalException {
-
-        MutationEntity unauthorizedEntities = getMutationEntity();
-
-        MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
-
-        sessionContext.setRole(new String[] { "" });
-        given(mutationsDomainService.getUnauthorizedMutation(
-                branchTypeDTO1.getTaskCode(),AUTHORIZED_N))
-                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
-        Assertions.assertThrows(FatalException.class,()-> {
-            List<BranchTypeDTO> branchTypeDTO1 = branchTypeApplicationService.getBranches(sessionContext);
-            System.out.println("return size : " + branchTypeDTO1.size());
-            assertThat(branchTypeDTO1).isNotNull();
-            System.out.println(branchTypeDTO1);
-        });
-    }
+//    @Test
+//    @Disabled
+//    @DisplayName("JUnit for getBranches in application service for catch block for checker")
+//    void getBranchesCatchBlockForChecker() throws JsonProcessingException, FatalException {
+//
+//        MutationEntity unauthorizedEntities = getMutationEntity();
+//
+//        MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
+//
+//        sessionContext.setRole(new String[] { "" });
+//        given(mutationsDomainService.getUnauthorizedMutation(
+//                branchTypeDTO1.getTaskCode(),AUTHORIZED_N))
+//                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
+//        Assertions.assertThrows(FatalException.class,()-> {
+//            List<BranchTypeDTO> branchTypeDTO1 = branchTypeApplicationService.getBranches(sessionContext);
+//            System.out.println("return size : " + branchTypeDTO1.size());
+//            assertThat(branchTypeDTO1).isNotNull();
+//            System.out.println(branchTypeDTO1);
+//        });
+//    }
 
 
 
@@ -331,7 +343,7 @@ class BranchTypeApplicationServiceTest {
         return branchTypeDTO;
     }
     private BranchTypeEntity getStateEntity(){
-        BranchTypeEntity branchTypeEntity = new BranchTypeEntity("MH","MAHARASHTRA","draft",0, "Y","draft");
+        BranchTypeEntity branchTypeEntity = new BranchTypeEntity("MH","MAHARASHTRA","draft",null,null,null, "Y","draft");
 
         return branchTypeEntity;
     }

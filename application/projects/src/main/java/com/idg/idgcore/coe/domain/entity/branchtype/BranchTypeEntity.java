@@ -22,17 +22,29 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BranchTypeEntity extends AbstractAuditableDomainEntity
         implements Serializable {
-        @Id
-        private String branchTypeCode;
-       // @Column(name="branch_type_code", updatable = false)
-        private String branchTypeName;
 
-        private String status;
-        private Integer recordVersion;
-        private String authorized;
-        private String lastConfigurationAction;
 
-    }
+    @Id
+    @Column(name = "branch_type_code")
+    private String branchTypeCode;
+
+    @Column(name = "branch_type_name")
+    private String branchTypeName;
+
+    @Column(name = "life_cycle_id")
+    private String lifeCycleId;
+    @Column(name = "reference_no")
+    private String referenceNo;
+    @Column(name = "record_version")
+    private Integer recordVersion;
+    @Column(name = "record_status")
+    private String status;
+    @Column(name = "is_authorized")
+    private String authorized;
+    @Column(name = "last_configuration_action")
+    private String lastConfigurationAction;
+
+}
 
 
 
