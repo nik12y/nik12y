@@ -1,0 +1,62 @@
+mutation{
+    processErrorOverride(
+        sessionContext:{
+            bankCode: ""
+            defaultBranchCode: ""
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: ""
+            externalTransactionReferenceNumber: ""
+            targetUnit: ""
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: ""
+            userId: "Preeti"
+            accessibleTargetUnits: [""]
+            channel: ""
+            taskCode: ""
+            localDateTime: ""
+            role: "maker"
+            originalTransactionReferenceNumber: ""
+            externalBatchNumber: 1
+            customAttributes: ""
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: ""
+            originatingModuleCode: ""
+        },
+        errorOverride:{
+            errorCode:"ERR-CHD-01"
+            errorMessage:"PAN input is mandatory for the cash transaction above INR 50K"
+            typeOfMessage:"Ignore"
+            isConfirmationRequired:true
+            functionCode:"Cash Deposit/Withdrawal"
+            batchType:"Error"
+
+            action : "add"
+            status:"new"
+            recordVersion : 0
+
+            errorOverrideConversions:{
+                branchCode:"ALL"
+                functionCodeOverride:"Cash Deposit/Withdrawal"
+                newErrorCode:"1"
+            }
+
+            errorOverrideLanguageDetails:{
+                languageCode:"ENG"
+                languageName:"English"
+                localeCode:"EN"
+                localeName:"New Error Cod"
+            }
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+    }
+}
