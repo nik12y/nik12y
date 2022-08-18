@@ -1,7 +1,7 @@
 input ErrorOverrideConversionsInput {
     branchCode: String @Size(min: 1, max: 16, message: "errorOverride.branchCode.message")
     functionCodeOverride: String @Size(min: 1, max: 35, message: "errorOverride.errorCode.message")
-    newErrorCode: String @Size(min: 1, max: 10, message: "errorOverride.newErrorCode.message")
+    newErrorCode: String @Size(min: 1, max: 10, message: "errorOverride.newErrorCode.message") @Pattern(regexp: ".[A-Za-z0-9 .,–()/=‘+:?!”%&*<>;{@#_]{1,10}",message: "New Error Code Invalid pattern")
 
 
 

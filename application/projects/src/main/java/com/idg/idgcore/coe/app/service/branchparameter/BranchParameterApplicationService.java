@@ -141,7 +141,6 @@ public class BranchParameterApplicationService extends AbstractApplicationServic
         return branchParameterDTOList;
     }
 
-    @Transactional
     public TransactionStatus processBranchParameter (SessionContext sessionContext,
             BranchParameterDTO branchParameterDTO)
             throws FatalException {

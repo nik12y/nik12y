@@ -64,25 +64,14 @@ type Query{
     getBranchSystemDateAll(sessionContext: SessionContextInput): [BranchSystemDate]
     getMitigantByCode(sessionContext: SessionContextInput, mitigantQuery:MitigantInputQuery):Mitigant
     getMitigantAll(sessionContext: SessionContextInput): [Mitigant]
-
     getZakatByYear(sessionContext: SessionContextInput, zakatQuery: ZakatInputQuery): Zakat
     getZakats(sessionContext: SessionContextInput): [Zakat]
     getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
     getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
     #    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
     #    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear] #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
-    #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
-    #    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
-    #    getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
-    #    getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
-#    getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
-#    getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
-#    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
-#    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear]
-#    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
-#    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
-#    getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
-#    getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
+    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
     getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
     getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 
