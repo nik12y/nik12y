@@ -74,6 +74,8 @@ type Query{
     getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
     getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
     getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
+    getCurrencyRateTypeByType(sessionContext: SessionContextInput, currencyRateTypeQuery: CurrencyRateTypeInputQuery): CurrencyRateType
+    getCurrencyRateTypes(sessionContext: SessionContextInput): [CurrencyRateType]
 
 }
 

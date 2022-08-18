@@ -1,0 +1,11 @@
+input CurrencyRateTypeInput {
+  currencyRateType : String! @Size(min: 1, max:10 message: "currencyRateType.message") @Pattern(regexp: ".[ A-Za-z0-9]{1,10}",message: "Currency Rate Type Invalid Pattern")
+  description : String! @Size(min: 1, max: 35, message: "description.message") @Pattern(regexp: ".[-A-Za-z0-9 +=]{1,35}",message: "Description Invalid pattern")
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
