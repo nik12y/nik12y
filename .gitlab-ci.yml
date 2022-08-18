@@ -52,14 +52,16 @@ Build Image:
     - ls
     - echo "docker build -t $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID ."
     - docker build -t $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID .
-
+  only:
+    - dev
 Push image:
   stage: Docker
   script:
     - echo "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS"
     - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
     - docker push $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID
-
+  only:
+    - dev
 
 Deploy:  
   stage: Deploy 
