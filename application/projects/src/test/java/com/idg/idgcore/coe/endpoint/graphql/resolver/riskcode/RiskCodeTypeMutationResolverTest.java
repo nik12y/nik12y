@@ -87,7 +87,7 @@ class RiskCodeTypeMutationResolverTest {
     void processRiskCodeSaveDraftToAuthChkUpdated() throws IOException {
         String srcDraft = "request/riskcode/authorize-checker-updated-riskcode.graphqls";
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" authorize-checker-updated-riskcodetype ");
+        System.out.println(" authorize-checker-updated-riskcode ");
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         System.out.println(" DONE ");
 
