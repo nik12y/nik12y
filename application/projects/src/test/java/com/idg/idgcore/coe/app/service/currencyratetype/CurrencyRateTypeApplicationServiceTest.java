@@ -155,28 +155,25 @@ public class CurrencyRateTypeApplicationServiceTest {
         });
     }
 
-    @Test
-    @DisplayName("JUnit for getCurrencyRateTypes in application service for try block")
-    void getCurrencyRateTypesTryBlock() throws FatalException {
-
-        given(currencyRateTypeDomainService.getCurrencyRateTypes()).willReturn(List.of(currencyRateTypeEntity1));
-        given(mutationsDomainService.getUnauthorizedMutation(currencyRateTypeDTO1.getTaskCode(),AUTHORIZED_N)).willReturn(List.of(mutationEntity));
-
-        String payLoadString ="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null" +
-                ",\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0,\"authorized\":\"N\"" +
-                ",\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"CURRTYPE\",\"taskIdentifier\":\"BB\"" +
-                ",\"currencyRateType\":\"BB\",\"description\":\"Bill Buy\"}";
-
-
-        Payload payload=new Payload();
-        payload.setData(payLoadString);
-        mutationEntity.setPayload(payload);
-        String data1 = mutationEntity.getPayload().getData();
-        given(currencyRateTypeAssembler.convertEntityToDto(currencyRateTypeEntity1)).willReturn(currencyRateTypeDTO1);
-
-        List<CurrencyRateTypeDTO> currencyRateTypeDTO2 = currencyRateTypeApplicationService.getCurrencyRateTypes(sessionContext);
-        assertThat(currencyRateTypeDTO1).isNotNull();
-    }
+//    @Test
+//    @DisplayName("JUnit for getCurrencyRateTypes in application service for try block")
+//    void getCurrencyRateTypesTryBlock() throws FatalException {
+//        given(currencyRateTypeDomainService.getCurrencyRateTypes()).willReturn(List.of(currencyRateTypeEntity1));
+//        given(mutationsDomainService.getUnauthorizedMutation(currencyRateTypeDTO1.getTaskCode(),AUTHORIZED_N)).willReturn(List.of(mutationEntity));
+//        String payLoadString ="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null" +
+//                ",\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0,\"authorized\":\"N\"" +
+//                ",\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"CURRTYPE\",\"taskIdentifier\":\"BB\"" +
+//                ",\"currencyRateType\":\"BB\",\"description\":\"Bill Buy\"}";
+//
+//        Payload payload=new Payload();
+//        payload.setData(payLoadString);
+//        mutationEntity.setPayload(payload);
+//        String data1 = mutationEntity.getPayload().getData();
+//        given(currencyRateTypeAssembler.convertEntityToDto(currencyRateTypeEntity1)).willReturn(currencyRateTypeDTO1);
+//
+//        List<CurrencyRateTypeDTO> currencyRateTypeDTO2 = currencyRateTypeApplicationService.getCurrencyRateTypes(sessionContext);
+//        assertThat(currencyRateTypeDTO1).isNotNull();
+   // }
 
     @Test
     @DisplayName("JUnit for processCurrencyRateType in application service for Try Block")
