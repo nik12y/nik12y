@@ -69,7 +69,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.1.0'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.24'
-
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.6.0.0.1'
     implementation 'com.idg.idgcore.fmw.dto:com.idg.idgcore.fmw.dto:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.datatype:com.idg.idgcore.datatype:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.appcore:com.idg.idgcore.appcore:1.0-SNAPSHOT'
