@@ -12,6 +12,7 @@ type ErrorOverride {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
+    authorized: String
 
     errorOverrideConversions: ErrorOverrideConversions
     errorOverrideLanguageDetails: ErrorOverrideLanguageDetails

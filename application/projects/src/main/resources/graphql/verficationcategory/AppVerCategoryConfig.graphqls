@@ -10,5 +10,6 @@ type AppVerCategoryConfig {
     lastUpdatedBy: String
     lastUpdatedTime: String
     appVerTypeConfig: [AppVerTypeConfig]
+    authorized: String
 
 }
