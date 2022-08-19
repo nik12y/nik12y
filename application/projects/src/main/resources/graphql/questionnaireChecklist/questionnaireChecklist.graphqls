@@ -12,6 +12,7 @@ type QuestionnaireChecklist {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
+    authorized: String
 
     questionnaireChecklistDetailsCategory : QuestionnaireChecklistDetailsCategory
     questionnaireChecklistDisplay : QuestionnaireChecklistDisplay
