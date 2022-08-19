@@ -236,8 +236,8 @@ class GroupBankingApplicationServiceTest {
     @DisplayName("JUnit for getGroupBanks in application service for try block negative scenario for SessionContext some field not be null")
     void getGroupBanksTryBlockNegative() throws FatalException {
         String payLoadString = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"close\",\"status\":\"closed\",\"recordVersion\":1," +
-                "\"authorized\":\"Y\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
+                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":0," +
+                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
                 "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
                 "\"taskCode\":\"GROUP-BANKING\"}";
 
@@ -257,7 +257,7 @@ class GroupBankingApplicationServiceTest {
 
        groupBankingDTO.setBankGroupCode("CBI");
        groupBankingDTO.setBankGroupName("Central Bank of India");
-//groupBankingDTO.setStatus();
+
        groupBankingDTO.setAuthorized("N");
 
         GroupBankingEntityKey groupBankingEntityKey = new GroupBankingEntityKey();
@@ -273,7 +273,7 @@ class GroupBankingApplicationServiceTest {
         given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
         given(groupBankingAssembler.setAuditFields(entity, groupBankingDTO)).willReturn(groupBankingDTO);
 
-        
+
         List<GroupBankingDTO> groupBankingDTOList = groupBankingApplicationService.getGroupBanks(sessionContext);
         assertThat(sessionContext.getRole()).isNotEmpty();
         assertThat(sessionContext.getServiceInvocationModeType()).isNotNull();
