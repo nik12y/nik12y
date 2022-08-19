@@ -250,7 +250,7 @@ class CountryApplicationServiceTest {
         CountryDTO countryDTO =new CountryDTO("IN","INDIA","345","IND","ASIA","INR",100000f,false,false,false,false,false);
         CountryDTO.builder().countryCode("IN").countryName("INDIA").numericCountryCode("345").alternateCountryCode("IND").regionCode("ASIA").limitCurrency("INR").overallLimit(100000f).ibanRequired(false).euMember(false).clearingCodeBicPlus(false).generateMt205(false).defaultClearingNetwork(false).build().toString();
         CountryEntityKey countryEntityKey=new CountryEntityKey("IN");
-        CountryEntity countryEntity=new CountryEntity("IN","INDIA","345","IND","ASIA","INR",100000f,'Y','Y','Y','Y','Y',"draft",1,"N","draft");
+        CountryEntity countryEntity=new CountryEntity("IN","INDIA","345","IND","ASIA","INR",100000f,'Y','Y','Y','Y','Y',"draft",1,"N","draft", "","");
         assertThat(countryEntityKey.toString()).isNotNull();
         countryEntityKey.setCountryCode("IN");
         countryEntityKey.keyAsString();
@@ -357,7 +357,7 @@ class CountryApplicationServiceTest {
         return countryDTO;
     }
     private CountryEntity getCountryEntity(){
-        CountryEntity countryEntity = new CountryEntity("IN","INDIA","IN","345","ASIA","INR",100000f,'N','N','N','N','N',"draft",0,"Y","draft");
+        CountryEntity countryEntity = new CountryEntity("IN","INDIA","IN","345","ASIA","INR",100000f,'N','N','N','N','N',"draft",0,"Y","draft","","");
         return countryEntity;
     }
     private CountryEntity getCountrysEntity()

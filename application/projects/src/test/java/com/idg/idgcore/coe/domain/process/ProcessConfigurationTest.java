@@ -132,7 +132,7 @@ class ProcessConfigurationTest {
     private MutationEntity getValidMutationEntity () {
         Payload payLoad = new Payload("data");
         return new MutationEntity("", "", payLoad, "draft", "N", 0, "draft",
-                "draft");
+                "draft", "","");
     }
 
     private MutationDTO getNewMutationDTO () {
