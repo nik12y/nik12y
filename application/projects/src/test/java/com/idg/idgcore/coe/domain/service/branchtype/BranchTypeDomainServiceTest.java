@@ -1,8 +1,11 @@
 package com.idg.idgcore.coe.domain.service.branchtype;
 
 import com.idg.idgcore.coe.domain.entity.branchtype.BranchTypeEntity;
+import com.idg.idgcore.coe.domain.entity.state.StateEntity;
 import com.idg.idgcore.coe.domain.repository.branchtype.IBranchTypeRepository;
 import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
+import com.idg.idgcore.coe.dto.state.StateDTO;
+import com.idg.idgcore.coe.exception.ExceptionUtil;
 import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 
+import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -36,6 +40,8 @@ class BranchTypeDomainServiceTest {
         branchTypeDTO=getStateDTO ();
         branchTypeEntity=getStateEntity();
     }
+
+
 
     @Test
     @DisplayName("Junit test for getBranches method ")
@@ -87,15 +93,23 @@ class BranchTypeDomainServiceTest {
     }
 
 
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    public void getConfigurationByCodeCatchBlock() {
-        BranchTypeDTO branchTypeDTO = null;
-        assertThrows(BusinessException.class,()-> {
-            BranchTypeEntity branchTypeByCode = branchTypeDomainService.getConfigurationByBranchTypeCode(branchTypeDTO);
-        });
-    }
+//    @Test
+//    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
+//    public void getConfigurationByCodeCatchBlock() {
+//        BranchTypeDTO branchTypeDTO = null;
+//        assertThrows(BusinessException.class,()-> {
+//            BranchTypeEntity branchTypeByCode = branchTypeDomainService.getConfigurationByBranchTypeCode(branchTypeDTO);
+//        });
+//    }
 
+//    @Test
+//    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
+//    void getConfigurationByCodeCatchBlock() {
+//        BranchTypeDTO branchTypeDTO = null;
+//        assertThrows(BusinessException.class,()-> {
+//            BranchTypeEntity branchTypeByCode = branchTypeDomainService.getConfigurationByBranchTypeCode(branchTypeDTO);
+//        });
+//    }
 //    @Test
 //    @DisplayName("Should throw an exception when the state code is invalid")
 //    void getConfigurationByCodeWhenStateCodeIsInvalidThenThrowException() {

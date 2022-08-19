@@ -27,12 +27,12 @@ public class BranchSystemAssemblerTest {
         assertEquals("Y", branchSystemDateDTO.getAuthorized());
     }
 
-    @Test
-    @DisplayName("Should set the authorized field in purgingDTO")
-    void convertEntityToDTO(){
-        BranchSystemDateEntity branchSystemDateEntity=new BranchSystemDateEntity();
-        BranchSystemDateDTO branchSystemDateDTO=branchSystemDateAssembler.convertEntityToDto(branchSystemDateEntity);
-    }
+//    @Test
+//    @DisplayName("Should set the authorized field in purgingDTO")
+//    void convertEntityToDTO(){
+//        BranchSystemDateEntity branchSystemDateEntity=new BranchSystemDateEntity();
+//        BranchSystemDateDTO branchSystemDateDTO=branchSystemDateAssembler.convertEntityToDto(branchSystemDateEntity);
+//    }
 
     @Test
     @DisplayName("Should set the authorized field in purgingDTO")
