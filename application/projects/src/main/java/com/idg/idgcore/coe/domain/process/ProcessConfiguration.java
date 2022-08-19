@@ -41,10 +41,10 @@ public class ProcessConfiguration implements IProcessConfiguration {
 
     @Autowired
     private KafkaProducer producer;
-    @Value ("${audit.history.kafka.enabled}")
+    @Value("${audit.history.kafka.enabled}")
     String auditHistoryKafkaEnabled;
 
-    @Value ("${audit.history.kafka.producer.topic}")
+    @Value("${audit.history.kafka.producer.topic}")
     String auditHistoryKafkaProducerTopic;
 
     @Autowired
@@ -58,64 +58,66 @@ public class ProcessConfiguration implements IProcessConfiguration {
     private List<MappingDTO> mappings;
 
     @PostConstruct
-    public void init () {
+    public void init() {
         mappings = mappingConfig.getMappings();
     }
 
     @Transactional
-    public void process (CoreEngineBaseDTO baseDTO)
+    public void process(CoreEngineBaseDTO baseDTO)
             throws BusinessException, JsonProcessingException {
         log.info("In process with parameters BaseDTO {}", baseDTO);
-       try {
-           SessionContext sessionContext = (SessionContext) ThreadAttribute.get(
-                   ThreadAttribute.SESSION_CONTEXT);
-           MappingDTO mapping = getMapping(baseDTO.getAction(), sessionContext.getRole(),
-                   baseDTO.getStatus());
-           MutationDTO mutationDto = getMutationDTO(baseDTO, mapping);
-           log.info("In process with enriched MutationDTO {}", baseDTO);
-           if (isTrue(mapping.getInactivePreviousRecord()) && mutationDto.getRecordVersion() > 1) {
-               CoreEngineBaseDTO baseRecord = getPreviousRecord(mutationDto);
-               baseRecord.setStatus(INACTIVE);
-               baseRecord.setAction(baseRecord.getAction());
-               insertIntoAuditHistory(getMutationDTO(baseRecord));
-           }
-           addUpdateRecord(mutationDto);
-           if (isTrue(mapping.getInsertRecordIntoAudit())) {
-               insertIntoAuditHistory(mutationDto);
-           }
-           if (isTrue(mapping.getInsertRecordIntoBasetable())) {
-               insertIntoBaseTable(mutationDto);
-           }
-           if (isTrue(mapping.getCopyRecordFromBaseTable())) {
-               copyRecordFromBaseTable(mutationDto);
-           }
-       }
-       catch (BusinessException e){
-               throw e;
-       }
+        try {
+            SessionContext sessionContext = (SessionContext) ThreadAttribute.get(
+                    ThreadAttribute.SESSION_CONTEXT);
+            MappingDTO mapping = getMapping(baseDTO.getAction(), sessionContext.getRole(),
+                    baseDTO.getStatus());
+            MutationDTO mutationDto = getMutationDTO(baseDTO, mapping);
+            log.info("In process with enriched MutationDTO {}", baseDTO);
+            if (isTrue(mapping.getInactivePreviousRecord()) && mutationDto.getRecordVersion() > 1) {
+                CoreEngineBaseDTO baseRecord = getPreviousRecord(mutationDto);
+                baseRecord.setStatus(INACTIVE);
+                baseRecord.setAction(baseRecord.getAction());
+                insertIntoAuditHistory(getMutationDTO(baseRecord));
+            }
+            addUpdateRecord(mutationDto);
+            if (isTrue(mapping.getInsertRecordIntoAudit())) {
+                insertIntoAuditHistory(mutationDto);
+            }
+            if (isTrue(mapping.getInsertRecordIntoBasetable())) {
+                insertIntoBaseTable(mutationDto);
+            }
+            if (isTrue(mapping.getCopyRecordFromBaseTable())) {
+                if (mutationDto.getRecordVersion() > 1) {
+                    copyRecordFromBaseTable(mutationDto);
+                } else {
+                    deleteRecordFromMutationsTable(mutationDto);
+                }
+            }
+        } catch (BusinessException e) {
+            throw e;
+        }
     }
 
-    private IBaseApplicationService getService (String key) {
+    private IBaseApplicationService getService(String key) {
         log.info("In getService with parameters key {}", key);
         String beanName = serviceBeanConfig.getBeanConfig().get(key);
         return (IBaseApplicationService) appContext.getBean(beanName);
     }
 
-    private MappingDTO getMapping (String action, String[] role, String status) {
+    private MappingDTO getMapping(String action, String[] role, String status) {
         Predicate<MappingDTO> filter = mapping -> mapping.getAction().equals(action)
                 && mapping.getStatus().equals(status) && Arrays.stream(role)
                 .anyMatch(mapping.getRole()::equals);
         Optional<MappingDTO> mapping = mappings.stream().filter(filter).findFirst();
         if (mapping.isPresent()) {
             return mapping.get();
-        }
-        else {
+        } else {
             log.info("Invalid request.Please check the configuration details");
             throw new BusinessException("BBE002", "No mapping found for the request");
         }
     }
 
-    public MutationDTO getMutationDTO (CoreEngineBaseDTO baseDto, MappingDTO mappingDto)
+    public MutationDTO getMutationDTO(CoreEngineBaseDTO baseDto, MappingDTO mappingDto)
             throws JsonProcessingException {
         log.info("In getMutationDTO with parameters BaseDTO {}, MappingDTO {}", baseDto,
                 mappingDto);
@@ -135,55 +137,59 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return mutationDTO;
     }
 
-    public CoreEngineBaseDTO getPreviousRecord (MutationDTO dto) {
+    public CoreEngineBaseDTO getPreviousRecord(MutationDTO dto) {
         log.info("In getPreviousRecord with parameters MappingDTO {}", dto);
         return getService(dto.getTaskCode()).getConfigurationByCode(dto.getTaskIdentifier());
     }
 
-    public void addUpdateRecord (MutationDTO dto) throws BusinessException {
+    public void addUpdateRecord(MutationDTO dto) throws BusinessException {
         log.info("In addUpdateRecord with parameters MappingDTO {}", dto);
         try {
             mutationsDomainService.addUpdate(dto);
-        }
-        catch (BusinessException e) {
+        } catch (BusinessException e) {
             throw e;
         }
     }
 
 
-    public void insertIntoAuditHistory (MutationDTO dto) throws JsonProcessingException {
+    public void insertIntoAuditHistory(MutationDTO dto) throws JsonProcessingException {
         log.info("In insertIntoAuditHistory with parameters MappingDTO {}", dto);
         if (!isKafkaEnabled(auditHistoryKafkaEnabled)) {
             mutationsDomainService.insertIntoAuditHistory(dto);
-        }
-        else {
+        } else {
             AuditHistoryDTO auditHistoryDTO = modelMapper.map(dto, AuditHistoryDTO.class);
             BaseKafkaMessage baseKafkaMessage = getPayload(auditHistoryDTO);
             producer.sendMessage(auditHistoryKafkaProducerTopic, baseKafkaMessage.getKey(), getPayloadStringValue(baseKafkaMessage));
         }
     }
 
-    public void copyRecordFromBaseTable (MutationDTO dto) throws JsonProcessingException {
+    public void copyRecordFromBaseTable(MutationDTO dto) throws JsonProcessingException {
         log.info("In copyRecordFromBaseTable with parameters MappingDTO {}", dto);
         CoreEngineBaseDTO baseDto = getService(dto.getTaskCode()).getConfigurationByCode(dto.getTaskIdentifier());
         mutationsDomainService.save(getMutationDTO(baseDto));
     }
 
-    public void insertIntoBaseTable (MutationDTO dto) throws JsonProcessingException {
+    public void deleteRecordFromMutationsTable(MutationDTO dto) throws JsonProcessingException {
+        log.info("In deleteRecordFromMutationsTable with parameters MappingDTO {}", dto);
+        mutationsDomainService.delete(dto);
+
+    }
+
+    public void insertIntoBaseTable(MutationDTO dto) throws JsonProcessingException {
         log.info("In insertIntoBaseTable with parameters MappingDTO {}", dto);
         getService(dto.getTaskCode()).addUpdateRecord(dto.getPayload().getData());
     }
 
-    public boolean isTrue (String data) {
+    public boolean isTrue(String data) {
         return data.equals(STRING_Y);
     }
 
-    private boolean isKafkaEnabled (String value) {
+    private boolean isKafkaEnabled(String value) {
         log.info("In isKafkaEnabled with parameters value {}", value);
         return value.equals("Y") || value.equals("y");
     }
 
-    public MutationDTO getMutationDTO (CoreEngineBaseDTO baseDto) throws JsonProcessingException {
+    public MutationDTO getMutationDTO(CoreEngineBaseDTO baseDto) throws JsonProcessingException {
         log.info("In getMutationDTO with parameters BaseDTO {}", baseDto);
         MutationDTO mutationDTO = MutationDTO.builder().build();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -197,11 +203,11 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return mutationDTO;
     }
 
-    public BaseKafkaMessage getPayload (CoreEngineBaseDTO baseDto) throws JsonProcessingException {
+    public BaseKafkaMessage getPayload(CoreEngineBaseDTO baseDto) throws JsonProcessingException {
         log.info("In getPayload with parameters baseDto {}", baseDto);
         BaseKafkaMessage baseKafkaMessage = new BaseKafkaMessage();
-        SessionContext sessionContext = (SessionContext)ThreadAttribute.get(ThreadAttribute.SESSION_CONTEXT);
-        String payload  = (new ObjectMapper()).writeValueAsString(baseDto);
+        SessionContext sessionContext = (SessionContext) ThreadAttribute.get(ThreadAttribute.SESSION_CONTEXT);
+        String payload = (new ObjectMapper()).writeValueAsString(baseDto);
         baseKafkaMessage.setSessionContext(sessionContext);
         baseKafkaMessage.setPayload(payload);
         baseKafkaMessage.setKey("auditHistory");
@@ -209,7 +215,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
         return baseKafkaMessage;
     }
 
-    public String getPayloadStringValue (BaseKafkaMessage baseKafkaMessage) throws JsonProcessingException {
+    public String getPayloadStringValue(BaseKafkaMessage baseKafkaMessage) throws JsonProcessingException {
         log.info("In getPayload with parameters baseKafkaMessage {}", baseKafkaMessage);
         return (new ObjectMapper()).writeValueAsString(baseKafkaMessage);
     }
