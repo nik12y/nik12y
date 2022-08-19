@@ -16,4 +16,5 @@ type BankParameter {
     bankParameterCurrency:BankParameterCurrency
     bankParameterPreferences:BankParameterPreferences
     bankParameterForOdLoan:BankParameterForOdLoan
+    authorized: String
 }
