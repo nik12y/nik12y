@@ -1,6 +1,6 @@
 input CaptInput {
-    clearingPaymentTypeCode: String! @Size(min: 1, max: 11, message: "clearingPaymentTypeCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,11}",message: "Clearing Payment Type Code Invalid pattern")
-    clearingPaymentTypeName : String! @Size(min: 1, max: 100, message: "clearingPaymentTypeName.message") @Pattern(regexp: ".[A-Za-z0-9]{1,100}",message: "Clearing Payment Type Name Invalid pattern")
+    clearingPaymentTypeCode: String! @Size(min: 1, max: 11, message: "clearingPaymentTypeCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,11}",message: "Clearing Payment Type Code Invalid pattern")
+    clearingPaymentTypeName : String! @Size(min: 1, max: 100, message: "clearingPaymentTypeName.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Clearing Payment Type Name Invalid pattern")
     networkType : String! @Size(min: 1, max: 100, message: "networkType.message") @Pattern(regexp: ".[A-Za-z0-9]{1,100}",message: "Network Type Invalid pattern")
     compositeClearingOrPaymentCalendar : Boolean
     weeklyOff1 : String
