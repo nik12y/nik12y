@@ -153,12 +153,36 @@ public class MutationsDomainService implements IMutationsDomainService {
         }
     }
 
+    public void delete (MutationDTO mutationDTO) {
+        if (log.isInfoEnabled()) {
+            log.info("In delete with parameters  mutationDTO {}", mutationDTO);
+        }
+        MutationEntity mutationEntity = null;
+        try {
+            ModelMapper mapper = new ModelMapper();
+            mutationEntity = mapper.map(mutationDTO, MutationEntity.class);
+            this.mutationRepository.delete(mutationEntity);
+        }
+        catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error(e.getMessage());
+            }
+            if (e instanceof BusinessException) {
+                throw e;
+            }
+            else {
+                ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+            }
+        }
+    }
+
     public List<MutationEntity> getUnauthorizedMutation (final String taskCode,final String authorized) {
         if (log.isInfoEnabled()) {
             log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
         }
 
         return this.mutationRepository.findByTaskCodeAndAuthorized(taskCode,authorized);
+
     }
 
     public boolean validateMutation (MutationDTO dto) throws BusinessException {

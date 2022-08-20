@@ -13,4 +13,5 @@ type AuditHistoryDTO {
     lastUpdatedBy : String
     creationTime : String
     lastUpdatedTime : String
+    authorized: String
 }

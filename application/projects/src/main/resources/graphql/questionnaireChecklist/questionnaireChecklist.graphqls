@@ -1,0 +1,19 @@
+type QuestionnaireChecklist {
+    questionChecklistId: String!
+    questionChecklistName : String
+    questionCategory : String
+    effectiveDate : String
+
+
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    authorized: String
+
+    questionnaireChecklistDetailsCategory : QuestionnaireChecklistDetailsCategory
+    questionnaireChecklistDisplay : QuestionnaireChecklistDisplay
+}

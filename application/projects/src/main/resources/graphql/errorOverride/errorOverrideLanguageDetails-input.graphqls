@@ -1,0 +1,6 @@
+input ErrorOverrideLanguageDetailsInput {
+    languageCode: String! @Size(min: 1, max: 3, message: "errorOverride.languageCode.message")
+    languageName: String! @Size(min: 1, max: 420, message: "errorOverride.languageName.message") @Pattern(regexp: "[A-Za-z0-9]{1,420}",message: "Language Name Invalid pattern")
+    localeCode: String! @Size(min: 1, max: 2, message: "errorOverride.localeCode.message")
+    localeName: String! @Size(min: 1, max: 100, message: "errorOverride.localeName.message")
+}

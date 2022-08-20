@@ -17,7 +17,7 @@ class BranchParameterMutationResolverTest {
     GraphQLTestTemplate graphQLTestTemplate;
 
     @DisplayName (" draft-delete ")
-    @Test
+    //@Test
     void processBranchParameterSaveDraftDelete () throws IOException, JSONException {
         String srcDraft = "request/branchparameter/1/branchparameter-draft-maker-draft.graphqls";
         GraphQLResponse graphQLResponseDraft = graphQLTestTemplate.postForResource(srcDraft);
@@ -30,7 +30,7 @@ class BranchParameterMutationResolverTest {
     }
 
     @DisplayName ("draft- new -auth  ")
-    @Test
+    //@Test
     void processBranchParameterSaveDraftToNewAuth () throws IOException, JSONException {
         String srcDraft = "request/branchparameter/2/branchparameter-draft-maker-draft.graphqls";
         GraphQLResponse graphQLResponseDraft = graphQLTestTemplate.postForResource(srcDraft);
@@ -45,7 +45,7 @@ class BranchParameterMutationResolverTest {
     }
 
     @DisplayName (" new - reject -modify- auth")
-    @Test
+    //@Test
     void processIbanSaveDraftToNewReject () throws IOException, JSONException {
         String srcNew = "request/branchparameter/3/branchparameter-add-maker-new.graphqls";
         GraphQLResponse graphQLResponseNew = graphQLTestTemplate.postForResource(srcNew);
@@ -62,7 +62,7 @@ class BranchParameterMutationResolverTest {
     }
 
     @DisplayName (" draft-updateDraft-New-Auth  ")
-    @Test
+    //@Test
     void processIbanSaveDraftToUpdated () throws IOException, JSONException {
         String srcDraft = "request/branchparameter/4/branchparameter-draft-maker-draft.graphqls";
         GraphQLResponse graphQLResponseDraft = graphQLTestTemplate.postForResource(srcDraft);
@@ -78,7 +78,7 @@ class BranchParameterMutationResolverTest {
     }
 
     @DisplayName (" new-auth-modify-auth  ")
-    @Test
+    //@Test
     void processIbanSaveDraftToUpdatedAuth () throws IOException, JSONException {
         String srcNew = "request/branchparameter/5/branchparameter-add-maker-new.graphqls";
         GraphQLResponse graphQLResponseNew = graphQLTestTemplate.postForResource(srcNew);

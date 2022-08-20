@@ -1,0 +1,20 @@
+type ErrorOverride {
+    errorCode: String!
+    errorMessage: String!
+    typeOfMessage: String!
+    isConfirmationRequired: Boolean
+    functionCode: String!
+    batchType: String
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    authorized: String
+
+    errorOverrideConversions: ErrorOverrideConversions
+    errorOverrideLanguageDetails: ErrorOverrideLanguageDetails
+
+}

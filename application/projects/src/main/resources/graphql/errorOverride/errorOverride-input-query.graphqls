@@ -1,0 +1,4 @@
+input ErrorOverrideInputQuery {
+    errorCode: String!
+    authorized : String!
+}

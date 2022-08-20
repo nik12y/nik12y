@@ -1,0 +1,37 @@
+query{
+    getCityByCode(
+        sessionContext:{
+            bankCode: ""
+            defaultBranchCode: ""
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: ""
+            externalTransactionReferenceNumber: ""
+            targetUnit: ""
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: ""
+            userId: ""
+            accessibleTargetUnits: [""]
+            channel: ""
+            taskCode: ""
+            localDateTime: ""
+            role: ["maker"]
+            originalTransactionReferenceNumber: ""
+            externalBatchNumber: 1
+            customAttributes: ""
+            serviceInvocationModeType:Regular
+            allTargetUnitsSelected: false
+            userLocal: ""
+            originatingModuleCode: ""
+        },
+        city:{
+            cityCode:"AA"
+            authorized:"Y"
+        }
+    ) {
+        cityCode
+        cityName
+        stateCode
+        countryCode
+    }
+}

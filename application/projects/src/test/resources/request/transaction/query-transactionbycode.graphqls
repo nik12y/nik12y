@@ -1,0 +1,65 @@
+query{
+  getTransactionByCode(
+    sessionContext:{
+      bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: ""
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: "maker"
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+    },
+    transactionQuery:{
+        transactionCode :"AR"
+        authorized:"Y"
+      }
+	) {
+    transactionCode
+	transactionDescription
+    transactionSwiftCode
+    externalTxnCode
+    misHead
+    immediate
+    onValueDate
+    afterXDaysValueDate
+    afterXDays
+    noOfDays
+    intradayManualRelease
+    statementDateDerivation
+    amlTracking
+    productGroup
+    availableBalanceCheckApplicableBatch
+    availableBalanceCheckApplicableOnline
+    pricingTurnoverInclusion
+    pricingBalanceInclusive
+    turnoverLimit
+    coverAccount
+    pricingPenaltyInclusive
+    considerForAccountStatusChange
+    chequeMandatory
+    interBranchInLcy
+    thirdPartyDealingSystemTransactionCode
+    status
+    recordVersion
+    createdBy
+    creationTime
+    lastUpdatedBy
+    lastUpdatedTime
+}
+}

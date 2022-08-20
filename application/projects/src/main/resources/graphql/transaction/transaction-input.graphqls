@@ -1,0 +1,42 @@
+input TransactionInput {
+        transactionCode : String! @Size(min: 1, max: 3, message: "transactionCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,3}",message: "Transaction Code Invalid pattern")
+        transactionDescription : String! @Size(min: 1, max: 40, message: "transactionDescription.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,40}",message: "Transaction Description Invalid pattern")
+        transactionSwiftCode : String @Size(min: 1, max: 3, message: "transactionSwiftCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,3}",message: "Transaction SWIFT Code Invalid pattern")
+        externalTxnCode : String @Size(min: 1, max: 6, message: "externalTxnCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,6}",message: "External TXN Code Invalid pattern")
+        misHead : String @Size(min: 1, max: 12, message: "misHead.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,12}",message: "MIS Head Invalid pattern")
+        immediate : Boolean!
+        onValueDate : Boolean
+        afterXDaysValueDate : Boolean
+        afterXDays : Boolean
+        noOfDays : Int @Digits(integer : 2, fraction : 0, message : "noOfDays.message") @PositiveOrZero(message : "No Of Days Cannot be negative")
+        intradayManualRelease : Boolean
+        statementDateDerivation : String
+        amlTracking : Boolean
+        productGroup : String
+        availableBalanceCheckApplicableBatch : Boolean
+        availableBalanceCheckApplicableOnline : Boolean
+        pricingOnTransactionCount : Boolean
+        pricingTurnoverInclusion : Boolean
+        pricingBalanceInclusive : Boolean
+        turnoverLimit : Boolean
+        coverAccount : Boolean
+        pricingPenaltyInclusive : Boolean
+        considerForAccountStatusChange : Boolean
+        chequeMandatory : Boolean
+        interBranchInLcy : Boolean
+        thirdPartyDealingSystemTransactionCode : Boolean
+        action : String!
+        status : String!
+        recordVersion : Int!
+        createdBy: String
+        creationTime: String
+        lastUpdatedBy: String
+        lastUpdatedTime: String
+        action : String!
+        status : String!
+        recordVersion : Int
+        createdBy: String
+        creationTime: String
+        lastUpdatedBy: String
+        lastUpdatedTime: String
+}

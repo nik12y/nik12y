@@ -69,17 +69,15 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.1.0'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.24'
-//    implementation group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
-
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.6.0.0.1'
     implementation 'com.idg.idgcore.fmw.dto:com.idg.idgcore.fmw.dto:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.datatype:com.idg.idgcore.datatype:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.appcore:com.idg.idgcore.appcore:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.infra:com.idg.idgcore.infra:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.enumeration.fmw:com.idg.idgcore.enumeration.fmw:1.0-SNAPSHOT'
     implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.9.0'
-
     implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
-
+    implementation 'org.liquibase:liquibase-core:4.9.1'
 
 }
 

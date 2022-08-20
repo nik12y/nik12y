@@ -1,0 +1,55 @@
+mutation{
+    processCountry(
+        sessionContext:{
+            bankCode: "003"
+            defaultBranchCode: "1141"
+            internalTransactionReferenceNumber: null
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: null
+            userId: "nikhiljagtap"
+            accessibleTargetUnits: null
+            channel: "Branch"
+            taskCode: "COUNTRY"
+            localDateTime: ""
+            role: "checker"
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: "es_US"
+            originatingModuleCode: null
+        },
+        country:{
+            countryCode:"IN"
+            countryName:"INDIA"
+            numericCountryCode:"345"
+            alternateCountryCode:"IND"
+            regionCode:"ASIA"
+            limitCurrency:"INR"
+            overallLimit:10000
+            ibanRequired:false
+            euMember:false
+            clearingCodeBicPlus:false
+            generateMt205:false
+            defaultClearingNetwork:false
+            action : "reject"
+            status:"rejected"
+            recordVersion : 1
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

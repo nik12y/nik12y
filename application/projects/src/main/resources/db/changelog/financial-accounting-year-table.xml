@@ -30,19 +30,19 @@
             <column name="financial_accounting_year_desc" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-
+			
             <column name="start_date" type="date">
                 <constraints nullable="false"/>
             </column>
-
+			
             <column name="end_date" type="date">
                 <constraints nullable="false"/>
             </column>
-
+			
             <column name="period_code_frequency" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-
+           
             <column name="life_cycle_id" type="varchar(50)">
             </column>
 
