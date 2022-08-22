@@ -81,8 +81,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getBankIdentifierByCode where return the bank identifier when the authorized is Y")
-    void getBankIdentifierByCodeWhenAuthorizedIsYThenReturnBankIdentifier() throws FatalException, JsonProcessingException {
+    @DisplayName("JUnit for getGroupBankByCode where return the bank identifier when the authorized is Y")
+    void getGroupBankByCodeWhenAuthorizedIsYThenReturnBankIdentifier() throws FatalException, JsonProcessingException {
         given(
                 iGroupBankingDomainService.getGroupBankByCode(
                         groupBankingDTO.getBankGroupCode()))
@@ -96,8 +96,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getBankIdentifiers where return all bank identifiers when there are no unauthorized mutations")
-    void getBankIdentifiersWhenThereAreNoUnauthorizedMutationsThenReturnAllBankIdentifiers() throws FatalException {
+    @DisplayName("JUnit for getGroupBanks where return all bank identifiers when there are no unauthorized mutations")
+    void getGroupBanksWhenThereAreNoUnauthorizedMutationsThenReturnAllBankGroup() throws FatalException {
         given(iGroupBankingDomainService.getGroupBanks())
                 .willReturn(List.of(groupBankingEntity));
         given(mutationsDomainService.getUnauthorizedMutation(GROUP_BANKING, AUTHORIZED_N))
@@ -113,8 +113,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getBankIdentifierByCode in application service when Authorize try Block")
-    void getBankIdentifierByCodeIsAuthorize() throws FatalException, JsonProcessingException {
+    @DisplayName("JUnit for getGroupBankByCode in application service when Authorize try Block")
+    void getGroupBankByCodeIsAuthorize() throws FatalException, JsonProcessingException {
 
         given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTO.getBankGroupCode())).willReturn(groupBankingEntity);
         given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
@@ -124,8 +124,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getBankIdentifierByCode in application service when Not Authorize in catch block")
-    void getBankIdentifierByCodeWhenNotAuthorizeCatchBlock() throws FatalException, JsonProcessingException {
+    @DisplayName("JUnit for getGroupBankByCode in application service when Not Authorize in catch block")
+    void getGroupBankByCodeWhenNotAuthorizeCatchBlock() throws FatalException, JsonProcessingException {
 
         String payLoadString1 = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
                 "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"closed\",\"recordVersion\":0," +
@@ -147,8 +147,8 @@ class GroupBankingApplicationServiceTest {
     }
 
 //    @Test
-//    @DisplayName("JUnit for getBankIdentifiers in application service for try block")
-//    void getBankIdentifiersTryBlock() throws FatalException {
+//    @DisplayName("JUnit for getGroupBanks in application service for try block")
+//    void getGroupBanksTryBlock() throws FatalException {
 //
 //        given(iGroupBankingDomainService.getGroupBanks()).willReturn(List.of(groupBankingEntity1));
 //        given(mutationsDomainService.getUnauthorizedMutation(groupBankingDTO1.getTaskCode(), AUTHORIZED_N)).willReturn(List.of(mutationEntity));
@@ -170,8 +170,8 @@ class GroupBankingApplicationServiceTest {
 //    }
 
     @Test
-    @DisplayName("JUnit for getBankIdentifiers in application service for catch block for checker")
-    void getBankIdentifiersCatchBlockForChecker() throws JsonProcessingException, FatalException {
+    @DisplayName("JUnit for getGroupBanks in application service for catch block for checker")
+    void getGroupBanksCatchBlockForChecker()  {
 
         MutationEntity unauthorizedEntities = getMutationEntity();
         MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
@@ -186,8 +186,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for processBankIdentifier in application service for Try Block")
-    void processBankIdentifierForTryBlock() throws JsonProcessingException, FatalException {
+    @DisplayName("JUnit for processGroupBanking in application service for Try Block")
+    void processGroupBankingForTryBlock() throws JsonProcessingException, FatalException {
 
         doNothing().when(process).process(groupBankingDTO);
         groupBankingApplicationService.processGroupBanking(sessionContext, groupBankingDTO);
@@ -195,8 +195,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for processBankIdentifier in application service for Catch Block")
-    void processBankIdentifierForCatchBlock() throws FatalException {
+    @DisplayName("JUnit for processGroupBanking in application service for Catch Block")
+    void processGroupBankingForCatchBlock() throws FatalException {
         SessionContext sessionContext2 = null;
         Assertions.assertThrows(Exception.class, () -> {
             groupBankingApplicationService.processGroupBanking(sessionContext2, groupBankingDTO);
@@ -230,8 +230,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getByBankIdentifierCode in application service when Authorize for Negative")
-    void getBankIdentifierByCodeIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
+    @DisplayName("JUnit for getGroupBanksByCode in application service when Authorize for Negative")
+    void getGroupBanksByCodeIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
         given(iGroupBankingDomainService.getGroupBankByCode(groupBankingDTO.getBankGroupCode())).willReturn(groupBankingEntity);
         given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(groupBankingDTO);
         GroupBankingDTO bankIdentifierDTO1 = groupBankingApplicationService.getGroupBankByCode(sessionContext, groupBankingDTO);
@@ -240,8 +240,8 @@ class GroupBankingApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getBankIdentifierByCode in application service check Parameter not null")
-    void getBankIdentifierByCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
+    @DisplayName("JUnit for getGroupBankByCode in application service check Parameter not null")
+    void getGroupBankByCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
         GroupBankingDTO bankIdentifierDTOnull = null;
         GroupBankingDTO groupBankingDTO = new GroupBankingDTO();
         groupBankingDTO.setBankGroupCode("CBI");
@@ -252,47 +252,6 @@ class GroupBankingApplicationServiceTest {
         assertThat(groupBankingDTO.getBankGroupCode()).isNotBlank();
         assertThat(groupBankingDTO.getAuthorized()).isNotBlank();
     }
-
-  /*  @Test
-    @DisplayName("JUnit for getBankIdentifiers in application service for try block negative scenario for SessionContext some field not be null")
-    void getBankIdentifiersTryBlockNegative() throws FatalException {
-        String payLoadString = "{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":0," +
-                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\",\"groupBankingCode\":\"CBI\"," +
-                "\"groupBankName\":\"Crime Bank Of India\",\"taskIdentifier\":\"CBI\"," +
-                "\"taskCode\":\"GROUP-BANKING\"}";
-
-        MutationEntity mutationEntity5 = new MutationEntity();
-        mutationEntity5.setTaskIdentifier("CBI");
-        mutationEntity5.setTaskCode(GROUP_BANKING);
-        mutationEntity5.setPayload(new Payload(payLoadString));
-        mutationEntity5.setStatus("new");
-        mutationEntity5.setAuthorized("N");
-        mutationEntity5.setRecordVersion(0);
-        mutationEntity5.setAction("add");
-        mutationEntity5.setLastConfigurationAction("unauthorized");
-        mutationEntity5.setCreatedBy("NIKHIL");
-        mutationEntity5.setLastUpdatedBy("mohan");
-
-        GroupBankingDTO bankIdentifierDTOO = new GroupBankingDTO();
-
-        GroupBankingEntityKey groupBankingEntityKey = new GroupBankingEntityKey();
-        groupBankingEntityKey.setBankGroupCode("CBI");
-
-        GroupBankingEntity groupBankingEntity = new GroupBankingEntity();
-        given(mutationsDomainService.getUnauthorizedMutation(bankIdentifierDTOO.getTaskCode(), AUTHORIZED_N)).willReturn(List.of(mutationEntity5));
-        given(iGroupBankingDomainService.getGroupBanks()).willReturn(List.of(groupBankingEntity));
-        Payload payload = new Payload();
-        payload.setData(payLoadString);
-        mutationEntity5.setPayload(payload);
-        String data1 = mutationEntity5.getPayload().getData();
-        given(groupBankingAssembler.convertEntityToDto(groupBankingEntity)).willReturn(bankIdentifierDTOO);
-        given(groupBankingAssembler.setAuditFields(mutationEntity5, bankIdentifierDTOO)).willReturn(bankIdentifierDTOO);
-
-        List<GroupBankingDTO> bankIdentifierDTO2 = groupBankingApplicationService.getGroupBanks(sessionContext);
-        assertThat(sessionContext.getRole()).isNotEmpty();
-        assertThat(sessionContext.getServiceInvocationModeType()).isNotNull();
-    }*/
 
     @Test
     @DisplayName("JUnit for code coverage")
@@ -393,7 +352,7 @@ class GroupBankingApplicationServiceTest {
         return groupBankingDTO;
     }
 
-    private GroupBankingEntity getBankIdentifierEntity() {
+    private GroupBankingEntity getGroupBankingEntity() {
         GroupBankingEntity groupBankingEntity =
                 new GroupBankingEntity(
                         "CBI",
