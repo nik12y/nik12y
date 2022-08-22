@@ -9,4 +9,5 @@ type State {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
+    authorized: String
 }

@@ -23,5 +23,6 @@ type BranchParameter {
     branchParameterTranDuplicate: BranchParameterTranDuplicate
     branchParameterLocalCurrency: BranchParameterLocalCurrency
     branchParameterMiscellaneous: BranchParameterMiscellaneous
+    authorized: String
 
 }

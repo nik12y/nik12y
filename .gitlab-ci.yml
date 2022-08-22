@@ -11,6 +11,7 @@ stages:         # List of stages for jobs, and their order of execution
 
 Test:
 # Pre merge job to check build
+  image: gradle:7.4.2-jdk17-focal
   stage: Test
   rules:
       - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
@@ -21,8 +22,7 @@ Test:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
-      # Skipping all test for now. 
-    - gradle check -x test -x sonarlintMain -x sonarlintTest
+    - gradle check
 
 
 Code Build :       # This job runs in the build stage, which runs first.

@@ -13,4 +13,5 @@ type Capt {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
+    authorized: String
 }
