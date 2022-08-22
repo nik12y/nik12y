@@ -3,7 +3,6 @@ package com.idg.idgcore.coe.domain.service.financialAccountingYear;
 import com.idg.idgcore.coe.domain.entity.financialAccountingYear.*;
 import com.idg.idgcore.coe.domain.repository.financialAccountingYear.*;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
-import com.idg.idgcore.datatypes.exceptions.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 import org.mockito.*;
@@ -52,10 +51,13 @@ class FinancialAccountingYearDomainServiceTest {
     @Test
     @DisplayName ("JUnit test for getFinancialAccountingYearById method")
     void getFinancialAccountingYearByCodeReturnFinancialAccountingYearEntityObject () {
-        given(repository.findByBankCode("BNP")).willReturn(financialAccountingYearEntity);
+        given(repository.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode("ICI", "BRV",
+                "FY2022")).willReturn(financialAccountingYearEntity);
         FinancialAccountingYearEntity financialAccountingYearEntity1 =
-                domainService.getFinancialAccountingYearByCode(
-                        financialAccountingYearEntity.getBankCode());
+                domainService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                        financialAccountingYearEntity.getBankCode(),
+                        financialAccountingYearEntity.getBranchCode()
+                        , financialAccountingYearEntity.getFinancialAccountingYearCode());
         assertThat(financialAccountingYearEntity1).isNotNull();
     }
 
@@ -65,31 +67,36 @@ class FinancialAccountingYearDomainServiceTest {
         FinancialAccountingYearEntity financialAccountingYearEntity1 = null;
         assertThrows(Exception.class, () -> {
             FinancialAccountingYearEntity financialAccountingYearEntity2 =
-                    domainService.getFinancialAccountingYearByCode(
-                            financialAccountingYearEntity1.getBankCode());
+                    domainService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                            financialAccountingYearEntity1.getBankCode(),
+                            financialAccountingYearEntity1.getBranchCode(),
+                            financialAccountingYearEntity1.getFinancialAccountingYearCode());
         });
     }
 
     @Test
     @DisplayName ("JUnit test for getConfigurationByCode try block method")
     void getConfigurationByCodeTryBlock () {
-        given(repository.findByBankCode("BNP")).willReturn(financialAccountingYearEntity);
-        FinancialAccountingYearEntity financialAccountingYearByCode = domainService.getConfigurationByCode(
-                financialAccountingYearDTO);
+        given(repository.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode("ICI","BRV","FY2022")).willReturn(financialAccountingYearEntity);
+        FinancialAccountingYearEntity financialAccountingYearByCode = domainService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                financialAccountingYearDTO.getBankCode(),
+                financialAccountingYearDTO.getBranchCode(),
+                financialAccountingYearDTO.getFinancialAccountingYearCode());
         assertThat(financialAccountingYearByCode).isNotNull();
     }
 
     @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    void getConfigurationByCodeCatchBlock() {
+    @DisplayName ("JUnit test for getConfigurationByCode for Catch Block method")
+    void getConfigurationByCodeCatchBlock () {
         FinancialAccountingYearDTO financialAccountingYearDTO = null;
-        assertThrows(BusinessException.class,()-> {
-            FinancialAccountingYearEntity financialAccountingYearByCode = domainService.getConfigurationByCode(financialAccountingYearDTO);
+        assertThrows(Exception.class, () -> {
+            FinancialAccountingYearEntity financialAccountingYearByCode =
+                    domainService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                            financialAccountingYearDTO.getBankCode(),
+                            financialAccountingYearDTO.getBranchCode(),
+                            financialAccountingYearDTO.getFinancialAccountingYearCode());
         });
     }
-
-
-
 
     @Test
     @DisplayName ("JUnit test for getConfigurationByCode for Catch Block method")
@@ -102,25 +109,10 @@ class FinancialAccountingYearDomainServiceTest {
 
     private FinancialAccountingYearEntity getFinancialAccountingYearEntity () {
         List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCodeList = new ArrayList<>();
-        FinancialAccountingYearPeriodicCodeEntity entity1 = new FinancialAccountingYearPeriodicCodeEntity(
-                1L, 2021L, "JAN", getDate("2022-01-01"), getDate("2022-12-31"));
-        FinancialAccountingYearPeriodicCodeEntity entity2 = new FinancialAccountingYearPeriodicCodeEntity();
-        entity2.setPeriodCode("Feb");
-        entity2.setFinAccYearPeriodCodesId(2L);
-        entity2.setFinancialAccountingYearId(2021L);
-        entity2.setStartDateAccountingPeriod(getDate("2022-02-01"));
-        entity2.setEndDateAccountingPeriod(getDate("2022-02-28"));
-        FinancialAccountingYearPeriodicCodeEntity entity3 = new FinancialAccountingYearPeriodicCodeEntity(
-                1L, 2021L, "JAN", getDate("2022-02-28"), getDate("2022-02-28"));
-        List<FinancialAccountingYearPeriodicCodeEntity> periodicCodeEntityList = new ArrayList<FinancialAccountingYearPeriodicCodeEntity>();
-        periodicCodeEntityList.add(entity1);
-        periodicCodeEntityList.add(entity2);
-        periodicCodeEntityList.add(entity3);
         FinancialAccountingYearEntity financialAccountingYearEntity =
                 new FinancialAccountingYearEntity();
-        financialAccountingYearEntity.setBankCode("BNP");
-        financialAccountingYearEntity.setFinancialAccountingYearId(1L);
-        financialAccountingYearEntity.setBranchCode("CBB");
+        financialAccountingYearEntity.setBankCode("ICI");
+        financialAccountingYearEntity.setBranchCode("BRV");
         financialAccountingYearEntity.setStartDate(getDate("2022-01-01"));
         financialAccountingYearEntity.setEndDate(getDate("2022-02-28"));
         financialAccountingYearEntity.setFinancialAccountingYearCode("FY2022");
@@ -131,9 +123,26 @@ class FinancialAccountingYearDomainServiceTest {
         financialAccountingYearEntity.setRecordVersion(1);
         financialAccountingYearEntity.setAuthorized("Y");
         financialAccountingYearEntity.setLastConfigurationAction("new");
+        /**
+         * setting child records*/
+        FinancialAccountingYearPeriodicCodeEntity entity1 = new FinancialAccountingYearPeriodicCodeEntity(
+                "ICI", "BRV", "FY2022", "Q1", getDate("2022-01-01"), getDate("2022-12-31"));
+        FinancialAccountingYearPeriodicCodeEntity entity2 = new FinancialAccountingYearPeriodicCodeEntity();
+        entity2.setPeriodCode("Q2");
+        entity2.setBankCode("ICI");
+        entity2.setBranchCode("BRV");
+        entity2.setFinancialAccountingYearCode("FY2022");
+        entity2.setPeriodCode("Q2");
+        entity2.setStartDateAccountingPeriod(getDate("2022-02-01"));
+        entity2.setEndDateAccountingPeriod(getDate("2022-02-28"));
+        FinancialAccountingYearPeriodicCodeEntity entity3 = new FinancialAccountingYearPeriodicCodeEntity(
+                "ICI", "BRV", "FY2022", "FC", getDate("2022-02-28"), getDate("2022-02-28"));
+        List<FinancialAccountingYearPeriodicCodeEntity> periodicCodeEntityList = new ArrayList<FinancialAccountingYearPeriodicCodeEntity>();
+        periodicCodeEntityList.add(entity1);
+        periodicCodeEntityList.add(entity2);
+        periodicCodeEntityList.add(entity3);
         financialAccountingYearEntity.setFinancialAccountingYearPeriodicCode(
                 financialAccountingYearPeriodicCodeList);
-
         return financialAccountingYearEntity;
     }
 
@@ -151,24 +160,24 @@ class FinancialAccountingYearDomainServiceTest {
         List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCodeList = new ArrayList<>();
         String sDate = "2022-01-01";
         String eDate = "2022-12-31";
-
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
-                1L, "JAN", sDate, eDate);
+                "ICI", "BRV", "FY2022", "Q1", sDate, eDate);
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
+        dto2.setBankCode("ICI");
+        dto2.setBranchCode("BRV");
+        dto2.setFinancialAccountingYearCode("FY2022");
         dto2.setPeriodCode("FEB");
-        dto2.setFinAccYearPeriodCodesId(1L);
         dto2.setStartDateAccountingPeriod(sDate);
         dto2.setEndDateAccountingPeriod(eDate);
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
-                1L, "FC", sDate, eDate);
+                "ICI", "BRV", "FY2022", "FC", sDate, eDate);
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
         FinancialAccountingYearDTO financialAccountingYearDTO =
                 new FinancialAccountingYearDTO();
-        financialAccountingYearDTO.setBankCode("BNP");
-        financialAccountingYearDTO.setFinancialAccountingYearId(1L);
-        financialAccountingYearDTO.setBranchCode("CBB");
+        financialAccountingYearDTO.setBankCode("ICI");
+        financialAccountingYearDTO.setBranchCode("BRV");
         financialAccountingYearDTO.setStartDate(sDate);
         financialAccountingYearDTO.setEndDate(eDate);
         financialAccountingYearDTO.setFinancialAccountingYearCode("FY2022");
@@ -182,7 +191,7 @@ class FinancialAccountingYearDomainServiceTest {
         financialAccountingYearDTO.setFinancialAccountingYearPeriodicCode(
                 financialAccountingYearPeriodicCodeList);
         financialAccountingYearDTO.setAuthorized("Y");
-        financialAccountingYearDTO.setBankCode("BNP");
+        financialAccountingYearDTO.setBankCode("ICI");
         return financialAccountingYearDTO;
     }
 

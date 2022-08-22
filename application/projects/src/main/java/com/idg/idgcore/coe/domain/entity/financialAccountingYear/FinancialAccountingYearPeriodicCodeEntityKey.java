@@ -5,17 +5,16 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.*;
-import java.util.*;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table (name = "IDGC_COE_FIN_ACC_YEAR_PERIOD_CODES_CNFG")
-@ToString
-@IdClass (FinancialAccountingYearPeriodicCodeEntityKey.class)
-public class FinancialAccountingYearPeriodicCodeEntity extends AbstractAuditableDomainEntity
+@Inheritance (strategy = InheritanceType.JOINED)
+public class FinancialAccountingYearPeriodicCodeEntityKey extends AbstractDomainKey
         implements Serializable
 {
     @Id
@@ -29,10 +28,11 @@ public class FinancialAccountingYearPeriodicCodeEntity extends AbstractAuditable
     private String financialAccountingYearCode;
     @Id
     private String periodCode;
-    private Date startDateAccountingPeriod;
-    private Date endDateAccountingPeriod;
+
+    @Override
+    public String keyAsString () {
+        return bankCode + branchCode + financialAccountingYearCode + periodCode;
+    }
 
 }
-
-
 

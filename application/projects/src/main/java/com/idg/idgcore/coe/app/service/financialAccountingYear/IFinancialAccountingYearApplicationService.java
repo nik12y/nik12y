@@ -10,11 +10,19 @@ import com.idg.idgcore.dto.context.*;
 import java.util.*;
 
 public interface IFinancialAccountingYearApplicationService extends IBaseApplicationService {
-    TransactionStatus processFinancialAccountingYear (SessionContext sessionContext, FinancialAccountingYearDTO dto)
+    TransactionStatus processFinancialAccountingYear (SessionContext sessionContext,
+            FinancialAccountingYearDTO dto)
             throws FatalException, JsonProcessingException;
     void save (FinancialAccountingYearDTO dto);
-    FinancialAccountingYearDTO getFinancialAccountingYearByCode (SessionContext sessionContext, FinancialAccountingYearDTO dto)
+    FinancialAccountingYearDTO getFinancialAccountingYearByCode (SessionContext sessionContext,
+            FinancialAccountingYearDTO dto)
             throws FatalException, JsonProcessingException;
-    List<FinancialAccountingYearDTO> getFinancialAccountingYears (SessionContext sessionContext) throws FatalException;
+    List<FinancialAccountingYearDTO> getFinancialAccountingYears (SessionContext sessionContext)
+            throws FatalException;
+
+
+    FinancialAccountingYearDTO getByBankCodeAndBranchCodeAndFinancialAccountingYearCode (
+            SessionContext sessionContext, FinancialAccountingYearDTO dto)
+            throws FatalException, JsonProcessingException;
 
 }

@@ -10,6 +10,8 @@ public interface IFinancialAccountingYearDomainService {
             FinancialAccountingYearDTO financialAccountingYearDTO);
     List<FinancialAccountingYearEntity> getFinancialAccountingYears ();
     FinancialAccountingYearEntity getFinancialAccountingYearByCode (String bankCode);
+    FinancialAccountingYearEntity getByBankCodeAndBranchCodeAndFinancialAccountingYearCode  (String bankCode,
+            String branchCode, String financialAccountingYearCode);
     void save (FinancialAccountingYearDTO financialAccountingYearDTO);
 
 }

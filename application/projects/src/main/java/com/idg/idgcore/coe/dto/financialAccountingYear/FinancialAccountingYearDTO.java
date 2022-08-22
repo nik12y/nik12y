@@ -17,20 +17,17 @@ import static com.idg.idgcore.coe.common.Constants.*;
 @SuperBuilder
 @JsonInclude (JsonInclude.Include.NON_NULL)
 public class FinancialAccountingYearDTO extends CoreEngineBaseDTO {
-    private Long financialAccountingYearId;
     private String bankCode;
     private String branchCode;
+    private String financialAccountingYearCode;
     private String startDate;
     private String endDate;
-    private String financialAccountingYearCode;
     private String financialAccountingYearName;
     private String periodCodeFrequency;
     private String status;
     private Integer recordVersion;
     private String authorized;
     private String lastConfigurationAction;
-
-
     private List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCode;
 
     @Override
@@ -45,7 +42,8 @@ public class FinancialAccountingYearDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier () {
-        return this.getBankCode();
+        return bankCode + FIELD_SEPARATOR + branchCode + FIELD_SEPARATOR
+                + financialAccountingYearCode;
     }
 
 }

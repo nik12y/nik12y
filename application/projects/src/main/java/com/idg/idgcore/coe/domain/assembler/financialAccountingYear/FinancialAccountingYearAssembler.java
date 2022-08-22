@@ -29,6 +29,9 @@ public class FinancialAccountingYearAssembler {
         periodEntityList.addAll(periodDTOList.stream().map(entity -> {
             FinancialAccountingYearPeriodicCodeEntity map = modelMapper.map(entity,
                     FinancialAccountingYearPeriodicCodeEntity.class);
+            map.setBankCode(inputDTO.getBankCode());
+            map.setBranchCode(inputDTO.getBranchCode());
+            map.setFinancialAccountingYearCode(inputDTO.getFinancialAccountingYearCode());
             return map;
         }).collect(Collectors.toList()));
         FinancialAccountingYearEntity outEntity = modelMapper.map(inputDTO,
@@ -38,7 +41,7 @@ public class FinancialAccountingYearAssembler {
     }
 
     public FinancialAccountingYearDTO convertEntityToDto (FinancialAccountingYearEntity inEntity) {
-        if (!(inEntity == null)) {
+        if (inEntity != null) {
             List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = new ArrayList<>();
             List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = inEntity.getFinancialAccountingYearPeriodicCode();
             periodDTOList.addAll(periodEntityList.stream().map(dto -> {
@@ -58,9 +61,8 @@ public class FinancialAccountingYearAssembler {
             return outDTO;
         }
         else {
-            FinancialAccountingYearDTO outDTO = modelMapper.map(inEntity,
-                    FinancialAccountingYearDTO.class);
-            return outDTO;
+
+            return null;
         }
     }
 

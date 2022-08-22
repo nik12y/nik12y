@@ -1,6 +1,9 @@
 input FinancialAccountingYearInputQuery {
     bankCode: String!
-    authorized : String!
+    branchCode: String!
+    financialAccountingYearCode: String!
+    authorized: String!
+
 
 }
 
