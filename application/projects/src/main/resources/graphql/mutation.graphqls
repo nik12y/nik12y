@@ -32,6 +32,7 @@ type Mutation {
     processRiskCode(sessionContext: SessionContextInput, riskCode: RiskCodeInput): TransactionStatus
     processCurrencyRateType(sessionContext: SessionContextInput, type: CurrencyRateTypeInput): TransactionStatus
     #    processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
+    processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
     processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
     processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus
 }

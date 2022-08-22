@@ -11,7 +11,7 @@
         <createTable tableName="idgc_coe_audit_history_cnfg"
                      remarks="A table to contain all the Audit configuration">
 
-            <column name="id" type="serial4" autoIncrement="true">
+            <column name="audit_id" type="serial4" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
 
@@ -23,35 +23,32 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="payload" type="text">
+            <column name="json_payload" type="text">
             </column>
 
             <column name="record_version" type="int4">
-
             </column>
 
-            <column name="status" type="varchar(20)">
+            <column name="record_status" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="authorized" type="bpchar(1)">
-
+            <column name="is_authorized" type="bpchar(1)">
             </column>
 
             <column name="last_configuration_action" type="varchar(50)">
-
             </column>
 
-            <column name="reference_no" type="varchar(18)">
+            <column name="life_cycle_id" type="varchar(50)">
+            </column>
 
+            <column name="reference_no" type="varchar(50)">
             </column>
 
             <column name="trace_info" type="varchar(50)">
-
             </column>
 
-            <column name="action" type="varchar(20)">
-
+            <column name="record_action" type="varchar(20)">
             </column>
 
             <column name="created_by" type="varchar(50)">

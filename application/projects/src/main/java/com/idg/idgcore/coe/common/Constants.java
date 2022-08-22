@@ -93,6 +93,7 @@ public final class Constants {
     public static final String ERROR_OVERRIDE_SERVICE= "errorOverrideService";
     public static final String CURRENCY_RATE_TYPE = "CURRTYPE";
     public static final String CURRENCY_RATE_TYPE_SERVICE = "currencyRateTypeApplicationService";
+    public static final String FIELD_SEPARATOR = "_";
     private Constants () {
     }
 

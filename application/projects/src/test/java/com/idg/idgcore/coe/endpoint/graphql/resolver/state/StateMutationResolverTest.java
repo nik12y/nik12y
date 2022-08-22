@@ -1,21 +1,17 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.state;
 
-import com.graphql.spring.boot.test.GraphQLResponse;
-import com.graphql.spring.boot.test.GraphQLTestTemplate;
+import com.graphql.spring.boot.test.*;
+import com.idg.idgcore.*;
+import org.json.*;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.test.context.*;
 
-import com.idg.idgcore.TestApplication;
-import org.json.JSONException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import java.io.*;
 
-import java.io.IOException;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestApplication.class)
 class StateMutationResolverTest {
@@ -145,7 +141,8 @@ class StateMutationResolverTest {
 
         assertTrue(graphQLResponseCkReopen.getStatusCode().is2xxSuccessful());
         assertThat(graphQLResponseCkReopen.isOk(), equalTo(true));
-//        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseCkReopen.getRawResponse().getBody(), true);
+//        assertEquals(FileReaderUtil.read("response/authorize-checker-new-state-response.json"),graphQLResponseCkReopen.getRawResponse().getBody(),
+//                String.valueOf(true));
 
     }
 
