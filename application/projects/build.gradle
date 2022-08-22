@@ -78,6 +78,8 @@ dependencies {
     implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.9.0'
     implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
     implementation 'org.liquibase:liquibase-core:4.9.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.1'
+    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.9.2'
 
 }
 
@@ -111,7 +113,7 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.40
+                minimum = 0.60
             }
         }
 
@@ -121,19 +123,8 @@ jacocoTestCoverageVerification {
             excludes = [
                     'com/idg/idgcore/Application.class',
                     '**/config/**',
-                    '**/audit/**',
-                    '**/base/**',
-                    '**/city/**',
-                    '**/state/**',
-                    '**/country/**',
-                    '**/bank/**',
-                    '**/bankgroup/**',
-                    '**/bankidentifier/**',
-                    '**/capt/**',
-                    '**/branchtype/**',
-                    '**/module/**',
-                    '**/purpose/**',
-                    '**/mapping/**',
+                    '**/currencyconfiguration/**',
+                    '**/urn/**',
                     '**/memo/**',
                     '**/common/**',
                     '**/mutation/**',
@@ -164,19 +155,8 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                     'com/idg/idgcore/Application.class',
                     '**/config/**',
-                    '**/audit/**',
-                    '**/base/**',
-                    '**/city/**',
-                    '**/state/**',
-                    '**/country/**',
-                    '**/bank/**',
-                    '**/bankgroup/**',
-                    '**/bankidentifier/**',
-                    '**/capt/**',
-                    '**/branchtype/**',
-                    '**/module/**',
-                    '**/purpose/**',
-                    '**/mapping/**',
+                    '**/currencyconfiguration/**',
+                    '**/urn/**',
                     '**/memo/**',
                     '**/common/**',
                     '**/mutation/**',
