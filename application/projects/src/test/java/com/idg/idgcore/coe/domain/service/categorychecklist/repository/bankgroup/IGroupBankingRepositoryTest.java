@@ -22,50 +22,50 @@ class IGroupBankingRepositoryTest {
     @Autowired
     IGroupBankingRepository iGroupBankingRepository;
 
-//    @DisplayName("jUnit test to get all bankGroups ")
-//    @Test
-//    void findAllBanks() {
-//        GroupBankingEntity groupBankingEntity = new GroupBankingEntity("CBI", "Crime Bank of India",null,null
-//                , "draft", 0, "N", "draft");
-//        iGroupBankingRepository.save(groupBankingEntity);
-//
-//        GroupBankingEntity groupBanking1 = new GroupBankingEntity("SBI",
-//                "State Bank of India",null,null, "draft", 0, "N", "draft");
-//        iGroupBankingRepository.save(groupBanking1);
+    @DisplayName("jUnit test to get all bankGroups ")
+    @Test
+    void findAllBanks() {
+        GroupBankingEntity groupBankingEntity = new GroupBankingEntity("CBI", "Crime Bank of India",null,null
+                , "draft", 0, "N", "draft");
+        iGroupBankingRepository.save(groupBankingEntity);
 
-//        //when - condition
-//        List<GroupBankingEntity> groupBankingEntities = iGroupBankingRepository.findAll();
-//
-//        //then - output
-//        assertThat(groupBankingEntities).isNotNull();
-//   assertThat(groupBankingEntities.size()).isEqualTo(2);
-//
-//    }
+        GroupBankingEntity groupBanking1 = new GroupBankingEntity("SBI",
+                "State Bank of India",null,null, "draft", 0, "N", "draft");
+        iGroupBankingRepository.save(groupBanking1);
 
-//    @DisplayName("jUnit test to get bank by code ")
-//    @Test
-//    void findByBankCode() {
-//        GroupBankingEntity groupBankingEntity = new GroupBankingEntity("PNB",
-//                "Punjab national bank",null,null, "draft", 0, "Y", "draft");
-//        iGroupBankingRepository.save(groupBankingEntity);
-//
-//        GroupBankingEntity groupBankingEntity1 = iGroupBankingRepository.findByBankGroupCode("PNB");
-//
-//        assertThat(groupBankingEntity1.getBankGroupName().equals("Punjab national bank"));
-//
-//    }
-//
-//    @Test
-//    void saveBankTest() {
-//        GroupBankingEntity groupBanking = new GroupBankingEntity("PNB",
-//                "Punjab national bank",null,null, "draft", 0, "Y", "draft");
-//
-//        GroupBankingEntity groupBankingEntity = iGroupBankingRepository.save(groupBanking);
-//
-//        assertThat(groupBankingEntity).isNotNull();
-//        assertThat(groupBankingEntity.getBankGroupCode()).isEqualTo("PNB");
-//
-//
-//    }
+        //when - condition
+        List<GroupBankingEntity> groupBankingEntities = iGroupBankingRepository.findAll();
+
+        //then - output
+        assertThat(groupBankingEntities).isNotNull();
+   assertThat(groupBankingEntities.size()).isEqualTo(2);
+
+    }
+
+    @DisplayName("jUnit test to get bank by code ")
+    @Test
+    void findByBankCode() {
+        GroupBankingEntity groupBankingEntity = new GroupBankingEntity("PNB",
+                "Punjab national bank",null,null, "draft", 0, "Y", "draft");
+        iGroupBankingRepository.save(groupBankingEntity);
+
+        GroupBankingEntity groupBankingEntity1 = iGroupBankingRepository.findByBankGroupCode("PNB");
+
+        assertThat(groupBankingEntity1.getBankGroupName().equals("Punjab national bank"));
+
+    }
+
+    @Test
+    void saveBankTest() {
+        GroupBankingEntity groupBanking = new GroupBankingEntity("PNB",
+                "Punjab national bank",null,null, "draft", 0, "Y", "draft");
+
+        GroupBankingEntity groupBankingEntity = iGroupBankingRepository.save(groupBanking);
+
+        assertThat(groupBankingEntity).isNotNull();
+        assertThat(groupBankingEntity.getBankGroupCode()).isEqualTo("PNB");
+
+
+    }
 
 }

@@ -4,11 +4,13 @@ databaseChangeLog:
   - include:
       file: db/changelog/language-table.xml
   - include:
-      file: db/changelog/create-meta-tables-currency-configuration-schema.xml
+      file: db/changelog/audit-table.xml
   - include:
-      file: db/changelog/insert-meta-tables-currency-configuration-schema.xml
+      file: db/changelog/create-seed-tables-currency-configuration-schema.xml
   - include:
-      file: db/changelog/create-config-tables-currency-configuration-schema.xml
+      file: db/changelog/insert-seed-tables-currency-configuration-schema.xml
+  - include:
+      file: db/changelog/create-config-tables-currencyconfig-schema-updated.xml
   - include:
       file: db/changelog/riskcategory-table.xml
   - include:

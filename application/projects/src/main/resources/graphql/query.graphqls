@@ -68,8 +68,8 @@ type Query{
     getZakats(sessionContext: SessionContextInput): [Zakat]
     getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
     getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
-    #    getFinancialAccountingYearByCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
-    #    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear] #    getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
+    getFinancialAccountByBankCodeAndBranchCodeAndFinancialAccountingYearCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
+    getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear]
     getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
     getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
     getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
