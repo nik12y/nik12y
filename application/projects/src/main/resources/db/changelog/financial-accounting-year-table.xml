@@ -11,38 +11,31 @@
         <createTable tableName="idgc_coe_financial_accounting_year_cnfg"
                      remarks="A table to contain all the financial accounting year ">
 
-            <column name="financial_accounting_year_id" type="serial4" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-
             <column name="bank_code" type="varchar(4)">
-                <constraints nullable="false" unique="true"/>
             </column>
 
             <column name="branch_code" type="varchar(4)">
-                <constraints nullable="false"/>
             </column>
 
             <column name="financial_accounting_year_code" type="varchar(6)">
-                <constraints nullable="false"/>
             </column>
 
             <column name="financial_accounting_year_desc" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-			
+
             <column name="start_date" type="date">
                 <constraints nullable="false"/>
             </column>
-			
+
             <column name="end_date" type="date">
                 <constraints nullable="false"/>
             </column>
-			
+
             <column name="period_code_frequency" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-           
+
             <column name="life_cycle_id" type="varchar(50)">
             </column>
 
@@ -79,24 +72,26 @@
 
         </createTable>
         <addUniqueConstraint
-                columnNames="financial_accounting_year_id" tableName="idgc_coe_financial_accounting_year_cnfg"
+                columnNames="bank_code,branch_code,financial_accounting_year_code"
+                tableName="idgc_coe_financial_accounting_year_cnfg"
                 constraintName="idgc_coe_financial_accounting_year_cnfg_pk"/>
     </changeSet>
+
     <changeSet id="idgc_coe_fin_acc_year_period_codes_cnfg" author="Preeti">
 
         <createTable tableName="idgc_coe_fin_acc_year_period_codes_cnfg"
                      remarks="A table to contain all the financial accounting period codes year ">
 
-            <column name="fin_acc_year_period_codes_id" type="serial4" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true"/>
+            <column name="bank_code" type="varchar(4)">
             </column>
 
-            <column name="financial_accounting_year_id" type="int">
-                <constraints nullable="true" />
+            <column name="branch_code" type="varchar(4)">
+            </column>
+
+            <column name="financial_accounting_year_code" type="varchar(6)">
             </column>
 
             <column name="period_code" type="varchar(2)">
-                <constraints nullable="false"/>
             </column>
 
             <column name="start_date_accounting_period" type="date">
@@ -120,5 +115,9 @@
             </column>
 
         </createTable>
+        <addUniqueConstraint
+                columnNames="bank_code,branch_code,financial_accounting_year_code,period_code"
+                tableName="idgc_coe_fin_acc_year_period_codes_cnfg"
+                constraintName="idgc_coe_fin_acc_year_period_codes_cnfg_pk"/>
     </changeSet>
 </databaseChangeLog>

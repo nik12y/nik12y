@@ -18,4 +18,5 @@ type Country {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
+    authorized: String
 }

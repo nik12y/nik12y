@@ -1,0 +1,16 @@
+input FinancialAccountingYearInput {
+
+    bankCode : String! @Size(min: 1, max: 4, message: "bankCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,4}",message: "Bank Code Invalid pattern")
+    branchCode : String! @Size(min: 1, max: 8, message: "branchCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,8}",message: "branch Code Invalid pattern")
+    startDate : String!
+    endDate : String!
+    financialAccountingYearCode : String! @Size(min: 1, max: 6, message: "financialAccountingYearCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,6}",message: "financialAccounting YearCode Invalid pattern")
+    financialAccountingYearName : String! @Size(min: 1, max: 100, message: "financialAccountingYearDescription.message")
+    periodCodeFrequency : String!
+
+    financialAccountingYearPeriodicCode : [FinancialAccountingYearPeriodCodeInput]
+    action : String!
+    status : String!
+    recordVersion : Int
+
+}
