@@ -1,8 +1,7 @@
-package com.idg.idgcore.coe.app.service.urn.service;
+package com.idg.idgcore.coe.app.service.urn;
 
-import com.idg.idgcore.coe.common.*;
 import com.idg.idgcore.coe.exception.*;
-
+import com.idg.idgcore.dto.context.*;
 
 public interface IUrnGeneratorService {
 
