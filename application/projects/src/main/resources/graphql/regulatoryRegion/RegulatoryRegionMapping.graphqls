@@ -1,0 +1,4 @@
+type RegulatoryRegionMapping{
+    demographicMappingCode:String !
+  #  demographicMappingName:String !
+}

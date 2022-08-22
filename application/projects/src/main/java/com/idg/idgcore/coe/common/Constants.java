@@ -27,6 +27,11 @@ public final class Constants {
     public static final String QUESTION_SERVICE = "questionApplicationService";
     public static final String QUESTION_CATEGORY="QUESTION-CAT";
     public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
+
+
+    public static final String REGULATORY_SERVICE= "REG_REGION";
+    public static final String REGULATORY_REGION_SERVICE="regulatoryRegionApplicationService";
+
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
     public static final String REASON = "REASON";

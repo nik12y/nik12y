@@ -33,5 +33,7 @@ type Mutation {
     processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
     processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
     processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus
+
+    processRegulatoryRegion(sessionContext: SessionContextInput, regulatoryRegion: RegulatoryRegionInput): TransactionStatus
 }
 

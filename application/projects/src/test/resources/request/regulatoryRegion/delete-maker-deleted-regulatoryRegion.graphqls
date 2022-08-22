@@ -1,5 +1,5 @@
 mutation{
-    processQuestion(
+    processRegulatoryRegion(
         sessionContext:{
             bankCode: "03"
             defaultBranchCode: "0345"
@@ -13,9 +13,9 @@ mutation{
             userId: "NikhilYadav"
             accessibleTargetUnits: null
             channel: "Branch"
-            taskCode: "QUESTION"
+            taskCode: "REG-REGION"
             localDateTime: ""
-            role: "checker"
+            role: "maker"
             originalTransactionReferenceNumber: null
             externalBatchNumber: 1
             customAttributes: null
@@ -25,19 +25,22 @@ mutation{
             userLocal: "en_US"
             originatingModuleCode: null
         },
-        question:{
-            questionId:"Q03Draft"
-            questionName:"Education Loan Purpose"
-            questionText:"What is  Loan Purpose ?"
-            questionDescription:" Education Purpose helps to decide the further Application Treatment Workflow"
-            answerDisplayType: "Radio"
-            manualFactBased:"Fact"
-            answerValue: "Education Amount"
-            action : "authorize"
-            status:"updated"
-            recordVersion : 1
+        regulatoryRegion:{
+            regRegionCode: "REG002"
+            regionName: "USA"
+            regionDescription: "The USA is a Country"
+            regionEffectiveDate: "2022-01-15"
+            regionGroupCode: "Country"
+            purpose: "InterestRate"
+            regulatoryRegionMapping: {
+                demographicMappingCode: "HU"
+#                demographicMappingName: "Hungary"
+            }
+            action : "delete"
+            status:"deleted"
+            recordVersion : 0
         }
-    )m
+    )
     {
         externalReferenceNumber
         internalReferenceNumber
