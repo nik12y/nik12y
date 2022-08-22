@@ -20,14 +20,14 @@ class AppVerTypeQueryResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
-    @Test
+    //@Test
     void shouldAbleToGetAppVerTypes() throws IOException, JSONException {
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/appvertype/query-appvertypes.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
         assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
     }
 
-    @Test
+    //@Test
     void shouldAbleToGetAppVerTypeByCode() throws IOException, JSONException {
         GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/appvertype/query-appvertype-bycode.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));

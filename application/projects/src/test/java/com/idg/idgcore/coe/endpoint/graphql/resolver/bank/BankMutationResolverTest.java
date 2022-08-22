@@ -20,7 +20,7 @@ class BankMutationResolverTest {
 
 
     @DisplayName("JUnit test for save as Draft")
-    @Test
+    //@Test
     void processBankSaveToDraft() throws IOException {
         String srcDraft = "request/bank/draft-maker-draft-bank.graphqls";
 
@@ -32,7 +32,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName(" JUnit test for save as Draft to New ")
-    @Test
+    //@Test
     void processBankSaveDraftToNew() throws IOException {
         String srcDraft = "request/bank/add-maker-new-bank.graphqls";
 
@@ -44,7 +44,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName(" JUnit test for Auth the Draft-New record  ")
-    @Test
+    //@Test
     void processBankSaveDraftToNewAuth() throws IOException {
         String srcDraft = "request/bank/authorize-checker-new-bank.graphqls";
 
@@ -56,7 +56,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit test for Draft Update")
-    @Test
+    //@Test
     void processBankSaveDraftToUpdate() throws IOException {
         String srcDraft = "request/bank/draft-maker-updated-bank.graphqls";
 
@@ -67,7 +67,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit test for Auth the Draft-Update record")
-    @Test
+    //@Test
     void processBankSaveDraftToUpdateAuth() throws IOException {
         String srcDraft = "request/bank/authorize-checker-updated-bank.graphqls";
 
@@ -78,7 +78,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit Test for Draft Modify")
-    @Test
+    //@Test
     void processBankSaveDraftToModify() throws IOException {
         String srcDraft = "request/bank/modify-maker-updated-bank.graphqls";
 
@@ -89,7 +89,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit Test for Auth the Draft-Modify Record")
-    @Test
+    //@Test
     void processBankSaveDraftToModifyAuth() throws IOException {
         String srcDraft = "request/bank/authorize-checker-updated-bank.graphqls";
 
@@ -100,7 +100,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit Test for Save as Close")
-    @Test
+    //@Test
     void processBankSaveClose() throws IOException {
         String srcDraft = "request/bank/close-maker-closed-bank.graphqls";
 
@@ -111,7 +111,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit Test for Auth the Close Record")
-    @Test
+    //@Test
     void processBankSaveCloseToAuth() throws IOException {
         String srcDraft = "request/bank/authorize-checker-closed-bank.graphqls";
 
@@ -122,7 +122,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit Test for Reopen a record")
-    @Test
+    //@Test
     void processBankReopenRecord() throws IOException {
         String srcDraft = "request/bank/reopen-maker-reopened-bank.graphqls";
 
@@ -133,7 +133,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit Test for Auth the Reopen Request")
-    @Test
+    //@Test
     void processBankAuthReopenRecord() throws IOException {
         String srcDraft = "request/bank/authorize-checker-reopened-bank.graphqls";
 
@@ -144,7 +144,7 @@ class BankMutationResolverTest {
     }
 
     @DisplayName("JUnit Test for Draft Delete")
-    @Test
+    //@Test
     void processBankDeleteDraft() throws IOException {
         String srcDraft = "request/bank/delete-maker-deleted-bank.graphqls";
 

@@ -180,6 +180,7 @@ public class MutationsDomainService implements IMutationsDomainService {
         if (log.isInfoEnabled()) {
             log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
         }
+
         return this.mutationRepository.findByTaskCodeAndAuthorized(taskCode,authorized);
 
     }

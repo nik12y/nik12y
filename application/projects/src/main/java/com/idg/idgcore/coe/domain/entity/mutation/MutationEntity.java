@@ -30,15 +30,26 @@ public class MutationEntity
     implements Serializable
 {
     @Id
+    @Column (name="task_identifier")
     private String taskIdentifier;
     @Id
+    @Column (name="task_code")
     private String taskCode;
     @Type (type = "json")
-    @Column (columnDefinition = "clob")
+    @Column (name="json_payload", columnDefinition = "clob")
     private Payload payload;
+    @Column (name="record_status")
     private String status;
+    @Column (name="is_authorized")
     private String authorized;
+    @Column (name="record_version")
     private Integer recordVersion;
+    @Column (name="record_action")
     private String action;
+    @Column (name="last_configuration_action")
     private String lastConfigurationAction;
+    @Column (name="life_cycle_id")
+    private String lifeCycleId;
+    @Column (name="reference_no")
+    private String referenceNo;
 }

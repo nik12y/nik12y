@@ -1,0 +1,67 @@
+mutation{
+    processFinancialAccountingYear(
+        sessionContext:{
+            bankCode: "XBI"
+            defaultBranchCode: ""
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: ""
+            externalTransactionReferenceNumber: ""
+            targetUnit: ""
+            postingDate: ""
+            valueDate: ""
+            transactionBranch: ""
+            userId: "Preeti"
+            accessibleTargetUnits: [""]
+            channel: ""
+            taskCode: ""
+            localDateTime: ""
+            role: "maker"
+            originalTransactionReferenceNumber: ""
+            externalBatchNumber: 1
+            customAttributes: ""
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType:   ADDITION
+            userLocal: ""
+            originatingModuleCode: ""
+        },
+        financialAccountingYear:{
+            bankCode:"XBI"
+            branchCode:"BRV"
+            startDate:"2022-01-01"
+            endDate:"2022-12-31"
+            financialAccountingYearCode:"FY2022"
+            financialAccountingYearName:"Financial Accounting Year FY 2022"
+            periodCodeFrequency: "Half-Yearly"
+            action : "delete"
+            status:"deleted"
+            recordVersion : 0
+            financialAccountingYearPeriodicCode:[
+                {
+                    periodCode:"Q1"
+                    startDateAccountingPeriod:"2022-01-01"
+                    endDateAccountingPeriod:"2022-12-31"
+                }
+                {
+                    periodCode:"Q2"
+                    startDateAccountingPeriod:"2022-01-01"
+                    endDateAccountingPeriod:"2022-12-31"
+                }
+                {
+                    periodCode:"FC"
+                    startDateAccountingPeriod:"2022-12-31"
+                    endDateAccountingPeriod:"2022-12-31"
+                }
+            ]
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}
