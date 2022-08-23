@@ -25,8 +25,8 @@ class GroupBankingAssemblerTest {
         groupBankingDTO.setAuthorized("Y");
         groupBankingDTO = groupBankingAssembler.setAuditFields(mutationEntity, groupBankingDTO);
         assertEquals("Y", groupBankingDTO.getAuthorized());
-
     }
+
     @Test
     @DisplayName("Junit test for convertDTO to Entity")
     void convertDtoToEntity() {

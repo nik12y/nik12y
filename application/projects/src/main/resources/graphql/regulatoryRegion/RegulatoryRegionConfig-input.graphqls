@@ -1,0 +1,16 @@
+input RegulatoryRegionInput{
+    regRegionCode: String!@Size(min: 1, max: 8, message: "regRegionCode.message") @Pattern(regexp: "[A-Za-z0-9]{0,8}",message: "Region Code Invalid pattern")
+    regionName:String!@Size(min: 1, max: 40, message: "regionName.message") @Pattern(regexp: "[ A-Za-z0-9]{0,40}",message: "Region Name Invalid pattern")
+    regionDescription:String!@Size(min: 1, max: 40, message: "regionDescription.message") @Pattern(regexp: "[ A-Za-z ?''()-]{0,40}",message: "Region Description Invalid pattern")
+    regionEffectiveDate: String!#@Size(min: 1, max: 11, message: "regionEffectiveDate.message") @Pattern(regexp: "[A-Za-z0-9 - /. ]{0,11}",message: "Region Effective Date Invalid pattern")
+    regionGroupCode:String @Size(min: 1, max: 50, message: "regionGroupCode.message") @Pattern(regexp: "[A-Za-z]{0,50}",message: "Region Group Code Invalid pattern")
+    purpose:String! @Size(min: 1, max: 50, message: "purpose.message") @Pattern(regexp: "[ A-Za-z]{0,50}",message: "Purpose Invalid pattern")
+    regulatoryRegionMapping:[RegulatoryRegionMappingInput]
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

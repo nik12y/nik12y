@@ -1,0 +1,4 @@
+input RegulatoryRegionInputQuery{
+    regRegionCode:String!
+    authorized : String!
+}
