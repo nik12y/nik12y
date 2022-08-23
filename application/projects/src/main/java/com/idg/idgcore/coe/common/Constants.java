@@ -97,6 +97,20 @@ public final class Constants {
     public static final String ERROR_OVERRIDE = "ERROR-OVERRIDE";
     public static final String ERROR_OVERRIDE_SERVICE= "errorOverrideService";
     public static final String FIELD_SEPARATOR = "_";
+
+    public static final int BANKCODE_WIDTH = 10;
+    public static final int ENGINECODE_WIDTH = 10;
+    public static final int SCREENCODE_WIDTH = 10;
+    public static final int DATECODE_WIDTH = 6;
+    public static final int SEQ_NO_WIDTH = 4;
+
+    public static final String ERROR_MSG_BANK_CODE = "Bank Code should be of length upto 10";
+    public static final String ERROR_MSG_ENGINE_CODE = "Engine Code should be of length upto 10";
+    public static final String ERROR_MSG_SCREEN_CODE = "Screen Code should be of length upto 10";
+    public static final String SUCCESS_MSG = "Success";
+
+    public static final String KEY_CNST = "KEY_";
+
     private Constants () {
     }
 
