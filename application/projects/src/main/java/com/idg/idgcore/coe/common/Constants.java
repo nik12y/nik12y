@@ -27,6 +27,11 @@ public final class Constants {
     public static final String QUESTION_SERVICE = "questionApplicationService";
     public static final String QUESTION_CATEGORY="QUESTION-CAT";
     public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
+
+
+    public static final String REGULATORY_SERVICE= "REG_REGION";
+    public static final String REGULATORY_REGION_SERVICE="regulatoryRegionApplicationService";
+
     public static final String MODULE = "MODULE";
     public static final String MODULE_SERVICE = "moduleApplicationService";
     public static final String REASON = "REASON";
@@ -91,6 +96,21 @@ public final class Constants {
     public static final String FINANCIAL_ACCOUNTING_YEAR_SERVICE = "financialAccountingYearService";
     public static final String ERROR_OVERRIDE = "ERROR-OVERRIDE";
     public static final String ERROR_OVERRIDE_SERVICE= "errorOverrideService";
+    public static final String FIELD_SEPARATOR = "_";
+
+    public static final int BANKCODE_WIDTH = 10;
+    public static final int ENGINECODE_WIDTH = 10;
+    public static final int SCREENCODE_WIDTH = 10;
+    public static final int DATECODE_WIDTH = 6;
+    public static final int SEQ_NO_WIDTH = 4;
+
+    public static final String ERROR_MSG_BANK_CODE = "Bank Code should be of length upto 10";
+    public static final String ERROR_MSG_ENGINE_CODE = "Engine Code should be of length upto 10";
+    public static final String ERROR_MSG_SCREEN_CODE = "Screen Code should be of length upto 10";
+    public static final String SUCCESS_MSG = "Success";
+
+    public static final String KEY_CNST = "KEY_";
+
     private Constants () {
     }
 

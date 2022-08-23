@@ -10,4 +10,5 @@ type BranchSystemDate {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
+    authorized: String
 }

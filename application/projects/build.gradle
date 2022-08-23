@@ -69,7 +69,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.1.0'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.24'
-
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.6.0.0.1'
     implementation 'com.idg.idgcore.fmw.dto:com.idg.idgcore.fmw.dto:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.datatype:com.idg.idgcore.datatype:1.0-SNAPSHOT'
     implementation 'com.idg.idgcore.appcore:com.idg.idgcore.appcore:1.0-SNAPSHOT'
@@ -78,6 +78,11 @@ dependencies {
     implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.9.0'
     implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
     implementation 'org.liquibase:liquibase-core:4.9.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.1'
+    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.9.2'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-server', version: '2.2.8.RELEASE'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.2'
 
 }
 
@@ -111,7 +116,7 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.40
+                minimum = 0.60
             }
         }
 
@@ -121,19 +126,8 @@ jacocoTestCoverageVerification {
             excludes = [
                     'com/idg/idgcore/Application.class',
                     '**/config/**',
-                    '**/audit/**',
-                    '**/base/**',
-                    '**/city/**',
-                    '**/state/**',
-                    '**/country/**',
-                    '**/bank/**',
-                    '**/bankgroup/**',
-                    '**/bankidentifier/**',
-                    '**/capt/**',
-                    '**/branchtype/**',
-                    '**/module/**',
-                    '**/purpose/**',
-                    '**/mapping/**',
+                    '**/currencyconfiguration/**',
+                    '**/urn/**',
                     '**/memo/**',
                     '**/common/**',
                     '**/mutation/**',
@@ -164,19 +158,8 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                     'com/idg/idgcore/Application.class',
                     '**/config/**',
-                    '**/audit/**',
-                    '**/base/**',
-                    '**/city/**',
-                    '**/state/**',
-                    '**/country/**',
-                    '**/bank/**',
-                    '**/bankgroup/**',
-                    '**/bankidentifier/**',
-                    '**/capt/**',
-                    '**/branchtype/**',
-                    '**/module/**',
-                    '**/purpose/**',
-                    '**/mapping/**',
+                    '**/currencyconfiguration/**',
+                    '**/urn/**',
                     '**/memo/**',
                     '**/common/**',
                     '**/mutation/**',

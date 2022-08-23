@@ -34,17 +34,29 @@ public class AuditHistoryEntity extends AbstractAuditableDomainEntity
 {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column (name="audit_id")
     private Integer id;
+    @Column (name="task_code")
     private String taskCode;
+    @Column (name="task_identifier")
     private String taskIdentifier;
     @Type (type = "json")
-    @Column (columnDefinition = "clob")
+    @Column (name="json_payload", columnDefinition = "clob")
     private Payload payload;
+    @Column (name="record_status")
     private String status;
+    @Column (name="is_authorized")
     private String authorized;
+    @Column (name="record_version")
     private Integer recordVersion;
+    @Column (name="life_cycle_id")
+    private String lifeCycleId;
+    @Column (name="reference_no")
     private String referenceNo;
+    @Column (name="trace_info")
     private String traceInfo;
+    @Column (name="record_action")
     private String action;
+    @Column (name="last_configuration_action")
     private String lastConfigurationAction;
 }

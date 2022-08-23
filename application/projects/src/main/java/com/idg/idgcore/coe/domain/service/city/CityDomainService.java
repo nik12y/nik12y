@@ -3,7 +3,7 @@ package com.idg.idgcore.coe.domain.service.city;
 import com.idg.idgcore.coe.dto.city.CityDTO;
 import com.idg.idgcore.coe.domain.assembler.city.CityAssembler;
 import com.idg.idgcore.coe.domain.entity.city.CityEntity;
-import com.idg.idgcore.coe.domain.repository.city.ICityRepository;
+import com.idg.idgcore.coe.dto.city.ICityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

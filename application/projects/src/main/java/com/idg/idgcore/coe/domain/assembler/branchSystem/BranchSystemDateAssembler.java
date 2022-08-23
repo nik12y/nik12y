@@ -8,11 +8,13 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.text.*;
 
 @Component
 public class BranchSystemDateAssembler {
 
     private final ModelMapper modelMapper = new ModelMapper();
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostConstruct
     private void setMapperConfig () {
@@ -28,6 +30,11 @@ public class BranchSystemDateAssembler {
 
     public BranchSystemDateDTO convertEntityToDto (BranchSystemDateEntity branchSystemEntity) {
         BranchSystemDateDTO branchSystemDTO = modelMapper.map(branchSystemEntity, BranchSystemDateDTO.class);
+
+        branchSystemDTO.setCurrentWorkingDate(formatter.format(branchSystemEntity.getCurrentWorkingDate()));
+        branchSystemDTO.setPreviousWorkingDate(formatter.format(branchSystemEntity.getPreviousWorkingDate()));
+        branchSystemDTO.setNextWorkingDate(formatter.format(branchSystemEntity.getNextWorkingDate()));
+
         branchSystemDTO.setBranchCode(branchSystemEntity.getBranchCode());
         return branchSystemDTO;
     }
