@@ -16,15 +16,14 @@ import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.module.IModuleDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.exception.*;
+import com.idg.idgcore.datatypes.exceptions.*;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.enumerations.core.TransactionMessageType;
-import com.idg.idgcore.datatypes.exceptions.FatalException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -98,7 +97,7 @@ public class ModuleApplicationService extends AbstractApplicationService
 
     public List<ModuleDTO> getModules (SessionContext sessionContext) throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In getCountries with parameters sessionContext {}", sessionContext);
+            log.info("In getModules with parameters sessionContext {}", sessionContext);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
@@ -139,7 +138,6 @@ public class ModuleApplicationService extends AbstractApplicationService
         return moduleDTOList;
     }
 
-    @Transactional
     public TransactionStatus processModule (SessionContext sessionContext, ModuleDTO moduleDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
