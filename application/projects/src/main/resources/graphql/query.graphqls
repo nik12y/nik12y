@@ -76,5 +76,8 @@ type Query{
     getRiskCodes(sessionContext: SessionContextInput): [RiskCode]
     getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
 
+    getRegulatoryRegionByCode(sessionContext: SessionContextInput, regulatoryRegionQuery: RegulatoryRegionInputQuery): RegulatoryRegion
+    getRegulatoryRegionCodes (sessionContext: SessionContextInput): [RegulatoryRegion]
+
 }
 

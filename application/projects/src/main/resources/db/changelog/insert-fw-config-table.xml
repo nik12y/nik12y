@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="idgc_fw_config_all_b_insert_tbl" author="rakshit">
+        <comment>Data insertion for Configuration</comment>
+        <insert tableName="idgc_fw_config_all_b">
+            <column name="category_id" value="core_engine"/>
+            <column name="prop_id" value="urn_generator"/>
+            <column name="prop_value" valueNumeric="com.idg.idgcore.coe.app.config.urn.TransactionReferenceNumberGenerator"/>
+            <column name="sequence_number" value="1"/>
+            <column name="prop_description" value="Class used to generate transaction reference number"/>
+            <column name="is_enabled" value="Y"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
