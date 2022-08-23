@@ -160,7 +160,7 @@ class RiskCodeTypeMutationResolverTest {
     }
 
 
-    @Disabled
+    /*Test cases
     @DisplayName(" JUnit test for Auth the Draft-Reopen-Maker-Reopened")
     @Test
     void processRiskCodeSaveDraftToReopenMakerReopened() throws IOException {
@@ -177,6 +177,8 @@ class RiskCodeTypeMutationResolverTest {
         System.out.println(" DONE ");
 
     }
+    */
+
 
 
 
