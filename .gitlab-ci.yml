@@ -17,7 +17,7 @@ test-job:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
   cache:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
+      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -32,11 +32,11 @@ Build Dev:       # This job runs in the build stage, which runs first.
     name: Dev
   cache:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
+      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
-    - mv /builds/test-project/middleware-coreengine.tmp/ENV .env
+    - mv /builds/idgCore/middleware-coreengine.tmp/ENV .env
     - cat .env
   script:
     - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
@@ -45,7 +45,7 @@ Build Dev:       # This job runs in the build stage, which runs first.
     - dev
   artifacts:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/build/libs
+      - /builds/idgCore/middleware-coreengine/application/projects/build/libs
 
 Build IUT:       # This job runs in the build stage, which runs first.
   image: gradle:7.4.2-jdk17-focal
@@ -54,11 +54,11 @@ Build IUT:       # This job runs in the build stage, which runs first.
     name: IUT
   cache:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
+      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
-    - mv /builds/test-project/middleware-coreengine.tmp/ENV .env
+    - mv /builds/idgCore/middleware-coreengine.tmp/ENV .env
     - cat .env
   script:
     - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
@@ -67,8 +67,8 @@ Build IUT:       # This job runs in the build stage, which runs first.
     - iut
   artifacts:
     paths:
-      - /builds/test-project/middleware-coreengine/application/projects/build/libs
-      - /builds/test-project/middleware-coreengine/application/projects/.env
+      - /builds/idgCore/middleware-coreengine/application/projects/build/libs
+      - /builds/idgCore/middleware-coreengine/application/projects/.env
 
 Build Image:
   stage: Docker
