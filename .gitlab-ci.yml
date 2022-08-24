@@ -1,40 +1,44 @@
 
 # A pipeline is composed of independent jobs that run scripts, grouped into stages.
 # Stages run in sequential order, but jobs within stages run in parallel.
-
+#
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
 stages:         # List of stages for jobs, and their order of execution
   - Test
   - Build
   - Docker
   - Deploy
-
-Test:
-# Pre merge job to check build
+  
+test-job:
+  stage: test
   image: gradle:7.4.2-jdk17-focal
-  stage: Test
+
   rules:
-      - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
   cache:
     paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
+      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
-    - gradle check
+    - gradle clean check 
 
 
-Code Build :       # This job runs in the build stage, which runs first.
+Build Dev:       # This job runs in the build stage, which runs first.
   image: gradle:7.4.2-jdk17-focal
-  stage: Build
+  stage: build
+  environment:
+    name: Dev
   cache:
     paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
+      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
-    # - gradle check --no-daemon -x test -x sonarlintMain -x sonarlintTest
+    - mv /builds/test-project/middleware-coreengine.tmp/ENV .env
+    - cat .env
   script:
     - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
     - echo "Compile complete."
@@ -42,10 +46,33 @@ Code Build :       # This job runs in the build stage, which runs first.
     - dev
   artifacts:
     paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/build/libs
+      - /builds/test-project/middleware-coreengine/application/projects/build/libs
+
+Build IUT:       # This job runs in the build stage, which runs first.
+  image: gradle:7.4.2-jdk17-focal
+  stage: build
+  environment:
+    name: IUT
+  cache:
+    paths:
+      - /builds/test-project/middleware-coreengine/application/projects/.gradle/caches
+  before_script:
+    - cd application/projects/
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - mv /builds/test-project/middleware-coreengine.tmp/ENV .env
+    - cat .env
+  script:
+    - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
+    - echo "Compile complete."
+  only:
+    - iut
+  artifacts:
+    paths:
+      - /builds/test-project/middleware-coreengine/application/projects/build/libs
+      - /builds/test-project/middleware-coreengine/application/projects/.env
 
 Build Image:
-  stage: Docker
+  stage: docker
   before_script:
     - cd application/projects/
   script:
@@ -54,28 +81,55 @@ Build Image:
     - docker build -t $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID .
   only:
     - dev
-Push image:
-  stage: Docker
+    - iut
+
+Push Image:
+  stage: docker
   script:
     - echo "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS"
     - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
     - docker push $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID
   only:
-    - dev
+    - dev  
+    - iut
 
-Deploy:  
-  stage: Deploy 
+Deploy DEV:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   before_script:
     - chmod 400 $SSH_KEY
   script:
     - echo "Deploying application..."
-    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $BACKEND_SERVER
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY idc@192.168.100.178
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
        docker stop  $CI_PROJECT_NAME;
-       sleep 3;
+       sleep 5;
        docker rm $CI_PROJECT_NAME;
       docker run -d -p 8081:8099 --restart=always --name $CI_PROJECT_NAME $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID"
     - echo "Application successfully deployed."
   only:
     - dev
-#   when: manual
+  when: manual
+  environment:
+    name: Dev
+    url: http://192.168.100.178:8081/graphiql
+
+
+Deploy IUT:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  before_script:
+    - chmod 400 $SSH_KEY
+  script:
+    - echo "Deploying application..."
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY idc@192.168.100.178
+      "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
+       docker stop  $CI_PROJECT_NAME-IUT;
+       sleep 5;
+       docker rm $CI_PROJECT_NAME-IUT;
+      docker run -d -p 8082:8099 --restart=always --name $CI_PROJECT_NAME-IUT $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID"
+    - echo "Application successfully deployed."
+  only:
+    - iut
+  # when: manual
+  environment:
+    name: IUT
+    url: http://192.168.100.178:8082/graphiql
