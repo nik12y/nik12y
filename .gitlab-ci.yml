@@ -76,8 +76,10 @@ Build Image Dev:
     name: Dev
   before_script:
     - cd application/projects/
-  script:
     - ls
+    - cat .env
+    - cat src/main/resources/application.properties
+  script:
     - docker build  --no-cache -t $IMAGE_NAME .
   only:
     - dev
