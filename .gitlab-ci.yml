@@ -133,7 +133,7 @@ Deploy DEV:      # This job runs in the deploy stage.
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
        docker stop $CONTAINER_NAME;
        docker rm  $CONTAINER_NAME;
-      docker run -d -p 8081:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME;
+      docker run -d -p 8081:8099 --restart=always --env-file $ENV_PATH  --name $CONTAINER_NAME $IMAGE_NAME;
       rm  $ENV_PATH"
     - echo "Application successfully deployed."
   only:
@@ -158,7 +158,7 @@ Deploy IUT:      # This job runs in the deploy stage.
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
        docker stop $CONTAINER_NAME;
        docker rm  $CONTAINER_NAME;
-      docker run -d -p 8081:8099 --name $CONTAINER_NAME $IMAGE_NAME;
+      docker run -d -p 8081:8099 --env-file $ENV_PATH --name $CONTAINER_NAME $IMAGE_NAME;
       rm  $ENV_PATH"
     - echo "Application successfully deployed."
   only:
