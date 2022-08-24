@@ -25,6 +25,8 @@ public final class Constants {
     public static final String GROUP_BANKING_SERVICE = "groupBankingApplicationService";
     public static final String QUESTION = "QUESTION";
     public static final String QUESTION_SERVICE = "questionApplicationService";
+
+
     public static final String QUESTION_CATEGORY="QUESTION-CAT";
     public static final String QUESTION_CATEGORY_SERVICE="questionCategoryApplicationService";
 
@@ -43,6 +45,7 @@ public final class Constants {
     public static final String ZAKAT_SERVICE = "zakatApplicationService";
 
     public static final String INACTIVE = "inactive";
+
     public static final String ACTIVE = "active";
     public static final String DELETED = "deleted";
     public static final String CHECKER = "checker";

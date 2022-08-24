@@ -21,6 +21,7 @@ public class BranchTypeDTO extends CoreEngineBaseDTO {
 
         private String BranchTypeCode;
         private String BranchTypeName;
+//        private Boolean isAuthorized;
 
 
         @Override

@@ -8,20 +8,6 @@ import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
 
 import java.util.List;
-//
-//public interface IBranchTypeApplicationService extends
-//
-//        IBaseApplicationService {
-//    TransactionStatus processBranchType (SessionContext sessionContext, BranchTypeDTO dto) throws FatalException,
-//            JsonProcessingException;
-//    void save(BranchTypeDTO branchTypeDTO);
-//    BranchTypeDTO getBranchTypeByCode (SessionContext sessionContext, BranchTypeDTO branchtypeDTO)
-//            throws FatalException, JsonProcessingException;
-//    List<BranchTypeDTO> getBranches (SessionContext sessionContext)
-//            throws FatalException;
-//}
-
-
 public interface IBranchTypeApplicationService extends IBaseApplicationService {
     TransactionStatus processBranchType (SessionContext sessionContext, BranchTypeDTO dto)
             throws FatalException, JsonProcessingException;

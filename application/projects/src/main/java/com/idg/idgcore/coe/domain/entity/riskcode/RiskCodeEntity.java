@@ -31,7 +31,6 @@ public class RiskCodeEntity extends AbstractAuditableDomainEntity
         private String riskCodeDescription;
        @Column(name="risk_category_code")
         private String riskCategoryCode;
-
         @Column(name = "is_allow_details_modified")
         private Character isAllowDetailsModified;
         @Column(name= "risk_mode")
@@ -49,6 +48,7 @@ public class RiskCodeEntity extends AbstractAuditableDomainEntity
     private String authorized;
     @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
+
 
     }
 
