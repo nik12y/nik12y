@@ -126,14 +126,14 @@ Deploy DEV:      # This job runs in the deploy stage.
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
        docker stop $CONTAINER_NAME;
        docker rm  $CONTAINER_NAME;
-      docker run -d -p 8082:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME"
+      docker run -d -p 8081:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME"
     - echo "Application successfully deployed."
   only:
     - dev
   when: manual
   environment:
     name: Dev
-    url: http://192.168.100.178:8081/graphiql
+    url: http://192.168.100.163:8081/graphiql
 
 
 Deploy IUT:      # This job runs in the deploy stage.
@@ -146,7 +146,7 @@ Deploy IUT:      # This job runs in the deploy stage.
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
        docker stop $CONTAINER_NAME;
        docker rm  $CONTAINER_NAME;
-      docker run -d -p 8082:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME"
+      docker run -d -p 8081:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME"
     - echo "Application successfully deployed."
   only:
     - iut

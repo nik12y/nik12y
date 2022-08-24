@@ -7,5 +7,6 @@ ENV APPFILE idgcore-core-engine-0.0.1-SNAPSHOT.jar
 EXPOSE 8099
 
 COPY build/libs/${APPFILE} /app/
+COPY .env /app/
 
 ENTRYPOINT ["/bin/bash", "-c", "java -jar ${APPFILE}"]
