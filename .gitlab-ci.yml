@@ -77,8 +77,7 @@ Build Image Dev:
   before_script:
     - cd application/projects/
     - ls
-    - cat .env
-    - cat src/main/resources/application.properties
+
   script:
     - docker build  --no-cache -t $IMAGE_NAME .
   only:
@@ -101,6 +100,8 @@ Build Image IUT:
     name: IUT
   before_script:
     - cd application/projects/
+    - cat .env
+    - cat src/main/resources/application.properties
   script:
     - ls
     - docker build  --no-cache -t $IMAGE_NAME .
