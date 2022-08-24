@@ -76,8 +76,7 @@ Build Image:
     - cd application/projects/
   script:
     - ls
-    - echo "docker build -t $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID ."
-    - docker build -t $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID .
+    - docker build -t $IMAGE_NAME .
   only:
     - dev
     - iut
@@ -85,9 +84,8 @@ Build Image:
 Push Image:
   stage: Docker
   script:
-    - echo "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS"
     - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
-    - docker push $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID
+    - docker push $IMAGE_NAME
   only:
     - dev  
     - iut
@@ -98,12 +96,11 @@ Deploy DEV:      # This job runs in the deploy stage.
     - chmod 400 $SSH_KEY
   script:
     - echo "Deploying application..."
-    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY idc@192.168.100.178
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
-       docker stop  $CI_PROJECT_NAME;
-       sleep 5;
-       docker rm $CI_PROJECT_NAME;
-      docker run -d -p 8081:8099 --restart=always --name $CI_PROJECT_NAME $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID"
+       docker stop $CONTAINER_NAME;
+       docker rm  $CONTAINER_NAME;
+      docker run -d -p 8082:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME"
     - echo "Application successfully deployed."
   only:
     - dev
@@ -119,12 +116,11 @@ Deploy IUT:      # This job runs in the deploy stage.
     - chmod 400 $SSH_KEY
   script:
     - echo "Deploying application..."
-    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY idc@192.168.100.178
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
-       docker stop  $CI_PROJECT_NAME-IUT;
-       sleep 5;
-       docker rm $CI_PROJECT_NAME-IUT;
-      docker run -d -p 8082:8099 --restart=always --name $CI_PROJECT_NAME-IUT $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID"
+       docker stop $CONTAINER_NAME;
+       docker rm  $CONTAINER_NAME;
+      docker run -d -p 8082:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME"
     - echo "Application successfully deployed."
   only:
     - iut
