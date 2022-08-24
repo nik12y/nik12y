@@ -9,4 +9,6 @@ EXPOSE 8099
 COPY build/libs/${APPFILE} /app/
 COPY .env /app/
 
+SHELL ["/bin/bash", "-c"] 
+RUN source .env
 ENTRYPOINT ["/bin/bash", "-c", "java -jar ${APPFILE}"]
