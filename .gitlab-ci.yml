@@ -153,4 +153,4 @@ Deploy IUT:      # This job runs in the deploy stage.
   # when: manual
   environment:
     name: IUT
-    url: http://192.168.100.178:8082/graphiql
+    url: http://192.168.100.189:8082/graphiql
