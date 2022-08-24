@@ -11,9 +11,8 @@ stages:         # List of stages for jobs, and their order of execution
   - Deploy
   
 test-job:
-  stage: test
+  stage: Test
   image: gradle:7.4.2-jdk17-focal
-
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
   cache:
@@ -28,7 +27,7 @@ test-job:
 
 Build Dev:       # This job runs in the build stage, which runs first.
   image: gradle:7.4.2-jdk17-focal
-  stage: build
+  stage: Build
   environment:
     name: Dev
   cache:
@@ -50,7 +49,7 @@ Build Dev:       # This job runs in the build stage, which runs first.
 
 Build IUT:       # This job runs in the build stage, which runs first.
   image: gradle:7.4.2-jdk17-focal
-  stage: build
+  stage: Build
   environment:
     name: IUT
   cache:
@@ -72,7 +71,7 @@ Build IUT:       # This job runs in the build stage, which runs first.
       - /builds/test-project/middleware-coreengine/application/projects/.env
 
 Build Image:
-  stage: docker
+  stage: Docker
   before_script:
     - cd application/projects/
   script:
@@ -84,7 +83,7 @@ Build Image:
     - iut
 
 Push Image:
-  stage: docker
+  stage: Docker
   script:
     - echo "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS"
     - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
@@ -94,7 +93,7 @@ Push Image:
     - iut
 
 Deploy DEV:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
   before_script:
     - chmod 400 $SSH_KEY
   script:
@@ -115,7 +114,7 @@ Deploy DEV:      # This job runs in the deploy stage.
 
 
 Deploy IUT:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
   before_script:
     - chmod 400 $SSH_KEY
   script:
