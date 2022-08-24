@@ -81,7 +81,6 @@ Build Image Dev:
     - docker build -t $IMAGE_NAME .
   only:
     - dev
-    - iut
 
 Push Image Dev:
   stage: Docker
@@ -92,7 +91,7 @@ Push Image Dev:
     - docker push $IMAGE_NAME
   only:
     - dev  
-    - iut
+
 
 Build Image IUT:
   stage: Docker
@@ -104,7 +103,6 @@ Build Image IUT:
     - ls
     - docker build -t $IMAGE_NAME .
   only:
-    - dev
     - iut
 
 Push Image IUT:
@@ -115,7 +113,6 @@ Push Image IUT:
     - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
     - docker push $IMAGE_NAME
   only:
-    - dev  
     - iut
 
 
