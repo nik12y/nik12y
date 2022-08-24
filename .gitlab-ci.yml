@@ -121,15 +121,20 @@ Push Image IUT:
 
 Deploy DEV:      # This job runs in the deploy stage.
   stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  variables:
+    GIT_STRATEGY: none
+    ENV_PATH: /home/gitlab/.env
   before_script:
     - chmod 400 $SSH_KEY
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV $DEPLOY_SERVER:$ENV_PATH
   script:
     - echo "Deploying application..."
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
        docker stop $CONTAINER_NAME;
        docker rm  $CONTAINER_NAME;
-      docker run -d -p 8081:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME"
+      docker run -d -p 8081:8099 --restart=always --name $CONTAINER_NAME $IMAGE_NAME;
+      rm  $ENV_PATH"
     - echo "Application successfully deployed."
   only:
     - dev
@@ -141,15 +146,20 @@ Deploy DEV:      # This job runs in the deploy stage.
 
 Deploy IUT:      # This job runs in the deploy stage.
   stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  variables:
+    GIT_STRATEGY: none
+    ENV_PATH: /home/gitlab/.env
   before_script:
     - chmod 400 $SSH_KEY
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV $DEPLOY_SERVER:$ENV_PATH
   script:
     - echo "Deploying application..."
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
        docker stop $CONTAINER_NAME;
        docker rm  $CONTAINER_NAME;
-      docker run -d -p 8081:8099 --name $CONTAINER_NAME $IMAGE_NAME"
+      docker run -d -p 8081:8099 --name $CONTAINER_NAME $IMAGE_NAME;
+      rm  $ENV_PATH"
     - echo "Application successfully deployed."
   only:
     - iut
