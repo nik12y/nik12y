@@ -70,8 +70,10 @@ Build IUT:       # This job runs in the build stage, which runs first.
       - /builds/idgCore/middleware-coreengine/application/projects/build/libs
       - /builds/idgCore/middleware-coreengine/application/projects/.env
 
-Build Image:
+Build Image Dev:
   stage: Docker
+  environment:
+    name: Dev
   before_script:
     - cd application/projects/
   script:
@@ -81,14 +83,41 @@ Build Image:
     - dev
     - iut
 
-Push Image:
+Push Image Dev:
   stage: Docker
+  environment:
+    name: Dev
   script:
     - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
     - docker push $IMAGE_NAME
   only:
     - dev  
     - iut
+
+Build Image IUT:
+  stage: Docker
+  environment:
+    name: IUT
+  before_script:
+    - cd application/projects/
+  script:
+    - ls
+    - docker build -t $IMAGE_NAME .
+  only:
+    - dev
+    - iut
+
+Push Image IUT:
+  stage: Docker
+  environment:
+    name: IUT
+  script:
+    - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
+    - docker push $IMAGE_NAME
+  only:
+    - dev  
+    - iut
+
 
 Deploy DEV:      # This job runs in the deploy stage.
   stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
