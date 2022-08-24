@@ -78,7 +78,7 @@ Build Image Dev:
     - cd application/projects/
   script:
     - ls
-    - docker build -t $IMAGE_NAME .
+    - docker build  --no-cache -t $IMAGE_NAME .
   only:
     - dev
 
@@ -101,7 +101,7 @@ Build Image IUT:
     - cd application/projects/
   script:
     - ls
-    - docker build -t $IMAGE_NAME .
+    - docker build  --no-cache -t $IMAGE_NAME .
   only:
     - iut
 
