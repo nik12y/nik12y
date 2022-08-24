@@ -16,7 +16,7 @@
             </column>
 
             <column name="risk_code_name" type="varchar(100)">
-                <constraints  nullable="false"/>
+                <constraints  unique="true" nullable="false"/>
             </column>
 
             <column name="risk_category_code" type="varchar(10)">
@@ -28,6 +28,7 @@
             </column>
 
             <column name="is_allow_details_modified" type="char(1)">
+                <constraints nullable="false"/>
             </column>
 
             <column name="risk_mode" type="char(10)">

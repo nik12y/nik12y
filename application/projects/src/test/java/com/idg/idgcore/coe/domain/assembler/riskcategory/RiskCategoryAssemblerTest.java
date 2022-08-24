@@ -1,7 +1,10 @@
-package com.idg.idgcore.coe.domain.service.riskcategory;
+package com.idg.idgcore.coe.domain.assembler.riskcategory;
 
+
+import com.idg.idgcore.coe.domain.assembler.branchtype.BranchTypeAssembler;
 import com.idg.idgcore.coe.domain.assembler.riskcategory.RiskCategoryAssembler;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
+import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,8 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class riskcategorytest {
-
+class RiskCategoryAssemblerTest {
 
     @InjectMocks
     private RiskCategoryAssembler riskCategoryAssembler;
@@ -26,6 +28,5 @@ public class riskcategorytest {
         riskCategoryDTO = riskCategoryAssembler.setAuditFields(mutationEntity, riskCategoryDTO);
         assertEquals("Y", riskCategoryDTO.getAuthorized());
     }
+
 }
-
-

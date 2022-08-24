@@ -1,5 +1,5 @@
-query{
-    getRiskCodeByCode(
+mutation{
+    processRiskCode(
         sessionContext:{
             bankCode: "03"
             defaultBranchCode: "03110"
@@ -15,7 +15,7 @@ query{
             channel: "Branch"
             taskCode: null
             localDateTime: null
-            role: "maker"
+            role: "checker"
             originalTransactionReferenceNumber: null
             externalBatchNumber: 1
             customAttributes: null
@@ -26,23 +26,30 @@ query{
             originatingModuleCode: "null"
         },
         riskCode:{
-            riskCode:"IND"
-            authorized:"Y"
+            riskCode:"HKB"
+            riskCodeName:"Baharein Branch"
+            riskCodeDescription:"Name of the Baharein Branch Type"
+            riskCategoryCode: "sdfgh"
+            riskMode: "Internal"
+            isAllowDetailsModified: true
+
+            lastUpdatedBy:"Chaetll"
+            lastUpdatedTime:""
+            createdBy:"Chaetll"
+            creationTime:""
+
+            action : "authorize"
+            status:"updated"
+            recordVersion : 1
         }
     )
     {
-        riskCode
-        riskCodeName
-        riskCodeDescription
-        riskCategoryCode
-        riskMode
-        isAllowDetailsModified
-        status
-
-        recordVersion
-        createdBy
-        creationTime
-        lastUpdatedBy
-        lastUpdatedTime
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
     }
 }

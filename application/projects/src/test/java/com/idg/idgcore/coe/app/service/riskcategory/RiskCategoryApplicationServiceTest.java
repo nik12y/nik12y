@@ -11,7 +11,6 @@ import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntityKey;
 import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.riskcategory.IRiskCategoryDomainService;
-import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,7 +31,6 @@ import java.util.List;
 
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.common.Constants.RISKCATEGORY;
-import static com.idg.idgcore.coe.common.Constants.*;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -213,7 +210,7 @@ class RiskCategoryApplicationServiceTest {
         verify(process, times(1)).process(riskCategoryDTO);
     }
 
-/*
+
     @Test
     @DisplayName("Should return all getRiskCategory when there are no unauthorized")
     void getRiskCategoriesWhenThereAreNoUnauthorized() throws FatalException {
@@ -225,7 +222,7 @@ class RiskCategoryApplicationServiceTest {
         assertEquals(riskCategoryDTO, riskCategoryDTOList.get(0));
     }
 
-*/
+
 
 
     @Test
@@ -244,14 +241,14 @@ class RiskCategoryApplicationServiceTest {
     }
 
 
-//    @Test
-//    @DisplayName("JUnit for ConfigurationByCode in application service")
-//    void getConfigurationByCodeTest(){
-//        String code = riskCategoryDTO.getRiskCategoryCode();
-//        given(riskCategoryDomainService.getRiskCategoryByCode(code)).willReturn(riskCategoryEntity);
-//        riskCategoryApplicationService.getConfigurationByCode(code);
-//        assertThat(riskCategoryEntity).isNotNull();
-//    }
+    @Test
+    @DisplayName("JUnit for ConfigurationByCode in application service")
+    void getConfigurationByCodeTest(){
+        String code = riskCategoryDTO.getRiskCategoryCode();
+        given(riskCategoryDomainService.getRiskCategoryByCode(code)).willReturn(riskCategoryEntity);
+        riskCategoryApplicationService.getConfigurationByCode(code);
+        assertThat(riskCategoryEntity).isNotNull();
+    }
 
 
 
@@ -269,7 +266,7 @@ class RiskCategoryApplicationServiceTest {
 
 
 
-/*
+
     @Test
     @DisplayName("JUnit for getBy-RiskCategoryCode in application service check Parameter not null")
     void getRiskCategoryByCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
@@ -287,24 +284,24 @@ class RiskCategoryApplicationServiceTest {
         assertThat(riskCategoryDTOEx.getRiskCategoryCode()).isNotBlank();
         assertThat(riskCategoryDTOEx.getAuthorized()).isNotBlank();
     }
-*/
 
-//    @Test
-//    @DisplayName("JUnit for code coverage")
-//    void getCodeCoverage()
-//    {
-//        assertThat(riskCategoryEntity.toString()).isNotNull();
-//        assertThat(riskCategoryDTO.toString()).isNotNull();
-//        RiskCategoryDTO riskCategoryDTO2=new RiskCategoryDTO("MH001", "MAHARASTRA","MAHA");
-//        RiskCategoryDTO.builder().riskCategoryCode("MH001").riskCategoryName("MAHARASTRA").riskCategoryDescription("MAHA")
-//                .build().toString();
-//        RiskCategoryEntityKey riskCategoryEntityKey=new RiskCategoryEntityKey("MH");
-//        assertThat(riskCategoryEntityKey.toString()).isNotNull();
-//        riskCategoryEntityKey.setRiskCategoryCode("MA");
-//        riskCategoryEntityKey.keyAsString();
-//        riskCategoryEntityKey.builder().riskCategoryCode("JP").build();
-//        assertThat(riskCategoryDTO).descriptionText();
-//    }
+
+    @Test
+    @DisplayName("JUnit for code coverage")
+    void getCodeCoverage()
+    {
+        assertThat(riskCategoryEntity.toString()).isNotNull();
+        assertThat(riskCategoryDTO.toString()).isNotNull();
+        RiskCategoryDTO riskCategoryDTO2=new RiskCategoryDTO("MH001", "MAHARASTRA","MAHA");
+        RiskCategoryDTO.builder().riskCategoryCode("MH001").riskCategoryName("MAHARASTRA").riskCategoryDescription("MAHA")
+                .build().toString();
+        RiskCategoryEntityKey riskCategoryEntityKey=new RiskCategoryEntityKey("MH");
+        assertThat(riskCategoryEntityKey.toString()).isNotNull();
+        riskCategoryEntityKey.setRiskCategoryCode("MA");
+        riskCategoryEntityKey.keyAsString();
+        riskCategoryEntityKey.builder().riskCategoryCode("JP").build();
+        assertThat(riskCategoryDTO).descriptionText();
+    }
 
 //    @Test
 //    @DisplayName("JUnit for RiskCategory in application service for try block negative scenario for SessionContext some field not be null")
@@ -391,8 +388,9 @@ class RiskCategoryApplicationServiceTest {
     }
     private RiskCategoryEntity getStateEntity(){
 //        RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity("MH001","MAHARASHTRA","MAHA","draft",0, "Y","draft");
-        //RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity();
+        RiskCategoryEntity riskCategoryEntity = new RiskCategoryEntity();
         RiskCategoryEntity riskCategoryEntity01 = new RiskCategoryEntity("MH001","MAHARASHTRA","MAHA",null, null,0,"draft", "Y","draft");
+
         return riskCategoryEntity;
     }
     private RiskCategoryEntity getStatesEntity()
