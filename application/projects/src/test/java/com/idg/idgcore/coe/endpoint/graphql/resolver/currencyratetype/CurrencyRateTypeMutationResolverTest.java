@@ -1,4 +1,4 @@
-package com.idg.idgcore.graphqlsdl.resolver;
+package com.idg.idgcore.coe.endpoint.graphql.resolver.currencyratetype;
 
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
