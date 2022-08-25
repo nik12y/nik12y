@@ -26,14 +26,15 @@ query{
             originatingModuleCode: "null"
         },
         branchType:{
-            branchTypeCode:"USA"
+            branchTypeCode:"HBDG001"
             authorized:"Y"
         }
-    ) {
+
+    )
+    {
+
         branchTypeCode
         branchTypeName
-
-
         status
         recordVersion
         createdBy

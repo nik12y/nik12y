@@ -1,0 +1,16 @@
+type RegulatoryRegion{
+    regRegionCode: String!
+    regionName:String!
+    regionDescription:String!
+    regionEffectiveDate: String!
+    regionGroupCode:String
+    purpose:String!
+    regulatoryRegionMapping:[RegulatoryRegionMapping]
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
