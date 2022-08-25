@@ -26,17 +26,11 @@ mutation{
             originatingModuleCode: "null"
         },
         branchType:{
-            branchTypeCode:"CBB"
-            branchTypeName:"Corporate Banking Branch"
-
-            createdBy:"Chikoo"
-            creationTime:""
-            lastUpdatedBy:"Chirag"
-            lastUpdatedTime:""
-
+            branchTypeCode:"HBDG"
+            branchTypeName:"HongKong"
             action : "draft"
             status:"draft"
-            recordVersion : 1
+            recordVersion : 0
         }
     )
     {

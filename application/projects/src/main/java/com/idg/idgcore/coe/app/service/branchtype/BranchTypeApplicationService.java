@@ -137,10 +137,6 @@ public List<BranchTypeDTO> getBranches (SessionContext sessionContext) throws Fa
     return branchTypeDTOList;
 }
 
-
-
-
-    @Transactional
     public TransactionStatus processBranchType (SessionContext sessionContext, BranchTypeDTO branchtypeDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {

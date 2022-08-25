@@ -134,7 +134,6 @@ public class QuestionCategoryApplicationService extends AbstractApplicationServi
     }
 
 
-    @Override
     public TransactionStatus processQuestionCategory(SessionContext sessionContext, QuestionCategoryDTO questionCategoryDTO) throws FatalException, JsonProcessingException {
         if (log.isInfoEnabled()) {
             log.info("In processQuestionCategory with parameters sessionContext {}, questionCategoryDTO {}",

@@ -1,36 +1,33 @@
 package com.idg.idgcore.coe.domain.assembler.module;
 
 import com.idg.idgcore.coe.domain.entity.module.ModuleEntity;
-import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
+import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.dto.module.ModuleDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.*;
+import javax.annotation.PostConstruct;
 
 import static com.idg.idgcore.coe.common.Constants.CHAR_N;
 import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
 
-
 @Component
 public class ModuleAssembler {
-
-    private ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @PostConstruct
-    private void setMapperConfig() {
+    private void setMapperConfig () {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
     }
 
-    public ModuleEntity convertDtoToEntity(ModuleDTO moduleDTO) {
+    public ModuleEntity convertDtoToEntity (ModuleDTO moduleDTO) {
         ModuleEntity moduleEntity = modelMapper.map(moduleDTO, ModuleEntity.class);
         moduleEntity.setModuleCode(moduleDTO.getModuleCode());
         moduleEntity.setModuleName(moduleDTO.getModuleName());
         moduleEntity.setBankCode(moduleDTO.getBankCode());
         moduleEntity.setModuleUsers(moduleDTO.getModuleUsers());
-        moduleEntity.setModuleCurrentUser(moduleDTO.getModuleCurrentUsers());
         moduleEntity.setIsLicensed(getCharValueFromBoolean(moduleDTO.isLicensed()));
         moduleEntity.setIsPurgeAvailable(getCharValueFromBoolean(moduleDTO.isPurgeAvailable()));
         moduleEntity.setIsUdf(getCharValueFromBoolean(moduleDTO.isUserDefinedFields()));
@@ -38,7 +35,7 @@ public class ModuleAssembler {
         return moduleEntity;
     }
 
-    public ModuleDTO convertEntityToDto(ModuleEntity moduleEntity) {
+    public ModuleDTO convertEntityToDto (ModuleEntity moduleEntity) {
         ModuleDTO moduleDTO = modelMapper.map(moduleEntity, ModuleDTO.class);
         moduleDTO.setModuleCode(moduleEntity.getModuleCode());
         moduleDTO.setModuleName(moduleEntity.getModuleName());
@@ -49,10 +46,10 @@ public class ModuleAssembler {
         moduleDTO.setPurgeAvailable(getBooleanValueFromChar(moduleEntity.getIsPurgeAvailable()));
         moduleDTO.setUserDefinedFields(getBooleanValueFromChar(moduleEntity.getIsUdf()));
         moduleDTO.setInstalled(getBooleanValueFromChar(moduleEntity.getIsInstalled()));
-        return modelMapper.map(moduleEntity, ModuleDTO.class);
+        return moduleDTO;
     }
 
-    public ModuleDTO setAuditFields (MutationEntity mutationEntity, ModuleDTO moduleDTO) {
+    public ModuleDTO setAuditFields (MutationEntity  mutationEntity, ModuleDTO moduleDTO) {
         moduleDTO.setAction(mutationEntity.getAction());
         moduleDTO.setAuthorized(mutationEntity.getAuthorized());
         moduleDTO.setRecordVersion(mutationEntity.getRecordVersion());
@@ -67,12 +64,12 @@ public class ModuleAssembler {
         return moduleDTO;
     }
 
-
-    public char getCharValueFromBoolean(boolean value) {
+    public char getCharValueFromBoolean (boolean value) {
         return value ? CHAR_Y : CHAR_N;
     }
 
-    public boolean getBooleanValueFromChar(Character value) {
+    public boolean getBooleanValueFromChar (Character value) {
         return value.equals(CHAR_Y);
     }
+
 }
