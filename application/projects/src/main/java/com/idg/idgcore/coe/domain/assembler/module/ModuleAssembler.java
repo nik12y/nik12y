@@ -27,6 +27,7 @@ public class ModuleAssembler {
         moduleEntity.setModuleCode(moduleDTO.getModuleCode());
         moduleEntity.setModuleName(moduleDTO.getModuleName());
         moduleEntity.setBankCode(moduleDTO.getBankCode());
+        moduleEntity.setModuleCurrentUser(moduleDTO.getModuleCurrentUsers());
         moduleEntity.setModuleUsers(moduleDTO.getModuleUsers());
         moduleEntity.setIsLicensed(getCharValueFromBoolean(moduleDTO.isLicensed()));
         moduleEntity.setIsPurgeAvailable(getCharValueFromBoolean(moduleDTO.isPurgeAvailable()));
