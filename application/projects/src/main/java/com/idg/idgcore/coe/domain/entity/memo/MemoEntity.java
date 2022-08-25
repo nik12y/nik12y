@@ -18,17 +18,25 @@ import java.io.Serializable;
 @Table (name = "IDGC_COE_MEMO")
 @Inheritance (strategy = InheritanceType.JOINED)
 @ToString
-public class MemoEntity extends AbstractAuditableDomainEntity
-        implements Serializable
-{
+public class MemoEntity extends AbstractAuditableDomainEntity implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column (name = "memo_id")
     private Integer id;
-    private String referenceNo;
+    @Column (name = "module_id")
     private String moduleId;
+    @Column (name = "task_code")
     private String taskCode;
+    @Column (name = "task_identifier")
     private String taskIdentifier;
-    private Integer recordVersion;
+    @Column (name = "memo_comments")
     private String memoComments;
+    @Column (name = "record_status")
     private String status;
+    @Column (name = "record_version")
+    private Integer recordVersion;
+    @Column (name = "life_cycle_id")
+    private String lifeCycleId;
+    @Column (name = "reference_no")
+    private String referenceNo;
 }

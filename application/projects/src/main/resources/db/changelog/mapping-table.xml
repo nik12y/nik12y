@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="idgc_coe_mapping_config" author="nilesh">
+
+        <createTable tableName="idgc_coe_mapping_config"
+                     remarks="A table to contain all the mapping configuration">
+
+            <column name="mapping_id" type="serial4" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="record_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="use_role" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="mapping_status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="update_record_version" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="inactive_previous_record" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="insert_record_into_audit" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="insert_record_into_basetable" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="copy_record_from_base_table" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
