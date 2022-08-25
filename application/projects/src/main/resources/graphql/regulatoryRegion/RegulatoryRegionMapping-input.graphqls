@@ -1,0 +1,4 @@
+input RegulatoryRegionMappingInput{
+    demographicMappingCode:String !@Size(min: 1, max: 8, message: "demographicMappingCode.message") @Pattern(regexp: "[A-Za-z0-9]{0,8}",message: "Demographic Mapping Code Invalid pattern")
+  #  demographicMappingName:String !#@Size(min: 1, max:50, message: "demographicMappingName.message") @Pattern(regexp: "[ A-Za-z]{0,50}",message: "Demographic Mapping Name Invalid pattern")
+}

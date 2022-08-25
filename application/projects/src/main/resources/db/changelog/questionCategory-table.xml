@@ -6,27 +6,29 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="idgc_coe_question_category_cnfg" author="NikhilYadav">
+    <changeSet id="idgc_coe_question_category_cnfg1" author="NikhilYadav">
 
         <createTable tableName="idgc_coe_question_category_cnfg"
                      remarks="A table to contain all the QuestionCategory configuration">
 
-            <column name="question_category_id" type="varchar(2)">
+            <column name="question_category_id" type="varchar(10)">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-
-            <column name="question_display" type="varchar(3)">
+            <column name="question_category_name" type="varchar(35)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_display" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="is_show_que_category_name" type="varchar(100)">
+            <column name="is_show_que_category_name" type="varchar(1)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="is_enable_document_upload" type="varchar(2)">
+            <column name="is_enable_document_upload" type="varchar(1)">
             </column>
 
-            <column name="life_cycle_id" type="varchar(100)">
+            <column name="life_cycle_id" type="varchar(50)">
             </column>
 
             <column name="reference_no" type="varchar(50)">
@@ -62,46 +64,47 @@
 
         </createTable>
 
-        <addUniqueConstraint tableName="idgc_coe_question_category_cnfg" columnNames="question_category_id"
-                             constraintName="idgc_coe_question_category_cnfg_pk"/>
-    </changeSet>
 
-      <changeSet id="idgc_coe_que_cat_detail_cnfg" author="NikhilYadav">
-
-          <createTable tableName="idgc_coe_que_cat_detail_cnfg"
+        <createTable tableName="idgc_coe_que_cat_detail_cnfg"
                      remarks="A table to contain all the QuestionCategory configuration">
 
-                <column name="que_cat_detail_id" type="varchar(10)">
-                    <constraints nullable="false" primaryKey="true"/>
-                </column>
+            <column name="que_cat_detail_id" type="integer" autoIncrement="true">
+            </column>
 
-                <column name="question_category_id" type="varchar(10)">
-                    <constraints nullable="false"/>
-                </column>
+            <column name="question_category_id" type="varchar(10)">
+            </column>
 
-                <column name="question_nature" type="varchar(10)">
-                    <constraints nullable="false"/>
-                </column>
+            <column name="question_id" type="varchar(10)">
+            </column>
 
-                <column name="parent_question_id " type="varchar(10)">
-                </column>
+            <column name="question_nature" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
 
-                <column name="display_condition" type="varchar(10)">
-                </column>
+            <column name="parent_question_id" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
 
-                <column name="created_by" type="varchar(20)">
-                </column>
+            <column name="display_condition" type="varchar(10)">
+            </column>
 
-                <column name="creation_time" type="timestamp">
-                </column>
+            <column name="created_by" type="varchar(20)">
+            </column>
 
-                <column name="last_updated_by" type="varchar(20)">
-                </column>
+            <column name="creation_time" type="timestamp">
+            </column>
 
-                <column name="last_updated_time" type="timestamp">
-                </column>
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
 
+            <column name="last_updated_time" type="timestamp">
+            </column>
 
         </createTable>
+        <addForeignKeyConstraint baseTableName="idgc_coe_que_cat_detail_cnfg" baseColumnNames="question_category_id"
+                                 constraintName="question_category_id_fk"
+                                 referencedTableName="idgc_coe_question_category_cnfg"
+                                 referencedColumnNames="question_category_id"/>
+
     </changeSet>
 </databaseChangeLog>

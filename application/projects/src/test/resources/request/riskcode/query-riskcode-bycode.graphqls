@@ -31,10 +31,14 @@ query{
         }
     )
     {
+        riskCode
+        riskCodeName
+        riskCodeDescription
         riskCategoryCode
-        riskCategoryName
-        riskCategoryDescription
+        riskMode
+        isAllowDetailsModified
         status
+
         recordVersion
         createdBy
         creationTime

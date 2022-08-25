@@ -23,6 +23,7 @@ type Query{
     getLanguages(sessionContext: SessionContextInput): [Language]
     getBranchTypeByCode(sessionContext: SessionContextInput, branchType: BranchTypeInputQuery): BranchType
     getBranches(sessionContext: SessionContextInput): [BranchType]
+
     getGroupBankByCode(sessionContext: SessionContextInput, groupBankQuery: GroupBankingInputQuery): GroupBanking
     getGroupBanks(sessionContext: SessionContextInput):[GroupBanking]
     getCaptByCode(sessionContext: SessionContextInput, captQuery: CaptInputQuery): Capt
@@ -76,6 +77,9 @@ type Query{
     getRiskCodeByCode(sessionContext: SessionContextInput, riskCode: RiskCodeInputQuery): RiskCode
     getCurrencyRateTypeByType(sessionContext: SessionContextInput, currencyRateTypeQuery: CurrencyRateTypeInputQuery): CurrencyRateType
     getCurrencyRateTypes(sessionContext: SessionContextInput): [CurrencyRateType]
+
+    getRegulatoryRegionByCode(sessionContext: SessionContextInput, regulatoryRegionQuery: RegulatoryRegionInputQuery): RegulatoryRegion
+    getRegulatoryRegionCodes (sessionContext: SessionContextInput): [RegulatoryRegion]
 
 }
 

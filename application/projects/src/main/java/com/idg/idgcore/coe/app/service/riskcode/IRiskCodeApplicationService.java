@@ -2,6 +2,7 @@ package com.idg.idgcore.coe.app.service.riskcode;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.idg.idgcore.coe.app.service.base.IBaseApplicationService;
+import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.coe.dto.riskcode.RiskCodeDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -21,14 +22,3 @@ public interface IRiskCodeApplicationService extends IBaseApplicationService {
     List<RiskCodeDTO> getRiskCodes(SessionContext sessionContext) throws FatalException;
 
 }
-
-    /*NIKHIL CHANGES
-TransactionStatus processRiskCategory (SessionContext sessionContext, RiskCategoryDTO dto)
-        throws FatalException, JsonProcessingException;
-    void save (RiskCategoryDTO countryDTO);
-    RiskCategoryDTO getRiskCategoryBYCode (SessionContext sessionContext, RiskCategoryDTO riskCategoryDTO)
-            throws FatalException, JsonProcessingException;
-    List<RiskCategoryDTO> getRiskCategories (SessionContext sessionContext) throws FatalException;
-
-}
-*/

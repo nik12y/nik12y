@@ -37,7 +37,7 @@ mutation{
             status:"updated"
             recordVersion : 1
         }
-    )
+    )m
     {
         externalReferenceNumber
         internalReferenceNumber
