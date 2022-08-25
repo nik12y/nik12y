@@ -3,8 +3,8 @@ databaseChangeLog:
       file: db/changelog/audit-table.xml
   - include:
       file: db/changelog/language-table.xml
-   - include:
-     file: db/changelog/currency-table.xml
+  - include:
+      file: db/changelog/currency-table.xml
   - include:
       file: db/changelog/audit-table.xml
   - include:
