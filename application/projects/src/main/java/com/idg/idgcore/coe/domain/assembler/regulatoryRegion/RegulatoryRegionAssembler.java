@@ -1,8 +1,10 @@
 package com.idg.idgcore.coe.domain.assembler.regulatoryRegion;
 
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
+import com.idg.idgcore.coe.domain.entity.questionCategory.QuestionCatDetailsEntity;
 import com.idg.idgcore.coe.domain.entity.regulatoryRegion.RegulatoryRegionConfigEntity;
 import com.idg.idgcore.coe.domain.entity.regulatoryRegion.RegulatoryRegionMappingEntity;
+import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDetailsDTO;
 import com.idg.idgcore.coe.dto.regulatoryRegion.RegulatoryRegionConfigDTO;
 import com.idg.idgcore.coe.dto.regulatoryRegion.RegulatoryRegionMappingDTO;
 import org.modelmapper.ModelMapper;
@@ -15,7 +17,9 @@ import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class RegulatoryRegionAssembler {
@@ -31,10 +35,21 @@ public class RegulatoryRegionAssembler {
 
     public RegulatoryRegionConfigDTO convertEntityToDto(RegulatoryRegionConfigEntity regulatoryRegionConfigEntity) {
         List<RegulatoryRegionMappingEntity> regulatoryRegionMappingEntity = regulatoryRegionConfigEntity.getRegulatoryRegionMappingEntity();
-        Type listType = new TypeToken<List<RegulatoryRegionMappingDTO>>() {
+        List<RegulatoryRegionMappingDTO> regulatoryRegionMappingDTOList=new ArrayList<>();
+        regulatoryRegionMappingDTOList.addAll(regulatoryRegionMappingEntity.stream().map(entity -> {
+            RegulatoryRegionMappingDTO regulatoryRegionMappingDTO=new RegulatoryRegionMappingDTO();
+            regulatoryRegionMappingDTO.setDemographicMappingCode(entity.getDemographicMappingCode());
+            regulatoryRegionMappingDTO.setStatus(entity.getStatus());
+            regulatoryRegionMappingDTO.setAuthorized(entity.getAuthorized());
+            regulatoryRegionMappingDTO.setRecordVersion(entity.getRecordVersion());
+            regulatoryRegionMappingDTO.setLastConfigurationAction(entity.getLastConfigurationAction());
+            return regulatoryRegionMappingDTO;
+        }).collect(Collectors.toList()));
+
+      /*  Type listType = new TypeToken<List<RegulatoryRegionMappingDTO>>() {
         }.getType();
         List<RegulatoryRegionMappingDTO> regulatoryRegionMappingDTOList = modelMapper.map(regulatoryRegionMappingEntity, listType);
-
+*/
         RegulatoryRegionConfigDTO regulatoryRegionConfigDTO = modelMapper.map(regulatoryRegionConfigEntity, RegulatoryRegionConfigDTO.class);
         regulatoryRegionConfigDTO.setRegRegionCode(regulatoryRegionConfigEntity.getRegRegionCode());
         regulatoryRegionConfigDTO.setRegionName(regulatoryRegionConfigEntity.getRegionName());
@@ -50,9 +65,19 @@ public class RegulatoryRegionAssembler {
 
         List<RegulatoryRegionMappingDTO> regulatoryRegionMappingDTOList = regulatoryRegionConfigDTO.getRegulatoryRegionMapping();
 
-        Type listType = new TypeToken<List<RegulatoryRegionMappingEntity>>() {
-        }.getType();
-        List<RegulatoryRegionMappingEntity> regulatoryRegionMappingEntities = modelMapper.map(regulatoryRegionMappingDTOList, listType);
+        List<RegulatoryRegionMappingEntity> regulatoryRegionMappingEntityList=new ArrayList<>();
+        regulatoryRegionMappingEntityList.addAll(regulatoryRegionMappingDTOList.stream().map(dto->{
+            RegulatoryRegionMappingEntity regulatoryRegionMappingEntity=new RegulatoryRegionMappingEntity();
+            regulatoryRegionMappingEntity.setDemographicMappingCode(dto.getDemographicMappingCode());
+            regulatoryRegionMappingEntity.setStatus(dto.getStatus());
+            regulatoryRegionMappingEntity.setAuthorized(dto.getAuthorized());
+            regulatoryRegionMappingEntity.setRecordVersion(dto.getRecordVersion());
+            regulatoryRegionMappingEntity.setLastConfigurationAction(dto.getLastConfigurationAction());
+            return regulatoryRegionMappingEntity;
+        }).collect(Collectors.toList()));
+//        Type listType = new TypeToken<List<RegulatoryRegionMappingEntity>>() {
+//        }.getType();
+//        List<RegulatoryRegionMappingEntity> regulatoryRegionMappingEntities = modelMapper.map(regulatoryRegionMappingDTOList, listType);
 
         RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = modelMapper.map(regulatoryRegionConfigDTO, RegulatoryRegionConfigEntity.class);
         regulatoryRegionConfigEntity.setRegRegionCode(regulatoryRegionConfigDTO.getRegRegionCode());
@@ -61,7 +86,7 @@ public class RegulatoryRegionAssembler {
         regulatoryRegionConfigEntity.setRegionEffectiveDate(formatter.parse(regulatoryRegionConfigDTO.getRegionEffectiveDate()));
         regulatoryRegionConfigEntity.setRegionGroupCode(regulatoryRegionConfigDTO.getRegionGroupCode());
         regulatoryRegionConfigEntity.setPurpose(regulatoryRegionConfigDTO.getPurpose());
-        regulatoryRegionConfigEntity.setRegulatoryRegionMappingEntity(regulatoryRegionMappingEntities);
+        regulatoryRegionConfigEntity.setRegulatoryRegionMappingEntity(regulatoryRegionMappingEntityList);
         return regulatoryRegionConfigEntity;
     }
 

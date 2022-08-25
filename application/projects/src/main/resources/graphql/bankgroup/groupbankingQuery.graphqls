@@ -1,4 +1,0 @@
-type GroupBankingQuery{
-    bankGroupCode:  String!
-    authorized:     String!
-}

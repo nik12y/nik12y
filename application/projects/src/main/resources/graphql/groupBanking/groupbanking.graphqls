@@ -1,0 +1,12 @@
+type GroupBanking{
+    groupBankingCode: String!
+    groupBankingName: String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    authorized: String
+}

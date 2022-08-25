@@ -20,6 +20,14 @@ public class RegulatoryRegionMappingEntity  implements Serializable {
     private Integer regRegionMappingId;
     @Column(name = "demographic_mapping_code")
     private String demographicMappingCode;
+    @Column(name = "record_status")
+    private String status;
+    @Column(name = "record_version")
+    private Integer recordVersion;
+    @Column(name = "is_authorized")
+    private String authorized;
+    @Column(name = "last_configuration_action")
+    private String lastConfigurationAction;
 //    @Column(name = "demographic_mapping_name")
 //    private String demographicMappingName;
 }

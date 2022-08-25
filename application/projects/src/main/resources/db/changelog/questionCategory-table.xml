@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="idgc_coe_question_category_cnfg1" author="NikhilYadav">
+    <changeSet id="idgc_coe_question_category_cnfg" author="NikhilYadav">
 
         <createTable tableName="idgc_coe_question_category_cnfg"
                      remarks="A table to contain all the QuestionCategory configuration">
@@ -86,6 +86,22 @@
             </column>
 
             <column name="display_condition" type="varchar(10)">
+            </column>
+
+            <column name="record_version" type="integer">
+<!--                <constraints nullable="false"/>-->
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+<!--                <constraints nullable="false"/>-->
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+<!--                <constraints nullable="false"/>-->
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+<!--                <constraints nullable="false"/>-->
             </column>
 
             <column name="created_by" type="varchar(20)">

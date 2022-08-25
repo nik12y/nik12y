@@ -12,7 +12,9 @@ import org.modelmapper.TypeToken;
 
 import java.lang.reflect.Type;
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.idg.idgcore.coe.common.Constants.CHAR_N;
 import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
@@ -31,9 +33,21 @@ public class QuestionCategoryAssembler {
     public QuestionCategoryDTO convertEntityToDto(QuestionCategoryEntity questionCategoryEntity) {
 
         List<QuestionCatDetailsEntity> questionCatDetailsList = questionCategoryEntity.getQuestionCatDetails();
-
-        Type listType = new TypeToken<List<QuestionCategoryDetailsDTO>>() {}.getType();
-        List<QuestionCategoryDetailsDTO> questionCategoryDetailsDTOList = modelMapper.map(questionCatDetailsList, listType);
+             List<QuestionCategoryDetailsDTO> questionCategoryDetailsDTOList=new ArrayList<>();
+             questionCategoryDetailsDTOList.addAll(questionCatDetailsList.stream().map(entity -> {
+                 QuestionCategoryDetailsDTO questionCategoryDetailsDTO=new QuestionCategoryDetailsDTO();
+                 questionCategoryDetailsDTO.setQuestionId(entity.getQuestionId());
+                 questionCategoryDetailsDTO.setQuestionNature(entity.getQuestionNature());
+                 questionCategoryDetailsDTO.setParentQuestionId(entity.getParentQuestionId());
+                 questionCategoryDetailsDTO.setDisplayCondition(entity.getDisplayCondition());
+                 questionCategoryDetailsDTO.setStatus(entity.getStatus());
+                 questionCategoryDetailsDTO.setAuthorized(entity.getAuthorized());
+                 questionCategoryDetailsDTO.setRecordVersion(entity.getRecordVersion());
+                 questionCategoryDetailsDTO.setLastConfigurationAction(entity.getLastConfigurationAction());
+                 return questionCategoryDetailsDTO;
+             }).collect(Collectors.toList()));
+//        Type listType = new TypeToken<List<QuestionCategoryDetailsDTO>>() {}.getType();
+//        List<QuestionCategoryDetailsDTO> questionCategoryDetailsDTOList = modelMapper.map(questionCatDetailsList, listType);
 
         QuestionCategoryDTO questionCategoryDTO = modelMapper.map(questionCategoryEntity, QuestionCategoryDTO.class);
         questionCategoryDTO.setQuestionCategoryId(questionCategoryEntity.getQuestionCategoryId());
@@ -49,8 +63,21 @@ public class QuestionCategoryAssembler {
     public QuestionCategoryEntity convertDtoTOEntity(QuestionCategoryDTO questionCategoryDTO) {
         List<QuestionCategoryDetailsDTO> questionCatDetailsDToList = questionCategoryDTO.getQuestionCategoryDetails();
 
-        Type listType = new TypeToken<List<QuestionCatDetailsEntity>>() {}.getType();
-        List<QuestionCatDetailsEntity> questionCategoryDetailsList = modelMapper.map(questionCatDetailsDToList, listType);
+        List<QuestionCatDetailsEntity> questionCategoryDetailsList=new ArrayList<>();
+          questionCategoryDetailsList.addAll(questionCatDetailsDToList.stream().map(dto->{
+                QuestionCatDetailsEntity questionCatDetailsEntity=new QuestionCatDetailsEntity();
+                questionCatDetailsEntity.setQuestionId(dto.getQuestionId());
+                questionCatDetailsEntity.setQuestionNature(dto.getQuestionNature());
+                questionCatDetailsEntity.setParentQuestionId(dto.getParentQuestionId());
+                questionCatDetailsEntity.setDisplayCondition(dto.getDisplayCondition());
+                questionCatDetailsEntity.setStatus(dto.getStatus());
+                questionCatDetailsEntity.setAuthorized(dto.getAuthorized());
+                questionCatDetailsEntity.setRecordVersion(dto.getRecordVersion());
+                questionCatDetailsEntity.setLastConfigurationAction(dto.getLastConfigurationAction());
+                return questionCatDetailsEntity;
+          }).collect(Collectors.toList()));
+//        Type listType = new TypeToken<List<QuestionCatDetailsEntity>>() {}.getType();
+//        List<QuestionCatDetailsEntity> questionCategoryDetailsList = modelMapper.map(questionCatDetailsDToList, listType);
 
         QuestionCategoryEntity questionCategoryEntity = modelMapper.map(questionCategoryDTO, QuestionCategoryEntity.class);
         questionCategoryEntity.setQuestionCategoryId(questionCategoryDTO.getQuestionCategoryId());

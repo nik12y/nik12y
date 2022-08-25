@@ -350,7 +350,7 @@ class QuestionCategoryApplicationServiceTest {
 
     private QuestionCategoryEntity getQuestionCategoryEntityDraft() {
 
-        QuestionCatDetailsEntity questionCatDetailsEntity3 = new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes");
+        QuestionCatDetailsEntity questionCatDetailsEntity3 = new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes","draft", 0, "draft", "draft");
 
         return new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
                 'Y', 'Y',null,null, List.of(questionCatDetailsEntity3), "draft", 0, "draft", "draft");
@@ -359,7 +359,7 @@ class QuestionCategoryApplicationServiceTest {
 
     private QuestionCategoryEntity getQuestionCategoryEntity() {
 
-        QuestionCatDetailsEntity questionCatDetailsEntity2 = new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes");
+        QuestionCatDetailsEntity questionCatDetailsEntity2 = new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes", "Deleted", 1, null, null);
 
         return new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
                 'Y', 'Y',null,null, List.of(questionCatDetailsEntity2), "Deleted", 1, null, null);

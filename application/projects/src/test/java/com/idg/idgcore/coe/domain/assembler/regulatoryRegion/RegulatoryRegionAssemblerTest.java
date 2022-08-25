@@ -68,7 +68,7 @@ class RegulatoryRegionAssemblerTest {
     @Test
     @DisplayName("Junit test for Conversion of Entity To DTO")
     void convertDToToEntity() throws ParseException {
-        RegulatoryRegionMappingEntity regulatoryRegionMappingEntity = new RegulatoryRegionMappingEntity(1,"IN");
+        RegulatoryRegionMappingEntity regulatoryRegionMappingEntity = new RegulatoryRegionMappingEntity(1,"IN","new",1,"N","unauthorized");
 
 
         RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = new RegulatoryRegionConfigEntity();
