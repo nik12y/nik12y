@@ -35,6 +35,7 @@ query{
         questionText
         status
         recordVersion
+        authorized
         createdBy
         creationTime
         lastUpdatedBy

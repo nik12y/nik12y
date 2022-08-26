@@ -25,41 +25,30 @@ class QuestionCategoryRepositoryTest {
     void findAllQuestionsCategories() {
 
         List<QuestionCatDetailsEntity> questionCatDetailsEntities1 = new ArrayList<>();
-        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes"));
+        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes", "new", 1, "Y", "authorized"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
-                'Y', 'Y',null,null, questionCatDetailsEntities1, "new", 1, "Y", "authorized");
+                'Y', 'Y', null, null, questionCatDetailsEntities1, "new", 1, "Y", "authorized");
 
         iQuestionCategoryRepository.save(questionCategoryEntity1);
 
         List<QuestionCatDetailsEntity> questionCatDetailsEntities2 = new ArrayList<>();
-        questionCatDetailsEntities2.add(new QuestionCatDetailsEntity(2, "Q003", "Optional", "Q002", "Q002.Yes"));
+        questionCatDetailsEntities2.add(new QuestionCatDetailsEntity(2, "Q003", "Optional", "Q002", "Q002.Yes", "new", 1, "Y", "authorized"));
 
-        QuestionCategoryEntity questionCategoryEntity2 = new QuestionCategoryEntity("SN002", "Education Loan Question", "Mutual", 'Y', 'Y',null,null,
+        QuestionCategoryEntity questionCategoryEntity2 = new QuestionCategoryEntity("SN002", "Education Loan Question", "Mutual", 'Y', 'Y', null, null,
                 questionCatDetailsEntities2, "new", 1, "Y", "authorized");
 
         iQuestionCategoryRepository.save(questionCategoryEntity2);
         //when - condition
         List<QuestionCategoryEntity> questionCategoryEntityList = iQuestionCategoryRepository.findAll();
         assertThat(questionCategoryEntityList).isNotNull().hasSize(7);
-        /*
-     questionCategoryEntity1.setQuestionCategoryId("SN001");
-        questionCategoryEntity1.setQuestionCategoryName("Loan Question");
-        questionCategoryEntity1.setIsShowQuestionCategoryName('Y');
-        questionCategoryEntity1.setIsEnableDocumentUpload('Y');
-        questionCategoryEntity1.setStatus("new");
-        questionCategoryEntity1.setRecordVersion(1);
-        questionCategoryEntity1.setAuthorized("Y");
-        questionCategoryEntity1.setLastConfigurationAction("authorized");
-       // questionCategoryEntity1.setQuestionCatDetails(questionCatDetailsEntities);*/
     }
-
 //    @Test
     @DisplayName("jUnit test to get questionCategory by Id ")
     void findByQuestionCategoryId() {
 
         List<QuestionCatDetailsEntity> questionCatDetailsEntities1 = new ArrayList<>();
-        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes"));
+        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes","new", 1, "Y", "authorized"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
                 'Y', 'Y',null,null, questionCatDetailsEntities1, "new", 1, "Y", "authorized");
@@ -75,7 +64,7 @@ class QuestionCategoryRepositoryTest {
     @DisplayName("Junit tes for saveQuestionCategory")
     void saveQuestionCategory() {
         List<QuestionCatDetailsEntity> questionCatDetailsEntities1 = new ArrayList<>();
-        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(4, "Q008", "Optional", "Q007", "Q00.Porches"));
+        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(4, "Q008", "Optional", "Q007", "Q00.Porches","draft", 0, "N", "draft"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN009", "Business Loan Question", "Manual",
                 'Y', 'Y',null,null, questionCatDetailsEntities1, "draft", 0, "N", "draft");

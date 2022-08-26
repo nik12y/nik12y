@@ -34,6 +34,7 @@ query {
         groupBankingCode
         groupBankingName
         status
+        authorized
         lastUpdatedBy
         lastUpdatedTime
         recordVersion

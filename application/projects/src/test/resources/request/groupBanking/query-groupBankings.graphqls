@@ -26,10 +26,11 @@ query{
             originatingModuleCode: null
         },
     ) {
-       groupBankingCode
-       groupBankingName
+        groupBankingCode
+        groupBankingName
         status
         recordVersion
+        authorized
         createdBy
         creationTime
         lastUpdatedBy
