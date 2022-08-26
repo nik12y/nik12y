@@ -1,5 +1,7 @@
 package com.idg.idgcore.coe.domain.service.mutation;
 
+import com.fasterxml.jackson.databind.*;
+import com.idg.idgcore.coe.dto.base.*;
 import com.idg.idgcore.coe.dto.mutation.MutationDTO;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.audit.AuditHistoryEntity;
@@ -13,8 +15,7 @@ import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static com.idg.idgcore.coe.common.Constants.ADD;
@@ -47,23 +48,6 @@ public class MutationsDomainService implements IMutationsDomainService {
         MutationEntity mutationEntity = null;
         try {
             mutationEntity = mutationRepository.findByTaskIdentifier(taskIdentifier);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return mutationEntity;
-    }
-
-    public MutationEntity findByTaskCode (final String taskCode) {
-        if (log.isInfoEnabled()) {
-            log.info("In findByTaskCode with parameters taskCode {}", taskCode);
-        }
-        MutationEntity mutationEntity = null;
-        try {
-            mutationEntity = this.mutationRepository.findByTaskCode(taskCode);
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {
@@ -180,9 +164,14 @@ public class MutationsDomainService implements IMutationsDomainService {
         if (log.isInfoEnabled()) {
             log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
         }
-
         return this.mutationRepository.findByTaskCodeAndAuthorized(taskCode,authorized);
+    }
 
+    public List<MutationEntity> getMutations (final String taskCode) {
+        if (log.isInfoEnabled()) {
+            log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
+        }
+        return this.mutationRepository.findByTaskCode(taskCode);
     }
 
     public boolean validateMutation (MutationDTO dto) throws BusinessException {

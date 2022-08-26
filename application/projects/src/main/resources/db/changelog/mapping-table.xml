@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="idgc_coe_mapping_config" author="nilesh">
+    <changeSet id="idgc_coe_mapping_config" author="nileshB">
 
         <createTable tableName="idgc_coe_mapping_config"
                      remarks="A table to contain all the mapping configuration">

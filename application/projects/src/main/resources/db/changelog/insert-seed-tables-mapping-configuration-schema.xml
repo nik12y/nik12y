@@ -116,9 +116,9 @@
       <column name="update_record_version" value="N"/>
       <column name="inactive_previous_record" value="N"/>
       <column name="last_configuration_action" value="draft"/>
-      <column name="insert_record_into_audit" value="N"/>
+      <column name="insert_record_into_audit" value="Y"/>
       <column name="insert_record_into_basetable" value="N"/>
-      <column name="mapping_status" value="draft"/>
+      <column name="mapping_status" value="updated"/>
       <column name="copy_record_from_base_table" value="N"/>
     </insert>
 
@@ -172,7 +172,7 @@
       <column name="update_record_version" value="N"/>
       <column name="inactive_previous_record" value="N"/>
       <column name="last_configuration_action" value="draft"/>
-      <column name="insert_record_into_audit" value="N"/>
+      <column name="insert_record_into_audit" value="Y"/>
       <column name="insert_record_into_basetable" value="N"/>
       <column name="mapping_status" value="draft"/>
       <column name="copy_record_from_base_table" value="N"/>
