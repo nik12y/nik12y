@@ -29,9 +29,7 @@ public class CurrencyRateTypeDomainService implements ICurrencyRateTypeDomainSer
             currencyRateTypeEntity = this.currencyRateTypeRepository.findByCurrencyRateType(currencyRateTypeDTO.getCurrencyRateType());
         }
         catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage());
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return currencyRateTypeEntity;
@@ -47,9 +45,7 @@ public class CurrencyRateTypeDomainService implements ICurrencyRateTypeDomainSer
             currencyRateTypeEntity = this.currencyRateTypeRepository.findByCurrencyRateType(currencyRateType);
         }
         catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage());
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return currencyRateTypeEntity;
@@ -61,9 +57,7 @@ public class CurrencyRateTypeDomainService implements ICurrencyRateTypeDomainSer
             this.currencyRateTypeRepository.save(currencyRateTypeEntity);
         }
         catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage());
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }
