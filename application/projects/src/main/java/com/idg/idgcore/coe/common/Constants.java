@@ -99,6 +99,8 @@ public final class Constants {
     public static final String FINANCIAL_ACCOUNTING_YEAR_SERVICE = "financialAccountingYearService";
     public static final String ERROR_OVERRIDE = "ERROR-OVERRIDE";
     public static final String ERROR_OVERRIDE_SERVICE= "errorOverrideService";
+    public static final String CURRENCY_RATE_TYPE = "CURRTYPE";
+    public static final String CURRENCY_RATE_TYPE_SERVICE = "currencyRateTypeApplicationService";
     public static final String FIELD_SEPARATOR = "_";
 
     public static final int BANKCODE_WIDTH = 10;

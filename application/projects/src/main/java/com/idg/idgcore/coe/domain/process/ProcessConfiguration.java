@@ -79,6 +79,7 @@ public class ProcessConfiguration implements IProcessConfiguration {
                 baseRecord.setAction(baseRecord.getAction());
                 insertIntoAuditHistory(getMutationDTO(baseRecord));
             }
+
             addUpdateRecord(mutationDto);
             if (isTrue(mapping.getInsertRecordIntoAudit())) {
                 insertIntoAuditHistory(mutationDto);

@@ -1,0 +1,18 @@
+{
+  "data": {
+    "getCurrencyRateTypes": [
+      {
+        "currencyRateType": "BB",
+        "description": "Bill Buy"
+      },
+      {
+        "currencyRateType": "TTB",
+        "description": "Telegraphic Transfer Buy"
+      },
+      {
+        "currencyRateType": "FRWD1M",
+        "description": "FX rate applicable for 1 month"
+      }
+    ]
+  }
+}

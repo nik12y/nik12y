@@ -1,0 +1,10 @@
+{
+"data":
+    {
+            "getCurrencyRateTypeByType":
+            {
+              "currencyRateType":"BB",
+              "description":"Bill Buy"
+            }
+    }
+}
