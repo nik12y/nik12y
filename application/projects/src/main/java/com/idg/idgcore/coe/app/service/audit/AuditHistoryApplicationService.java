@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_Y;
 import static com.idg.idgcore.coe.common.Constants.INACTIVE;
@@ -42,10 +42,19 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
+        AuditHistoryEntity auditHistoryEntity;
         try {
-            AuditHistoryEntity auditHistoryEntity = auditHistoryDomainService.getAuditHistoryByRecordVersion(
-                    auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(),
-                    auditHistoryDTO.getRecordVersion(), AUTHORIZED_Y, INACTIVE);
+            if(Objects.nonNull(auditHistoryDTO.getStatus()))
+            {
+                auditHistoryEntity = auditHistoryDomainService.getAuditHistoryByRecordVersion(
+                        auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(),
+                        auditHistoryDTO.getRecordVersion(), auditHistoryDTO.getAuthorized(), auditHistoryDTO.getStatus());
+            }
+            else{
+                auditHistoryEntity = auditHistoryDomainService.getAuditHistoryByRecordVersion(
+                        auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(),
+                        auditHistoryDTO.getRecordVersion(), AUTHORIZED_Y, INACTIVE);
+            }
             dto = auditHistoryAssembler.setAuditFields(auditHistoryEntity);
             fillTransactionStatus(transactionStatus);
         }
@@ -76,7 +85,7 @@ public class AuditHistoryApplicationService extends AbstractApplicationService
                     auditHistoryDTO.getTaskCode(), auditHistoryDTO.getTaskIdentifier(), AUTHORIZED_Y, INACTIVE);
 
             dtoList = auditHistoryEntity.stream().map(ah -> auditHistoryAssembler.setAuditFields(ah))
-                    .collect(Collectors.toList());
+                    .toList();
         }
         catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);

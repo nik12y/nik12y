@@ -17,12 +17,4 @@ public class AuditHistoryDTO extends CoreEngineBaseDTO
     private String data;
     private String referenceNo;
     private String traceInfo;
-
-//    private String action;
-//    private String status;
-//    private Integer recordVersion;
-//    private String authorized;
-//    private String lastConfigurationAction;
-//    private String taskCode;
-//    private String taskIdentifier;
 }

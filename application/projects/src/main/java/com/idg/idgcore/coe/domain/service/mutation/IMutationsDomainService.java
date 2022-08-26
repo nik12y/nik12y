@@ -12,6 +12,7 @@ public interface IMutationsDomainService {
     MutationEntity  save (final MutationDTO mutationDTO);
     void insertIntoAuditHistory (final MutationDTO mutationDTO);
     List<MutationEntity> getUnauthorizedMutation(final String taskCode,final String authorized);
+    List<MutationEntity> getMutations(final String taskCode);
     void  delete (final MutationDTO mutationDTO);
 
 }

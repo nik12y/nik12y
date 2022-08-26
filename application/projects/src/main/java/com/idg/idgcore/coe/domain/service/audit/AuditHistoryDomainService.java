@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.ArrayList;
 
+import static com.idg.idgcore.coe.common.Constants.INACTIVE;
 import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
@@ -27,8 +28,17 @@ public class AuditHistoryDomainService implements IAuditHistoryDomainService {
             throws BusinessException {
         AuditHistoryEntity auditHistoryEntity = null;
         try {
-            auditHistoryEntity = this.auditHistoryRepository.findByTaskCodeAndTaskIdentifierAndRecordVersionAndAuthorizedAndStatusNot(
-                    taskCode, taskIdentifier, recordVersion, authorized, status);
+
+            if(INACTIVE.equals(status))
+            {
+                auditHistoryEntity = this.auditHistoryRepository.findByTaskCodeAndTaskIdentifierAndRecordVersionAndAuthorizedAndStatusNot(
+                        taskCode, taskIdentifier, recordVersion, authorized, status);
+            }
+            else
+            {
+                auditHistoryEntity = this.auditHistoryRepository.findByTaskCodeAndTaskIdentifierAndRecordVersionAndAuthorizedAndStatus(
+                        taskCode, taskIdentifier, recordVersion, authorized, status);
+            }
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {

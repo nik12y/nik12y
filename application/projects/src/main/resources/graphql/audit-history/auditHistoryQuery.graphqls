@@ -2,5 +2,7 @@ input AuditHistoryQuery {
     taskCode: String
     taskIdentifier: String
     recordVersion: Int
+    status : String
+    authorized : String
     referenceNo: String
 }
