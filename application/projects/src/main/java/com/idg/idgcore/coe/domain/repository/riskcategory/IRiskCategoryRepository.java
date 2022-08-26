@@ -1,5 +1,7 @@
 package com.idg.idgcore.coe.domain.repository.riskcategory;
 
+import com.idg.idgcore.coe.domain.entity.country.CountryEntity;
+import com.idg.idgcore.coe.domain.entity.country.CountryEntityKey;
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntity;
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntityKey;
 import org.springframework.data.jpa.repository.JpaRepository;

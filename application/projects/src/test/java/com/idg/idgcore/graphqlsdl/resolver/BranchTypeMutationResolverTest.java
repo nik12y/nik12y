@@ -110,17 +110,17 @@ class BranchTypeMutationResolverTest {
 
     }
 
-    @DisplayName(" JUnit test for Auth the Draft-New-BranchType-Mutation  ")
-    @Test
-    void processBranchTypeSaveDraftToNewBranchTypeMutation() throws IOException {
-        String srcDraft = "request/branchtyperequest/close-new-branchtype-mutation_maker.graphqls";
-
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
-        System.out.println(" close-new-branchtype-mutation_maker ");
-        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
-        System.out.println(" DONE ");
-
-    }
+//    @DisplayName(" JUnit test for Auth the Draft-New-BranchType-Mutation  ")
+//    @Test
+//    void processBranchTypeSaveDraftToNewBranchTypeMutation() throws IOException {
+//        String srcDraft = "request/branchtyperequest/close-new-branchtype-mutation_maker.graphqls";
+//
+//        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource(srcDraft);
+//        System.out.println(" close-new-branchtype-mutation_maker ");
+//        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
+//        System.out.println(" DONE ");
+//
+//    }
 
     @DisplayName(" JUnit test for Auth the Draft-Delete-Maker-Deleted")
     @Test

@@ -26,13 +26,8 @@ mutation{
             originatingModuleCode: "null"
         },
         branchType:{
-            branchTypeCode:"HKB "
-            branchTypeName:"HongKong Branch"
-            lastUpdatedBy:"Chaetll"
-            lastUpdatedTime:""
-            createdBy:"Chaetll"
-            creationTime:""
-
+            branchTypeCode:"HBDG001"
+            branchTypeName:"HongKong"
             action : "add"
             status:"new"
             recordVersion : 0
