@@ -4,6 +4,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/language-table.xml
   - include:
+      file: db/changelog/multicurrency-rate-type-table.xml
+  - include:
       file: db/changelog/audit-table.xml
   - include:
       file: db/changelog/create-seed-tables-currency-configuration-schema.xml

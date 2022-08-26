@@ -1,0 +1,11 @@
+type CurrencyRateType{
+    currencyRateType : String!
+    description : String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

@@ -1,0 +1,33 @@
+query{
+    getCurrencyRateTypes(
+        sessionContext:{
+            bankCode: "05"
+            defaultBranchCode: "1392"
+            internalTransactionReferenceNumber: ""
+            userTransactionReferenceNumber: null
+            externalTransactionReferenceNumber: null
+            targetUnit: "dummy_target"
+            postingDate: null
+            valueDate: null
+            transactionBranch: null
+            userId: "Vidya"
+            accessibleTargetUnits: null
+            channel: null
+            taskCode: "CURRTYPE"
+            localDateTime: null
+            role: ["maker"]
+            originalTransactionReferenceNumber: null
+            externalBatchNumber: 1
+            customAttributes: null
+            serviceInvocationModeType : Regular
+            allTargetUnitsSelected: false
+            mutationType: ADDITION
+            userLocal: "en_IN"
+            originatingModuleCode: null
+        },
+    ) {
+       currencyRateType
+        description
+
+    }
+}

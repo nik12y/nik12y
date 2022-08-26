@@ -1,0 +1,4 @@
+type CurrencyRateTypeQuery {
+    currencyRateType: String!
+    authorized: String!
+}
