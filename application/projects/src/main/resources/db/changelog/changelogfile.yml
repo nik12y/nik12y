@@ -69,8 +69,6 @@ databaseChangeLog:
       file: db/changelog/transaction-table.xml
   - include:
       file: db/changelog/module-table.xml
-  -  include:
-       file: db/changelog/insert-seed-tables-mapping-configuration-schema.xml
   - include:
       file: db/changelog/memo-table.xml
   - include:
@@ -79,3 +77,5 @@ databaseChangeLog:
        file: db/changelog/country-table.xml
   -  include:
        file: db/changelog/mutation-table.xml
+  -  include:
+       file: db/changelog/insert-seed-tables-mapping-configuration-schema.xml
