@@ -78,8 +78,10 @@ public class CurrencyRateTypeApplicationService extends AbstractApplicationServi
                 fillTransactionStatus(transactionStatus);
             }
         } catch (JsonProcessingException jpe) {
+            log.error("Exception in getCurrencyRateTypeByType",jpe);
             ExceptionUtil.handleException(JSON_PARSING_ERROR);
         } catch (Exception exception) {
+            log.error("Exception in getCurrencyRateTypeByType",exception);
             fillTransactionStatus(transactionStatus, exception);
         } finally {
             Interaction.close();
@@ -110,6 +112,7 @@ public class CurrencyRateTypeApplicationService extends AbstractApplicationServi
                     currencyRateTypeDTO = objectMapper.readValue(data, CurrencyRateTypeDTO.class);
                     currencyRateTypeDTO = currencyRateTypeAssembler.setAuditFields(entity, currencyRateTypeDTO);
                 } catch (JsonProcessingException e) {
+                    log.error("Exception in getCurrencyRateTypes",e);
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return currencyRateTypeDTO;
@@ -120,6 +123,7 @@ public class CurrencyRateTypeApplicationService extends AbstractApplicationServi
                             Optional::get))).values().stream().collect(Collectors.toList());
             fillTransactionStatus(transactionStatus);
         } catch (Exception exception) {
+            log.error("Exception in getCurrencyRateTypes",exception);
             fillTransactionStatus(transactionStatus, exception);
         } finally {
             Interaction.close();
@@ -139,8 +143,10 @@ public class CurrencyRateTypeApplicationService extends AbstractApplicationServi
             process.process(currencyRateTypeDTO);
             fillTransactionStatus(transactionStatus);
         } catch (FatalException fatalException) {
+            log.error("Exception in processCurrencyRateType",fatalException);
             fillTransactionStatus(transactionStatus, fatalException);
         } catch (Exception exception) {
+            log.error("Exception in processCurrencyRateType",exception);
             fillTransactionStatus(transactionStatus, exception);
         } finally {
             if (!Interaction.isLastInteraction()) {
