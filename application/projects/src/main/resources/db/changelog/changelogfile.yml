@@ -44,13 +44,15 @@ databaseChangeLog:
   - include:
       file: db/changelog/mitigant-table.xml
   - include:
-      file: db/changelog/bankGroup-table.xml
+      file: db/changelog/groupBanking-table.xml
   - include:
       file: db/changelog/question-table.xml
   - include:
       file: db/changelog/riskcode-table.xml
   - include:
       file: db/changelog/questionCategory-table.xml
+  - include:
+      file: db/changelog/regulatoryRegionCode-table.xml
   - include:
       file: db/changelog/zakat-table.xml
   - include:

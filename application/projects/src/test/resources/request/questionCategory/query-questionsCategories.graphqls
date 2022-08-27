@@ -41,6 +41,7 @@ query{
         status
         recordVersion
         createdBy
+        authorized
         creationTime
         lastUpdatedBy
         lastUpdatedTime

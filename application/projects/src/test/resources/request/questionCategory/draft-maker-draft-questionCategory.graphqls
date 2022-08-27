@@ -29,8 +29,8 @@ mutation{
             questionCategoryId: "SN006"
             questionCategoryName: "Loan Questions"
             questionDisplay: "Collectively"
-            isShowQuestionCategoryName: "Show Questionaire Category Name "
-            isEnableDocumentUpload: "Yes"
+            isShowQuestionCategoryName:true
+            isEnableDocumentUpload:true
             questionCategoryDetails: {
                 questionId: "Q004"
                 questionNature: "Mandatory"

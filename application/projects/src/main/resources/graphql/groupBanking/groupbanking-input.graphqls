@@ -1,0 +1,11 @@
+input GroupBankingInput{
+  groupBankingCode: String! @Size(min: 1, max: 16, message: "groupBankingCode.message") @Pattern(regexp: "[A-Za-z0-9]{1,16}",message: "Group Banking Code Must have Valid Pattern")
+  groupBankingName: String @Size(min: 1, max: 50, message: "groupBankingName.message") @Pattern(regexp: "[ A-Za-z0-9 &.,()-]{1,50}",message: "Group Banking Name has Invalid pattern")
+    action : String!
+    status : String!
+    recordVersion : Int
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

@@ -9,6 +9,7 @@ type RegulatoryRegion{
     action : String!
     status : String!
     recordVersion : Int!
+    authorized:String!
     createdBy: String
     creationTime: String
     lastUpdatedBy: String

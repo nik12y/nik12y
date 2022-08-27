@@ -24,6 +24,14 @@ public class QuestionCatDetailsEntity extends AbstractAuditableDomainEntity impl
     private String questionNature;
     private String parentQuestionId;
     private String displayCondition;
+    @Column(name = "record_status")
+    private String status;
+    @Column(name = "record_version")
+    private Integer recordVersion;
+    @Column(name = "is_authorized")
+    private String authorized;
+    @Column(name = "last_configuration_action")
+    private String lastConfigurationAction;
 
 
 }

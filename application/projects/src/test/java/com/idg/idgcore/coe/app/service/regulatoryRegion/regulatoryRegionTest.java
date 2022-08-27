@@ -289,7 +289,10 @@ class regulatoryRegionTest {
 
     private RegulatoryRegionConfigEntity getRegulatoryRegionConfigEntityUnAuth() {
 
-        RegulatoryRegionMappingEntity regulatoryRegionMappingEntity = new RegulatoryRegionMappingEntity(1,"IN");
+        RegulatoryRegionMappingEntity regulatoryRegionMappingEntity = new RegulatoryRegionMappingEntity(1,"IN","add",
+                1,
+                "N",
+                "unauthorized");
 
         return new RegulatoryRegionConfigEntity("REGC002", "India",
                 "The India", getDate("2022-08-21"), "Country",
@@ -304,7 +307,10 @@ class regulatoryRegionTest {
 
     private RegulatoryRegionConfigEntity getRegulatoryRegionEntity() {
 
-        RegulatoryRegionMappingEntity regulatoryRegionMappingEntity = new RegulatoryRegionMappingEntity(1,"IN");
+        RegulatoryRegionMappingEntity regulatoryRegionMappingEntity = new RegulatoryRegionMappingEntity(1,"IN","DELETED",
+                1,
+                null,
+                null);
 
         return new RegulatoryRegionConfigEntity("REGC002", "India",
                 "The India", getDate("2022-08-21"), "Country",
