@@ -1,8 +1,7 @@
 package com.idg.idgcore.coe.domain.service.categorychecklist.repository.bankgroup;
 
-import com.idg.idgcore.coe.domain.entity.bankgroup.GroupBankingEntity;
-import com.idg.idgcore.coe.domain.repository.bank.IBankRepository;
-import com.idg.idgcore.coe.domain.repository.bankgroup.IGroupBankingRepository;
+import com.idg.idgcore.coe.domain.entity.groupBanking.GroupBankingEntity;
+import com.idg.idgcore.coe.domain.repository.groupBanking.IGroupBankingRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -51,7 +49,7 @@ class IGroupBankingRepositoryTest {
 
         GroupBankingEntity groupBankingEntity1 = iGroupBankingRepository.findByBankGroupCode("PNB");
 
-        assertThat(groupBankingEntity1.getBankGroupName().equals("Punjab national bank"));
+        assertThat(groupBankingEntity1.getBankGroupCode().equals("Punjab national bank"));
 
     }
 
