@@ -2,6 +2,7 @@ package com.idg.idgcore.coe.dto.bank;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ import static com.idg.idgcore.coe.common.Constants.BANK;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BankDTO extends CoreEngineBaseDTO {
 
     private String bankCode;
