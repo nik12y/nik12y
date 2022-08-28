@@ -2,8 +2,8 @@ type Language {
     languageCode : String!
     languageCodeAlternate : String!
     languageName :String!
-    localeCode : String!
-    localeName :String!
+    localeCode : String
+    localeName :String
     action : String!
     status : String!
     recordVersion : Int!
