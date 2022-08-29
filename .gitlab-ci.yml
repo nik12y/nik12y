@@ -1,20 +1,20 @@
 
 # A pipeline is composed of independent jobs that run scripts, grouped into stages.
 # Stages run in sequential order, but jobs within stages run in parallel.
-
+#
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
 stages:         # List of stages for jobs, and their order of execution
   - Test
   - Build
   - Docker
   - Deploy
-
-Test:
-# Pre merge job to check build
-  image: gradle:7.4.2-jdk17-focal
+  
+test-job:
   stage: Test
+  image: gradle:7.4.2-jdk17-focal
   rules:
-      - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
   cache:
     paths:
       - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
@@ -22,19 +22,22 @@ Test:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
-    - gradle check
+    - gradle clean check 
 
 
-Code Build :       # This job runs in the build stage, which runs first.
+Build Dev:       # This job runs in the build stage, which runs first.
   image: gradle:7.4.2-jdk17-focal
   stage: Build
+  environment:
+    name: Dev
   cache:
     paths:
       - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
-    # - gradle check --no-daemon -x test -x sonarlintMain -x sonarlintTest
+    - mv /builds/idgCore/middleware-coreengine.tmp/ENV .env
+    - cat .env
   script:
     - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
     - echo "Compile complete."
@@ -44,38 +47,123 @@ Code Build :       # This job runs in the build stage, which runs first.
     paths:
       - /builds/idgCore/middleware-coreengine/application/projects/build/libs
 
-Build Image:
-  stage: Docker
+Build IUT:       # This job runs in the build stage, which runs first.
+  image: gradle:7.4.2-jdk17-focal
+  stage: Build
+  environment:
+    name: IUT
+  cache:
+    paths:
+      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - mv /builds/idgCore/middleware-coreengine.tmp/ENV .env
+    - cat .env
   script:
-    - ls
-    - echo "docker build -t $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID ."
-    - docker build -t $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID .
+    - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
+    - echo "Compile complete."
   only:
-    - dev
-Push image:
+    - iut
+  artifacts:
+    paths:
+      - /builds/idgCore/middleware-coreengine/application/projects/build/libs
+      - /builds/idgCore/middleware-coreengine/application/projects/.env
+
+Build Image Dev:
   stage: Docker
+  environment:
+    name: Dev
+  before_script:
+    - cd application/projects/
+    - ls
+
   script:
-    - echo "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS"
-    - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
-    - docker push $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID
+    - docker build  --no-cache -t $IMAGE_NAME .
   only:
     - dev
 
-Deploy:  
-  stage: Deploy 
+Push Image Dev:
+  stage: Docker
+  environment:
+    name: Dev
+  script:
+    - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
+    - docker push $IMAGE_NAME
+  only:
+    - dev  
+
+
+Build Image IUT:
+  stage: Docker
+  environment:
+    name: IUT
+  before_script:
+    - cd application/projects/
+    - cat .env
+    - cat src/main/resources/application.properties
+  script:
+    - ls
+    - docker build  --no-cache -t $IMAGE_NAME .
+  only:
+    - iut
+
+Push Image IUT:
+  stage: Docker
+  environment:
+    name: IUT
+  script:
+    - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
+    - docker push $IMAGE_NAME
+  only:
+    - iut
+
+
+Deploy DEV:      # This job runs in the deploy stage.
+  stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  variables:
+    GIT_STRATEGY: none
+    ENV_PATH: /home/gitlab/.env
   before_script:
     - chmod 400 $SSH_KEY
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV $DEPLOY_SERVER:$ENV_PATH
   script:
     - echo "Deploying application..."
-    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $BACKEND_SERVER
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
       "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
-       docker stop  $CI_PROJECT_NAME;
-       sleep 3;
-       docker rm $CI_PROJECT_NAME;
-      docker run -d -p 8081:8099 --restart=always --name $CI_PROJECT_NAME $IMAGE_REPO/$CI_PROJECT_NAME:$CI_PIPELINE_IID"
+       docker stop $CONTAINER_NAME;
+       docker rm  $CONTAINER_NAME;
+      docker run -d -p 8081:8099 --restart=always --env-file $ENV_PATH  --name $CONTAINER_NAME $IMAGE_NAME;
+      rm  $ENV_PATH"
     - echo "Application successfully deployed."
   only:
     - dev
-#   when: manual
+  when: manual
+  environment:
+    name: Dev
+    url: http://192.168.100.163:8081/graphiql
+
+
+Deploy IUT:      # This job runs in the deploy stage.
+  stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  variables:
+    GIT_STRATEGY: none
+    ENV_PATH: /home/gitlab/.env
+  before_script:
+    - chmod 400 $SSH_KEY
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV $DEPLOY_SERVER:$ENV_PATH
+  script:
+    - echo "Deploying application..."
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
+      "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
+       docker stop $CONTAINER_NAME;
+       docker rm  $CONTAINER_NAME;
+      docker run -d -p 8081:8099 --env-file $ENV_PATH --name $CONTAINER_NAME $IMAGE_NAME;
+      rm  $ENV_PATH"
+    - echo "Application successfully deployed."
+  only:
+    - iut
+  # when: manual
+  environment:
+    name: IUT
+    url: http://192.168.100.189:8081/graphiql
