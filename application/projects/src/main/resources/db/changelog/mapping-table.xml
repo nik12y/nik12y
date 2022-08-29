@@ -19,7 +19,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="use_role" type="varchar(50)">
+            <column name="user_role" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
 

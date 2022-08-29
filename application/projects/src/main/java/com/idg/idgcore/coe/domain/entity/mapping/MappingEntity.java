@@ -25,7 +25,7 @@ public class MappingEntity {
     private Long id;
     @Column (name = "record_action")
     private String action;
-    @Column (name = "use_role")
+    @Column (name = "user_role")
     private String role;
     @Column (name = "is_authorized")
     private String authorized;
