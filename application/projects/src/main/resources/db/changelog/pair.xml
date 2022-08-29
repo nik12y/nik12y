@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="currency_pair_cnfg" author="hrishikesh">
+
+        <createTable tableName="IDGC_MCY_CNFG_CURRENCY_PAIR"
+                     remarks="A table to contain all the Currency Pair configuration">
+
+            <column name="pair_id" type="integer" autoIncrement="true">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+
+            <column name="currency_1" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="currency_1_description" type="varchar(35)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="currency_2" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="currency_2_description" type="varchar(35)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="entity_code_type" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="country_code" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="through_currency" type="varchar(1)">
+            </column>
+
+            <column name="through_currency_code" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="through_currency_description" type="varchar(35)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="no_of_units" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="point_multiplier" type="float">
+            </column>
+
+            <column name="quotation_methods" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="spread_definition" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="life_cycle_id" type="varchar(50)">
+            </column>
+
+            <column name="reference_no" type="varchar(50)">
+            </column>
+
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+
+        <addUniqueConstraint
+                columnNames="pair_id" tableName="IDGC_MCY_CNFG_CURRENCY_PAIR"
+                constraintName="IDGC_MCY_CNFG_CURRENCY_PAIR_PK" />
+
+        <createTable tableName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG"
+                     remarks="A table to store all currency pair - entity code relation">
+
+            <column name="pair_config_id" type="integer" autoIncrement="true">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+
+            <column name="pair_id" type="integer">
+            </column>
+
+            <column name="entity_code" type="character varying(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+
+        <addUniqueConstraint
+                columnNames="pair_config_id" tableName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG"
+                constraintName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG_PK" />
+
+        <addForeignKeyConstraint baseTableName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG" baseColumnNames="pair_id"
+                                 constraintName="pair_id_fk"
+                                 referencedTableName="IDGC_MCY_CNFG_CURRENCY_PAIR" referencedColumnNames="pair_id" onDelete="CASCADE"/>
+
+    </changeSet>
+
+</databaseChangeLog>

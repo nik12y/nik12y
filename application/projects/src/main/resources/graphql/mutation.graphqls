@@ -36,5 +36,7 @@ type Mutation {
     processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus
 
     processRegulatoryRegion(sessionContext: SessionContextInput, regulatoryRegion: RegulatoryRegionInput): TransactionStatus
+
+    processCurrencyPair(sessionContext: SessionContextInput, currencyPair: CurrencyPairInput): TransactionStatus
 }
 

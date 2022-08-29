@@ -1,0 +1,5 @@
+type CurrencyPairConfigQuery {
+#    pairConfigId : Int
+    pairId: Int
+    authorized: String!
+}

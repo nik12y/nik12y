@@ -1,0 +1,26 @@
+type CurrencyPair {
+    pairId: Int!
+    currency1 : String!
+    currency1Description : String
+    currency2: String!
+    currency2Description : String
+    entityCodeType : String!
+    countryCode : String!
+    throughCurrency : Boolean
+    throughCurrencyCode : String
+    throughCurrencyDescription : String
+    noofunits : Int!
+    pointMultiplier : Float!
+    quotationMethods : Boolean!
+    spreadDefinition : Boolean!
+    currencyPairConfigDTOList: [CurrencyPairConfig]
+    recordVersion : Int!
+    status : String!
+    authorized: String
+    action : String!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+
+}

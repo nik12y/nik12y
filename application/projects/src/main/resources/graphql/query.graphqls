@@ -79,5 +79,8 @@ type Query{
     getRegulatoryRegionByCode(sessionContext: SessionContextInput, regulatoryRegionQuery: RegulatoryRegionInputQuery): RegulatoryRegion
     getRegulatoryRegionCodes (sessionContext: SessionContextInput): [RegulatoryRegion]
 
+    getCurrencyPairById(sessionContext: SessionContextInput, currencyPairQuery:CurrencyPairInputQuery):CurrencyPair
+    getCurrencyPairs(sessionContext: SessionContextInput): [CurrencyPair]
+
 }
 

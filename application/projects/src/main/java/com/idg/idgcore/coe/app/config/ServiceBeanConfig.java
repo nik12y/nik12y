@@ -48,6 +48,9 @@ public class ServiceBeanConfig {
         beanMappings.put(TRANSACTION, TRANSACTION_SERVICE);
         beanMappings.put(ZAKAT, ZAKAT_SERVICE);
         beanMappings.put(REGULATORY_SERVICE,REGULATORY_REGION_SERVICE);
+
+        beanMappings.put(CURRENCY_PAIR, CURRENCY_PAIR_SERVICE);
+        beanMappings.put(CURRENCY_PAIR_CONFIG, CURRENCY_PAIR_SERVICE);
     }
 
     public Map<String, String> getBeanConfig () {

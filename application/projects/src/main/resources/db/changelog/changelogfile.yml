@@ -1,7 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/audit-table.xml
-  - include:
       file: db/changelog/language-table.xml
   - include:
       file: db/changelog/audit-table.xml
@@ -67,3 +65,11 @@ databaseChangeLog:
       file: db/changelog/transaction-table.xml
   - include:
       file: db/changelog/module-table.xml
+  - include:
+      file: db/changelog/regulatoryRegionCode-table.xml
+  - include:
+      file: db/changelog/create-fw-config-table
+  - include:
+      file: db/changelog/insert-fw-config-table
+  - include:
+      file: db/changelog/pair.xml
