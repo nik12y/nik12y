@@ -1,0 +1,38 @@
+query{
+getLOV(
+    sessionContext:{
+      bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: "preeti"
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: ["maker"]
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+    },
+  lovRequest:{
+   queryId:"getRoundingRules"
+
+  }
+
+
+
+   ) {
+      resultList
+  }
+}

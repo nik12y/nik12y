@@ -85,4 +85,8 @@ databaseChangeLog:
        file: db/changelog/staticCode-table.xml
   -  include:
        file: db/changelog/insert-staticCode.xml
+  - include:
+      file: db/changelog/create-seed-table-locale.xml
+  - include:
+      file: db/changelog/insert-seed-table-locale.xml
 

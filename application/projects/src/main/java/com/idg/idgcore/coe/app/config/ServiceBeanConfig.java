@@ -7,7 +7,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 import static com.idg.idgcore.coe.common.Constants.*;
-
+import static com.idg.idgcore.coe.common.Constants.CURRENCY;
+import static com.idg.idgcore.coe.common.Constants.CURRENCY_SERVICE;
 
 @Configuration
 public class ServiceBeanConfig {
@@ -48,6 +49,7 @@ public class ServiceBeanConfig {
         beanMappings.put(TRANSACTION, TRANSACTION_SERVICE);
         beanMappings.put(ZAKAT, ZAKAT_SERVICE);
         beanMappings.put(CURRENCY_RATE_TYPE, CURRENCY_RATE_TYPE_SERVICE);
+        beanMappings.put(CURRENCY, CURRENCY_SERVICE);
 
     }
 

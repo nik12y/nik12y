@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
 
 @Repository
-public interface IWeekDaysRepository extends JpaRepository<WeekDaysDetailsEntity,String> {
+public interface ICurrencyRepository extends
+        JpaRepository<CurrencyConfigurationEntity,String>
+{
 }

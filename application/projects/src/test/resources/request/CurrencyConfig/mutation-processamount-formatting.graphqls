@@ -1,0 +1,32 @@
+
+mutation {
+  processAmountFormatting(
+    sessionContext: {
+  bankCode: ""
+  defaultBranchCode: ""
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Rakshit"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: "maker"
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""}
+    amount: { countryCode: "TA", amount: "4567893568904234567845" }
+  ) {
+    formattedAmount
+  }
+}

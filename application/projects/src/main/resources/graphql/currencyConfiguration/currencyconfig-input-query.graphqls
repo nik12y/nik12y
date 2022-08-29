@@ -1,0 +1,5 @@
+input CountryCodeInputQuery{
+
+    countryCode : String! @Size(min: 2, max: 2, message: "countryCode.message") @Pattern(regexp: "[A-Z]+",message: "Country code should be uppercase alphabet of size 2")
+
+}

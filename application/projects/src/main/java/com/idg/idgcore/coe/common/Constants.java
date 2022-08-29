@@ -116,6 +116,14 @@ public final class Constants {
 
     public static final String KEY_CNST = "KEY_";
 
+    public static final String CURRENCY = "CURRENCY";
+
+    public static final String CURRENCY_SERVICE = "currencyApplicationService";
+
+    public static final String CURR_FORM_ERROR_MSG ="Their are no occurence of \"D\" in amount format pattern";
+
+    public static final String CURR_FORM_ERROR_MSG2 ="Found more than one occurence of \"D\" in amount format pattern";
+
     private Constants () {
     }
 
