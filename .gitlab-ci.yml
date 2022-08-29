@@ -6,6 +6,7 @@
 
 stages:         # List of stages for jobs, and their order of execution
   - Test
+  - Merge
   - Build
   - Docker
   - Deploy
@@ -23,6 +24,24 @@ test-job:
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
     - gradle clean check 
+
+merge:
+  stage: Merge
+  variables:
+    GIT_STRATEGY: none
+  image: 
+    name: bitnami/git
+  before_script:
+    - git clone $PROJECT_URL && cd $CI_PROJECT_NAME
+    - git checkout iut
+    - git config --global user.email "runner@idigicloudtech.com" && git config --global user.name "GitLabRunner"
+  script:
+    - git merge origin/dev
+    - git push origin iut
+  only:
+    - iut
+  environment:
+    name: IUT
 
 
 Build Dev:       # This job runs in the build stage, which runs first.
