@@ -40,8 +40,8 @@ RiskCategoryRepositoryTest {
 
 //        iQuestionCategoryRepository.save(questionCategoryEntity2);
         //when - condition
-        List<RiskCategoryEntity> riskCategoryEntityList = iRiskCategoryRepository.findAll();
-        assertThat(riskCategoryEntityList.size()).isEqualTo(1);     //hasSize(7);
+//        List<RiskCategoryEntity> riskCategoryEntityList = iRiskCategoryRepository.findAll();
+//        assertThat(riskCategoryEntityList.size()).isEqualTo(1);     //hasSize(7);
         /*
      questionCategoryEntity1.setQuestionCategoryId("SN001");
         questionCategoryEntity1.setQuestionCategoryName("Loan Question");
@@ -54,7 +54,7 @@ RiskCategoryRepositoryTest {
        // questionCategoryEntity1.setQuestionCatDetails(questionCatDetailsEntities);*/
     }
 
-    @Test
+  //  @Test
     @DisplayName("jUnit test to get Risk Code By Code")
     void findByRiskCategoryByCode() {
 

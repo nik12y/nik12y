@@ -81,3 +81,8 @@ databaseChangeLog:
        file: db/changelog/mutation-table.xml
   -  include:
        file: db/changelog/insert-seed-tables-mapping-configuration-schema.xml
+  -  include:
+       file: db/changelog/staticCode-table.xml
+  -  include:
+       file: db/changelog/insert-staticCode.xml
+
