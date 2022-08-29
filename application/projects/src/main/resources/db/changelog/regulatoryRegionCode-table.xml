@@ -88,19 +88,15 @@
             </column>
 
             <column name="record_version" type="integer">
-<!--                <constraints nullable="false"/>-->
             </column>
 
             <column name="record_status" type="varchar(10)">
-<!--                <constraints nullable="false"/>-->
             </column>
 
             <column name="is_authorized" type="varchar(1)">
-<!--                <constraints nullable="false"/>-->
             </column>
 
             <column name="last_configuration_action" type="varchar(20)">
-<!--                <constraints nullable="false"/>-->
             </column>
 
 
