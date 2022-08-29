@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "IDGC_MCY_CNFG_CURRENCY_PAIR")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
-@IdClass(CurrencyPairEntityKey.class)
+//@IdClass(CurrencyPairEntityKey.class)
 public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements Serializable {
 
     @Id

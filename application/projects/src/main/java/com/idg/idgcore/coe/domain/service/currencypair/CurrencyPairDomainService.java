@@ -63,8 +63,6 @@ public class CurrencyPairDomainService implements ICurrencyPairDomainService{
     public void save(CurrencyPairDTO currencyPairDTO) {
         try {
             CurrencyPairEntity currencyPairEntity = this.currencyPairAssembler.convertDtoToEntity(currencyPairDTO);
-            List<CurrencyPairConfigEntity> currencyPairConfigEntityList = currencyPairEntity.getCurrencyPairConfigEntityList();
-            currencyPairEntity.setCurrencyPairConfigEntityList(null);
             this.currencyPairRepository.save(currencyPairEntity);
         }
         catch (Exception e) {
