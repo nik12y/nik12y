@@ -19,10 +19,14 @@ public class ErrorOverrideEntity extends AbstractAuditableDomainEntity implement
     @Id
     private String errorCode;
     private String errorMessage;
+    @Id
+    private String branchCode;
     private String typeOfMessage;
     private char isConfirmationRequired;
     private String functionCode;
     private String batchType;
+    @Column(name = "is_excluded")
+    private char isExcluded;
 
     private String lifeCycleId;
     private String referenceNo;
@@ -33,6 +37,7 @@ public class ErrorOverrideEntity extends AbstractAuditableDomainEntity implement
     @Column(name = "is_authorized")
     private String authorized;
     private String lastConfigurationAction;
+
 
     @Embedded
     private ErrorOverrideLanguageDetailsEntity errorOverrideLanguageDetailsEntity;

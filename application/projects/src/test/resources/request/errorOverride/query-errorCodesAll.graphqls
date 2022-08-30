@@ -2,7 +2,7 @@ query{
     getErrorCodes(
         sessionContext:{
             bankCode: "003"
-            defaultBranchCode: "11411"
+            defaultBranchCode: "1141"
             internalTransactionReferenceNumber: null
             userTransactionReferenceNumber: null
             externalTransactionReferenceNumber: null
@@ -10,31 +10,43 @@ query{
             postingDate: ""
             valueDate: ""
             transactionBranch: null
-            userId: "Preet"
+            userId: "Preeti"
             accessibleTargetUnits: null
             channel: "Branch"
             taskCode: "ERROR-OVERRIDE"
             localDateTime: ""
-            role: ["maker"]
+            role: "maker"
             originalTransactionReferenceNumber: null
             externalBatchNumber: 1
             customAttributes: null
-            serviceInvocationModeType:Regular
+            serviceInvocationModeType : Regular
             allTargetUnitsSelected: false
-            userLocal: "en_US"
+            mutationType:   ADDITION
+            userLocal: "es_US"
             originatingModuleCode: null
         }
-    ) {
+    )
+    {
         errorCode
+        branchCode
         errorMessage
         typeOfMessage
         isConfirmationRequired
         functionCode
+        batchType
+        isExcluded
+
+        recordVersion
+        errorOverrideConversions{
+            functionCodeOverride
+            newErrorCode
+        }
         errorOverrideLanguageDetails{
-            localeCode
-            localeName
             languageCode
             languageName
+            localeCode
+            localeName
         }
     }
 }
+

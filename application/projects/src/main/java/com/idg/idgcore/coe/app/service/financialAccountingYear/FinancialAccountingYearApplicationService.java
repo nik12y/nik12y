@@ -161,11 +161,6 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
                 }
                 return dto;
             }).collect(Collectors.toList()));
-            dtoList = dtoList.stream().collect(
-                            Collectors.groupingBy(FinancialAccountingYearDTO::getBankCode,
-                                    Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(
-                                            FinancialAccountingYearDTO::getRecordVersion)), Optional::get)))
-                    .values().stream().collect(Collectors.toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

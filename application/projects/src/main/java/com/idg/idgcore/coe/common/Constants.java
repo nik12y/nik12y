@@ -115,6 +115,8 @@ public final class Constants {
     public static final String SUCCESS_MSG = "Success";
 
     public static final String KEY_CNST = "KEY_";
+    public static final String CLOSED = "closed";
+    public static final String ALL = "ALL";
 
     public static final String CURRENCY = "CURRENCY";
 

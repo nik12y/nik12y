@@ -12,7 +12,6 @@
                      remarks="A table to contain all the error override">
 
             <column name="error_code" type="varchar(10)">
-                <constraints nullable="false" primaryKey="true"/>
             </column>
 
             <column name="error_message" type="varchar(100)">
@@ -59,6 +58,10 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="is_excluded" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="life_cycle_id" type="varchar(50)">
             </column>
 
@@ -94,7 +97,10 @@
             </column>
 
         </createTable>
-
+        <addUniqueConstraint
+                columnNames="error_code,branch_code"
+                tableName="idgc_coe_error_override_cnfg"
+                constraintName="idgc_coe_error_override_cnfg_pk"/>
     </changeSet>
 
 </databaseChangeLog>

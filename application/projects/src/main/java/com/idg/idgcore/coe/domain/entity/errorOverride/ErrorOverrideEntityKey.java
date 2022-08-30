@@ -19,10 +19,12 @@ public class ErrorOverrideEntityKey extends AbstractDomainKey
 {
     @Id
     private String errorCode;
+    @Id
+    private String branchCode;
 
     @Override
     public String keyAsString () {
-        return errorCode;
+        return errorCode + branchCode;
     }
 
 }

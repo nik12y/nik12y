@@ -56,7 +56,7 @@ class CountryDomainServiceTest {
         given(countryRepository.findAll()).willReturn(Collections.emptyList());
         List<CountryEntity> countryEntityList = countryDomainService.getCountries();
         assertThat(countryEntityList).isEmpty();
-        assertThat(countryEntityList.size()).isEqualTo(0);
+        assertThat(countryEntityList.size()).isZero();
 
     }
 
