@@ -48,8 +48,6 @@ class ErrorOverrideDomainServiceTest {
         assertThat(errorOverrideEntityR).isNotNull();
     }
 
-
-
     private ErrorOverrideEntity getErrorOverrideEntityNew () {
         ErrorOverrideLanguageDetailsEntity detailEntity = new ErrorOverrideLanguageDetailsEntity();
         detailEntity.setLanguageCode("ENG");
@@ -57,12 +55,12 @@ class ErrorOverrideDomainServiceTest {
         detailEntity.setLanguageCode("EN");
         detailEntity.setLanguageName("New Error Cod");
         ErrorOverrideConversionsEntity conversionsEntity = new ErrorOverrideConversionsEntity();
-        conversionsEntity.setBranchCode("ALL");
         conversionsEntity.setFunctionCodeOverride("Cash Deposit/Withdrawal");
         conversionsEntity.setNewErrorCode("1");
         ErrorOverrideEntity entity = new ErrorOverrideEntity();
         entity.setErrorCode("ERR-CHD-02");
         entity.setErrorMessage("PAN input is mandatory for the cash transaction above INR 50K");
+        entity.setBranchCode("ALL");
         entity.setTypeOfMessage("Ignore");
         entity.setIsConfirmationRequired('Y');
         entity.setFunctionCode("Cash Deposit/Withdrawal");
@@ -81,12 +79,12 @@ class ErrorOverrideDomainServiceTest {
         detailDto.setLanguageCode("EN");
         detailDto.setLanguageName("New Error Cod");
         ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
-        conversionsDTO.setBranchCode("ALL");
         conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
         conversionsDTO.setNewErrorCode("1");
         ErrorOverrideDTO dto = new ErrorOverrideDTO();
         dto.setErrorCode("ERR-CHD-02");
         dto.setErrorMessage("PAN input is mandatory for the cash transaction above INR 50K");
+        dto.setBranchCode("ALL");
         dto.setTypeOfMessage("Ignore");
         dto.setIsConfirmationRequired(true);
         dto.setFunctionCode("Cash Deposit/Withdrawal");

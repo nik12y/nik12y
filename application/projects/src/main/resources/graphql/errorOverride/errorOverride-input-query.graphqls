@@ -1,4 +1,5 @@
 input ErrorOverrideInputQuery {
     errorCode: String!
+    branchCode: String!
     authorized : String!
 }

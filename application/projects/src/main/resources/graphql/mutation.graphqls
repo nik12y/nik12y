@@ -7,8 +7,6 @@ type Mutation {
     processBankIdentifier(sessionContext: SessionContextInput, BankIdentifier: BankIdentifierInput): TransactionStatus
     processBank(sessionContext: SessionContextInput, bank: BankInput): TransactionStatus
     processPurpose(sessionContext: SessionContextInput, purpose: PurposeInput): TransactionStatus
-    processBankIdentifier(sessionContext: SessionContextInput, BankIdentifier: BankIdentifierInput): TransactionStatus
-    processLanguage(sessionContext: SessionContextInput, language: LanguageInput): TransactionStatus
     processBranchType(sessionContext: SessionContextInput, branchType: BranchTypeInput): TransactionStatus
 
     processGroupBanking(sessionContext: SessionContextInput, groupBanking: GroupBankingInput ): TransactionStatus
@@ -32,7 +30,6 @@ type Mutation {
     processPurging(sessionContext: SessionContextInput, purging: PurgingInput): TransactionStatus
     processRiskCode(sessionContext: SessionContextInput, riskCode: RiskCodeInput): TransactionStatus
     processCurrencyRateType(sessionContext: SessionContextInput, type: CurrencyRateTypeInput): TransactionStatus
-    processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
     processFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInput): TransactionStatus
     processErrorOverride(sessionContext: SessionContextInput, errorOverride: ErrorOverrideInput): TransactionStatus
     processBranchSystemDate(sessionContext: SessionContextInput, branchSystemDate: BranchSystemDateInput): TransactionStatus

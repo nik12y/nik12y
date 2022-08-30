@@ -1,6 +1,7 @@
 input ErrorOverrideInput {
-    errorCode: String! @Size(min: 1, max: 10, message: "errorOverride.errorCode.message") @Pattern(regexp: ".[A-Za-z0-9 .,–()/=‘+:?!”%&*<>;{@#_]{1,10}",message: "Error Code Invalid pattern")
-    errorMessage: String! @Size(min: 1, max: 100, message: "errorOverride.errorMessage.message") @Pattern(regexp: ".[A-Za-z0-9 .,–()/=‘+:?!”%&*<>;{@#_]{1,100}",message: "Error Message Invalid pattern")
+    errorCode: String! @Size(min: 1, max: 10, message: "errorOverride.errorCode.message") @Pattern(regexp: ".[A-Za-z0-9.,\\-()/=‘+:?!”%&*<>;{@#_ ]{1,10}",message: "Error Code Invalid pattern")
+    errorMessage: String! @Size(min: 1, max: 100, message: "errorOverride.errorMessage.message") @Pattern(regexp: ".[A-Za-z0-9.,\\-()/=‘+:?!”%&*<>;{@#_ ]{1,100}",message: "Error Message Invalid pattern")
+    branchCode: String @Size(min: 1, max: 16, message: "errorOverride.branchCode.message")
     typeOfMessage: String! @Size(min: 1, max: 20, message: "errorOverride.typeOfMessage.message")
     isConfirmationRequired: Boolean
     functionCode: String! @Size(min: 1, max: 35, message: "errorOverride.functionCode.message")

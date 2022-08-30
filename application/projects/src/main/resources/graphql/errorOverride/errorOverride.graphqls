@@ -1,10 +1,12 @@
 type ErrorOverride {
     errorCode: String!
     errorMessage: String!
+    branchCode: String
     typeOfMessage: String!
     isConfirmationRequired: Boolean
     functionCode: String!
     batchType: String
+    isExcluded: Boolean
     action : String!
     status : String!
     recordVersion : Int!
@@ -16,5 +18,4 @@ type ErrorOverride {
 
     errorOverrideConversions: ErrorOverrideConversions
     errorOverrideLanguageDetails: ErrorOverrideLanguageDetails
-
 }
