@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="mapping_config_meta_insert_tbl" author="nilesh">
+
+    <comment>Data insertion for mapping meta tables</comment>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="add"/>
+      <column name="user_role" value="maker"/>
+      <column name="record_status" value="new"/>
+      <column name="is_authorized" value="N"/>
+      <column name="update_record_version" value="Y"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="unauthorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="new"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="authorize"/>
+      <column name="user_role" value="checker"/>
+      <column name="record_status" value="new"/>
+      <column name="is_authorized" value="Y"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="authorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="Y"/>
+      <column name="mapping_status" value="active"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="authorize"/>
+      <column name="user_role" value="checker"/>
+      <column name="record_status" value="closed"/>
+      <column name="is_authorized" value="Y"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="Y"/>
+      <column name="last_configuration_action" value="authorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="Y"/>
+      <column name="mapping_status" value="closed"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="authorize"/>
+      <column name="user_role" value="checker"/>
+      <column name="record_status" value="reopened"/>
+      <column name="is_authorized" value="Y"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="Y"/>
+      <column name="last_configuration_action" value="authorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="Y"/>
+      <column name="mapping_status" value="reopened"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="authorize"/>
+      <column name="user_role" value="checker"/>
+      <column name="record_status" value="updated"/>
+      <column name="is_authorized" value="Y"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="Y"/>
+      <column name="last_configuration_action" value="authorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="Y"/>
+      <column name="mapping_status" value="active"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="close"/>
+      <column name="user_role" value="maker"/>
+      <column name="record_status" value="closed"/>
+      <column name="is_authorized" value="N"/>
+      <column name="update_record_version" value="Y"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="unauthorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="closed"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="delete"/>
+      <column name="user_role" value="maker"/>
+      <column name="record_status" value="deleted"/>
+      <column name="is_authorized" value="O"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="unauthorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="deleted"/>
+      <column name="copy_record_from_base_table" value="Y"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="draft"/>
+      <column name="user_role" value="maker"/>
+      <column name="record_status" value="updated"/>
+      <column name="is_authorized" value="N"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="draft"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="updated"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="modify"/>
+      <column name="user_role" value="maker"/>
+      <column name="record_status" value="updated"/>
+      <column name="is_authorized" value="N"/>
+      <column name="update_record_version" value="Y"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="unauthorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="updated"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="reject"/>
+      <column name="user_role" value="checker"/>
+      <column name="record_status" value="rejected"/>
+      <column name="is_authorized" value="N"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="rejected"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="rejected"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="reopen"/>
+      <column name="user_role" value="maker"/>
+      <column name="record_status" value="reopened"/>
+      <column name="is_authorized" value="N"/>
+      <column name="update_record_version" value="Y"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="unauthorized"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="reopened"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+
+    <insert tableName="idgc_coe_mapping_config">
+      <column name="record_action" value="draft"/>
+      <column name="user_role" value="maker"/>
+      <column name="record_status" value="draft"/>
+      <column name="is_authorized" value="N"/>
+      <column name="update_record_version" value="N"/>
+      <column name="inactive_previous_record" value="N"/>
+      <column name="last_configuration_action" value="draft"/>
+      <column name="insert_record_into_audit" value="Y"/>
+      <column name="insert_record_into_basetable" value="N"/>
+      <column name="mapping_status" value="draft"/>
+      <column name="copy_record_from_base_table" value="N"/>
+    </insert>
+  </changeSet>
+</databaseChangeLog>

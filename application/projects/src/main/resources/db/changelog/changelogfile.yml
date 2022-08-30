@@ -2,6 +2,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/language-table.xml
   - include:
+      file: db/changelog/multicurrency-rate-type-table.xml
+  - include:
       file: db/changelog/audit-table.xml
   - include:
       file: db/changelog/create-seed-tables-currency-configuration-schema.xml
@@ -40,13 +42,15 @@ databaseChangeLog:
   - include:
       file: db/changelog/mitigant-table.xml
   - include:
-      file: db/changelog/bankGroup-table.xml
+      file: db/changelog/groupBanking-table.xml
   - include:
       file: db/changelog/question-table.xml
   - include:
       file: db/changelog/riskcode-table.xml
   - include:
       file: db/changelog/questionCategory-table.xml
+  - include:
+      file: db/changelog/regulatoryRegionCode-table.xml
   - include:
       file: db/changelog/zakat-table.xml
   - include:
@@ -65,6 +69,21 @@ databaseChangeLog:
       file: db/changelog/transaction-table.xml
   - include:
       file: db/changelog/module-table.xml
+  - include:
+      file: db/changelog/memo-table.xml
+  - include:
+      file: db/changelog/mapping-table.xml
+  -  include:
+       file: db/changelog/country-table.xml
+  -  include:
+       file: db/changelog/mutation-table.xml
+  -  include:
+       file: db/changelog/insert-seed-tables-mapping-configuration-schema.xml
+  -  include:
+       file: db/changelog/staticCode-table.xml
+  -  include:
+       file: db/changelog/insert-staticCode.xml
+
   - include:
       file: db/changelog/regulatoryRegionCode-table.xml
   - include:

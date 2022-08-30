@@ -38,6 +38,7 @@ query{
 #            demographicMappingName
         }
         status
+        authorized
         recordVersion
         createdBy
         creationTime

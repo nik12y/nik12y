@@ -87,6 +87,18 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="record_version" type="integer">
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+            </column>
+
 
         </createTable>
         <addForeignKeyConstraint baseTableName="idgc_ve_reg_region_mapping_b" baseColumnNames="reg_region_code"

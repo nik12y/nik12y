@@ -51,6 +51,8 @@ public class ServiceBeanConfig {
 
         beanMappings.put(CURRENCY_PAIR, CURRENCY_PAIR_SERVICE);
         beanMappings.put(CURRENCY_PAIR_CONFIG, CURRENCY_PAIR_SERVICE);
+        beanMappings.put(CURRENCY_RATE_TYPE, CURRENCY_RATE_TYPE_SERVICE);
+
     }
 
     public Map<String, String> getBeanConfig () {

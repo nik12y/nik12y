@@ -68,7 +68,10 @@ class RegulatoryRegionDomainSerivceTest {
     @DisplayName("JUnit test for getConfigurationByCode")
     void getConfigurationByCodeReturnEntity(){
         List<RegulatoryRegionMappingEntity> regulatoryRegionMappingEntities = new ArrayList<>();
-        regulatoryRegionMappingEntities.add(new RegulatoryRegionMappingEntity(1,"IN"));
+        regulatoryRegionMappingEntities.add(new RegulatoryRegionMappingEntity(1,"IN","add",
+                1,
+                "Y",
+                "authorized"));
 
        RegulatoryRegionConfigEntity regulatoryRegionConfigEntity= new RegulatoryRegionConfigEntity("REGC002", "India",
                 "The India", getDate("2022-08-21"), "Country",

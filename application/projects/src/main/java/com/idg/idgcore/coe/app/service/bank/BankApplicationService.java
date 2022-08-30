@@ -138,7 +138,7 @@ public class BankApplicationService extends AbstractApplicationService implement
         return bankDTOList;
     }
 
-    @Transactional
+
     public TransactionStatus processBank(SessionContext sessionContext, BankDTO bankDTO) throws FatalException {
         if (log.isInfoEnabled()) {
             log.info("In processBank with parameters sessionContext {}, bankDTO {}",

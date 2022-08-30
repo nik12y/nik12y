@@ -8,16 +8,8 @@ import java.util.List;
 
 @Repository
 public interface IMutationRepository extends JpaRepository<MutationEntity, Integer> {
-    MutationEntity findByTaskCode (String taskCode);
-    List<MutationEntity> findByTaskCodeAndAuthorized(String taskCode,
-                                                                  String authorized);
-    List<MutationEntity> findByTaskIdentifierAndAuthorized (String taskIdentifier,
-                                                            String authorized);
+    List<MutationEntity> findByTaskCodeAndAuthorized(String taskCode,String authorized);
     MutationEntity findByTaskIdentifier (String taskIdentifier);
-    Integer countByTaskCodeAndTaskIdentifierAndStatusAndAuthorized (String taskCode,
-                                                                    String taskIdentifier,
-                                                                    String status,
-                                                                    String authorized);
     MutationEntity findByTaskCodeAndTaskIdentifier (String taskCode, String taskIdentifier);
-
+    List<MutationEntity> findByTaskCode (String taskCode);
 }

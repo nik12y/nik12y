@@ -4,8 +4,8 @@ input QuestionInput{
     questionText: String!@Size(min: 1, max: 100, message: "questionText.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,100}",message:"Question-Text Must have Valid Pattern")
     questionDescription: String!@Size(min: 3, max: 100, message: "questionDescription.message") @Pattern(regexp:".[ A-Za-z ?''()-]{1,100}",message:"Question-Description Must have Valid Pattern")
     answerDisplayType: String!
-    manualFactBased: String!@Size(min: 3, max: 10, message: "manualFactBased.message") @Pattern(regexp:".[ A-Za-z ]{1,10}",message:"Manual Fact Based Must have Valid Pattern")
-    answerValue: String!@Size(min: 3, max: 100, message: "answerValue.message") @Pattern(regexp:".[ A-Za-z0-9 ]{1,100}",message:"Answer Value Must have Valid Pattern")
+    manualFactBased: String!@Size(min: 1, max: 10, message: "manualFactBased.message") @Pattern(regexp:".[ A-Za-z ]{1,10}",message:"Manual Fact Based Must have Valid Pattern")
+    answerValue: String!@Size(min: 1, max: 100, message: "answerValue.message") @Pattern(regexp:".[ A-Za-z0-9 ]{1,100}",message:"Answer Value Must have Valid Pattern")
     action : String!
     status : String!
     recordVersion : Int!

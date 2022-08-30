@@ -66,7 +66,7 @@ class QuestionCategoryDomainServiceTest {
     @DisplayName("JUnit test for getConfigurationByCode")
     void getConfigurationByCodeReturnEntity(){
         List<QuestionCatDetailsEntity> questionCatDetailsEntities1 = new ArrayList<>();
-        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes"));
+        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes","new", 1, "Y", "authorized"));
 
         QuestionCategoryEntity questionCategoryEntity1 = new QuestionCategoryEntity("SN001", "Loan Question", "Collective",
                 'Y', 'Y',null,null, questionCatDetailsEntities1, "new", 1, "Y", "authorized");
@@ -135,7 +135,7 @@ class QuestionCategoryDomainServiceTest {
     @NotNull
     private QuestionCategoryEntity getQuestionCategoryEntityUnAuth(){
         List<QuestionCatDetailsEntity> questionCatDetailsEntities1 = new ArrayList<>();
-        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes"));
+        questionCatDetailsEntities1.add(new QuestionCatDetailsEntity(1, "Q002", "Mandatory", "Q001", "Q002.Yes","new",1,"N","unauthorized"));
 
         QuestionCategoryEntity questionCategoryEntity=new QuestionCategoryEntity();
         questionCategoryEntity.setQuestionCategoryId("SN001");

@@ -29,7 +29,7 @@ mutation{
             questionCategoryId: "SN006"
             questionCategoryName: "Loan Questions"
             questionDisplay: "Collectively"
-            isShowQuestionCategoryName: "Show Questioner Category Name "
+            isShowQuestionCategoryName:true
             isEnableDocumentUpload: "Yes"
             questionCategoryDetails: {
                 questionId: "Q004"
