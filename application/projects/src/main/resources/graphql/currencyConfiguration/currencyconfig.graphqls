@@ -1,32 +1,4 @@
-type Currencies{
-
-	currencyCode : String
-	currencyName : String
-	isoCode : Int
-	countryName : String
-	countryCode : String
-	locale : String
-
-}
-
-type Days{
-        weekDays : String
-        abbreviation : String
-}
-
-type InterestMethod{
-    srNo : Int
-    InterestMethod : String
-
-}
-
-type RoundingRules{
-    roundingRule : String
-    roundingRuleInstructionClass : String
-}
-
 type CurrencyDetails{
-
       currencyCode : String
       currencyName : String
       isoNumericCode : Int
@@ -71,4 +43,11 @@ type CurrencyDetails{
       extraFiledvalue : String
       currencyCountryCode : String
       currencyCountryName : String
+      action : String!
+      status : String!
+      recordVersion : Int!
+      createdBy: String
+      creationTime: String
+      lastUpdatedBy: String
+      lastUpdatedTime: String
 }

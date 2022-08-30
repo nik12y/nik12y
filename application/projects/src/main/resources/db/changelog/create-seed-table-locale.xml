@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="seed_tbl_locale_cntry" author="rakshit">
+        <comment>Seed table to store locale data</comment>
+        <createTable tableName="idgc_mcy_seed_locale_country"
+                     remarks="A table to store locale and country data">
+            <column name="locale" type="character varying(15)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_name" type="character varying(45)">
+                <constraints nullable="false" />
+            </column>
+            <column name="country_code" type="character varying(3)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
