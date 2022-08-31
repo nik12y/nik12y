@@ -32,12 +32,12 @@ mutation{
             isConfirmationRequired:true
             functionCode:"Cash Deposit/Withdrawal"
             batchType:"Error"
-
+            branchCode:"ALL"
             action : "close"
             status:"closed"
             recordVersion : 0
             errorOverrideConversions:{
-                branchCode:"ALL"
+
                 functionCodeOverride:"Cash Deposit/Withdrawal"
                 newErrorCode:"1"
             }

@@ -157,7 +157,6 @@ Deploy DEV:      # This job runs in the deploy stage.
     - echo "Application successfully deployed."
   only:
     - dev
-  when: manual
   environment:
     name: Dev
     url: http://192.168.100.163:8081/graphiql
@@ -182,7 +181,6 @@ Deploy IUT:      # This job runs in the deploy stage.
     - echo "Application successfully deployed."
   only:
     - iut
-  # when: manual
   environment:
     name: IUT
     url: http://192.168.100.189:8081/graphiql

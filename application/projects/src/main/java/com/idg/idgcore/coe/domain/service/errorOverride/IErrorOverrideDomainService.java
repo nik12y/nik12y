@@ -10,5 +10,8 @@ public interface IErrorOverrideDomainService {
     List<ErrorOverrideEntity> getErrorCodes ();
     ErrorOverrideEntity getErrorOverrideByCode (String errorOverrideCode);
     void save (ErrorOverrideDTO errorOverrideDTO);
+    ErrorOverrideEntity getByErrorCodeAndBranchCode (String errorCode, String branchCode);
+    ErrorOverrideEntity getRecordByErrorCodeAndBranchCode (String errorCode, String branchCode);
+    void validateAndSave (ErrorOverrideDTO errorOverrideDTO);
 
 }

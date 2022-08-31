@@ -1,18 +1,24 @@
 package com.idg.idgcore.coe.dto.currencyconfiguration;
 
+import com.fasterxml.jackson.annotation.*;
 import com.idg.idgcore.coe.domain.entity.currencyconfiguration.*;
+import com.idg.idgcore.coe.dto.base.*;
 import lombok.*;
 
-@Setter
-@Getter
-public class CurrencyDetailsDTO {
+import static com.idg.idgcore.coe.common.Constants.*;
 
+@ToString (callSuper = true)
+@Getter
+@Setter
+@NoArgsConstructor
+@JsonInclude (JsonInclude.Include.NON_NULL)
+public class CurrencyDetailsDTO extends CoreEngineBaseDTO {
+
+    private String countryCode;
     private String currencyCode;
     private String currencyName;
     private short isoNumericCode;
     private String countryName;
-    private String countryCode;
-
     private String locale;
     private String alternateCurrencyCode;
     private String currencySymbol;
@@ -60,51 +66,67 @@ public class CurrencyDetailsDTO {
 
 
     public CurrencyDetailsDTO (CurrencyConfigurationDetailsEntity currencyConfigurationEntity){
+        this.countryCode = currencyConfigurationEntity.getCountryCode();
+        this.countryName = currencyConfigurationEntity.getCountryName();
         this.currencyCode = currencyConfigurationEntity.getCurrencyCode();
         this.currencyName = currencyConfigurationEntity.getCurrencyName();
         this.isoNumericCode = currencyConfigurationEntity.getIsoNumericCode();
-        this.countryCode = currencyConfigurationEntity.getCountryConfigurationEntity().getCountryCode();
-        this.countryName = currencyConfigurationEntity.getCountryConfigurationEntity().getCountryName();
-        this.locale = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getLocale();
-        this.alternateCurrencyCode = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getAlternateCurrencyCode();
-        this.currencySymbol = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getCurrencySymbol();
-        this.currencyDescription = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getCurrencyDescription();
-        this.currencyCategory = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getCurrencyCategory();
-        this.decimals = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getDecimals();
-        this.dayDivisor = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getDayDivisor();
-        this.spotDays = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getSpotDays();
-        this.fxNettingDays = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getFxNettingDays();
-        this.settlementDays = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getSettlementDays();
-        this.calenderId = currencyConfigurationEntity.getCurrencyDetailConfigurationEntity().getCalenderId();
-        this.beforeFormattingFlag = currencyConfigurationEntity.getCurrencySymbolConfigurationEntity().isBeforeFormattingFlag();
-        this.afterFormattingFlag = currencyConfigurationEntity.getCurrencySymbolConfigurationEntity().isAfterFormattingFlag();
-        this.includeSpaceFormattingFlag = currencyConfigurationEntity.getCurrencySymbolConfigurationEntity().isIncludeSpaceFormattingFlag();
-        this.days = currencyConfigurationEntity.getCurrencyCutOffEntity().getDays();
-        this.hours = currencyConfigurationEntity.getCurrencyCutOffEntity().getHours();
-        this.minutes = currencyConfigurationEntity.getCurrencyCutOffEntity().getMinutes();
-        this.minutes = currencyConfigurationEntity.getCurrencyCutOffEntity().getDays();
-        this.enableMt101Remit = currencyConfigurationEntity.getCurrencyCutOffEntity().isEnableMt101Remit();
-        this.enableMt103Stp = currencyConfigurationEntity.getCurrencyCutOffEntity().isEnableMt103Stp();
-        this.indexFlag = currencyConfigurationEntity.getCurrencyCutOffEntity().isIndexFlag();
-        this.enableMt202Cov = currencyConfigurationEntity.getCurrencyCutOffEntity().isEnableMt202Cov();
-        this.clsCurrencyFlag = currencyConfigurationEntity.getCurrencyCutOffEntity().isClsCurrencyFlag();
-        this.validateTag50fFlag = currencyConfigurationEntity.getCurrencyCutOffEntity().isValidateTag50fFlag();
-        this.preferredHoliday1 = currencyConfigurationEntity.getCurrencyCutOffEntity().getPreferredHoliday1();
-        this.preferredHoliday2 = currencyConfigurationEntity.getCurrencyCutOffEntity().getPreferredHoliday2();
-        this.preferredHoliday3 = currencyConfigurationEntity.getCurrencyCutOffEntity().getPreferredHoliday3();
-        this.roundingRule = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getRoundingRule();
-        this.roundingUnit = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getRoundingUnit();
-        this.amountFormatMaskPtt = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getAmountFormatMaskPtt();
-        this.euroTransactionCurrency = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().isEuroTransactionCurrency();
-        this.inLegCurrency = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getInLegCurrency();
-        this.outLegCurrency = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getOutLegCurrency();
-        this.euroCloseFlag = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().isEuroCloseFlag();
-        this.creditExchangeLimit = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getCreditExchangeLimit();
-        this.debitExchangeLimit = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getDebitExchangeLimit();
-        this.extraFieldName = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getExtraFieldName();
-        this.extraFiledvalue = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getExtraFiledvalue();
-        this.currencyCountryCode = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getCurrencyCountryCode();
-        this.currencyCountryName = currencyConfigurationEntity.getRoundingRuleConfigurationEntity().getCurrencyCountryName();
+        this.locale = currencyConfigurationEntity.getLocale();
+        this.alternateCurrencyCode = currencyConfigurationEntity.getAlternateCurrencyCode();
+        this.currencySymbol = currencyConfigurationEntity.getCurrencySymbol();
+        this.currencyDescription = currencyConfigurationEntity.getCurrencyDescription();
+        this.currencyCategory = currencyConfigurationEntity.getCurrencyCategory();
+        this.decimals = currencyConfigurationEntity.getDecimals();
+        this.dayDivisor = currencyConfigurationEntity.getDayDivisor();
+        this.spotDays = currencyConfigurationEntity.getSpotDays();
+        this.fxNettingDays =  currencyConfigurationEntity.getFxNettingDays();
+        this.settlementDays = currencyConfigurationEntity.getSettlementDays();
+        this.beforeFormattingFlag = currencyConfigurationEntity.isBeforeFormattingFlag();
+        this.afterFormattingFlag = currencyConfigurationEntity.isAfterFormattingFlag();
+        this.includeSpaceFormattingFlag = currencyConfigurationEntity.isIncludeSpaceFormattingFlag();
+        this.calenderId = currencyConfigurationEntity.getCalenderId();
+        this.days = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getDays();
+        this.hours = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getHours();
+        this.minutes = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getMinutes();
+        this.enableMt101Remit = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isEnableMt101Remit();
+        this.enableMt103Stp = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isEnableMt103Stp();
+        this.indexFlag = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isIndexFlag();
+        this.enableMt202Cov = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isEnableMt202Cov();
+        this.clsCurrencyFlag = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isClsCurrencyFlag();
+        this.validateTag50fFlag = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isValidateTag50fFlag();
+        this.preferredHoliday1 = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getPreferredHoliday1();
+        this.preferredHoliday2 = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getPreferredHoliday2();
+        this.preferredHoliday3 = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getPreferredHoliday3();
+        this.roundingRule = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getRoundingRule();
+        this.roundingUnit = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getRoundingUnit();
+        this.amountFormatMaskPtt = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getAmountFormatMaskPtt();
+        this.euroTransactionCurrency = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isEuroTransactionCurrency();
+        this.inLegCurrency = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getInLegCurrency();
+        this.outLegCurrency = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getOutLegCurrency();
+        this.euroCloseFlag = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().isEuroCloseFlag();
+        this.creditExchangeLimit = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getCreditExchangeLimit();
+        this.debitExchangeLimit = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getDebitExchangeLimit();
+        this.extraFieldName = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getExtraFieldName();
+        this.extraFiledvalue = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getExtraFiledvalue();
+        this.currencyCountryCode = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getCurrencyCountryCode();
+        this.currencyCountryName = currencyConfigurationEntity.getCurrencyCutOffRoundingRuleEntity().getCurrencyCountryName();
+    }
+
+    @Override
+    public String getTaskCode ()
+    {
+        return CURRENCY;
+    }
+
+    @Override
+    public void setTaskCode (String taskCode) {
+        super.setTaskCode(CURRENCY);
+    }
+
+    @Override
+    public String getTaskIdentifier ()
+    {
+        return this.getCountryCode();
     }
 
 }

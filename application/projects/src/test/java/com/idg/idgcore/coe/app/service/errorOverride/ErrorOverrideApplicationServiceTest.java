@@ -67,7 +67,7 @@ class ErrorOverrideApplicationServiceTest {
     @Test
     @DisplayName ("JUnit for getErrorOverrideByCode in application service when Authorize")
     void getErrorOverrideByCodeWithAuthRecord () throws FatalException {
-        given(domainService.getErrorOverrideByCode(errorOverrideDTOAuth.getErrorCode())).willReturn(
+        given(domainService.getRecordByErrorCodeAndBranchCode(errorOverrideDTOAuth.getErrorCode(),errorOverrideDTOAuth.getBranchCode())).willReturn(
                 errorOverrideEntity);
         given(assembler.convertEntityToDto(errorOverrideEntity)).willReturn(
                 errorOverrideDTOAuth);
@@ -127,6 +127,7 @@ class ErrorOverrideApplicationServiceTest {
         applicationService.getConfigurationByCode(code);
         assertThat(errorOverrideEntity).isNotNull();
     }
+
 
     @Test
     @DisplayName ("JUnit for processErrorOverride in application service for Try Block")
@@ -253,40 +254,21 @@ class ErrorOverrideApplicationServiceTest {
         });
     }
 
-        /*@Test
-    @DisplayName("JUnit for getBankByCode in application service when UnAuthorize fetch no Record from database")
-    void getErrorOverrideBankByCodeNotAuthorizeNull() throws FatalException {
-        ErrorOverrideDTO errorOverrideDTOnull=null;
-        ErrorOverrideDTO errorOverrideDTOEx=new ErrorOverrideDTO();
-        errorOverrideDTOEx.setBankCode("ERR-CHD-01");
-        errorOverrideDTOEx.setAuthorized("N");
-        given(mutationsDomainService.getConfigurationByCode(errorOverrideDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
-        ErrorOverrideDTO errorOverrideDTO1 = errorOverrideApplicationService.getBankByCode(sessionContext, errorOverrideDTOEx);
-        assertNotEquals("Y",errorOverrideDTO1.getAuthorized());
-        assertNull(errorOverrideDTOnull);
-    }*/
 
 
-    /*@Test
-    @DisplayName("JUnit for getBankByCode in application service when Not Authorize in try block for Negative when getAuthorized unexpected is Y")
-    void getErrorOverrideBankByCodeWhenNotAuthorizeTryBlockForNegative() throws JsonProcessingException, FatalException {
-        given(mutationsDomainService.getConfigurationByCode(errorOverrideDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
-        ErrorOverrideDTO errorOverrideDTO1 = errorOverrideApplicationService.getBankByCode(sessionContext,errorOverrideDTOMapper);
-        assertNotEquals("Y",errorOverrideDTO1.getAuthorized());
-        assertThat(errorOverrideDTO1).isNotNull();
-    }*/
 
     @Test
     @DisplayName ("JUnit for code coverage")
     void getAllArgEntity () {
         ErrorOverrideLanguageDetailsEntity detailEntity = new ErrorOverrideLanguageDetailsEntity(
                 "ENG", "English ", "EN", "New Error Cod");
-        ErrorOverrideConversionsEntity conversionsEntity = new ErrorOverrideConversionsEntity("ALL",
+        ErrorOverrideConversionsEntity conversionsEntity = new ErrorOverrideConversionsEntity(
                 "Cash Deposit/Withdrawal", "1");
         ErrorOverrideEntity entity =
                 new ErrorOverrideEntity("ERR-CHD-02",
-                        "PAN input is mandatory for the cash transaction above INR 50K", "Ignore",
-                        'Y', "Cash Deposit/Withdrawal", "Error", "", "", "active", 1, "", "",
+                        "PAN input is mandatory for the cash transaction above INR 50K","ALL", "Ignore",
+                        'Y', "Cash Deposit/Withdrawal", "Error", 'N', "", "",
+                        "active", 0, "N","",
                         detailEntity, conversionsEntity
                 );
         assertThat(entity).isNotNull();
@@ -311,12 +293,12 @@ class ErrorOverrideApplicationServiceTest {
     void getAllArgDto () {
         ErrorOverrideLanguageDetailsDTO detailDto = new ErrorOverrideLanguageDetailsDTO(
                 "ENG", "English ", "EN", "New Error Cod");
-        ErrorOverrideConversionsDTO conversionsDto = new ErrorOverrideConversionsDTO("ALL",
+        ErrorOverrideConversionsDTO conversionsDto = new ErrorOverrideConversionsDTO(
                 "Cash Deposit/Withdrawal", "1");
         ErrorOverrideDTO dto =
                 new ErrorOverrideDTO("ERR-CHD-02",
-                        "PAN input is mandatory for the cash transaction above INR 50K", "Ignore",
-                        true, "Cash Deposit/Withdrawal", "Error",
+                        "PAN input is mandatory for the cash transaction above INR 50K","ALL", "Ignore",
+                        true, "Cash Deposit/Withdrawal", "Error",false,
                         detailDto, conversionsDto
                 );
         assertThat(dto).isNotNull();
@@ -331,11 +313,11 @@ class ErrorOverrideApplicationServiceTest {
     void getBuilderDto () {
         ErrorOverrideLanguageDetailsDTO detailDto = new ErrorOverrideLanguageDetailsDTO(
                 "ENG", "English ", "EN", "New Error Cod");
-        ErrorOverrideConversionsDTO conversionsDto = new ErrorOverrideConversionsDTO("ALL",
+        ErrorOverrideConversionsDTO conversionsDto = new ErrorOverrideConversionsDTO(
                 "Cash Deposit/Withdrawal", "1");
 
         ErrorOverrideDTO dto=ErrorOverrideDTO.builder()
-                .errorCode("ERR-CHD-02").errorMessage("PAN input is mandatory for the cash transaction above INR 50K")
+                .errorCode("ERR-CHD-02").errorMessage("PAN input is mandatory for the cash transaction above INR 50K").branchCode("ALL").isExcluded(false)
                 .typeOfMessage("Ignore").isConfirmationRequired(true).functionCode("Cash Deposit/Withdrawal").batchType("Error")
                 .errorOverrideConversions(conversionsDto).errorOverrideLanguageDetails(detailDto)
                 .build();
@@ -348,7 +330,7 @@ class ErrorOverrideApplicationServiceTest {
     @DisplayName ("JUnit for code coverage")
     void getErrorOverrideEntityKeyAll () {
 
-        ErrorOverrideEntityKey entityKey = new ErrorOverrideEntityKey("entity");
+        ErrorOverrideEntityKey entityKey = new ErrorOverrideEntityKey("entity","branchCode");
 
         assertThat(entityKey).isNotNull();
         assertThat(entityKey.toString()).isNotNull();
@@ -359,33 +341,13 @@ class ErrorOverrideApplicationServiceTest {
 
         ErrorOverrideEntityKey entityKey = new ErrorOverrideEntityKey();
 entityKey.setErrorCode("entity");
+        entityKey.setBranchCode("branchCode");
         assertThat(entityKey).isNotNull();
         assertThat(entityKey.toString()).isNotNull();
         assertThat(entityKey.getErrorCode()).isNotNull();
 
     }
-  /*  @Test
-    @DisplayName("JUnit for code coverage")
-    void getCodeCoverageEntity()
-    {
 
-        ErrorOverrideAddressEntity errorOverrideAddressEntity = new ErrorOverrideAddressEntity("Kanakia Business Park 2","JB Nagar 2","Andheri East 2","Mumbai 2","IN","MH","MUM");
-        ErrorOverrideContactInfoEntity errorOverrideContactInfoEntity = new ErrorOverrideContactInfoEntity("022-4156271","022-4156271","abc@xyz.com","www.bob.com");
-        ErrorOverrideCurrencyEntity errorOverrideCurrencyEntity = new ErrorOverrideCurrencyEntity("INR","INDIAN RUPEES",getCharValueFromBoolean(false),"INR","INR");
-        ErrorOverridePreferencesEntity errorOverridePreferencesEntity = new ErrorOverridePreferencesEntity("Monday","Saturday","Sunday","","April");
-        ErrorOverrideForOdLoanEntity errorOverrideForOdLoanEntity = new ErrorOverrideForOdLoanEntity("OD_01","Regulated rule for Overdraft decision","LN_01","Regulated rule for Loan decision");
-
-        ErrorOverrideEntity errorOverrideEntity=new ErrorOverrideEntity("ERR-CHD-01","State Bank of India","ERR-CHD-01","SBI","SBI","","","draft",0,"Y","draft",errorOverrideAddressEntity,errorOverrideContactInfoEntity,errorOverrideCurrencyEntity,errorOverridePreferencesEntity,errorOverrideForOdLoanEntity);
-
-        errorOverrideEntity.setErrorOverrideAddressEntity(errorOverrideAddressEntity);
-        errorOverrideEntity.setErrorOverrideContactInfoEntity(errorOverrideContactInfoEntity);
-        errorOverrideEntity.setErrorOverrideCurrencyEntity(errorOverrideCurrencyEntity);
-        errorOverrideEntity.setErrorOverridePreferencesEntity(errorOverridePreferencesEntity);
-        errorOverrideEntity.setErrorOverrideForOdLoanEntity(errorOverrideForOdLoanEntity);
-
-        assertThat(errorOverrideEntity).descriptionText();
-    }
-*/
 
     private SessionContext getValidSessionContext () {
         SessionContext sessionContext = SessionContext.builder().bankCode("02")
@@ -527,12 +489,13 @@ entityKey.setErrorCode("entity");
         detailDto.setLanguageCode("EN");
         detailDto.setLanguageName("New Error Cod");
         ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
-        conversionsDTO.setBranchCode("ALL");
+
         conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
         conversionsDTO.setNewErrorCode("1");
         ErrorOverrideDTO dto = new ErrorOverrideDTO();
         dto.setErrorCode("ERR-CHD-02");
         dto.setErrorMessage("PAN input is mandatory for the cash transaction above INR 50K");
+        dto.setBranchCode("ALL");
         dto.setTypeOfMessage("Ignore");
         dto.setIsConfirmationRequired(true);
         dto.setFunctionCode("Cash Deposit/Withdrawal");
@@ -568,13 +531,14 @@ entityKey.setErrorCode("entity");
         detailEntity.setLanguageCode("EN");
         detailEntity.setLanguageName("New Error Cod");
         ErrorOverrideConversionsEntity conversionsEntity = new ErrorOverrideConversionsEntity();
-        conversionsEntity.setBranchCode("ALL");
+
         conversionsEntity.setFunctionCodeOverride("Cash Deposit/Withdrawal");
         conversionsEntity.setNewErrorCode("1");
         ErrorOverrideEntity entity = new ErrorOverrideEntity();
         entity.setErrorCode("ERR-CHD-02");
         entity.setErrorMessage("PAN input is mandatory for the cash transaction above INR 50K");
         entity.setTypeOfMessage("Ignore");
+        entity.setBranchCode("ALL");
         entity.setIsConfirmationRequired('Y');
         entity.setFunctionCode("Cash Deposit/Withdrawal");
         entity.setBatchType("Error");

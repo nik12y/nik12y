@@ -36,11 +36,6 @@ type Query{
     getTransactions(sessionContext: SessionContextInput): [Transaction]
     getQuestionById(sessionContext: SessionContextInput, question: QuestionInputQuery): Question
     getQuestions(sessionContext: SessionContextInput):[Question]
-    getAllCurrencyList(sessionContext: SessionContextInput):[Currencies]
-    getWeekAllDays(sessionContext: SessionContextInput):[Days]
-    getDayDivisor(sessionContext: SessionContextInput):[InterestMethod]
-    getRoundingRules(sessionContext: SessionContextInput):[RoundingRules]
-    getCurrencyDetails(sessionContext: SessionContextInput, currencyCode : CurrencyCodeInput) : CurrencyDetails
     getRiskCategories(sessionContext: SessionContextInput): [RiskCategory]
     getRiskCategoryByCode(sessionContext: SessionContextInput, riskCategory: RiskCategoryInputQuery): RiskCategory
     getQuestionCategoryById(sessionContext: SessionContextInput, questionCategoryQuery: QuestionCategoryInputQuery): QuestionCategory
@@ -80,6 +75,8 @@ type Query{
 
     getRegulatoryRegionByCode(sessionContext: SessionContextInput, regulatoryRegionQuery: RegulatoryRegionInputQuery): RegulatoryRegion
     getRegulatoryRegionCodes (sessionContext: SessionContextInput): [RegulatoryRegion]
+    getCurrencyDetails(sessionContext: SessionContextInput, countryCodeQuery : CountryCodeInputQuery) : CurrencyDetails
+    getCurrenciesList(sessionContext: SessionContextInput):[CurrencyDetails]
 
     getCurrencyPairById(sessionContext: SessionContextInput, currencyPairQuery:CurrencyPairInputQuery):CurrencyPair
     getCurrencyPairs(sessionContext: SessionContextInput): [CurrencyPair]

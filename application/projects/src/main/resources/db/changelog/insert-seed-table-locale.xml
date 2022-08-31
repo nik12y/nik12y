@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="seed_tbl_locale_cntry_insert" author="rakshit">
+        <comment>Data insertion for locale tables</comment>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_AE"/>
+            <column name="country_name" value="United Arab Emirates"/>
+            <column name="country_code" value="AE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_BH"/>
+            <column name="country_name" value="Bahrain"/>
+            <column name="country_code" value="BH"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_DZ"/>
+            <column name="country_name" value="Algeria"/>
+            <column name="country_code" value="DZ"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_EG"/>
+            <column name="country_name" value="Egypt"/>
+            <column name="country_code" value="EG"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_IQ"/>
+            <column name="country_name" value="Iraq"/>
+            <column name="country_code" value="IQ"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_JO"/>
+            <column name="country_name" value="Jordan"/>
+            <column name="country_code" value="JO"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_KW"/>
+            <column name="country_name" value="Kuwait"/>
+            <column name="country_code" value="KW"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_LB"/>
+            <column name="country_name" value="Lebanon"/>
+            <column name="country_code" value="LB"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_LY"/>
+            <column name="country_name" value="Lybia"/>
+            <column name="country_code" value="LY"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_MA"/>
+            <column name="country_name" value="Morocco"/>
+            <column name="country_code" value="MA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_OM"/>
+            <column name="country_name" value="Oman"/>
+            <column name="country_code" value="OM"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_QA"/>
+            <column name="country_name" value="Qatar"/>
+            <column name="country_code" value="QA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_SA"/>
+            <column name="country_name" value="Saudi Arabia"/>
+            <column name="country_code" value="SA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_SD"/>
+            <column name="country_name" value="Sudan"/>
+            <column name="country_code" value="SD"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_SY"/>
+            <column name="country_name" value="Syrian Arab Republic"/>
+            <column name="country_code" value="SY"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_TN"/>
+            <column name="country_name" value="Tunisia"/>
+            <column name="country_code" value="TN"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_YE"/>
+            <column name="country_name" value="Yemen"/>
+            <column name="country_code" value="YE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="be_BY"/>
+            <column name="country_name" value="Belarus"/>
+            <column name="country_code" value="BY"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="bg_BG"/>
+            <column name="country_name" value="Bulgaria"/>
+            <column name="country_code" value="BG"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ca_ES"/>
+            <column name="country_name" value="Spain"/>
+            <column name="country_code" value="ES"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="cs_CZ"/>
+            <column name="country_name" value="Czech Republic"/>
+            <column name="country_code" value="CZ"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="da_DK"/>
+            <column name="country_name" value="Denmark"/>
+            <column name="country_code" value="DK"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="de_AT"/>
+            <column name="country_name" value="Austria"/>
+            <column name="country_code" value="AT"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="de_CH"/>
+            <column name="country_name" value="Switzerland"/>
+            <column name="country_code" value="CH"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="de_DE"/>
+            <column name="country_name" value="Germany"/>
+            <column name="country_code" value="DE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="de_LU"/>
+            <column name="country_name" value="Luxembourg"/>
+            <column name="country_code" value="LU"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="el_CY"/>
+            <column name="country_name" value="Cyprus"/>
+            <column name="country_code" value="CY"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_AE"/>
+            <column name="country_name" value="United Arab Emirates"/>
+            <column name="country_code" value="AE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="el_GR"/>
+            <column name="country_name" value="Greece"/>
+            <column name="country_code" value="GR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_AU"/>
+            <column name="country_name" value="Australia"/>
+            <column name="country_code" value="AU"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_CA"/>
+            <column name="country_name" value="Canada"/>
+            <column name="country_code" value="CA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_GB"/>
+            <column name="country_name" value="Great Britain"/>
+            <column name="country_code" value="GB"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_IE"/>
+            <column name="country_name" value="Ireland"/>
+            <column name="country_code" value="IE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_IN"/>
+            <column name="country_name" value="India"/>
+            <column name="country_code" value="IN"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_MT"/>
+            <column name="country_name" value="Malta"/>
+            <column name="country_code" value="MT"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_NZ"/>
+            <column name="country_name" value="New Zealand"/>
+            <column name="country_code" value="NZ"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_PH"/>
+            <column name="country_name" value="Philippines"/>
+            <column name="country_code" value="PH"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_SG"/>
+            <column name="country_name" value="Singapore"/>
+            <column name="country_code" value="SG"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_US"/>
+            <column name="country_name" value="United States"/>
+            <column name="country_code" value="US"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="en_ZA"/>
+            <column name="country_name" value="South Africa"/>
+            <column name="country_code" value="ZA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_AR"/>
+            <column name="country_name" value="Argentina"/>
+            <column name="country_code" value="AR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_BO"/>
+            <column name="country_name" value="Bolivia"/>
+            <column name="country_code" value="BO"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_CL"/>
+            <column name="country_name" value="Chile"/>
+            <column name="country_code" value="CL"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_CO"/>
+            <column name="country_name" value="Colombia"/>
+            <column name="country_code" value="CO"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_CR"/>
+            <column name="country_name" value="Costa Rica"/>
+            <column name="country_code" value="CR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_DO"/>
+            <column name="country_name" value="Dominican Republic"/>
+            <column name="country_code" value="DO"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ar_AE"/>
+            <column name="country_name" value="United Arab Emirates"/>
+            <column name="country_code" value="AE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_EC"/>
+            <column name="country_name" value="Ecuador"/>
+            <column name="country_code" value="EC"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_ES"/>
+            <column name="country_name" value="Spain"/>
+            <column name="country_code" value="ES"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_GT"/>
+            <column name="country_name" value="Guatemala"/>
+            <column name="country_code" value="GT"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_HN"/>
+            <column name="country_name" value="Honduras"/>
+            <column name="country_code" value="HN"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_MX"/>
+            <column name="country_name" value="Mexico"/>
+            <column name="country_code" value="MX"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_NI"/>
+            <column name="country_name" value="Nicaragua"/>
+            <column name="country_code" value="NI"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_PA"/>
+            <column name="country_name" value="Panama"/>
+            <column name="country_code" value="PA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_PR"/>
+            <column name="country_name" value="Puerto Rico"/>
+            <column name="country_code" value="PR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_PY"/>
+            <column name="country_name" value="Paraguay"/>
+            <column name="country_code" value="PY"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_US"/>
+            <column name="country_name" value="United States"/>
+            <column name="country_code" value="US"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_UY"/>
+            <column name="country_name" value="Uruguay"/>
+            <column name="country_code" value="UY"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="es_VE"/>
+            <column name="country_name" value="Venezuela"/>
+            <column name="country_code" value="VE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="et_EE"/>
+            <column name="country_name" value="Estonia"/>
+            <column name="country_code" value="EE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="fi_FI"/>
+            <column name="country_name" value="Finland"/>
+            <column name="country_code" value="FI"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="fr_BE"/>
+            <column name="country_name" value="Belgium"/>
+            <column name="country_code" value="BE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="fr_CA"/>
+            <column name="country_name" value="Canada"/>
+            <column name="country_code" value="CA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="fr_CH"/>
+            <column name="country_name" value="Switzerland"/>
+            <column name="country_code" value="CH"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="fr_FR"/>
+            <column name="country_name" value="France"/>
+            <column name="country_code" value="FR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="fr_LU"/>
+            <column name="country_name" value="Luxembourg"/>
+            <column name="country_code" value="LU"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ga_IE"/>
+            <column name="country_name" value="Ireland"/>
+            <column name="country_code" value="IE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="he_IL"/>
+            <column name="country_name" value="Israel"/>
+            <column name="country_code" value="IL"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="hi_IN"/>
+            <column name="country_name" value="India"/>
+            <column name="country_code" value="IN"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="hr_HR"/>
+            <column name="country_name" value="Croatia"/>
+            <column name="country_code" value="HR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="id_ID"/>
+            <column name="country_name" value="Indonesia"/>
+            <column name="country_code" value="ID"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="is_IS"/>
+            <column name="country_name" value="Iceland"/>
+            <column name="country_code" value="IS"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="it_CH"/>
+            <column name="country_name" value="Switzerland"/>
+            <column name="country_code" value="CH"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="it_IT"/>
+            <column name="country_name" value="Italy"/>
+            <column name="country_code" value="IT"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="iw_IL"/>
+            <column name="country_name" value="Israel"/>
+            <column name="country_code" value="IL"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ja_JP"/>
+            <column name="country_name" value="Japan"/>
+            <column name="country_code" value="JP"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ko_KR"/>
+            <column name="country_name" value="Republic of Korea"/>
+            <column name="country_code" value="KR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="lv_LV"/>
+            <column name="country_name" value="Lithuania"/>
+            <column name="country_code" value="LV"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="mk_MK"/>
+            <column name="country_name" value="Republic of Macedonia"/>
+            <column name="country_code" value="MK"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ms_MY"/>
+            <column name="country_name" value="Burmese"/>
+            <column name="country_code" value="MY"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="mt_MT"/>
+            <column name="country_name" value="Malta"/>
+            <column name="country_code" value="MT"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="nl_BE"/>
+            <column name="country_name" value="Belgium"/>
+            <column name="country_code" value="BE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="nl_NL"/>
+            <column name="country_name" value="Netherlands"/>
+            <column name="country_code" value="NL"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="no_NO"/>
+            <column name="country_name" value="Norway"/>
+            <column name="country_code" value="NO"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="pl_PL"/>
+            <column name="country_name" value="Poland"/>
+            <column name="country_code" value="PL"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="pt_BR"/>
+            <column name="country_name" value="Brazil"/>
+            <column name="country_code" value="BR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="pt_PT"/>
+            <column name="country_name" value=" Portugal"/>
+            <column name="country_code" value="PT"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ro_RO"/>
+            <column name="country_name" value="Romany"/>
+            <column name="country_code" value="RO"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="ru_RU"/>
+            <column name="country_name" value="Russian Federation"/>
+            <column name="country_code" value="RU"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sk_SK"/>
+            <column name="country_name" value="Slovakia"/>
+            <column name="country_code" value="SK"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sl_SI"/>
+            <column name="country_name" value="Slovenia"/>
+            <column name="country_code" value="SI"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sq_AL"/>
+            <column name="country_name" value="Albania"/>
+            <column name="country_code" value="AL"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sr_BA"/>
+            <column name="country_name" value="Bosnia and Herzegowina"/>
+            <column name="country_code" value="BA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sr_CS"/>
+            <column name="country_name" value="Serbia and Montenegro"/>
+            <column name="country_code" value="CS"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sr_ME"/>
+            <column name="country_name" value="Serbia (Cyrillic, Montenegro)"/>
+            <column name="country_code" value="ME"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sr_RS"/>
+            <column name="country_name" value="Serbia (Latin, Serbia)"/>
+            <column name="country_code" value="RS"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="sv_SE"/>
+            <column name="country_name" value="Sweden"/>
+            <column name="country_code" value="SE"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="th_TH"/>
+            <column name="country_name" value="Thailand"/>
+            <column name="country_code" value="TH"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="tr_TR"/>
+            <column name="country_name" value="Turkey"/>
+            <column name="country_code" value="TR"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="uk_UA"/>
+            <column name="country_name" value="Ukraine"/>
+            <column name="country_code" value="UA"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="vi_VN"/>
+            <column name="country_name" value="Vietnam"/>
+            <column name="country_code" value="VN"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="zh_CN"/>
+            <column name="country_name" value="China"/>
+            <column name="country_code" value="CN"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="zh_HK"/>
+            <column name="country_name" value="Hong Kong"/>
+            <column name="country_code" value="HK"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="zh_SG"/>
+            <column name="country_name" value="Singapore"/>
+            <column name="country_code" value="SG"/>
+        </insert>
+        <insert tableName="idgc_mcy_seed_locale_country">
+            <column name="locale" value="zh_TW"/>
+            <column name="country_name" value="Taiwan"/>
+            <column name="country_code" value="TW"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

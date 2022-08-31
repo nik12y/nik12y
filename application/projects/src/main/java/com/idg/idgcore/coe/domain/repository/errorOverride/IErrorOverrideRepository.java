@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IErrorOverrideRepository extends JpaRepository<ErrorOverrideEntity,ErrorOverrideEntityKey> {
     ErrorOverrideEntity findByErrorCode (String errorCode);
+    ErrorOverrideEntity findByErrorCodeAndBranchCode (String errorCode, String branchCode);
+    ErrorOverrideEntity findByErrorCodeAndBranchCodeAndIsExcluded (String errorCode, String branchCode, boolean b);
+    ErrorOverrideEntity findByErrorCodeAndBranchCodeAndStatusNot (String errorCode, String all, String closed);
+
 }

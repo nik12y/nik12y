@@ -120,6 +120,10 @@ public class CountryApplicationService extends AbstractApplicationService
                 }
                 return countryDTO;
             }).toList());
+
+            //Order by date
+            Comparator<CountryDTO> compareByCreationTime = Comparator.comparing(CountryDTO::getCreationTime);
+            countryDTOList = countryDTOList.stream().sorted(compareByCreationTime.reversed()).toList();
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

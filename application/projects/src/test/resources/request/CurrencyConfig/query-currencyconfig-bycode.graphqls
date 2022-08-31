@@ -1,0 +1,75 @@
+{
+  getCurrencyDetails(
+    sessionContext: {
+       bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: "preeti"
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: ["maker"]
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+    }
+    countryCodeQuery: { countryCode: "TA" }
+  ) {
+    currencyCode
+    currencyName
+    isoNumericCode
+    countryName
+    countryCode
+    locale
+    alternateCurrencyCode
+    currencySymbol
+    currencyDescription
+    currencyCategory
+    decimals
+    dayDivisor
+    spotDays
+    fxNettingDays
+    settlementDays
+    calenderId
+    beforeFormattingFlag
+    afterFormattingFlag
+    includeSpaceFormattingFlag
+    days
+    hours
+    minutes
+    enableMt101Remit
+    enableMt103Stp
+    indexFlag
+    enableMt202Cov
+    clsCurrencyFlag
+    validateTag50fFlag
+    preferredHoliday1
+    preferredHoliday2
+    preferredHoliday3
+    roundingRule
+    roundingUnit
+    amountFormatMaskPtt
+    euroTransactionCurrency
+    inLegCurrency
+    outLegCurrency
+    euroCloseFlag
+    creditExchangeLimit
+    debitExchangeLimit
+    extraFieldName
+    extraFiledvalue
+    currencyCountryCode
+    currencyCountryName
+  }
+}

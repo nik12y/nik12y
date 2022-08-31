@@ -3,14 +3,13 @@ package com.idg.idgcore.coe.domain.assembler.errorOverride;
 import com.idg.idgcore.coe.domain.entity.errorOverride.*;
 import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.dto.errorOverride.*;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.stereotype.Component;
+import org.modelmapper.*;
+import org.modelmapper.convention.*;
+import org.springframework.stereotype.*;
 
-import javax.annotation.PostConstruct;
+import javax.annotation.*;
 
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
+import static com.idg.idgcore.coe.common.Constants.*;
 
 @Component
 public class ErrorOverrideAssembler {
@@ -27,33 +26,43 @@ public class ErrorOverrideAssembler {
                 ErrorOverrideEntity.class);
         errorOverrideEntity.setIsConfirmationRequired(
                 getCharValueFromBoolean(errorOverrideDTO.getIsConfirmationRequired()));
-
+        errorOverrideEntity.setIsExcluded(
+                getCharValueFromBoolean(errorOverrideDTO.getIsExcluded()));
+        /**
+         Setting Conversions Details */
         ErrorOverrideConversionsDTO errorOverrideConversionsDTO = errorOverrideDTO.getErrorOverrideConversions();
+        ErrorOverrideConversionsEntity errorOverrideConversions = modelMapper.map(
+                errorOverrideConversionsDTO, ErrorOverrideConversionsEntity.class);
+        /**
+         Setting Language Details */
         ErrorOverrideLanguageDetailsDTO errorOverrideLanguageDetailsDTO = errorOverrideDTO.getErrorOverrideLanguageDetails();
-
-        ErrorOverrideConversionsEntity errorOverrideConversions= modelMapper.map(errorOverrideConversionsDTO, ErrorOverrideConversionsEntity.class);
-        ErrorOverrideLanguageDetailsEntity errorOverrideLanguageDetails= modelMapper.map(errorOverrideLanguageDetailsDTO, ErrorOverrideLanguageDetailsEntity.class);
-
+        ErrorOverrideLanguageDetailsEntity errorOverrideLanguageDetails = modelMapper.map(
+                errorOverrideLanguageDetailsDTO, ErrorOverrideLanguageDetailsEntity.class);
         errorOverrideEntity.setErrorOverrideConversionsEntity(errorOverrideConversions);
         errorOverrideEntity.setErrorOverrideLanguageDetailsEntity(errorOverrideLanguageDetails);
-
         return errorOverrideEntity;
     }
 
     public ErrorOverrideDTO convertEntityToDto (ErrorOverrideEntity errorOverrideEntity) {
+        System.out.println("\n\n---convertEntityToDto---with--- "+errorOverrideEntity);
         ErrorOverrideDTO errorOverrideDTO = modelMapper.map(errorOverrideEntity,
                 ErrorOverrideDTO.class);
-        errorOverrideDTO.setIsConfirmationRequired(getBooleanValueFromChar(errorOverrideEntity.getIsConfirmationRequired()));
+        errorOverrideDTO.setIsConfirmationRequired(
+                getBooleanValueFromChar(errorOverrideEntity.getIsConfirmationRequired()));
+        errorOverrideDTO.setIsExcluded(getBooleanValueFromChar(errorOverrideEntity.getIsExcluded()));
 
-        ErrorOverrideConversionsEntity errorOverrideConversions = errorOverrideEntity.getErrorOverrideConversionsEntity();
+        /**
+         Setting Language Details */
         ErrorOverrideLanguageDetailsEntity errorOverrideLanguageDetails = errorOverrideEntity.getErrorOverrideLanguageDetailsEntity();
-
-        ErrorOverrideConversionsDTO errorOverrideConversionsDTO= modelMapper.map(errorOverrideConversions, ErrorOverrideConversionsDTO.class);
-        ErrorOverrideLanguageDetailsDTO errorOverrideLanguageDetailsDTO= modelMapper.map(errorOverrideLanguageDetails, ErrorOverrideLanguageDetailsDTO.class);
-
+        ErrorOverrideLanguageDetailsDTO errorOverrideLanguageDetailsDTO = modelMapper.map(
+                errorOverrideLanguageDetails, ErrorOverrideLanguageDetailsDTO.class);
+        /**
+         Setting Conversions Details */
+        ErrorOverrideConversionsEntity errorOverrideConversions = errorOverrideEntity.getErrorOverrideConversionsEntity();
+        ErrorOverrideConversionsDTO errorOverrideConversionsDTO = modelMapper.map(
+                errorOverrideConversions, ErrorOverrideConversionsDTO.class);
         errorOverrideDTO.setErrorOverrideConversions(errorOverrideConversionsDTO);
         errorOverrideDTO.setErrorOverrideLanguageDetails(errorOverrideLanguageDetailsDTO);
-
         return errorOverrideDTO;
     }
 

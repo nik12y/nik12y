@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.*;
 import com.idg.idgcore.coe.dto.base.*;
 import lombok.*;
 import lombok.experimental.*;
-import static com.idg.idgcore.coe.common.Constants.ERROR_OVERRIDE;
+
+import static com.idg.idgcore.coe.common.Constants.*;
 
 @ToString (callSuper = true)
 @Getter
@@ -14,14 +15,14 @@ import static com.idg.idgcore.coe.common.Constants.ERROR_OVERRIDE;
 @SuperBuilder
 @JsonInclude (JsonInclude.Include.NON_NULL)
 public class ErrorOverrideDTO extends CoreEngineBaseDTO {
-
     private String errorCode;
     private String errorMessage;
+    private String branchCode;
     private String typeOfMessage;
     private Boolean isConfirmationRequired;
     private String functionCode;
     private String batchType;
-
+    private Boolean isExcluded;
     private ErrorOverrideLanguageDetailsDTO errorOverrideLanguageDetails;
     private ErrorOverrideConversionsDTO errorOverrideConversions;
 
@@ -38,7 +39,7 @@ public class ErrorOverrideDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier () {
-        return this.getErrorCode();
+        return (this.getErrorCode() + FIELD_SEPARATOR + branchCode);
     }
 
 }

@@ -2,16 +2,20 @@ package com.idg.idgcore.coe.domain.assembler.currencyconfiguration;
 
 import com.idg.idgcore.coe.domain.entity.currencyconfiguration.*;
 import com.idg.idgcore.coe.dto.currencyconfiguration.*;
+import lombok.extern.slf4j.*;
 import org.modelmapper.*;
 import org.modelmapper.convention.*;
 import org.springframework.stereotype.*;
 
 import javax.annotation.*;
 
-import static com.idg.idgcore.coe.common.Constants.*;
-
+@Slf4j
 @Component
 public class CurrencyConfigurationAssembler {
+
+    private static final String CLASS_NAME="CurrencyConfigurationAssembler.";
+    private static final String ENTERED_STRING="Entered into ";
+    private static final String EXIT_STRING="Exited from ";
 
     private final ModelMapper modelMapper = new ModelMapper();
 
@@ -21,43 +25,54 @@ public class CurrencyConfigurationAssembler {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
     }
 
-    public CurrenciesDTO convertEntityToDto (CurrenciesEntity countryEntity) {
-        CurrenciesDTO currenciesDTO = modelMapper.map(countryEntity, CurrenciesDTO.class);
-        currenciesDTO.setCurrencyCode(countryEntity.getCurrencyCode());
-        currenciesDTO.setCurrencyName(countryEntity.getCurrencyName());
-        currenciesDTO.setCountryCode(countryEntity.getCountryCode());
-        currenciesDTO.setCountryName(countryEntity.getCountryName());
-        currenciesDTO.setIsoCode(countryEntity.getIsoNumericCode());
-        currenciesDTO.setLocale(countryEntity.getLocale());
-        return currenciesDTO;
+    public CurrencyConfigurationEntity convertDtoToEntity (CurrencyDetailsDTO currencyDetailsDTO) {
+        if (log.isInfoEnabled()) {
+            log.info(ENTERED_STRING+CLASS_NAME+"convertEntityToDto() with CurrencyDetailsDTO{}",currencyDetailsDTO);
+        }
+        CurrencyConfigurationEntity currencyConfigListEntity = modelMapper.map(currencyDetailsDTO, CurrencyConfigurationEntity.class);
+        if (log.isInfoEnabled()) {
+            log.info(EXIT_STRING+CLASS_NAME+"convertEntityToDto() with following response weekDaysDTO {}",currencyConfigListEntity);
+        }
+        return currencyConfigListEntity;
     }
 
-    public WeekDaysDTO convertEntityToDto (WeekDaysDetailsEntity weekDaysEntity) {
-        WeekDaysDTO weekDaysDTO = modelMapper.map(weekDaysEntity, WeekDaysDTO.class);
-        weekDaysDTO.setWeekDays(weekDaysDTO.getWeekDays());
-        weekDaysDTO.setAbbreviation(weekDaysDTO.getAbbreviation());
-        return weekDaysDTO;
+    public CurrencyDetailsDTO convertEntityToDto (CurrencyConfigurationDetailsEntity currencyConfigurationDetailsEntity) {
+        if (log.isInfoEnabled()) {
+            log.info(ENTERED_STRING+CLASS_NAME+"convertEntityToDto() with CurrencyConfigurationDetailsEntity{}",currencyConfigurationDetailsEntity);
+        }
+        CurrencyDetailsDTO currencyDetailsDTO = modelMapper.map(currencyConfigurationDetailsEntity, CurrencyDetailsDTO.class);
+        currencyDetailsDTO.setDays(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getDays());
+        currencyDetailsDTO.setHours(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getHours());
+        currencyDetailsDTO.setMinutes(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getMinutes());
+        currencyDetailsDTO.setEnableMt101Remit(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isEnableMt101Remit());
+        currencyDetailsDTO.setEnableMt103Stp(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isEnableMt103Stp());
+        currencyDetailsDTO.setEnableMt101Remit(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isEnableMt101Remit());
+        currencyDetailsDTO.setIndexFlag(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isIndexFlag());
+        currencyDetailsDTO.setEnableMt202Cov(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isEnableMt202Cov());
+        currencyDetailsDTO.setClsCurrencyFlag(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isClsCurrencyFlag());
+        currencyDetailsDTO.setValidateTag50fFlag(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isValidateTag50fFlag());
+        currencyDetailsDTO.setPreferredHoliday1(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getPreferredHoliday1());
+        currencyDetailsDTO.setPreferredHoliday2(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getPreferredHoliday2());
+        currencyDetailsDTO.setPreferredHoliday3(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getPreferredHoliday3());
+        currencyDetailsDTO.setRoundingRule(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getRoundingRule());
+        currencyDetailsDTO.setRoundingUnit(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getRoundingUnit());
+        currencyDetailsDTO.setAmountFormatMaskPtt(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getAmountFormatMaskPtt());
+        currencyDetailsDTO.setEuroTransactionCurrency(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isEuroTransactionCurrency());
+        currencyDetailsDTO.setInLegCurrency(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getInLegCurrency());
+        currencyDetailsDTO.setOutLegCurrency(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getOutLegCurrency());
+        currencyDetailsDTO.setEuroCloseFlag(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().isEuroCloseFlag());
+        currencyDetailsDTO.setCreditExchangeLimit(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getCreditExchangeLimit());
+        currencyDetailsDTO.setDebitExchangeLimit(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getDebitExchangeLimit());
+        currencyDetailsDTO.setExtraFieldName(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getExtraFieldName());
+        currencyDetailsDTO.setExtraFiledvalue(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getExtraFiledvalue());
+        currencyDetailsDTO.setCurrencyCountryCode(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getCurrencyCountryCode());
+        currencyDetailsDTO.setCurrencyCountryName(currencyConfigurationDetailsEntity.getCurrencyCutOffRoundingRuleEntity().getCurrencyCountryName());
+
+        if (log.isInfoEnabled()) {
+            log.info(EXIT_STRING+CLASS_NAME+"convertEntityToDto() with following response currencyDetailsDTO {}",currencyDetailsDTO);
+        }
+        return currencyDetailsDTO;
+
     }
 
-    public DayDivisorDTO convertEntityToDto (DayDivisorDetailsEntity dayDivisorEntity) {
-        DayDivisorDTO dayDivisorDTO = modelMapper.map(dayDivisorEntity, DayDivisorDTO.class);
-        dayDivisorDTO.setSrNo(dayDivisorDTO.getSrNo());
-        dayDivisorDTO.setInterestMethod(dayDivisorDTO.getInterestMethod());
-        return dayDivisorDTO;
-    }
-
-    public RoundingRuleDTO convertEntityToDto (RoundingRulesDetailsEntity roundingRulesEntity) {
-        RoundingRuleDTO roundingRuleDTO = modelMapper.map(roundingRulesEntity, RoundingRuleDTO.class);
-        roundingRuleDTO.setRoundingRule(roundingRulesEntity.getRoundingRule());
-        roundingRuleDTO.setRoundingRuleInstructionClass(roundingRuleDTO.getRoundingRuleInstructionClass());
-        return roundingRuleDTO;
-    }
-
-    public char getCharValueFromBoolean (boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar (Character value) {
-        return value.equals(CHAR_Y);
-    }
 }

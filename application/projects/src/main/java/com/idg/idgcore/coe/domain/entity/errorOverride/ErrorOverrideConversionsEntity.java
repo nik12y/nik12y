@@ -12,7 +12,7 @@ import java.io.*;
 @Embeddable
 public class ErrorOverrideConversionsEntity implements Serializable {
 
-    private String branchCode;
+
     private String functionCodeOverride;
     private String newErrorCode;
 
