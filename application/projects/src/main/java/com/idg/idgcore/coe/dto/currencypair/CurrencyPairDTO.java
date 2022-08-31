@@ -60,6 +60,11 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier () {
-        return this.getCurrency1();
+        List<CurrencyPairConfigDTO> currencyPairConfigDTOList = getCurrencyPairConfigDTOList();
+        StringBuffer buff = new StringBuffer();
+        for(CurrencyPairConfigDTO dto : currencyPairConfigDTOList) {
+            buff.append(dto.getEntityCode());
+        }
+        return this.getPairId()+getCurrency1()+getCurrency2()+buff.toString();
     }
 }
