@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.app.Interaction;
-import com.idg.idgcore.coe.app.config.MappingConfig;
-import com.idg.idgcore.coe.domain.assembler.audit.*;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
@@ -15,8 +13,8 @@ import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.country.ICountryDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
-import com.idg.idgcore.coe.exception.*;
-import com.idg.idgcore.datatypes.exceptions.*;
+import com.idg.idgcore.coe.exception.ExceptionUtil;
+import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.enumerations.core.TransactionMessageType;
@@ -26,16 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.Arrays;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.CHECKER;
-import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
@@ -47,15 +38,11 @@ public class CountryApplicationService extends AbstractApplicationService
     @Autowired
     private IProcessConfiguration process;
     @Autowired
-    private MappingConfig mappingConfig;
-    @Autowired
     private IMutationsDomainService mutationsDomainService;
     @Autowired
     private ICountryDomainService countryDomainService;
     @Autowired
     private CountryAssembler countryAssembler;
-    @Autowired
-    private MutationAssembler mutationAssembler;
 
     public CountryDTO getCountryByCode (SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException {
@@ -79,7 +66,7 @@ public class CountryApplicationService extends AbstractApplicationService
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), CountryDTO.class);
-                result = countryAssembler.setAuditFields(mutationEntity,result);
+                result = countryAssembler.setAuditFields(mutationEntity, result);
                 fillTransactionStatus(transactionStatus);
             }
         }
@@ -104,26 +91,20 @@ public class CountryApplicationService extends AbstractApplicationService
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         ObjectMapper objectMapper = new ObjectMapper();
         List<CountryDTO> countryDTOList = new ArrayList<>();
-
         try {
-            List<MutationEntity> entities = mutationsDomainService.getMutations(
-                    getTaskCode());
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
             countryDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 CountryDTO countryDTO = null;
                 try {
                     countryDTO = objectMapper.readValue(data, CountryDTO.class);
-                    countryDTO = countryAssembler.setAuditFields(entity,countryDTO);
+                    countryDTO = countryAssembler.setAuditFields(entity, countryDTO);
                 }
                 catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return countryDTO;
             }).toList());
-
-            //Order by date
-            Comparator<CountryDTO> compareByCreationTime = Comparator.comparing(CountryDTO::getCreationTime);
-            countryDTOList = countryDTOList.stream().sorted(compareByCreationTime.reversed()).toList();
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

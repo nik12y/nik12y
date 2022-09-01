@@ -102,12 +102,8 @@ public class StateApplicationService extends AbstractApplicationService
         ObjectMapper objectMapper = new ObjectMapper();
         List<StateDTO> stateDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            stateDTOList.addAll(stateDomainService.getStates().stream()
-                    .map(entity -> stateAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            stateDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            stateDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 StateDTO stateDTO = null;
                     try {
@@ -117,11 +113,8 @@ public class StateApplicationService extends AbstractApplicationService
                         ExceptionUtil.handleException(JSON_PARSING_ERROR);
                     }
                     return stateDTO;
-                }).collect(Collectors.toList()));
-            stateDTOList = stateDTOList.stream().collect(
-                    Collectors.groupingBy(StateDTO::getStateCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(StateDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+                }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

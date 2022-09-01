@@ -97,12 +97,9 @@ public class RegulatoryRegionApplicationService extends AbstractApplicationServi
         List<RegulatoryRegionConfigDTO> regulatoryRegionConfigDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            regulatoryRegionConfigDTOList.addAll(iRegulatoryRegionDomainService.getRegulatoryRegionCodes().stream()
-                    .map(entity -> regulatoryRegionAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            regulatoryRegionConfigDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            regulatoryRegionConfigDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 RegulatoryRegionConfigDTO regulatoryRegionConfigDTO = null;
                 try {
@@ -112,11 +109,8 @@ public class RegulatoryRegionApplicationService extends AbstractApplicationServi
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return regulatoryRegionConfigDTO;
-            }).collect(Collectors.toList()));
-            regulatoryRegionConfigDTOList = regulatoryRegionConfigDTOList.stream().collect(
-                    Collectors.groupingBy(RegulatoryRegionConfigDTO::getRegRegionCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(RegulatoryRegionConfigDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);

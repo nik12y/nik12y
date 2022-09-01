@@ -106,12 +106,8 @@ public class ReasonApplicationService extends AbstractApplicationService
         List<ReasonDTO> reasonDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            reasonDTOList.addAll(reasonDomainService.getReasons().stream()
-                    .map(entity -> reasonAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            reasonDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            reasonDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 ReasonDTO reasonDTO = null;
                 try {
@@ -122,11 +118,8 @@ public class ReasonApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return reasonDTO;
-            }).collect(Collectors.toList()));
-            reasonDTOList = reasonDTOList.stream().collect(
-                    Collectors.groupingBy(ReasonDTO::getPrimaryReasonCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(ReasonDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

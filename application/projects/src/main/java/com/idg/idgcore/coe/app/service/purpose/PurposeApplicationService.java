@@ -102,12 +102,8 @@ public class PurposeApplicationService extends AbstractApplicationService implem
         List<PurposeDTO> purposeDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            purposeDTOList.addAll(purposeDomainService.getPurposes().stream()
-                    .map(entity -> purposeAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            purposeDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            purposeDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 PurposeDTO purposeDTO = null;
                 try {
@@ -118,11 +114,8 @@ public class PurposeApplicationService extends AbstractApplicationService implem
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return purposeDTO;
-            }).collect(Collectors.toList()));
-            purposeDTOList = purposeDTOList.stream().collect(
-                    Collectors.groupingBy(PurposeDTO::getPurposeCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(PurposeDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

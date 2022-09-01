@@ -103,12 +103,8 @@ public class BranchSystemApplicationService extends AbstractApplicationService
         List<BranchSystemDateDTO> branchSystemDateDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            branchSystemDateDTOList.addAll(branchSystemDomainService.getBranchSystemDateAll().stream()
-                    .map(entity -> branchSystemAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            branchSystemDateDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            branchSystemDateDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 BranchSystemDateDTO branchSystemDateDTO = null;
                 try {
@@ -119,11 +115,8 @@ public class BranchSystemApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return branchSystemDateDTO;
-            }).collect(Collectors.toList()));
-            branchSystemDateDTOList = branchSystemDateDTOList.stream().collect(
-                    Collectors.groupingBy(BranchSystemDateDTO::getBranchCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(BranchSystemDateDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

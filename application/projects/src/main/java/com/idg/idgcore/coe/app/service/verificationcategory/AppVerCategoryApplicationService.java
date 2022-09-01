@@ -103,12 +103,8 @@ public class AppVerCategoryApplicationService extends AbstractApplicationService
         ObjectMapper objectMapper = new ObjectMapper();
         List<AppVerCategoryConfigDTO> appVerCategoryConfigDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            appVerCategoryConfigDTOList.addAll(appVerCategoryConfigDomainService.getAppVerCategoryConfigs().stream()
-                    .map(entity -> appVerCategoryConfigAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            appVerCategoryConfigDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            appVerCategoryConfigDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 AppVerCategoryConfigDTO appVerCategoryConfigDTO = null;
                 try {
@@ -118,11 +114,8 @@ public class AppVerCategoryApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return appVerCategoryConfigDTO;
-            }).collect(Collectors.toList()));
-            appVerCategoryConfigDTOList = appVerCategoryConfigDTOList.stream().collect(
-                    Collectors.groupingBy(AppVerCategoryConfigDTO::getAppVerificationCategoryId, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(AppVerCategoryConfigDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

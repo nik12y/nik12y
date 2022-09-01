@@ -103,12 +103,8 @@ public class AppVerCatChecklistPolicyApplicationService extends AbstractApplicat
         ObjectMapper objectMapper = new ObjectMapper();
         List<AppVerCatChecklistPolicyDTO> appVerCatChecklistPolicyDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            appVerCatChecklistPolicyDTOList.addAll(appVerCatChecklistPolicyDomainService.getAppVerChecklistPolicies().stream()
-                    .map(entity -> appVerCatChecklistPolicyAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            appVerCatChecklistPolicyDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            appVerCatChecklistPolicyDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO = null;
                 try {
@@ -118,11 +114,8 @@ public class AppVerCatChecklistPolicyApplicationService extends AbstractApplicat
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return appVerCatChecklistPolicyDTO;
-            }).collect(Collectors.toList()));
-            appVerCatChecklistPolicyDTOList = appVerCatChecklistPolicyDTOList.stream().collect(
-                    Collectors.groupingBy(AppVerCatChecklistPolicyDTO::getAppVerChecklistPolicyId, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(AppVerCatChecklistPolicyDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

@@ -1,7 +1,5 @@
 package com.idg.idgcore.coe.domain.service.mutation;
 
-import com.fasterxml.jackson.databind.*;
-import com.idg.idgcore.coe.dto.base.*;
 import com.idg.idgcore.coe.dto.mutation.MutationDTO;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.audit.AuditHistoryEntity;
@@ -15,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
-import java.util.*;
+import java.util.List;
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.idg.idgcore.coe.common.Constants.ADD;
@@ -160,18 +160,14 @@ public class MutationsDomainService implements IMutationsDomainService {
         }
     }
 
-    public List<MutationEntity> getUnauthorizedMutation (final String taskCode,final String authorized) {
-        if (log.isInfoEnabled()) {
-            log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
-        }
-        return this.mutationRepository.findByTaskCodeAndAuthorized(taskCode,authorized);
-    }
-
     public List<MutationEntity> getMutations (final String taskCode) {
         if (log.isInfoEnabled()) {
             log.info("In getUnauthorizedMutation with parameters taskCode{}", taskCode);
         }
-        return this.mutationRepository.findByTaskCode(taskCode);
+        Comparator<MutationEntity> compareByCreationTime = Comparator.comparing(MutationEntity::getCreationTime);
+        List<MutationEntity> mutationEntity = this.mutationRepository.findByTaskCode(taskCode);
+
+        return mutationEntity.stream().sorted(compareByCreationTime.reversed()).toList();
     }
 
     public boolean validateMutation (MutationDTO dto) throws BusinessException {

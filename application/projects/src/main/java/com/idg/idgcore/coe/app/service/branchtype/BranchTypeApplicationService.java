@@ -105,12 +105,9 @@ public List<BranchTypeDTO> getBranches (SessionContext sessionContext) throws Fa
     List<BranchTypeDTO> branchTypeDTOList = new ArrayList<>();
 
     try {
-        List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                getTaskCode(),AUTHORIZED_N);
-        branchTypeDTOList.addAll(branchTypeDomainService.getBranches().stream()
-                .map(entity -> branchtypeAssembler.convertEntityToDto(entity))
-                .collect(Collectors.toList()));
-        branchTypeDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+        List<MutationEntity> entities = mutationsDomainService.getMutations(
+                getTaskCode());
+        branchTypeDTOList.addAll(entities.stream().map(entity -> {
             String data = entity.getPayload().getData();
             BranchTypeDTO branchTypeDTO = null;
             try {
@@ -121,11 +118,8 @@ public List<BranchTypeDTO> getBranches (SessionContext sessionContext) throws Fa
                 ExceptionUtil.handleException(JSON_PARSING_ERROR);
             }
             return branchTypeDTO;
-        }).collect(Collectors.toList()));
-        branchTypeDTOList = branchTypeDTOList.stream().collect(
-                Collectors.groupingBy(BranchTypeDTO::getBranchTypeCode, Collectors.collectingAndThen(
-                        Collectors.maxBy(Comparator.comparing(BranchTypeDTO::getRecordVersion)),
-                        Optional::get))).values().stream().collect(Collectors.toList());
+        }).toList());
+
         fillTransactionStatus(transactionStatus);
     }
     catch (Exception exception) {

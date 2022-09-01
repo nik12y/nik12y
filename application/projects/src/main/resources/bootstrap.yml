@@ -21,5 +21,3 @@ spring:
       properties:
         hibernate:
           dialect: ${DB_DIALECT:org.hibernate.dialect.PostgreSQL95Dialect}
-
-

@@ -101,12 +101,8 @@ public class QuestionCategoryApplicationService extends AbstractApplicationServi
         List<QuestionCategoryDTO> questionCategoryDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            questionCategoryDTOList.addAll(iQuestionCategoryDomainService.getQuestionsCategories().stream()
-                    .map(entity -> questionCategoryAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            questionCategoryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            questionCategoryDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 QuestionCategoryDTO questionCategoryDTO = null;
                 try {
@@ -117,11 +113,8 @@ public class QuestionCategoryApplicationService extends AbstractApplicationServi
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return questionCategoryDTO;
-            }).collect(Collectors.toList()));
-            questionCategoryDTOList = questionCategoryDTOList.stream().collect(
-                    Collectors.groupingBy(QuestionCategoryDTO::getQuestionCategoryId, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(QuestionCategoryDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
