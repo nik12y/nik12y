@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
-//import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.idg.idgcore.coe.common.Constants.CHAR_N;
 import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
@@ -30,39 +27,6 @@ public class CurrencyPairAssembler {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
     }
-
-//    public CurrencyPairDTO convertEntityToDto (CurrencyPairEntity currencyPairEntity) {
-//        CurrencyPairDTO currencyPairDTO = modelMapper.map(currencyPairEntity, CurrencyPairDTO.class);
-//        currencyPairDTO.setPairId(currencyPairEntity.getPairId());
-//        currencyPairDTO.setCurrency1(currencyPairEntity.getCurrency1());
-//        currencyPairDTO.setCurrency1Description(currencyPairEntity.getCurrency1Description());
-//        currencyPairDTO.setCurrency2(currencyPairEntity.getCurrency2());
-//        currencyPairDTO.setCurrency2Description(currencyPairEntity.getCurrency2Description());
-//        currencyPairDTO.setEntityCodeType(currencyPairEntity.getEntityCodeType());
-//        currencyPairDTO.setCountryCode(currencyPairEntity.getCountryCode());
-//        currencyPairDTO.setThroughCurrency(currencyPairEntity.getThroughCurrency());
-//        currencyPairDTO.setThroughCurrencyCode(currencyPairEntity.getThroughCurrencyCode());
-//        currencyPairDTO.setThroughCurrencyDescription(currencyPairEntity.getThroughCurrencyDescription());
-//        currencyPairDTO.setNoofunits(currencyPairEntity.getNoofunits());
-//        currencyPairDTO.setPointMultiplier(currencyPairEntity.getPointMultiplier());
-//        currencyPairDTO.setQuotationMethods(currencyPairEntity.getQuotationMethods());
-//        currencyPairDTO.setSpreadDefinition(currencyPairEntity.getSpreadDefinition());
-//        return currencyPairDTO;
-//    }
-//
-//    public CurrencyPairEntity convertDtoToEntity(CurrencyPairDTO currencyPairDTO) {
-//        List<VirtualConfigTypeDTO> virtualConfigTypeDTO = currencyPairDTO.getVirtualConfigType();
-//        List<VirtualConfigTypeEntity> virtualConfigTypeEntityList = new ArrayList<>();
-//        virtualConfigTypeEntityList.addAll(virtualConfigTypeDTO.stream().map(entity->{
-//            VirtualConfigTypeEntity virtualConfigTypeEntity1=null;
-//            virtualConfigTypeEntity1 = modelMapper.map(entity, VirtualConfigTypeEntity.class);
-//            return virtualConfigTypeEntity1;
-//        }).collect(Collectors.toList()));
-//
-//        CurrencyPairEntity currencyPairEntity = modelMapper.map(currencyPairDTO, CurrencyPairEntity.class);
-//        currencyPairEntity.setVirtualConfigTypeEntity((VirtualConfigTypeEntity) virtualConfigTypeEntityList);
-//        return currencyPairEntity;
-//    }
 
     public CurrencyPairEntity convertDtoToEntity(CurrencyPairDTO currencyPairDTO) {
 

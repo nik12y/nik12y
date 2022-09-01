@@ -1,7 +1,6 @@
 package com.idg.idgcore.coe.domain.service.currencypair;
 
 import com.idg.idgcore.coe.domain.assembler.currencypair.CurrencyPairAssembler;
-import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairConfigEntity;
 import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairEntity;
 import com.idg.idgcore.coe.domain.repository.currencypair.ICurrencyPairRepository;
 import com.idg.idgcore.coe.dto.currencypair.CurrencyPairDTO;

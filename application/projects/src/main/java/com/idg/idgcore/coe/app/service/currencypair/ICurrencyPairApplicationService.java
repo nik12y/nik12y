@@ -22,11 +22,4 @@ public interface ICurrencyPairApplicationService extends IBaseApplicationService
     List<CurrencyPairDTO> getCurrencyPairs (SessionContext sessionContext)
             throws FatalException;
 
-//    TransactionStatus processCurrencyPairConfig (SessionContext sessionContext, CurrencyPairConfigDTO dto) throws FatalException,
-//            JsonProcessingException;
-//    void save (CurrencyPairConfigDTO currencyPairConfigDTO);
-//    CurrencyPairConfigDTO getCurrencyPairConfigByID (SessionContext sessionContext, CurrencyPairConfigDTO currencyPairConfigDTO)
-//            throws FatalException, JsonProcessingException;
-//    List<CurrencyPairConfigDTO> getCurrencyPairConfigs (SessionContext sessionContext)
-//            throws FatalException;
 }

@@ -28,12 +28,4 @@ public class CurrencyPairQueryResolver implements GraphQLQueryResolver {
         return this.currencyPairApplicationService.getCurrencyPairs(sessionContext);
     }
 
-//    public CurrencyPairConfigDTO getCurrencyPairConfigByID (SessionContext sessionContext, CurrencyPairConfigDTO currencyPairConfigDTO)
-//            throws FatalException, JsonProcessingException {
-//        return this.currencyPairApplicationService.getCurrencyPairConfigById(sessionContext, currencyPairConfigDTO);
-//    }
-//
-//    public List<CurrencyPairConfigDTO> getCurrencyPairConfigs (SessionContext sessionContext) throws FatalException {
-//        return this.currencyPairApplicationService.getCurrencyPairConfigs(sessionContext);
-//    }
 }

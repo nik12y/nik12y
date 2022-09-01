@@ -2,7 +2,6 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.currencypair;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.idg.idgcore.coe.app.service.currencypair.ICurrencyPairApplicationService;
-import com.idg.idgcore.coe.dto.currencypair.CurrencyPairConfigDTO;
 import com.idg.idgcore.coe.dto.currencypair.CurrencyPairDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -24,8 +23,4 @@ public class CurrencyPairMutationResolver implements GraphQLMutationResolver {
         return this.currencyPairApplicationService.processCurrencyPair(sessionContext, currencyPairDTO);
     }
 
-//    public TransactionStatus processCurrencyPairConfig (SessionContext sessionContext, CurrencyPairConfigDTO currencyPairConfigDTO)
-//            throws FatalException, JsonProcessingException {
-//        return this.currencyPairApplicationService.processCurrencyPairConfig(sessionContext, currencyPairConfigDTO);
-//    }
 }

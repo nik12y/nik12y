@@ -95,4 +95,4 @@ databaseChangeLog:
   - include:
       file: db/changelog/insert-fw-config-table
   - include:
-      file: db/changelog/pair.xml
+      file: db/changelog/create_tbl_IDGC_MCY_CNFG_CURRENCY_PAIR.xml
