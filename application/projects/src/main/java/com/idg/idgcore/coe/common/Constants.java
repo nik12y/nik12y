@@ -126,6 +126,10 @@ public final class Constants {
 
     public static final String CURR_FORM_ERROR_MSG2 ="Found more than one occurence of \"D\" in amount format pattern";
 
+    public static final String CURRENCY_PAIR = "CURRENCY_PAIR";
+    public static final String CURRENCY_PAIR_SERVICE = "currencyPairApplicationService";
+    public static final String CURRENCY_PAIR_CONFIG = "CURRENCY_PAIR_CONFIG";
+
     private Constants () {
     }
 

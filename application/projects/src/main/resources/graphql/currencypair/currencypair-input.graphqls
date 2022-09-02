@@ -1,0 +1,25 @@
+input CurrencyPairInput {
+#    pairId: Int! @Range(min : 1, max : 9999, message : "pairId.message")
+    currency1 : String! @Size(min: 3, max: 3, message: "currency1.message") @Pattern(regexp: "[A-Z]+",message: "Currency 1 should be uppercase alphabet of size 3")
+    currency1Description : String @Size(min: 1, max: 35, message: "currency1Description.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "currency1Description Invalid pattern")
+    currency2 : String! @Size(min: 3, max: 3, message: "currency2.message") @Pattern(regexp: "[A-Z]+",message: "Currency 2 should be uppercase alphabet of size 3")
+    currency2Description : String @Size(min: 1, max: 35, message: "currency2Description.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "currency2Description Invalid pattern")
+    entityCodeType : String! @Size(min: 1, max: 20, message: "entityCodeType.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "entityCodeType Invalid pattern")
+    countryCode: String! @Size(min: 2, max: 2, message: "countryCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,2}",message: "Country Code Invalid pattern")
+    throughCurrency : Boolean
+    throughCurrencyCode : String @Size(min: 3, max: 3, message: "throughCurrencyCode.message") @Pattern(regexp: "[A-Z]+",message: "throughCurrencyCode should be uppercase alphabet of size 3")
+    throughCurrencyDescription : String @Size(min: 1, max: 35, message: "throughCurrencyDescription.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "Pair ID Invalid pattern")
+    noofunits : Int!
+    pointMultiplier : Float
+    quotationMethods : Boolean!
+    spreadDefinition : Boolean!
+    currencyPairConfigDTOList: [CurrencyPairConfigInput]
+    recordVersion : Int!
+    status : String!
+    authorized: String
+    action : String!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}
