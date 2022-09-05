@@ -1,0 +1,4 @@
+type CurrencyPairQuery {
+    pairId: Int
+    authorized: String!
+}

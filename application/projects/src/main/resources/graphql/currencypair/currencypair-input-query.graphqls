@@ -1,0 +1,4 @@
+input CurrencyPairInputQuery {
+    pairId: Int
+    authorized : String!
+}
