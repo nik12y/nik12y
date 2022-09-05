@@ -32,6 +32,17 @@ public class FinancialAccountingYearPeriodicCodeEntity extends AbstractAuditable
     private Date startDateAccountingPeriod;
     private Date endDateAccountingPeriod;
 
+    @Column (name = "period_code_closure_status")
+    private String periodCodeClosureStatus;
+    private String financialYearClosureStatus;
+
+    @Column (name = "record_status")
+    private String status;
+    @Column (name = "record_version")
+    private Integer recordVersion;
+    @Column (name = "is_authorized")
+    private String authorized;
+    private String lastConfigurationAction;
 }
 
 
