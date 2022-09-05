@@ -19,10 +19,13 @@ public interface IFinancialAccountingYearApplicationService extends IBaseApplica
             throws FatalException, JsonProcessingException;
     List<FinancialAccountingYearDTO> getFinancialAccountingYears (SessionContext sessionContext)
             throws FatalException;
-
-
     FinancialAccountingYearDTO getByBankCodeAndBranchCodeAndFinancialAccountingYearCode (
             SessionContext sessionContext, FinancialAccountingYearDTO dto)
             throws FatalException, JsonProcessingException;
+
+    FinancialAccountingYearProcessDTO getFinancialAccountingYearDateAndPeriodCode (
+            String branchCode, Date inputDate) throws FatalException;
+    FinancialAccountingYearDTO getFinancialAccountingYearDateAndAllPeriodCode (
+            String branchCode, Date inputDate) throws FatalException;
 
 }

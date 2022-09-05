@@ -13,5 +13,6 @@ public interface IFinancialAccountingYearDomainService {
     FinancialAccountingYearEntity getByBankCodeAndBranchCodeAndFinancialAccountingYearCode  (String bankCode,
             String branchCode, String financialAccountingYearCode);
     void save (FinancialAccountingYearDTO financialAccountingYearDTO);
-
+    FinancialAccountingYearEntity getFinancialAccountingYearForProcessCall (
+            String branchCode, Date inputDate);
 }
