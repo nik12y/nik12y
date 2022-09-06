@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.endpoint.graphql.resolver.mitigant;
+package com.idg.idgcore.coe.endpoint.graphql.resolver.virtualEntity;
 
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
@@ -12,27 +12,23 @@ import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestApplication.class)
-public class MitigantQueryResolverTest {
+class VirtualEntityQueryResolverTest {
 
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
     @Test
-    public void getMitigantByMitigantCode() throws IOException, JSONException {
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/mitigant/query-mitigant-bycode.graphqls");
+    void getVirtualEntityByEntityCode() throws IOException, JSONException {
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/virtualEntity/query-virtualEntity-bycode.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
-        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
-
     }
 
     @Test
-    public void getMitigantAll() throws IOException, JSONException {
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/mitigant/query-mitigant-all.graphqls");
+    void getVirtualEntityAll() throws IOException, JSONException {
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/virtualEntity/query-virtualEntity-All.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
-        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
     }
-
 }

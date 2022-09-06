@@ -1,0 +1,22 @@
+{
+  "data": {
+    "getVirtualEntityAll": [
+      {
+        "entityType": "MKE",
+        "entityName": "MKE01",
+        "parentEntityType": "Legal Entity",
+        "parentEntityCode": "LE01",
+        "isDefault": true,
+        "effectiveDate": "2022-08-07"
+      },
+      {
+        "entityType": "LE",
+        "entityName": "LE01",
+        "parentEntityType": "Group Banking Code",
+        "parentEntityCode": "GBC",
+        "isDefault": true,
+        "effectiveDate": "2022-08-16"
+      }
+    ]
+  }
+}

@@ -39,5 +39,6 @@ type Mutation {
     processAmountFormatting(sessionContext: SessionContextInput, amount: AmountInput) : FormattedAmount
 
     processCurrencyPair(sessionContext: SessionContextInput, currencyPair: CurrencyPairInput): TransactionStatus
+    processVirtualEntity(sessionContext: SessionContextInput, virtualEntity: VirtualEntityInput): TransactionStatus
 }
 
