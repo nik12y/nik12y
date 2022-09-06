@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: currency_config/IDGC_MCY_CNFG_EXCHG_RATE_TYPE_create_tbl.xml
+  - include:
+      file: currency_config/IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_create_tbl.xml
+  - include:
+      file: currency_config/IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE_create_tbl.xml
+

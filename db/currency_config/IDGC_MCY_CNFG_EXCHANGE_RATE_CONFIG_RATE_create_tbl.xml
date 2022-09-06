@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	<changeSet id="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE_create_tbl" author="rahuls">
+		<createTable tableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE" remarks="A table to store currency rates for various rate_types for a pair">
+			<column name="currency_rate_id" type="integer" autoIncrement="true">
+				<constraints nullable="false" unique="true" primaryKey="true" />
+			</column>
+            <column name="exchange_rate_id" type="integer">
+			</column>
+			<column name="currency_rate_type" type="varchar(10)">
+			</column>
+			<column name="mid_rate" type="float">
+			</column>
+			<column name="buy_spread" type="int">
+			</column>
+			<column name="sell_spread" type="int">
+			</column>
+			<column name="buy_rate" type="float">
+			</column>
+			<column name="sell_rate" type="float">
+			</column>
+		</createTable>
+        <addUniqueConstraint columnNames="currency_rate_id" tableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE" constraintName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE_PK" />
+		<addForeignKeyConstraint baseTableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE" baseColumnNames="currency_rate_type" constraintName="currency_rate_type_for_exchange_rate" referencedTableName="IDGC_MCY_CNFG_EXCHG_RATE_TYPE" referencedColumnNames="currency_rate_type" onDelete="CASCADE" />
+		<addForeignKeyConstraint baseTableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE" baseColumnNames="exchange_rate_id" constraintName="rates_for_exchange_rate" referencedTableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG" referencedColumnNames="exchange_rate_id" onDelete="CASCADE" />
+	</changeSet>
+</databaseChangeLog>
