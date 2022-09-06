@@ -29,7 +29,7 @@ public class IbanEntity extends AbstractAuditableDomainEntity implements Seriali
     @Column (name="iban_check_digit_length")
     private Integer ibanCheckDigitLength;
     @Column (name="iban_national_id_length")
-    private String ibanNationalIdLength;
+    private Integer ibanNationalIdLength;
     @Column (name="iban_total_length")
     private Integer ibanTotalLength;
     @Column (name="life_cycle_id")

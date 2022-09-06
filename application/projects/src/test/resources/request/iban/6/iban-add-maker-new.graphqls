@@ -32,16 +32,16 @@ sessionContext:{
     ibanCountryCodeLength:1
     ibanCheckDigitPosition:1
     ibanCheckDigitLength:1
-    ibanNationalIdLength:"IBAN0001"
+    ibanNationalIdLength:1
     ibanTotalLength:20
     action : "add"
     status:"new"
     recordVersion : 0
     ibanBban:{
       bankIdentifierPosition:1
-      bankIdentifierLength:"IBAN000001"
-      branchIdentifierPosition:"AM"
-      branchIdentifierLength:"IB01"
+      bankIdentifierLength:1
+      branchIdentifierPosition:1
+      branchIdentifierLength:0
       accountNumberPosition:5
       accountNumberLength:4
     }

@@ -31,7 +31,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="iban_national_id_length" type="varchar(40)">
+            <column name="iban_national_id_length" type="int">
                 <constraints nullable="false"/>
             </column>
 
@@ -42,15 +42,15 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="bank_identifier_length" type="varchar(12)">
+            <column name="bank_identifier_length" type="int">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="branch_identifier_position" type="varchar(2)">
+            <column name="branch_identifier_position" type="int">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="branch_identifier_length" type="varchar(10)">
+            <column name="branch_identifier_length" type="int">
             </column>
 
             <column name="account_number_position" type="int">
