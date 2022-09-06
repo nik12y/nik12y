@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.endpoint.graphql.resolver.mitigant;
+package com.idg.idgcore.coe.endpoint.graphql.resolver.branchSystemDate;
 
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
@@ -12,27 +12,22 @@ import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestApplication.class)
-public class MitigantQueryResolverTest {
+public class BranchSystemQueryResolverTest {
 
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
     @Test
-    public void getMitigantByMitigantCode() throws IOException, JSONException {
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/mitigant/query-mitigant-bycode.graphqls");
+    void getBranchSystemDateByCode() throws IOException, JSONException {
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchSystemDate/query-branchSystem-bycode.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
-        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
-
     }
 
     @Test
-    public void getMitigantAll() throws IOException, JSONException {
-        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/mitigant/query-mitigant-all.graphqls");
+    void getBranchSystemDateAll() throws IOException, JSONException {
+        GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/branchSystemDate/query-branchSystem-All.graphqls");
         assertThat(graphQLResponse.isOk(), equalTo(true));
-        assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
     }
-
 }
