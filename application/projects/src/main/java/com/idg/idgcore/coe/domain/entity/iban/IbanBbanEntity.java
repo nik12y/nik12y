@@ -17,11 +17,11 @@ public class IbanBbanEntity implements Serializable {
     @Column (name="bank_identifier_position")
     private Integer bankIdentifierPosition;
     @Column (name="bank_identifier_length")
-    private String bankIdentifierLength;
+    private Integer bankIdentifierLength;
     @Column (name="branch_identifier_position")
-    private String branchIdentifierPosition;
+    private Integer branchIdentifierPosition;
     @Column (name="branch_identifier_length")
-    private String branchIdentifierLength;
+    private Integer branchIdentifierLength;
     @Column (name="account_number_position")
     private Integer accountNumberPosition;
     @Column (name="account_number_length")
