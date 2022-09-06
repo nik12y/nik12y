@@ -23,7 +23,7 @@ public class IbanDTO extends CoreEngineBaseDTO {
     private Integer ibanCountryCodeLength;
     private Integer ibanCheckDigitPosition;
     private Integer ibanCheckDigitLength;
-    private String ibanNationalIdLength;
+    private Integer ibanNationalIdLength;
     private Integer ibanTotalLength;
     private IbanBbanDTO ibanBban;
 

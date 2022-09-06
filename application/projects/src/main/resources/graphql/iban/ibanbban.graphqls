@@ -1,8 +1,8 @@
 type IbanBban {
-    bankIdentifierPosition:Int
-    bankIdentifierLength:String
-    branchIdentifierPosition:String
-    branchIdentifierLength:String
-    accountNumberPosition:Int
+    bankIdentifierPosition:Int!
+    bankIdentifierLength:Int!
+    branchIdentifierPosition:Int!
+    branchIdentifierLength:Int
+    accountNumberPosition:Int!
     accountNumberLength:Int
 }
