@@ -26,9 +26,9 @@ mutation{
             originatingModuleCode: null
         },
         regulatoryRegion:{
-            regRegionCode: "REG002"
-            regionName: "USA"
-            regionDescription: "The USA is a Country"
+            regulatoryRegionCode: "REG002"
+            regulatoryRegionName: "USA"
+            regulatoryRegionDescription: "The USA is a Country"
             regionEffectiveDate: "2022-01-15"
             regionGroupCode: "Country"
             purpose: "InterestRate"

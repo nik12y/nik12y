@@ -87,7 +87,7 @@ class RegulatoryRegionDomainSerivceTest {
 
         RegulatoryRegionConfigDTO regulatoryRegionConfigDTO= new RegulatoryRegionConfigDTO("REGC002","India","The India","2022-08-21","Country","Fees",
                 regulatoryRegionMappingDTOList);
-        given(iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTO.getRegRegionCode())).willReturn(regulatoryRegionConfigEntity);
+        given(iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTO.getRegulatoryRegionCode())).willReturn(regulatoryRegionConfigEntity);
         RegulatoryRegionConfigEntity questionCategoryEntity = regulatoryRegionDomainService.getConfigurationByCode(regulatoryRegionConfigDTO);
         assertThat(questionCategoryEntity).isNotNull();
     }
@@ -96,7 +96,7 @@ class RegulatoryRegionDomainSerivceTest {
     @DisplayName("Junit Test for getRegulatoryRegionByCode")
     void getRegulatoryRegionByCode(){
 
-        given(iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTOUnAuth.getRegRegionCode())).willReturn(regulatoryRegionConfigEntity);
+        given(iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTOUnAuth.getRegulatoryRegionCode())).willReturn(regulatoryRegionConfigEntity);
         RegulatoryRegionConfigEntity regulatoryRegionByCode = regulatoryRegionDomainService.getRegulatoryRegionByCode(regulatoryRegionConfigEntity.getRegRegionCode());
         assertThat(regulatoryRegionByCode).isNotNull();
     }
@@ -174,9 +174,9 @@ class RegulatoryRegionDomainSerivceTest {
         RegulatoryRegionMappingDTO regulatoryRegionMappingDTOAuth=new RegulatoryRegionMappingDTO();
         regulatoryRegionMappingDTOAuth.setDemographicMappingCode("UK");
         RegulatoryRegionConfigDTO regulatoryRegionConfigDTOUnAuth=new RegulatoryRegionConfigDTO();
-        regulatoryRegionConfigDTOUnAuth.setRegRegionCode("REGC002");
-        regulatoryRegionConfigDTOUnAuth.setRegionName("United Kingdom");
-        regulatoryRegionConfigDTOUnAuth.setRegionDescription("The USA ()");
+        regulatoryRegionConfigDTOUnAuth.setRegulatoryRegionCode("REGC002");
+        regulatoryRegionConfigDTOUnAuth.setRegulatoryRegionName("United Kingdom");
+        regulatoryRegionConfigDTOUnAuth.setRegulatoryRegionDescription("The USA ()");
         regulatoryRegionConfigDTOUnAuth.setRegionEffectiveDate("2022-08-21");
         regulatoryRegionConfigDTOUnAuth.setRegionGroupCode("Country");
         regulatoryRegionConfigDTOUnAuth.setPurpose("Tax");

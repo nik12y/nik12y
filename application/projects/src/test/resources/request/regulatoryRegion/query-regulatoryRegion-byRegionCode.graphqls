@@ -26,15 +26,15 @@ query{
             originatingModuleCode: null
         },
         regulatoryRegionQuery:{
-            regRegionCode:"REG0006"
+            regulatoryRegionCode:"REG0006"
             authorized:"Y"
         }
     ) {
-        regRegionCode
-        regionName
+        regulatoryRegionCode
+        regulatoryRegionName
         recordVersion
         regionGroupCode
-        regionDescription
+        regulatoryRegionDescription
         regulatoryRegionMapping {
             demographicMappingCode
 #            demographicMappingName
