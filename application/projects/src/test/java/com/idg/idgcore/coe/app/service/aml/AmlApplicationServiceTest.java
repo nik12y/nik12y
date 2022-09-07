@@ -13,6 +13,7 @@ import com.idg.idgcore.coe.domain.service.aml.IAmlDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.dto.aml.AmlDTO;
 import com.idg.idgcore.coe.dto.aml.LimitDTO;
+import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -90,16 +91,12 @@ class AmlApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getAmls where return all Amls when there are no unauthorized mutations")
-    void getAmlsWhenThereAreNoUnauthorizedMutationsThenReturnAllAmls() throws FatalException {
-        given(amlDomainService.getAmls()).willReturn(List.of(amlEntity));
-        given(mutationsDomainService.getUnauthorizedMutation(AML, AUTHORIZED_N)).willReturn(List.of());
-        given(amlAssembler.convertEntityToDto(amlEntity)).willReturn(amlDTO);
-
+    @DisplayName("JUnit for getAmls in application service for try block")
+    void getAmlsTryBlock() throws FatalException {
+        given(mutationsDomainService.getMutations(AML)).willReturn(List.of(mutationEntity));
         List<AmlDTO> amlDTOList = amlApplicationService.getAmls(sessionContext);
-
         assertEquals(1, amlDTOList.size());
-        assertEquals(amlDTO, amlDTOList.get(0));
+        assertThat(amlDTOList).isNotNull();
     }
 
     @Test
@@ -144,8 +141,11 @@ class AmlApplicationServiceTest {
         MutationEntity unauthorizedEntities = getMutationEntity();
         MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
         sessionContext.setRole(new String[] { "" });
-        given(mutationsDomainService.getUnauthorizedMutation(
-                amlDTO1.getTaskCode(),AUTHORIZED_N))
+//        given(mutationsDomainService.getUnauthorizedMutation(
+//                amlDTO1.getTaskCode(),AUTHORIZED_N))
+//                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
+        given(mutationsDomainService.getMutations(
+                amlDTO1.getTaskCode()))
                 .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
         Assertions.assertThrows(FatalException.class,()-> {
             List<AmlDTO> amlDTO1 = amlApplicationService.getAmls(sessionContext);

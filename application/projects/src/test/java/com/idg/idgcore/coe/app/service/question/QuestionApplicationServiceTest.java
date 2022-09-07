@@ -101,7 +101,7 @@ class QuestionApplicationServiceTest {
     @Test
     @DisplayName("JUnit Test for getGroupBanks for empty list")
     void getQuestionsEmptyList() throws FatalException {
-        given(iQuestionDomainService.getQuestions()).willReturn(Collections.emptyList());
+        //given(iQuestionDomainService.getQuestions()).willReturn(Collections.emptyList());
         List<QuestionDTO> groupBanks = questionApplicationService.getQuestions(sessionContext);
         assertThat(groupBanks).isEmpty();
         System.out.println("Done");
@@ -118,8 +118,8 @@ class QuestionApplicationServiceTest {
         List<MutationEntity> unauthorizedEntites = new ArrayList<>();
         unauthorizedEntites.add(mutationEntity);
 
-        given(iQuestionDomainService.getQuestions()).willReturn(questionEntityList);
-        given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
+       // given(iQuestionDomainService.getQuestions()).willReturn(questionEntityList);
+       // given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
 
         // given(mutationsDomainService.getUnauthorizedMutation(groupBankingDTO.getTaskCode())).willReturn(unauthorizedEntites);
         Payload payload = new Payload();
@@ -127,7 +127,7 @@ class QuestionApplicationServiceTest {
         mutationEntity.setPayload(payload);
         ObjectMapper objectMapper = mock(ObjectMapper.class);
 
-        given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
+//        given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
         List<QuestionDTO> questions = questionApplicationService.getQuestions(sessionContext);
         assertThat(questions).isNotNull();
         System.out.println("Done");

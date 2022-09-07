@@ -15,6 +15,7 @@ import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.country.ICountryDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.state.IStateDomainService;
+import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.state.StateDTO;
@@ -137,15 +138,15 @@ class CountryApplicationServiceTest {
     }
 
    // @Test
-    @DisplayName("Should return all getCountries when there are no unauthorized")
-    void getCountriesWhenThereAreNoUnauthorized() throws FatalException {
-        given(countryDomainService.getCountries()).willReturn(List.of(countryEntity));
-        given(mutationsDomainService.getUnauthorizedMutation(COUNTRY, AUTHORIZED_N)).willReturn(List.of());
-//        given(countryAssembler.convertEntityToDto(countryEntity)).willReturn(countryDTO);
-        List<CountryDTO> countryDTOList = countryApplicationService.getCountries(sessionContext);
-//        assertEquals(1, countryDTOList.size());
-        assertThat(countryDTOList).isNotNull();
-    }
+//    @DisplayName("Should return all getCountries when there are no unauthorized")
+//    void getCountriesWhenThereAreNoUnauthorized() throws FatalException {
+//        given(countryDomainService.getCountries()).willReturn(List.of(countryEntity));
+//        given(mutationsDomainService.getUnauthorizedMutation(COUNTRY, AUTHORIZED_N)).willReturn(List.of());
+////        given(countryAssembler.convertEntityToDto(countryEntity)).willReturn(countryDTO);
+//        List<CountryDTO> countryDTOList = countryApplicationService.getCountries(sessionContext);
+////        assertEquals(1, countryDTOList.size());
+//        assertThat(countryDTOList).isNotNull();
+//    }
 
 //    @Test
     @DisplayName("JUnit for getCountries in application service for catch block for checker")
@@ -162,6 +163,18 @@ class CountryApplicationServiceTest {
             assertThat(countryDTO1).isNull();
         });
     }
+
+
+    @Test
+    @DisplayName("JUnit for getCountries in application service for try block")
+    void getCountriesTryBlock() throws FatalException {
+        given(mutationsDomainService.getMutations(COUNTRY))
+                .willReturn(List.of(mutationEntity));
+        List<CountryDTO> countryDTOList1 =
+                countryApplicationService.getCountries(sessionContext);
+        assertThat(countryDTOList1).isNotNull();
+    }
+
 
     @Test
     @DisplayName("JUnit for processCountry in application service for Try Block")
@@ -325,7 +338,7 @@ class CountryApplicationServiceTest {
         CountryDTO countryDTO = new CountryDTO();
         countryDTO.setCountryCode("IN");
         countryDTO.setCountryName("INDIA");
-        countryDTO.setAlternateCountryCode("IN");
+        countryDTO.setAlternateCountryCode("IND");
         countryDTO.setNumericCountryCode("345");
         countryDTO.setRegionCode("ASIA");
         countryDTO.setLimitCurrency("INR");
@@ -403,7 +416,7 @@ class CountryApplicationServiceTest {
         CountryDTO countryDTO = new CountryDTO();
         countryDTO.setCountryCode("IN");
         countryDTO.setCountryName("INDIA");
-        countryDTO.setAlternateCountryCode("IN");
+        countryDTO.setAlternateCountryCode("IND");
         countryDTO.setNumericCountryCode("345");
         countryDTO.setRegionCode("ASIA");
         countryDTO.setLimitCurrency("INR");
@@ -421,7 +434,7 @@ class CountryApplicationServiceTest {
         CountryDTO countryDTOMapper= new CountryDTO();
         countryDTOMapper.setCountryCode("IN");
         countryDTOMapper.setCountryName("INDIA");
-        countryDTOMapper.setAlternateCountryCode("IN");
+        countryDTOMapper.setAlternateCountryCode("IND");
         countryDTOMapper.setNumericCountryCode("345");
         countryDTOMapper.setRegionCode("ASIA");
         countryDTOMapper.setLimitCurrency("INR");
@@ -443,16 +456,17 @@ class CountryApplicationServiceTest {
     private MutationEntity getMutationEntity() {
         String payLoadString="{\"action\":\"authorize\",\"status\":\"active\",\"recordVersion\":1,\"authorized\":\"Y\",\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"COUNTRY\",\"taskIdentifier\":\"IN\",\"countryCode\":\"IN\",\"countryName\":\"INDIA\",\"numericCountryCode\":\"345\",\"alternateCountryCode\":\"IND\",\"regionCode\":\"ASIA\",\"limitCurrency\":\"INR\",\"overallLimit\":100000.0,\"ibanRequired\":false,\"euMember\":false,\"clearingCodeBicPlus\":false,\"generateMt205\":false,\"defaultClearingNetwork\":false}";
 
+        String payLoadString1 = "{\"action\":\"authorize\",\"status\":\"active\",\"recordVersion\":1,\"authorized\":\"Y\",\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"COUNTRY\",\"taskIdentifier\":\"IN\",\"countryCode\":\"IN\",\"countryName\":\"INDIA\",\"numericCountryCode\":\"345\",\"alternateCountryCode\":\"IND\",\"regionCode\":\"ASIA\",\"limitCurrency\":\"INR\",\"overallLimit\":100000.0,\"ibanRequired\":false,\"euMember\":false,\"clearingCodeBicPlus\":false,\"generateMt205\":false,\"defaultClearingNetwork\":false}";
         MutationEntity mutationEntity = new MutationEntity();
 
         mutationEntity.setTaskIdentifier("IN");
         mutationEntity.setTaskCode("COUNTRY");
-        mutationEntity.setPayload(new Payload(payLoadString));
-        mutationEntity.setStatus("closed");
-        mutationEntity.setAuthorized("N");
+        mutationEntity.setPayload(new Payload(payLoadString1));
+        mutationEntity.setStatus("active");
+        mutationEntity.setAuthorized("Y");
         mutationEntity.setRecordVersion(1);
-        mutationEntity.setAction("add");
-        mutationEntity.setLastConfigurationAction("unauthorized");
+        mutationEntity.setAction("authorize");
+        mutationEntity.setLastConfigurationAction("authorized");
         return mutationEntity;
 
     }

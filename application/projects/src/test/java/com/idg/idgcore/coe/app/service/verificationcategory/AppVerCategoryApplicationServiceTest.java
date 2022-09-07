@@ -13,6 +13,7 @@ import com.idg.idgcore.coe.domain.entity.verificationcategory.AppVerTypeConfigEn
 import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.verificationcategory.IAppVerCategoryConfigDomainService;
+import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.verificationcategory.AppVerCategoryConfigDTO;
 import com.idg.idgcore.coe.dto.verificationcategory.AppVerTypeConfigDTO;
@@ -33,8 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.CATEGORY;
+import static com.idg.idgcore.coe.common.Constants.*;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -139,12 +139,11 @@ class AppVerCategoryApplicationServiceTest {
         @Test
         @DisplayName("Should return all getAppVerCategoryConfigs when there are no unauthorized")
         void getAppVerCategoryConfigsWhenThereAreNoUnauthorized() throws FatalException {
-            given(appVerCategoryConfigDomainService.getAppVerCategoryConfigs()).willReturn(List.of(appVerCategoryConfigEntity));
-            given(mutationsDomainService.getUnauthorizedMutation(CATEGORY, AUTHORIZED_N)).willReturn(List.of());
-            given(appVerCategoryConfigAssembler.convertEntityToDto(appVerCategoryConfigEntity)).willReturn(appVerCategoryConfigDTO);
-            List<AppVerCategoryConfigDTO> appVerCategoryConfigDTOList = appVerCategoryApplicationService.getAppVerCategoryConfigs(sessionContext);
-            assertEquals(1, appVerCategoryConfigDTOList.size());
-            assertEquals(appVerCategoryConfigDTO, appVerCategoryConfigDTOList.get(0));
+            given(mutationsDomainService.getMutations(CATEGORY))
+                    .willReturn(List.of(mutationEntity));
+            List<AppVerCategoryConfigDTO> appVerCategoryConfigDTOList =
+                    appVerCategoryApplicationService.getAppVerCategoryConfigs(sessionContext);
+            assertThat(appVerCategoryConfigDTOList).isNotNull();
         }
 
         @Test
@@ -154,8 +153,8 @@ class AppVerCategoryApplicationServiceTest {
             MutationEntity unauthorizedEntities = getMutationEntity();
             MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
             sessionContext.setRole(new String[] { "" });
-            given(mutationsDomainService.getUnauthorizedMutation(
-                    appVerCategoryConfigDTO1.getTaskCode(),AUTHORIZED_N))
+            given(mutationsDomainService.getMutations(
+                    appVerCategoryConfigDTO1.getTaskCode()))
                     .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
             Assertions.assertThrows(FatalException.class,()-> {
                 List<AppVerCategoryConfigDTO> appVerCategoryConfigDTO1 = appVerCategoryApplicationService.getAppVerCategoryConfigs(sessionContext);
@@ -276,7 +275,10 @@ class AppVerCategoryApplicationServiceTest {
 
         AppVerCategoryConfigDTO appVerCategoryConfigDTOO= new AppVerCategoryConfigDTO();
         AppVerCategoryConfigEntity appVerCategoryConfigEntity5 = new AppVerCategoryConfigEntity();
-        given(mutationsDomainService.getUnauthorizedMutation(appVerCategoryConfigDTOO.getTaskCode(),AUTHORIZED_N)).willReturn(List.of(mutationEntity));
+       // given(mutationsDomainService.getUnauthorizedMutation(appVerCategoryConfigDTOO.getTaskCode(),AUTHORIZED_N)).willReturn(List.of(mutationEntity));
+        given(mutationsDomainService.getMutations(
+                appVerCategoryConfigDTO1.getTaskCode()))
+                .willReturn(List.of(mutationEntity));
         given(appVerCategoryConfigDomainService.getAppVerCategoryConfigs()).willReturn(List.of(appVerCategoryConfigEntity5));
         given(appVerCategoryConfigAssembler.convertEntityToDto(appVerCategoryConfigEntity5)).willReturn(appVerCategoryConfigDTOO);
         given(appVerCategoryConfigAssembler.setAuditFields(mutationEntity,appVerCategoryConfigDTOO)).willReturn(appVerCategoryConfigDTOO);

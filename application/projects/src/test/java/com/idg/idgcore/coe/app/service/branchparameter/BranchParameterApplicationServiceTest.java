@@ -8,6 +8,7 @@ import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.domain.process.*;
 import com.idg.idgcore.coe.domain.service.branchparameter.*;
 import com.idg.idgcore.coe.domain.service.mutation.*;
+import com.idg.idgcore.coe.dto.bankparameter.BankParameterDTO;
 import com.idg.idgcore.coe.dto.branchparameter.*;
 import com.idg.idgcore.coe.dto.mutation.*;
 import com.idg.idgcore.datatypes.exceptions.*;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.*;
 
 import java.util.*;
 
+import static com.idg.idgcore.coe.common.Constants.BRANCH_PARAMETER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -231,6 +233,18 @@ class BranchParameterApplicationServiceTest {
 
         });
     }
+
+    @Test
+    @DisplayName("JUnit for getBranchParameters in application service for try block")
+    void getBranchParametersTryBlock() throws FatalException {
+
+        given(mutationsDomainService.getMutations(BRANCH_PARAMETER))
+                .willReturn(List.of(mutationEntity));
+        List<BranchParameterDTO> branchParameterDTOList =
+                branchParameterApplicationService.getBranchParameters(sessionContext);
+        assertThat(branchParameterDTOList).isNotNull();
+    }
+
 
     /**
      *
