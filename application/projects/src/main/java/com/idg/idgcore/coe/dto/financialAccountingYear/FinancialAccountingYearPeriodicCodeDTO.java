@@ -14,5 +14,7 @@ public class FinancialAccountingYearPeriodicCodeDTO extends CoreEngineBaseDTO {
     private String periodCode;
     private String startDateAccountingPeriod;
     private String endDateAccountingPeriod;
+    private String periodCodeClosureStatus;
+    private String financialYearClosureStatus;
 
 }

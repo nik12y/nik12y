@@ -8,7 +8,6 @@ import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.domain.process.*;
 import com.idg.idgcore.coe.domain.service.errorOverride.*;
 import com.idg.idgcore.coe.domain.service.mutation.*;
-import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.errorOverride.*;
 import com.idg.idgcore.coe.dto.mutation.*;
 import com.idg.idgcore.datatypes.core.*;
@@ -68,7 +67,8 @@ class ErrorOverrideApplicationServiceTest {
     @Test
     @DisplayName ("JUnit for getErrorOverrideByCode in application service when Authorize")
     void getErrorOverrideByCodeWithAuthRecord () throws FatalException {
-        given(domainService.getRecordByErrorCodeAndBranchCode(errorOverrideDTOAuth.getErrorCode(),errorOverrideDTOAuth.getBranchCode())).willReturn(
+        given(domainService.getRecordByErrorCodeAndBranchCode(errorOverrideDTOAuth.getErrorCode(),
+                errorOverrideDTOAuth.getBranchCode())).willReturn(
                 errorOverrideEntity);
         given(assembler.convertEntityToDto(errorOverrideEntity)).willReturn(
                 errorOverrideDTOAuth);
@@ -84,12 +84,7 @@ class ErrorOverrideApplicationServiceTest {
     @DisplayName ("JUnit for getErrorOverrideByCode in application service when Not Authorize in catch block")
     void getErrorOverrideByCodeWhenNotAuthorizeCatchBlock () throws FatalException {
         String payLoadString1 = getPayloadInvalidString();
-        given(mutationsDomainService.getConfigurationByCode(
-                errorOverrideDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity2);
-//        given(assembler.setAuditFields(mutationEntity2, errorOverrideDTOUnAuth))
-//                .willReturn(errorOverrideDTOUnAuth);
-        ModelMapper mapper = new ModelMapper();
-        PayloadDTO payload = new PayloadDTO(payLoadString1);
+
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
         PayloadDTO helper = org.mockito.Mockito.mock(PayloadDTO.class);
         Assertions.assertThrows(Exception.class, () -> {
@@ -110,25 +105,24 @@ class ErrorOverrideApplicationServiceTest {
     }
 
     @DisplayName ("JUnit test for addUpdateRecord method")
-   // @Test
+    @Test
     void addUpdateRecord () throws JsonProcessingException, FatalException {
         String payloadStr = getPayloadValidString();
-        ErrorOverrideDTO errorOverrideDTO = getErrorOverrideDTOForSave();
-        doNothing().when(domainService).save(errorOverrideDTO);
+        ErrorOverrideDTO errorOverrideDTO = getErrorOverrideDTO();
+        doNothing().when(domainService).validateAndSave(errorOverrideDTO);
+        //        doNothing().when(domainService).save(errorOverrideDTO);
         applicationService.save(errorOverrideDTO);
         applicationService.addUpdateRecord(payloadStr);
-        verify(domainService, times(1)).save(errorOverrideDTO);
+        verify(domainService, times(1)).validateAndSave(errorOverrideDTO);
     }
 
-  //  @Test
+    @Test
     @DisplayName ("JUnit for ConfigurationByCode in application service")
     void getConfigurationByCodeTest () {
         String code = errorOverrideDTO.getErrorCode();
-        given(applicationService.getConfigurationByCode(code)).willReturn(errorOverrideDTO);
         applicationService.getConfigurationByCode(code);
         assertThat(errorOverrideEntity).isNotNull();
     }
-
 
     @Test
     @DisplayName ("JUnit for processErrorOverride in application service for Try Block")
@@ -138,27 +132,21 @@ class ErrorOverrideApplicationServiceTest {
         verify(processConfiguration, times(1)).process(errorOverrideDTO);
     }
 
-   /* @Test
-    @DisplayName ("JUnit for processErrorOverride in application service for Catch Block")
-    void processErrorOverrideForCatchBlock () {
-        SessionContext sessionContext = getInValidSessionContext();
-        Assertions.assertThrows(FatalException.class, () -> {
-            TransactionStatus transactionStatus = applicationService.processErrorOverride(
-                    sessionContext, errorOverrideDTO);
 
 
-        });
-        assertThat(errorOverrideDTO).descriptionText();
-    }*/
-
-  //  @Test
+    @Test
     @DisplayName ("JUnit for ErrorOverride ByCode in application service when Authorize for Negative")
     void getErrorOverrideByCodeIsAuthorizeForNegative () throws FatalException {
-        given(domainService.getErrorOverrideByCode(errorOverrideDTO.getErrorCode())).willReturn(
+        ErrorOverrideDTO errorOverrideDTO = getErrorOverrideDTO();
+        ErrorOverrideDTO errorOverrideDTOEx = getErrorOverrideDTO();
+        errorOverrideDTOEx.setErrorCode("ERR-CHD-06");
+        errorOverrideDTOEx.setAuthorized("Y");
+        given(domainService.getRecordByErrorCodeAndBranchCode(
+                errorOverrideDTO.getErrorCode(), errorOverrideDTO.getBranchCode())).willReturn(
                 errorOverrideEntity);
         given(assembler.convertEntityToDto(errorOverrideEntity)).willReturn(errorOverrideDTO);
-        ErrorOverrideDTO errorOverrideDTO1 = applicationService.getErrorOverrideByCode(
-                sessionContext, errorOverrideDTO);
+        ErrorOverrideDTO stateDTO1 = applicationService.getErrorOverrideByCode(sessionContext,
+                errorOverrideDTOEx);
         assertNotEquals("N", errorOverrideDTO1.getAuthorized());
         assertThat(errorOverrideDTO).isNotNull();
     }
@@ -166,13 +154,14 @@ class ErrorOverrideApplicationServiceTest {
     @Test
     @DisplayName ("JUnit for getErrorOverride ByCode in application service check Parameter not null")
     void getErrorOverrideByCodeIsAuthorizeCheck () throws FatalException {
-        ErrorOverrideDTO errorOverrideDTO = null;
-        ErrorOverrideDTO errorOverrideDTOEx = new ErrorOverrideDTO();
-        errorOverrideDTOEx.setErrorCode("ERR-CHD-01");
+        ErrorOverrideDTO errorOverrideDTO = getErrorOverrideDTO();
+        ErrorOverrideDTO errorOverrideDTOEx = getErrorOverrideDTO();
+        errorOverrideDTOEx.setErrorCode("ERR-CHD-06");
         errorOverrideDTOEx.setAuthorized("Y");
-//        given(domainService.getErrorOverrideByCode(errorOverrideDTOEx.getErrorCode())).willReturn(
-//                errorOverrideEntity);
-        //given(assembler.convertEntityToDto(errorOverrideEntity)).willReturn(errorOverrideDTO);
+        given(domainService.getRecordByErrorCodeAndBranchCode(
+                errorOverrideDTO.getErrorCode(), errorOverrideDTO.getBranchCode())).willReturn(
+                errorOverrideEntity);
+        given(assembler.convertEntityToDto(errorOverrideEntity)).willReturn(errorOverrideDTO);
         ErrorOverrideDTO stateDTO1 = applicationService.getErrorOverrideByCode(sessionContext,
                 errorOverrideDTOEx);
         assertThat(errorOverrideDTOEx.getErrorCode()).isNotBlank();
@@ -190,20 +179,7 @@ class ErrorOverrideApplicationServiceTest {
         verify(processConfiguration, times(1)).process(errorOverrideDTO);
     }
 
-
-  //  @Test
-    @DisplayName("JUnit for getErrorOverrides in application service for try block")
-    void getErrorOverridesTryBlock() throws FatalException {
-        given(mutationsDomainService.getMutations(ERROR_OVERRIDE))
-                .willReturn(List.of(mutationEntity));
-        List<ErrorOverrideDTO> errorOverrideDTOList =
-                applicationService.getErrorCodes(sessionContext);
-        assertThat(errorOverrideDTOList).isNotNull();
-    }
-
-
-
-//        @Test
+    //        @Test
     @DisplayName ("JUnit for getErrorOverrides in application service")
     void getErrorOverrides () throws JsonProcessingException, FatalException {
         ErrorOverrideEntity errorOverrideEntity = getErrorOverrideEntityNew();
@@ -212,7 +188,7 @@ class ErrorOverrideApplicationServiceTest {
         ErrorOverrideDTO errorOverrideDTO2 = setAuditFields(unauthorizedEntities, errorOverrideDTO);
         String data = "action\":\"add\",\"status\":\"new\","
                 + "\"recordVersion\":1,\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\","
-                + "\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-01\",\"errorCode\":\"ERR-CHD-01\","
+                + "\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-06\",\"errorCode\":\"ERR-CHD-06\","
                 + "\"errorMessage\":\"PAN input is mandatory for the cash transaction above INR 50K\",\"typeOfMessage\":\"Ignore\","
                 + "\"isConfirmationRequired\":true,\"functionCode\":\"Cash Deposit/Withdrawal\",\"batchType\":\"Error\","
                 + "\"errorOverrideLanguageDetails\":{\"languageCode\":\"ENG\",\"languageName\":\"English\","
@@ -222,9 +198,9 @@ class ErrorOverrideApplicationServiceTest {
         ObjectMapper objectMapper = new ObjectMapper();
         given(domainService.getErrorCodes()).willReturn(
                 List.of(errorOverrideEntity));
-//        given(mutationsDomainService.getUnauthorizedMutation(
-//                "ERROR-OVERRIDE", AUTHORIZED_N)).willReturn(
-//                List.of(unauthorizedEntities));
+        given(mutationsDomainService.getUnauthorizedMutation(
+                "ERROR-OVERRIDE", AUTHORIZED_N)).willReturn(
+                List.of(unauthorizedEntities));
         given(assembler.setAuditFields(unauthorizedEntities,
                 errorOverrideDTO)).willReturn(errorOverrideDTO);
         given(assembler.convertEntityToDto(errorOverrideEntity)).willReturn(
@@ -268,9 +244,6 @@ class ErrorOverrideApplicationServiceTest {
         });
     }
 
-
-
-
     @Test
     @DisplayName ("JUnit for code coverage")
     void getAllArgEntity () {
@@ -280,9 +253,10 @@ class ErrorOverrideApplicationServiceTest {
                 "Cash Deposit/Withdrawal", "1");
         ErrorOverrideEntity entity =
                 new ErrorOverrideEntity("ERR-CHD-02",
-                        "PAN input is mandatory for the cash transaction above INR 50K","ALL", "Ignore",
+                        "PAN input is mandatory for the cash transaction above INR 50K", "ALL",
+                        "Ignore",
                         'Y', "Cash Deposit/Withdrawal", "Error", 'N', "", "",
-                        "active", 0, "N","",
+                        "active", 0, "N", "",
                         detailEntity, conversionsEntity
                 );
         assertThat(entity).isNotNull();
@@ -295,12 +269,10 @@ class ErrorOverrideApplicationServiceTest {
         ErrorOverrideEntity entity = getErrorOverrideEntity();
         entity.setLifeCycleId("id");
         entity.setReferenceNo("ref no");
-
         assertThat(entity).isNotNull();
         assertThat(entity.getLifeCycleId()).isNotNull();
         assertThat(entity.getReferenceNo()).isNotNull();
     }
-
 
     @Test
     @DisplayName ("JUnit for code coverage")
@@ -311,13 +283,13 @@ class ErrorOverrideApplicationServiceTest {
                 "Cash Deposit/Withdrawal", "1");
         ErrorOverrideDTO dto =
                 new ErrorOverrideDTO("ERR-CHD-02",
-                        "PAN input is mandatory for the cash transaction above INR 50K","ALL", "Ignore",
-                        true, "Cash Deposit/Withdrawal", "Error",false,
+                        "PAN input is mandatory for the cash transaction above INR 50K", "ALL",
+                        "Ignore",
+                        true, "Cash Deposit/Withdrawal", "Error", false,
                         detailDto, conversionsDto
                 );
         assertThat(dto).isNotNull();
         assertThat(dto.toString()).isNotNull();
-
         assertThat(detailDto).isNotNull();
         assertThat(detailDto.toString()).isNotNull();
     }
@@ -329,39 +301,36 @@ class ErrorOverrideApplicationServiceTest {
                 "ENG", "English ", "EN", "New Error Cod");
         ErrorOverrideConversionsDTO conversionsDto = new ErrorOverrideConversionsDTO(
                 "Cash Deposit/Withdrawal", "1");
-
-        ErrorOverrideDTO dto=ErrorOverrideDTO.builder()
-                .errorCode("ERR-CHD-02").errorMessage("PAN input is mandatory for the cash transaction above INR 50K").branchCode("ALL").isExcluded(false)
-                .typeOfMessage("Ignore").isConfirmationRequired(true).functionCode("Cash Deposit/Withdrawal").batchType("Error")
+        ErrorOverrideDTO dto = ErrorOverrideDTO.builder()
+                .errorCode("ERR-CHD-02")
+                .errorMessage("PAN input is mandatory for the cash transaction above INR 50K")
+                .branchCode("ALL").isExcluded(false)
+                .typeOfMessage("Ignore").isConfirmationRequired(true)
+                .functionCode("Cash Deposit/Withdrawal").batchType("Error")
                 .errorOverrideConversions(conversionsDto).errorOverrideLanguageDetails(detailDto)
                 .build();
         assertThat(dto).isNotNull();
         assertThat(dto.toString()).isNotNull();
     }
 
-
     @Test
     @DisplayName ("JUnit for code coverage")
     void getErrorOverrideEntityKeyAll () {
-
-        ErrorOverrideEntityKey entityKey = new ErrorOverrideEntityKey("entity","branchCode");
-
+        ErrorOverrideEntityKey entityKey = new ErrorOverrideEntityKey("entity", "branchCode");
         assertThat(entityKey).isNotNull();
         assertThat(entityKey.toString()).isNotNull();
     }
+
     @Test
     @DisplayName ("JUnit for code coverage")
-    void getErrorOverrideEntityKey() {
-
+    void getErrorOverrideEntityKey () {
         ErrorOverrideEntityKey entityKey = new ErrorOverrideEntityKey();
-entityKey.setErrorCode("entity");
+        entityKey.setErrorCode("entity");
         entityKey.setBranchCode("branchCode");
         assertThat(entityKey).isNotNull();
         assertThat(entityKey.toString()).isNotNull();
         assertThat(entityKey.getErrorCode()).isNotNull();
-
     }
-
 
     private SessionContext getValidSessionContext () {
         SessionContext sessionContext = SessionContext.builder().bankCode("02")
@@ -392,58 +361,188 @@ entityKey.setErrorCode("entity");
     private ErrorOverrideDTO getErrorOverrideDTOAuthorized () {
         ErrorOverrideDTO errorOverrideDTOMapper = new ErrorOverrideDTO();
         errorOverrideDTOMapper.setAuthorized("Y");
-        errorOverrideDTOMapper.setTaskCode("ERROR-OVERRIDE");
-        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-01");
+        errorOverrideDTOMapper.setTaskCode("ERR-CHD-06_ALL");
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
+
+
+        errorOverrideDTOMapper.setTaskCode("ERR-CHD-06_ALL");
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
+        ErrorOverrideLanguageDetailsDTO detailDto = new ErrorOverrideLanguageDetailsDTO();
+        detailDto.setLanguageCode("ENG");
+        detailDto.setLanguageName("English ");
+        detailDto.setLanguageCode("EN");
+        detailDto.setLanguageName("New Error Cod");
+        ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
+        conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
+        conversionsDTO.setNewErrorCode("1");
+        errorOverrideDTOMapper.setErrorMessage(
+                "PAN input is mandatory for the cash transaction above INR 50K");
+        errorOverrideDTOMapper.setBranchCode("ALL");
+        errorOverrideDTOMapper.setTypeOfMessage("Ignore");
+        errorOverrideDTOMapper.setIsConfirmationRequired(true);
+        errorOverrideDTOMapper.setFunctionCode("Cash Deposit/Withdrawal");
+        errorOverrideDTOMapper.setBatchType("Error");
+        errorOverrideDTOMapper.setErrorOverrideConversions(conversionsDTO);
+        errorOverrideDTOMapper.setErrorOverrideLanguageDetails(detailDto);
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
+
         return errorOverrideDTOMapper;
     }
 
     private ErrorOverrideDTO getErrorOverrideDTOForSave () {
         ErrorOverrideDTO errorOverrideDTOMapper = new ErrorOverrideDTO();
-        errorOverrideDTOMapper.setTaskCode("ERROR-OVERRIDE");
-        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-01");
+        errorOverrideDTOMapper.setTaskCode("ERR-CHD-06_ALL");
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
         errorOverrideDTOMapper.setAction("authorize");
         errorOverrideDTOMapper.setStatus("active");
         errorOverrideDTOMapper.setRecordVersion(1);
         errorOverrideDTOMapper.setAuthorized("N");
         errorOverrideDTOMapper.setLastConfigurationAction("authorized");
+
+        errorOverrideDTOMapper.setTaskCode("ERR-CHD-06_ALL");
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
+        ErrorOverrideLanguageDetailsDTO detailDto = new ErrorOverrideLanguageDetailsDTO();
+        detailDto.setLanguageCode("ENG");
+        detailDto.setLanguageName("English ");
+        detailDto.setLanguageCode("EN");
+        detailDto.setLanguageName("New Error Cod");
+        ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
+        conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
+        conversionsDTO.setNewErrorCode("1");
+        errorOverrideDTOMapper.setErrorMessage(
+                "PAN input is mandatory for the cash transaction above INR 50K");
+        errorOverrideDTOMapper.setBranchCode("ALL");
+        errorOverrideDTOMapper.setTypeOfMessage("Ignore");
+        errorOverrideDTOMapper.setIsConfirmationRequired(true);
+        errorOverrideDTOMapper.setFunctionCode("Cash Deposit/Withdrawal");
+        errorOverrideDTOMapper.setBatchType("Error");
+        errorOverrideDTOMapper.setErrorOverrideConversions(conversionsDTO);
+        errorOverrideDTOMapper.setErrorOverrideLanguageDetails(detailDto);
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
         return errorOverrideDTOMapper;
+
     }
 
     private ErrorOverrideDTO getErrorOverrideDTOUnAuthorized () {
         ErrorOverrideDTO errorOverrideDTOMapper = new ErrorOverrideDTO();
         errorOverrideDTOMapper.setAuthorized("N");
+
+        errorOverrideDTOMapper.setTaskCode("ERR-CHD-06_ALL");
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
+        ErrorOverrideLanguageDetailsDTO detailDto = new ErrorOverrideLanguageDetailsDTO();
+        detailDto.setLanguageCode("ENG");
+        detailDto.setLanguageName("English ");
+        detailDto.setLanguageCode("EN");
+        detailDto.setLanguageName("New Error Cod");
+        ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
+        conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
+        conversionsDTO.setNewErrorCode("1");
+        errorOverrideDTOMapper.setErrorMessage(
+                "PAN input is mandatory for the cash transaction above INR 50K");
+        errorOverrideDTOMapper.setBranchCode("ALL");
+        errorOverrideDTOMapper.setTypeOfMessage("Ignore");
+        errorOverrideDTOMapper.setIsConfirmationRequired(true);
+        errorOverrideDTOMapper.setFunctionCode("Cash Deposit/Withdrawal");
+        errorOverrideDTOMapper.setBatchType("Error");
+        errorOverrideDTOMapper.setErrorOverrideConversions(conversionsDTO);
+        errorOverrideDTOMapper.setErrorOverrideLanguageDetails(detailDto);
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
         return errorOverrideDTOMapper;
+
     }
 
     private ErrorOverrideEntity getErrorOverrideEntity () {
         ErrorOverrideEntity errorOverrideEntity = new ErrorOverrideEntity();
         errorOverrideEntity.setAuthorized("Y");
+        errorOverrideEntity.setErrorCode("ERR-CHD-06");
+        errorOverrideEntity.setStatus("DELETED");
+        errorOverrideEntity.setRecordVersion(1);
+
+        ErrorOverrideLanguageDetailsEntity detailsEntity= new ErrorOverrideLanguageDetailsEntity();
+        detailsEntity.setLanguageCode("ENG");
+        detailsEntity.setLanguageName("English ");
+        detailsEntity.setLanguageCode("EN");
+        detailsEntity.setLanguageName("New Error Cod");
+
+        ErrorOverrideConversionsEntity conversionsEntity = new ErrorOverrideConversionsEntity();
+        conversionsEntity.setFunctionCodeOverride("Cash Deposit/Withdrawal");
+        conversionsEntity.setNewErrorCode("1");
+
+        errorOverrideEntity.setErrorMessage("PAN input is mandatory for the cash transaction above INR 50K");
+        errorOverrideEntity.setBranchCode("ALL");
+        errorOverrideEntity.setTypeOfMessage("Ignore");
+        errorOverrideEntity.setIsConfirmationRequired('Y');
+        errorOverrideEntity.setFunctionCode("Cash Deposit/Withdrawal");
+        errorOverrideEntity.setBatchType("Error");
+        errorOverrideEntity.setErrorOverrideConversionsEntity(conversionsEntity);
+        errorOverrideEntity.setErrorOverrideLanguageDetailsEntity(detailsEntity);
+
+
         return errorOverrideEntity;
     }
 
     private ErrorOverrideDTO getErrorOverrideDTOMapper () {
         ErrorOverrideDTO errorOverrideDTOMapper = new ErrorOverrideDTO();
         errorOverrideDTOMapper.setAuthorized("N");
-        errorOverrideDTOMapper.setTaskCode("ERROR-OVERRIDE");
-        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-01");
+        errorOverrideDTOMapper.setTaskCode("ERR-CHD-06_ALL");
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
+        ErrorOverrideLanguageDetailsDTO detailDto = new ErrorOverrideLanguageDetailsDTO();
+        detailDto.setLanguageCode("ENG");
+        detailDto.setLanguageName("English ");
+        detailDto.setLanguageCode("EN");
+        detailDto.setLanguageName("New Error Cod");
+        ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
+        conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
+        conversionsDTO.setNewErrorCode("1");
+        errorOverrideDTOMapper.setErrorMessage(
+                "PAN input is mandatory for the cash transaction above INR 50K");
+        errorOverrideDTOMapper.setBranchCode("ALL");
+        errorOverrideDTOMapper.setTypeOfMessage("Ignore");
+        errorOverrideDTOMapper.setIsConfirmationRequired(true);
+        errorOverrideDTOMapper.setFunctionCode("Cash Deposit/Withdrawal");
+        errorOverrideDTOMapper.setBatchType("Error");
+        errorOverrideDTOMapper.setErrorOverrideConversions(conversionsDTO);
+        errorOverrideDTOMapper.setErrorOverrideLanguageDetails(detailDto);
+        errorOverrideDTOMapper.setTaskIdentifier("ERR-CHD-06");
         return errorOverrideDTOMapper;
     }
 
     private ErrorOverrideDTO getErrorOverrideDTO () {
-        ErrorOverrideDTO errorOverrideDTO = new ErrorOverrideDTO();
-        errorOverrideDTO.setAuthorized("Y");
-        errorOverrideDTO.setTaskCode("ERR-CHD-01");
-        errorOverrideDTO.setStatus("DELETED");
-        errorOverrideDTO.setRecordVersion(1);
-        return errorOverrideDTO;
+        ErrorOverrideDTO dto = new ErrorOverrideDTO();
+        dto.setAuthorized("Y");
+        dto.setTaskCode("ERR-CHD-06_ALL");
+        dto.setErrorCode("ERR-CHD-06");
+        dto.setStatus("DELETED");
+        dto.setRecordVersion(1);
+
+        ErrorOverrideLanguageDetailsDTO detailDto = new ErrorOverrideLanguageDetailsDTO();
+        detailDto.setLanguageCode("ENG");
+        detailDto.setLanguageName("English ");
+        detailDto.setLanguageCode("EN");
+        detailDto.setLanguageName("New Error Cod");
+
+        ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
+        conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
+        conversionsDTO.setNewErrorCode("1");
+
+        dto.setErrorMessage("PAN input is mandatory for the cash transaction above INR 50K");
+        dto.setBranchCode("ALL");
+        dto.setTypeOfMessage("Ignore");
+        dto.setIsConfirmationRequired(true);
+        dto.setFunctionCode("Cash Deposit/Withdrawal");
+        dto.setBatchType("Error");
+        dto.setErrorOverrideConversions(conversionsDTO);
+        dto.setErrorOverrideLanguageDetails(detailDto);
+        dto.setTaskIdentifier("ERR-CHD-06");
+        return dto;
     }
 
     private MutationEntity getMutationEntity () {
         String payLoadString =
                 getPayloadValidString();
         MutationEntity mutationEntity = new MutationEntity();
-        mutationEntity.setTaskIdentifier("ERR-CHD-01");
-        mutationEntity.setTaskCode("ERROR-OVERRIDE");
+        mutationEntity.setTaskIdentifier("ERR-CHD-06");
+        mutationEntity.setTaskCode("ERR-CHD-06_ALL");
         mutationEntity.setPayload(new Payload(payLoadString));
         mutationEntity.setStatus("new");
         mutationEntity.setAuthorized("N");
@@ -455,15 +554,14 @@ entityKey.setErrorCode("entity");
 
     private String getPayloadValidString () {
         String payLoadString =
-                "{\"action\":\"add\",\"status\":\"new\","
-                        + "\"recordVersion\":1,\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\","
-                        + "\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-01\",\"errorCode\":\"ERR-CHD-01\","
-                        + "\"errorMessage\":\"PAN input is mandatory for the cash transaction above INR 50K\",\"typeOfMessage\":\"Ignore\","
-                        + "\"isConfirmationRequired\":true,\"functionCode\":\"Cash Deposit/Withdrawal\",\"batchType\":\"Error\","
-                        + "\"errorOverrideLanguageDetails\":{\"languageCode\":\"ENG\",\"languageName\":\"English\","
-                        + "\"localeCode\":\"EN\",\"localeName\":\"New Error Cod\"},"
-                        + "\"errorOverrideConversions\":{\"branchCode\":\"ALL\","
-                        + "\"functionCodeOverride\":\"Cash Deposit/Withdrawal\",\"newErrorCode\":\"1\"}}";
+                "{\"action\":\"close\",\"status\":\"closed\",\"recordVersion\":1,\"authorized\":\"N\","
+                        + "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-06_ALL\","
+                        + "\"errorCode\":\"ERR-CHD-06\",\"errorMessage\":\"PAN input is mandatory for the cash transaction above INR 50K\","
+                        + "\"branchCode\":\"ALL\",\"typeOfMessage\":\"Ignore\",\"isConfirmationRequired\":true,"
+                        + "\"functionCode\":\"Cash Deposit/Withdrawal\",\"batchType\":\"Error\",\"isExcluded\":false,"
+                        + "\"errorOverrideLanguageDetails\":{\"languageCode\":\"ENG\",\"languageName\":\"English\",\"localeCode\":\"EN\","
+                        + "\"localeName\":\"New Error Cod\"},\"errorOverrideConversions\":{\"functionCodeOverride\":\"Cash Deposit/Withdrawal\","
+                        + "\"newErrorCode\":\"1\"}}";
         return payLoadString;
     }
 
@@ -471,7 +569,7 @@ entityKey.setErrorCode("entity");
         String payLoadString =
                 "{\"action\":\"add\",\"status\":\"new\","
                         + "\"recordVersion\":INVALID,\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\","
-                        + "\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-01\",\"errorCode\":\"ERR-CHD-01\","
+                        + "\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-06\",\"errorCode\":\"ERR-CHD-06\","
                         + "\"errorMessage\":\"PAN input is mandatory for the cash transaction above INR 50K\",\"typeOfMessage\":\"Ignore\","
                         + "\"isConfirmationRequired\":true,\"functionCode\":\"Cash Deposit/Withdrawal\",\"batchType\":\"Error\","
                         + "\"errorOverrideLanguageDetails\":{\"languageCode\":\"ENG\",\"languageName\":\"English\","
@@ -485,14 +583,15 @@ entityKey.setErrorCode("entity");
         String payLoadString =
                 getPayloadInvalidString();
         MutationEntity mutationEntity = new MutationEntity();
-        mutationEntity.setTaskIdentifier("ERR-CHD-01");
-        mutationEntity.setTaskCode("ERROR-OVERRIDE");
+        mutationEntity.setTaskIdentifier("ERR-CHD-06");
+        mutationEntity.setTaskCode("ERR-CHD-06_ALL");
         mutationEntity.setPayload(new Payload(payLoadString));
         mutationEntity.setStatus("active");
         mutationEntity.setAuthorized("N");
         mutationEntity.setRecordVersion(1);
         mutationEntity.setAction("authorize");
         mutationEntity.setLastConfigurationAction("unauthorized");
+
         return mutationEntity;
     }
 
@@ -503,7 +602,6 @@ entityKey.setErrorCode("entity");
         detailDto.setLanguageCode("EN");
         detailDto.setLanguageName("New Error Cod");
         ErrorOverrideConversionsDTO conversionsDTO = new ErrorOverrideConversionsDTO();
-
         conversionsDTO.setFunctionCodeOverride("Cash Deposit/Withdrawal");
         conversionsDTO.setNewErrorCode("1");
         ErrorOverrideDTO dto = new ErrorOverrideDTO();
@@ -517,8 +615,8 @@ entityKey.setErrorCode("entity");
         dto.setErrorOverrideConversions(conversionsDTO);
         dto.setErrorOverrideLanguageDetails(detailDto);
         dto.setStatus("new");
-        dto.setTaskCode("ERROR-OVERRIDE");
-        dto.setTaskIdentifier("ERR-CHD-01");
+        dto.setTaskCode("ERR-CHD-06_ALL");
+        dto.setTaskIdentifier("ERR-CHD-06");
         dto.setRecordVersion(1);
         return dto;
     }
@@ -527,8 +625,8 @@ entityKey.setErrorCode("entity");
         String payLoadString =
                 getPayloadValidString();
         MutationEntity unauthorizedEntities = new MutationEntity();
-        unauthorizedEntities.setTaskCode("ERROR-OVERRIDE");
-        unauthorizedEntities.setTaskIdentifier("ERR-CHD-01");
+        unauthorizedEntities.setTaskCode("ERR-CHD-06_ALL");
+        unauthorizedEntities.setTaskIdentifier("ERR-CHD-06");
         unauthorizedEntities.setPayload(new Payload(payLoadString));
         unauthorizedEntities.setAuthorized("N");
         unauthorizedEntities.setStatus("new");
@@ -545,7 +643,6 @@ entityKey.setErrorCode("entity");
         detailEntity.setLanguageCode("EN");
         detailEntity.setLanguageName("New Error Cod");
         ErrorOverrideConversionsEntity conversionsEntity = new ErrorOverrideConversionsEntity();
-
         conversionsEntity.setFunctionCodeOverride("Cash Deposit/Withdrawal");
         conversionsEntity.setNewErrorCode("1");
         ErrorOverrideEntity entity = new ErrorOverrideEntity();
@@ -567,7 +664,7 @@ entityKey.setErrorCode("entity");
         String payLoadString1 =
                 "{\"action\":\"add\",\"status\":\"new\","
                         + "\"recordVersion\":1,\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\","
-                        + "\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-01\",\"errorCode\":\"ERR-CHD-01\","
+                        + "\"taskCode\":\"ERROR-OVERRIDE\",\"taskIdentifier\":\"ERR-CHD-06\",\"errorCode\":\"ERR-CHD-06\","
                         + "\"errorMessage\":\"PAN input is mandatory for the cash transaction above INR 50K\",\"typeOfMessage\":\"Ignore\","
                         + "\"isConfirmationRequired\":true,\"functionCode\":\"Cash Deposit/Withdrawal\",\"batchType\":\"Error\","
                         + "\"errorOverrideLanguageDetails\":{\"languageCode\":\"ENG\",\"languageName\":\"English\","
@@ -575,8 +672,8 @@ entityKey.setErrorCode("entity");
                         + "\"errorOverrideConversions\":{\"branchCode\":\"ALL\","
                         + "\"functionCodeOverride\":\"Cash Deposit/Withdrawal\",\"newErrorCode\":\"1\"}}";
         MutationEntity mutationEntity2 = new MutationEntity();
-        mutationEntity2.setTaskIdentifier("ERR-CHD-01");
-        mutationEntity2.setTaskCode("ERROR-OVERRIDE");
+        mutationEntity2.setTaskIdentifier("ERR-CHD-06");
+        mutationEntity2.setTaskCode("ERR-CHD-06_ALL");
         mutationEntity2.setPayload(new Payload(payLoadString1));
         mutationEntity2.setStatus("draft");
         mutationEntity2.setAuthorized("N");
@@ -597,7 +694,7 @@ entityKey.setErrorCode("entity");
         errorOverrideDTO.setCreationTime(mutationEntity.getCreationTime());
         errorOverrideDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
         errorOverrideDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        errorOverrideDTO.setTaskCode(mutationEntity.getTaskCode());
+        errorOverrideDTO.setTaskCode("ERR-CHD-06_ALL");
         errorOverrideDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
         return errorOverrideDTO;
     }

@@ -13,28 +13,21 @@ import com.idg.idgcore.coe.domain.service.financialAccountingYear.*;
 import com.idg.idgcore.coe.domain.service.mutation.*;
 import com.idg.idgcore.coe.dto.base.*;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
-import com.idg.idgcore.coe.dto.mapping.*;
 import com.idg.idgcore.coe.dto.mutation.*;
 import com.idg.idgcore.coe.exception.*;
 import com.idg.idgcore.datatypes.core.*;
 import com.idg.idgcore.datatypes.exceptions.*;
 import com.idg.idgcore.dto.context.*;
 import com.idg.idgcore.enumerations.core.*;
-import com.idg.idgcore.infra.*;
 import lombok.extern.slf4j.*;
 import org.modelmapper.*;
-import org.modelmapper.convention.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
-import java.util.stream.*;
 
 import static com.idg.idgcore.coe.common.Constants.*;
-import static com.idg.idgcore.coe.common.Constants.FIELD_SEPARATOR;
 import static com.idg.idgcore.coe.exception.Error.*;
 
 @Slf4j
@@ -49,7 +42,6 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
     @Autowired private IFinancialAccountingYearDomainService domainService;
     @Autowired private FinancialAccountingYearAssembler assembler;
     @Autowired private MutationAssembler mutationAssembler;
-
 
     public FinancialAccountingYearDTO getFinancialAccountingYearByCode (
             SessionContext sessionContext, FinancialAccountingYearDTO dto) throws FatalException {
@@ -144,9 +136,12 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
         ObjectMapper objectMapper = new ObjectMapper();
         List<FinancialAccountingYearDTO> dtoList = new ArrayList<>();
         try {
-            List<MutationEntity> entities = mutationsDomainService.getMutations(
-                    getTaskCode());
-            dtoList.addAll(entities.stream().map(entity -> {
+            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
+                    getTaskCode(), AUTHORIZED_N);
+            dtoList.addAll(domainService.getFinancialAccountingYears().stream()
+                    .map(entity -> assembler.convertEntityToDto(entity))
+                    .toList());
+            dtoList.addAll(unauthorizedEntities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 FinancialAccountingYearDTO dto = null;
                 try {
@@ -203,10 +198,8 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
         FinancialAccountingYearDTO dto = objMapper.readValue(data,
                 FinancialAccountingYearDTO.class);
         dto.getFinancialAccountingYearPeriodicCode();
-
         save(dto);
     }
-
 
     @Override
     public CoreEngineBaseDTO getConfigurationByCode (String code) {
@@ -220,7 +213,6 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
             return null;
     }
 
-
     @Override
     public void save (FinancialAccountingYearDTO dto) {
         domainService.save(dto);
@@ -233,6 +225,40 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
 
     private String getTaskCode () {
         return FinancialAccountingYearDTO.builder().build().getTaskCode();
+    }
+    //-------SERVICES PROCESSING
+
+    /**
+     * service for the given system dates according to the bank & branch dates,
+     * the financial cycle & period code will be returned to the branches
+     *
+     *
+     */
+    public FinancialAccountingYearProcessDTO getFinancialAccountingYearDateAndPeriodCode (
+            String branchCode, Date inputDate) throws FatalException {
+        if (log.isInfoEnabled()) {
+            log.info(" IN getFinancialAccountingYearDateAndPeriodCode[",
+                    branchCode + ", " + inputDate + "] ");
+        }
+        FinancialAccountingYearProcessDTO result = null;
+        FinancialAccountingYearEntity entity = domainService.getFinancialAccountingYearForProcessCall(
+                branchCode, inputDate);
+        return assembler.getDateAndPeriodCode(entity, inputDate);
+    }
+
+    /**
+     * service for retrieval of Start Date & End Date of financial cycle and each of the period code defined in the system in Financial Cycle Configuration screen.
+     */
+    public FinancialAccountingYearDTO getFinancialAccountingYearDateAndAllPeriodCode (
+            String branchCode, Date inputDate) throws FatalException {
+        if (log.isInfoEnabled()) {
+            log.info(" IN getFinancialAccountingYearDateAndPeriodCode[",
+                    branchCode + ", " + inputDate + "] ");
+        }
+        FinancialAccountingYearProcessDTO result = null;
+        FinancialAccountingYearEntity entity = domainService.getFinancialAccountingYearForProcessCall(
+                branchCode, inputDate);
+        return assembler.getDtoFromEntity(entity, inputDate);
     }
 
 }

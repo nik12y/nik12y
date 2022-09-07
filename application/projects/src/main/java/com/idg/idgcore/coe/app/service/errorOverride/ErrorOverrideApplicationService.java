@@ -116,7 +116,6 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
                 }
                 return errorOverrideDTO;
             }).toList());
-
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -175,7 +174,7 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
         if (fields.length == 2) {
             ErrorOverrideDTO withAll = errorOverrideAssembler.convertEntityToDto(
                     errorOverrideDomainService.getByErrorCodeAndBranchCode(
-                            fields[0], "ALL"));
+                            fields[0], ALL));
             withAll.setBranchCode(fields[1]);
             return withAll;
         }

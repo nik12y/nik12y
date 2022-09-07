@@ -97,25 +97,6 @@ class MitigantApplicationServiceTest {
         assertThat(mitigantDTO).isNotNull();
     }
 
-//    @Test
-//    @DisplayName("JUnit for getMitigantByCode in application service when Not Authorize in try else block")
-//    void getMitigantByCodeWhenNotAuthorizeTryBlock() throws JsonProcessingException, FatalException {
-//        given(mutationsDomainService.getConfigurationByCode(mitigantDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity3);
-//            MitigantDTO mitigantDTO5 = mitigantApplicationService.getMitigantByCode(sessionContext, mitigantDTOUnAuth);
-//            assertEquals("N", mitigantDTO1.getAuthorized());
-//            assertThat(mitigantDTO1).isNotNull();
-//            System.out.println("mitigantDTO1 = " + mitigantDTO1);
-//    }
-
-//    @Test
-//    @DisplayName("JUnit for getByMitigantCode in application service when Not Authorize in try else block")
-//    void getMitigantByCodewhenNotAuthorizeTryBlock() throws JsonProcessingException, FatalException {
-//        given(mutationsDomainService.getConfigurationByCode(mitigantDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity3);
-//        MitigantDTO mitigantDTO5 = mitigantApplicationService.getMitigantByCode(sessionContext,mitigantDTOUnAuth);
-//        assertEquals("N",mitigantDTO5.getAuthorized());
-//        assertThat(mitigantDTO5).isNotNull();
-//    }
-
     @Test
     @DisplayName("JUnit for getByMitigantCode in application service when Not Authorize in catch block")
     void getMitigantByCodewhenNotAuthorizeCatchBlock () throws FatalException {
@@ -166,16 +147,6 @@ class MitigantApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for processPurpose in application service for Catch Block")
-    void processPurposeForCatchBlock() {
-        SessionContext sessionContext2=null;
-        Assertions.assertThrows(Exception.class,()-> {
-            mitigantApplicationService.processMitigant(sessionContext2, mitigantDTO);
-            assertThat(mitigantDTO).descriptionText();
-        });
-    }
-
-    @Test
     @DisplayName("JUnit for addUpdateRecord in application service")
     void addUpdateRecordTest() throws JsonProcessingException {
 
@@ -194,26 +165,6 @@ class MitigantApplicationServiceTest {
         assertThat(mitigantEntity).isNotNull();
     }
 
-//    @Test
-//    @DisplayName("JUnit for getByMitigantCode in application service when Authorize for Negative")
-//    void getMitigantByCodeIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
-//        given(mitigantDomainService.getMitigantByCode(mitigantDTO.getMitigantCode())).willReturn(mitigantEntity);
-//        given(mitigantAssembler.convertEntityToDto(mitigantEntity)).willReturn(mitigantDTO);
-//        MitigantDTO mitigantDTO1 = mitigantApplicationService.getMitigantByCode(sessionContext, mitigantDTO);
-//        assertNotEquals("N",mitigantDTO1.getAuthorized());
-//        assertThat(mitigantDTO).isNotNull();
-//    }
-
-//    @Test
-//    @DisplayName("JUnit for getMitigantByCode in application service when UnAuthorize fetche no Record from database")
-//    void getMitigantByCodeNotAuthorizeNull() throws FatalException {
-//        given(mutationsDomainService.getConfigurationByCode(mitigantDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
-//        mitigantDTO.setAuthorized("N");
-//        mutationEntity.setPayload(new Payload(payLoadString1));
-//        MitigantDTO mitigantDTO1 = mitigantApplicationService.getMitigantByCode(sessionContext, mitigantDTO);
-//        assertNotEquals("Y",mitigantDTO1.getAuthorized());
-//    }
-
     @Test
     @DisplayName("JUnit for getMitigantByCode in application service check Parameter not null")
     void getMitigantByCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
@@ -223,17 +174,6 @@ class MitigantApplicationServiceTest {
         assertThat(mitigantDTO1.getMitigantCode()).isNotBlank();
         assertThat(mitigantDTO1.getAuthorized()).isNotBlank();
     }
-
-//    @Test
-//    @DisplayName("JUnit for getMitigantByCode in application service when Not Authorize in try block for Negative when getAuthorized unexpected is Y")
-//    void getMitigantByCodewhenNotAuthorizeTryBlockForNegative() throws JsonProcessingException, FatalException {
-//        given(mutationsDomainService.getConfigurationByCode(mitigantDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity);
-//        mutationEntity.setPayload(new Payload(payLoadString1));
-//        mitigantDTOUnAuth.setAuthorized("N");
-//        MitigantDTO mitigantDTO1 = mitigantApplicationService.getMitigantByCode(sessionContext,mitigantDTOUnAuth);
-//        assertNotEquals("Y",mitigantDTO1.getAuthorized());
-//        assertThat(mitigantDTO1).isNotNull();
-//    }
 
     @Test
     @DisplayName("JUnit for code coverage")
@@ -317,12 +257,9 @@ class MitigantApplicationServiceTest {
     @Test
     @DisplayName("JUnit for processMitigant in application service for Catch Block")
     void processMitigantForCatchBlock() throws FatalException, JsonProcessingException {
-//        SessionContext sessionContext2=null;
         SessionContext sessionContext2=new SessionContext();
-//        Assertions.assertThrows(Exception.class,()-> {
-            mitigantApplicationService.processMitigant(sessionContext2, mitigantDTO);
-            assertThat(mitigantDTO).descriptionText();
-//        })
+        mitigantApplicationService.processMitigant(sessionContext2, mitigantDTO);
+        assertThat(mitigantDTO).descriptionText();
     }
 
 //    @Test

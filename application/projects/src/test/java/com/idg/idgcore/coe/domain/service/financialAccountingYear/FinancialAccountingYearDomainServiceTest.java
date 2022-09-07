@@ -126,7 +126,7 @@ class FinancialAccountingYearDomainServiceTest {
         /**
          * setting child records*/
         FinancialAccountingYearPeriodicCodeEntity entity1 = new FinancialAccountingYearPeriodicCodeEntity(
-                "ICI", "BRV", "FY2022", "Q1", getDate("2022-01-01"), getDate("2022-12-31"));
+                "ICI", "BRV", "FY2022", "Q1", getDate("2022-01-01"), getDate("2022-12-31"),"Open","Open","new", 1, "Y", "");
         FinancialAccountingYearPeriodicCodeEntity entity2 = new FinancialAccountingYearPeriodicCodeEntity();
         entity2.setPeriodCode("Q2");
         entity2.setBankCode("ICI");
@@ -136,7 +136,7 @@ class FinancialAccountingYearDomainServiceTest {
         entity2.setStartDateAccountingPeriod(getDate("2022-02-01"));
         entity2.setEndDateAccountingPeriod(getDate("2022-02-28"));
         FinancialAccountingYearPeriodicCodeEntity entity3 = new FinancialAccountingYearPeriodicCodeEntity(
-                "ICI", "BRV", "FY2022", "FC", getDate("2022-02-28"), getDate("2022-02-28"));
+                "ICI", "BRV", "FY2022", "FC", getDate("2022-02-28"), getDate("2022-02-28"),"Open","Open","new", 1, "Y", "");
         List<FinancialAccountingYearPeriodicCodeEntity> periodicCodeEntityList = new ArrayList<FinancialAccountingYearPeriodicCodeEntity>();
         periodicCodeEntityList.add(entity1);
         periodicCodeEntityList.add(entity2);
@@ -161,7 +161,7 @@ class FinancialAccountingYearDomainServiceTest {
         String sDate = "2022-01-01";
         String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
-                "ICI", "BRV", "FY2022", "Q1", sDate, eDate);
+                "ICI", "BRV", "FY2022", "Q1", sDate, eDate,"Open","Open");
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
         dto2.setBankCode("ICI");
         dto2.setBranchCode("BRV");
@@ -170,7 +170,7 @@ class FinancialAccountingYearDomainServiceTest {
         dto2.setStartDateAccountingPeriod(sDate);
         dto2.setEndDateAccountingPeriod(eDate);
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
-                "ICI", "BRV", "FY2022", "FC", sDate, eDate);
+                "ICI", "BRV", "FY2022", "FC", sDate, eDate,"Open","Open");
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);

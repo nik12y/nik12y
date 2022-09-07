@@ -1,11 +1,11 @@
 type Iban {
-    ibanCountryCode:String
-    ibanCountryPosition: Int
-    ibanCountryCodeLength:Int
-    ibanCheckDigitPosition: Int
-    ibanCheckDigitLength:Int
-    ibanNationalIdLength:String
-    ibanTotalLength:Int
+    ibanCountryCode:String!
+    ibanCountryPosition: Int!
+    ibanCountryCodeLength:Int!
+    ibanCheckDigitPosition: Int!
+    ibanCheckDigitLength:Int!
+    ibanNationalIdLength:Int
+    ibanTotalLength:Int!
     action : String!
     status : String!
     recordVersion : Int!

@@ -48,6 +48,11 @@ public class ServiceBeanConfig {
         beanMappings.put(QUESTION_CATEGORY,QUESTION_CATEGORY_SERVICE);
         beanMappings.put(TRANSACTION, TRANSACTION_SERVICE);
         beanMappings.put(ZAKAT, ZAKAT_SERVICE);
+        beanMappings.put(VIRTUAL_ENTITY, VIRTUAL_ENTITY_SERVICE);
+        beanMappings.put(REGULATORY_SERVICE,REGULATORY_REGION_SERVICE);
+
+        beanMappings.put(CURRENCY_PAIR, CURRENCY_PAIR_SERVICE);
+        beanMappings.put(CURRENCY_PAIR_CONFIG, CURRENCY_PAIR_SERVICE);
         beanMappings.put(CURRENCY_RATE_TYPE, CURRENCY_RATE_TYPE_SERVICE);
         beanMappings.put(CURRENCY, CURRENCY_SERVICE);
 

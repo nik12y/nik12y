@@ -1,7 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/audit-table.xml
-  - include:
       file: db/changelog/language-table.xml
   - include:
       file: db/changelog/multicurrency-rate-type-table.xml
@@ -89,4 +87,13 @@ databaseChangeLog:
       file: db/changelog/create-seed-table-locale.xml
   - include:
       file: db/changelog/insert-seed-table-locale.xml
-
+  - include:
+      file: db/changelog/regulatoryRegionCode-table.xml
+  - include:
+      file: db/changelog/create-fw-config-table
+  - include:
+      file: db/changelog/insert-fw-config-table
+  - include:
+      file: db/changelog/create_tbl_IDGC_MCY_CNFG_CURRENCY_PAIR.xml
+  - include:
+      file: db/changelog/virtualEntity-table.xml

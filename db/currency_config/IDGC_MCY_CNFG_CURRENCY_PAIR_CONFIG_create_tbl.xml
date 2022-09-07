@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	<changeSet id="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG_create_tbl" author="hrishikesh">
+		<createTable tableName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG" remarks="A table to store all currency pair - entity code relation">
+			<column name="pair_config_id" type="integer" autoIncrement="true">
+				<constraints nullable="false" unique="true" primaryKey="true" />
+			</column>
+			<column name="pair_id" type="integer">
+			</column>
+			<column name="entity_code" type="character varying(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_by" type="varchar(20)">
+			</column>
+			<column name="creation_time" type="timestamp">
+			</column>
+			<column name="last_updated_by" type="varchar(20)">
+			</column>
+			<column name="last_updated_time" type="timestamp">
+			</column>
+		</createTable>
+		<addUniqueConstraint columnNames="pair_config_id" tableName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG" constraintName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG_PK" />
+		<addForeignKeyConstraint baseTableName="IDGC_MCY_CNFG_CURRENCY_PAIR_CONFIG" baseColumnNames="pair_id" constraintName="pair_id_fk" referencedTableName="IDGC_MCY_CNFG_CURRENCY_PAIR" referencedColumnNames="pair_id" onDelete="CASCADE" />
+	</changeSet>
+</databaseChangeLog>
