@@ -1,0 +1,4 @@
+type VirtualEntityQuery {
+    entityCode: String!
+    authorized: String!
+}

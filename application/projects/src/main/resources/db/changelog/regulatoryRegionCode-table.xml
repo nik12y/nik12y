@@ -9,7 +9,7 @@
     <changeSet id="idgc_ve_reg_region_config_b" author="NikhilYadav">
 
         <createTable tableName="idgc_ve_reg_region_config_b"
-                     remarks="A table to contain all the QuestionCategory configuration">
+                     remarks="A table to contain all the RegulatoryRegionCode configuration">
 
             <column name="reg_region_code" type="varchar(8)">
                 <constraints nullable="false" primaryKey="true"/>
@@ -20,7 +20,7 @@
             </column>
 
             <column name="region_desc" type="varchar(40)">
-                <constraints nullable="false"/>
+<!--                <constraints nullable="false"/>-->
             </column>
 
             <column name="region_effective_date" type="DATE">

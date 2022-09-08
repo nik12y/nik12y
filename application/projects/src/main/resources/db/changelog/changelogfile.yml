@@ -87,7 +87,6 @@ databaseChangeLog:
       file: db/changelog/create-seed-table-locale.xml
   - include:
       file: db/changelog/insert-seed-table-locale.xml
-
   - include:
       file: db/changelog/regulatoryRegionCode-table.xml
   - include:
@@ -96,3 +95,5 @@ databaseChangeLog:
       file: db/changelog/insert-fw-config-table
   - include:
       file: db/changelog/create_tbl_IDGC_MCY_CNFG_CURRENCY_PAIR.xml
+  - include:
+      file: db/changelog/virtualEntity-table.xml

@@ -1,0 +1,16 @@
+type VirtualEntity {
+    entityType: String!
+    entityCode: String!
+    entityName: String!
+    parentEntityType: String!
+    parentEntityCode: String!
+    isDefault: Boolean
+    effectiveDate: String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

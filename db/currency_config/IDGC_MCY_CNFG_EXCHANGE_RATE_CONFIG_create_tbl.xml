@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	<changeSet id="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_create_tbl" author="rahuls">
+		<createTable tableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG" remarks="A table to store currency exchange rate configurations">
+			<column name="exchange_rate_id" type="integer" autoIncrement="true">
+				<constraints nullable="false" unique="true" primaryKey="true" />
+			</column>
+			<column name="pair_id" type="integer">
+			</column>
+			<column name="fx_rate_date" type="datetime">
+				<constraints nullable="false" />
+			</column>
+            <column name="replicate_exchange_rate_of_branch" type="boolean">
+			</column>
+            <column name="rate_sr_no" type="int">
+			</column>
+			<column name="life_cycle_id" type="varchar(50)">
+			</column>
+			<column name="reference_no" type="varchar(50)">
+			</column>
+			<column name="record_version" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="record_status" type="varchar(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="is_authorized" type="varchar(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_configuration_action" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_by" type="varchar(20)">
+			</column>
+			<column name="creation_time" type="timestamp">
+			</column>
+			<column name="last_updated_by" type="varchar(20)">
+			</column>
+			<column name="last_updated_time" type="timestamp">
+			</column>
+		</createTable>
+		<addUniqueConstraint columnNames="exchange_rate_id" tableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG" constraintName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_PK" />
+		<addForeignKeyConstraint baseTableName="IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG" baseColumnNames="pair_id" constraintName="pair_id_fk_for_exchange_rate" referencedTableName="IDGC_MCY_CNFG_CURRENCY_PAIR" referencedColumnNames="pair_id" onDelete="CASCADE" />
+	</changeSet>
+</databaseChangeLog>

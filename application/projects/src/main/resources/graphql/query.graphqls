@@ -15,10 +15,6 @@ type Query{
     getMemo(sessionContext: SessionContextInput, memoQuery: MemoInputQuery): Memo
     getBankByCode(sessionContext: SessionContextInput, bank: BankInputQuery): Bank
     getBanks(sessionContext: SessionContextInput): [Bank]
-    getPurposeByCode(sessionContext: SessionContextInput, purposeQuery: PurposeInputQuery): Purpose
-    getPurposes(sessionContext: SessionContextInput): [Purpose]
-    getBankIdentifierByCode(sessionContext: SessionContextInput, bankIdentifierQuery: BankIdentifierInputQuery): BankIdentifier
-    getBankIdentifiers(sessionContext: SessionContextInput): [BankIdentifier]
     getLanguageByCode(sessionContext: SessionContextInput, languageQuery: LanguageInputQuery): Language
     getLanguages(sessionContext: SessionContextInput): [Language]
     getBranchTypeByCode(sessionContext: SessionContextInput, branchType: BranchTypeInputQuery): BranchType
@@ -81,5 +77,7 @@ type Query{
     getCurrencyPairById(sessionContext: SessionContextInput, currencyPairQuery:CurrencyPairInputQuery):CurrencyPair
     getCurrencyPairs(sessionContext: SessionContextInput): [CurrencyPair]
 
+    getVirtualEntityByEntityCode(sessionContext: SessionContextInput, virtualEntityQuery: VirtualEntityInputQuery): VirtualEntity
+    getVirtualEntityAll(sessionContext: SessionContextInput): [VirtualEntity]
 }
 

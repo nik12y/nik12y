@@ -65,7 +65,7 @@ public class RegulatoryRegionApplicationService extends AbstractApplicationServi
         try {
             if (isAuthorized(regulatoryRegionConfigDTO.getAuthorized())) {
                 RegulatoryRegionConfigEntity regulatoryRegionByCode = iRegulatoryRegionDomainService.getRegulatoryRegionByCode(
-                        regulatoryRegionConfigDTO.getRegRegionCode());
+                        regulatoryRegionConfigDTO.getRegulatoryRegionCode());
                 result = regulatoryRegionAssembler.convertEntityToDto(regulatoryRegionByCode);
             } else {
                 MutationEntity mutationEntity = mutationsDomainService.getConfigurationByCode(
@@ -114,7 +114,7 @@ public class RegulatoryRegionApplicationService extends AbstractApplicationServi
                 return regulatoryRegionConfigDTO;
             }).collect(Collectors.toList()));
             regulatoryRegionConfigDTOList = regulatoryRegionConfigDTOList.stream().collect(
-                    Collectors.groupingBy(RegulatoryRegionConfigDTO::getRegRegionCode, Collectors.collectingAndThen(
+                    Collectors.groupingBy(RegulatoryRegionConfigDTO::getRegulatoryRegionCode, Collectors.collectingAndThen(
                             Collectors.maxBy(Comparator.comparing(RegulatoryRegionConfigDTO::getRecordVersion)),
                             Optional::get))).values().stream().collect(Collectors.toList());
             fillTransactionStatus(transactionStatus);

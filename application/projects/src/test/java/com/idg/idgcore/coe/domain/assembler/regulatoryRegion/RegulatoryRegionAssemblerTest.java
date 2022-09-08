@@ -44,9 +44,9 @@ class RegulatoryRegionAssemblerTest {
         regulatoryRegionDTO.add(new RegulatoryRegionMappingDTO("REGC002"));
 
         RegulatoryRegionConfigDTO regulatoryRegionConfigDTO = new RegulatoryRegionConfigDTO();
-        regulatoryRegionConfigDTO.setRegRegionCode("REGC002");
-        regulatoryRegionConfigDTO.setRegionName("India");
-        regulatoryRegionConfigDTO.setRegionDescription("The India");
+        regulatoryRegionConfigDTO.setRegulatoryRegionCode("REGC002");
+        regulatoryRegionConfigDTO.setRegulatoryRegionName("India");
+        regulatoryRegionConfigDTO.setRegulatoryRegionDescription("The India");
         regulatoryRegionConfigDTO.setRegionEffectiveDate("2022-08-20");
         regulatoryRegionConfigDTO.setRegulatoryRegionMapping(regulatoryRegionDTO);
         regulatoryRegionConfigDTO.setRegionGroupCode("Country");
@@ -87,9 +87,9 @@ class RegulatoryRegionAssemblerTest {
         RegulatoryRegionMappingDTO regulatoryRegionMappingDTO = new RegulatoryRegionMappingDTO("In");
 
         RegulatoryRegionConfigDTO regulatoryRegionConfigDTO = new RegulatoryRegionConfigDTO();
-        regulatoryRegionConfigDTO.setRegRegionCode("REGC002");
-        regulatoryRegionConfigDTO.setRegionName("India");
-        regulatoryRegionConfigDTO.setRegionDescription("The India");
+        regulatoryRegionConfigDTO.setRegulatoryRegionCode("REGC002");
+        regulatoryRegionConfigDTO.setRegulatoryRegionName("India");
+        regulatoryRegionConfigDTO.setRegulatoryRegionDescription("The India");
         regulatoryRegionConfigDTO.setRegionEffectiveDate("2022-08-20");
         regulatoryRegionConfigDTO.setRegulatoryRegionMapping(List.of(regulatoryRegionMappingDTO));
         regulatoryRegionConfigDTO.setRegionGroupCode("Country");
