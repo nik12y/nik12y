@@ -1,7 +1,7 @@
 type RegulatoryRegion{
-    regRegionCode: String!
-    regionName:String!
-    regionDescription:String!
+    regulatoryRegionCode: String!
+    regulatoryRegionName:String!
+    regulatoryRegionDescription:String!
     regionEffectiveDate: String!
     regionGroupCode:String
     purpose:String!

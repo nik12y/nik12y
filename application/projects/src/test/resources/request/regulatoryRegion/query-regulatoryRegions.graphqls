@@ -27,9 +27,9 @@ query{
         },
 
     ) {
-        regRegionCode
-        regionName
-        regionDescription
+        regulatoryRegionCode
+        regulatoryRegionName
+        regulatoryRegionDescription
         regionGroupCode
         regionEffectiveDate
         purpose

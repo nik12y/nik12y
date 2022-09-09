@@ -27,7 +27,7 @@ public class RegulatoryRegionDomainService implements IRegulatoryRegionDomainSer
     public RegulatoryRegionConfigEntity getConfigurationByCode(RegulatoryRegionConfigDTO regulatoryRegionConfigDTO ) {
         RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = null;
         try {
-            regulatoryRegionConfigEntity = this.iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTO.getRegRegionCode());
+            regulatoryRegionConfigEntity = this.iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTO.getRegulatoryRegionCode());
         } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error(e.getMessage());
