@@ -74,6 +74,7 @@ public class StateApplicationService extends AbstractApplicationService
                  ObjectMapper objectMapper = new ObjectMapper();
                  PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                  result = objectMapper.readValue(payload.getData(), StateDTO.class);
+                 result = stateAssembler.setAuditFields(mutationEntity, result);
                  fillTransactionStatus(transactionStatus);
                  }
             }

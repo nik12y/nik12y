@@ -76,6 +76,7 @@ public class AppVerCatChecklistPolicyApplicationService extends AbstractApplicat
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), AppVerCatChecklistPolicyDTO.class);
+                result = appVerCatChecklistPolicyAssembler.setAuditFields(mutationEntity, result);
                 fillTransactionStatus(transactionStatus);
             }
         }

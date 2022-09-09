@@ -75,6 +75,7 @@ public class AppVerCategoryApplicationService extends AbstractApplicationService
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), AppVerCategoryConfigDTO.class);
+                result = appVerCategoryConfigAssembler.setAuditFields(mutationEntity, result);
                 fillTransactionStatus(transactionStatus);
             }
         }

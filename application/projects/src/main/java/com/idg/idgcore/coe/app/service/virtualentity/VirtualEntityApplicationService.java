@@ -13,6 +13,7 @@ import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.virtualentity.IVirtualEntityDomainService;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
+import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.virtualentity.VirtualEntityDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
@@ -135,7 +136,8 @@ public class VirtualEntityApplicationService extends AbstractApplicationService 
     }
 
     public List<VirtualEntityDTO> getVirtualEntityAll(SessionContext sessionContext) throws FatalException {
-        if(log.isInfoEnabled()) {
+
+        if (log.isInfoEnabled()) {
             log.info("In getVirtualEntityAll with parameters sessionContext {}", sessionContext);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
@@ -143,29 +145,20 @@ public class VirtualEntityApplicationService extends AbstractApplicationService 
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         ObjectMapper objectMapper = new ObjectMapper();
         List<VirtualEntityDTO> virtualEntityDTOList = new ArrayList<>();
-
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            virtualEntityDTOList.addAll(virtualEntityDomainService.getVirtualEntityAll().stream()
-                    .map(entity -> virtualEntityAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            virtualEntityDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            virtualEntityDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 VirtualEntityDTO virtualEntityDTO = null;
                 try {
                     virtualEntityDTO = objectMapper.readValue(data, VirtualEntityDTO.class);
-                    virtualEntityDTO = virtualEntityAssembler.setAuditFields(entity,virtualEntityDTO);
+                    virtualEntityDTO = virtualEntityAssembler.setAuditFields(entity, virtualEntityDTO);
                 }
                 catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return virtualEntityDTO;
-            }).collect(Collectors.toList()));
-            virtualEntityDTOList = virtualEntityDTOList.stream().collect(
-                    Collectors.groupingBy(VirtualEntityDTO::getEntityCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(VirtualEntityDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -175,6 +168,7 @@ public class VirtualEntityApplicationService extends AbstractApplicationService 
             Interaction.close();
         }
         return virtualEntityDTOList;
+
     }
 
     private boolean isAuthorized(final String authorized) {

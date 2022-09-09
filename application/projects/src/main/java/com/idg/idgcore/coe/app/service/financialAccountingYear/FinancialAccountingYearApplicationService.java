@@ -136,12 +136,9 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
         ObjectMapper objectMapper = new ObjectMapper();
         List<FinancialAccountingYearDTO> dtoList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            dtoList.addAll(domainService.getFinancialAccountingYears().stream()
-                    .map(entity -> assembler.convertEntityToDto(entity))
-                    .toList());
-            dtoList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            dtoList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 FinancialAccountingYearDTO dto = null;
                 try {

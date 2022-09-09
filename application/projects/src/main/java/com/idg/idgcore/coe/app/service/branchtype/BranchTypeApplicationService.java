@@ -79,6 +79,7 @@ public class BranchTypeApplicationService extends AbstractApplicationService
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), BranchTypeDTO.class);
+                result = branchtypeAssembler.setAuditFields(mutationEntity, result);
                 fillTransactionStatus(transactionStatus);
             }
         }

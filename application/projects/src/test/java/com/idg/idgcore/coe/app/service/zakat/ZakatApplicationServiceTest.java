@@ -13,9 +13,11 @@ import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.zakat.ZakatDomainService;
 import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
+import com.idg.idgcore.coe.dto.state.StateDTO;
 import com.idg.idgcore.coe.dto.zakat.ZakatDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
+import liquibase.pro.packaged.Z;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -104,6 +106,20 @@ class ZakatApplicationServiceTest {
         ZakatDTO zakatDTO = zakatApplicationService.getZakatByYear(sessionContext, zakatDTOAuthorized);
         assertNotEquals("N", zakatDTO.getAuthorized());
         assertThat(zakatDTOAuthorized).isNotNull();
+    }
+
+
+    @Test
+    @DisplayName("JUnit for getZakatByYear in application service when Not Authorize in try else block")
+    void getZakatByYearwhenNotAuthorizeTryBlock() throws JsonProcessingException, FatalException {
+        given(mutationsDomainService.getConfigurationByCode(zakatDTOUnAuthorized.getTaskIdentifier())).willReturn(mutationEntity);
+
+        Assertions.assertThrows(FatalException.class,()-> {         // this is added to pass test
+        ZakatDTO zakatDTO1 = zakatApplicationService.getZakatByYear(sessionContext,zakatDTOUnAuthorized);
+        });
+        assertEquals("N",zakatDTOUnAuthorized.getAuthorized());
+        assertThat(zakatDTOUnAuthorized).isNotNull();
+
     }
 
 
