@@ -5,4 +5,26 @@ databaseChangeLog:
       file: currency_config/IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_create_tbl.xml
   - include:
       file: currency_config/IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE_create_tbl.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_CURRENCY_DTLS_drop.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_drop.xml
+  - include:
+      file: db/changelog/IDGC_MCY_SEED_LOCALE_COUNTRY_drop.xml
+  - include:
+      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_drop.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_CURRENCY_DTLS_create.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_COUNTRY_MAP_create.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_EXTRA_FIELD_MAP_create.xml
+  - include:
+      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_create.xml
+  - include:
+      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_insert_01.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_AMT_IN_WORDS_create.xml
 

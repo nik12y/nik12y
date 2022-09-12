@@ -1,0 +1,60 @@
+mutation {
+  processAmountInWords(
+    sessionContext: {
+       bankCode: ""
+  defaultBranchCode: ""
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Rakshit"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: "maker"
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+    }
+    currencyAmountInWords: {
+      currencyCode: "ZES"
+      languageCode: "ZS"
+      languageName: "English"
+      localeCode: "en_ZS"
+      localeName: "English(ZS)"
+      beforeDecimalVerbose: "Dollars"
+      afterDecimalVerbose: "cents"
+      suffixText: "Only"
+      prefixTextWithCurrency: "Dollars"
+      fraction:true
+      textBetween: "And"
+      amountInFigures: 100
+      amountInWords: "One Hundred"
+      action: "add"
+      status: "new"
+      recordVersion: 0
+    }
+  ) {
+    externalReferenceNumber
+    internalReferenceNumber
+    userReferenceNumber
+    replyCode
+    replyMessage
+    errorCode
+    isErrorToBeOverridden
+    validationErrors {
+      errorCode
+      errorMessage
+      errorMessageParams
+    }
+  }
+}

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create" author="rakshit">
+        <comment>Currency configuration table modification idgc_mcy_cnfg_cut_off_rounding_rules</comment>
+        <createTable tableName="idgc_mcy_cnfg_cut_off_rounding_rules"
+                     remarks="Table to store currency cut off and rounding rules information">
+            <column name="currency_code" type="character varying(3)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="days" type="smallint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="hours" type="smallint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="minutes" type="smallint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="enable_mt_103_remit" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="enable_mt_103_stp" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="index_flag" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="enable_mt_202cov" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cls_currency_flag" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="validate_tag_50f_flag" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="preferred_holiday_1" type="character varying(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="preferred_holiday_2" type="character varying(10)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="preferred_holiday_3" type="character varying(10)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="rounding_rule" type="character varying(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rounding_unit" type="float">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amt_formt_mask_ptt" type="character varying(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="eur_trans_curr" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="in_leg_currency" type="character varying(3)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="out_leg_currency" type="character varying(3)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="euro_close_flag" type="character varying(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="credit_exchange_limit" type="float">
+                <constraints nullable="true"/>
+            </column>
+            <column name="debit_exchange_limit" type="float">
+                <constraints nullable="true"/>
+            </column>
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(20)">
+            </column>
+            <column name="creation_time" type="timestamp">
+            </column>
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+            <column name="last_updated_time" type="timestamp">
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_dtls" baseColumnNames="currency_code"
+                                 constraintName="fk_mcy_cnfg_cut_off_rounding_rules"
+                                 referencedTableName="idgc_mcy_cnfg_cut_off_rounding_rules" referencedColumnNames="currency_code" onDelete="CASCADE"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -71,7 +71,7 @@ type Query{
 
     getRegulatoryRegionByCode(sessionContext: SessionContextInput, regulatoryRegionQuery: RegulatoryRegionInputQuery): RegulatoryRegion
     getRegulatoryRegionCodes (sessionContext: SessionContextInput): [RegulatoryRegion]
-    getCurrencyDetails(sessionContext: SessionContextInput, countryCodeQuery : CountryCodeInputQuery) : CurrencyDetails
+    getCurrencyDetails(sessionContext: SessionContextInput, currencyCodeQuery : CurrencyCodeInputQuery) : CurrencyDetails
     getCurrenciesList(sessionContext: SessionContextInput):[CurrencyDetails]
 
     getCurrencyPairById(sessionContext: SessionContextInput, currencyPairQuery:CurrencyPairInputQuery):CurrencyPair
@@ -79,5 +79,8 @@ type Query{
 
     getVirtualEntityByEntityCode(sessionContext: SessionContextInput, virtualEntityQuery: VirtualEntityInputQuery): VirtualEntity
     getVirtualEntityAll(sessionContext: SessionContextInput): [VirtualEntity]
+
+    getAmountInWordsList(sessionContext: SessionContextInput) : [AmountInWordsDetails]
+    getAmountInWordsDetails(sessionContext: SessionContextInput,currencyCodeQuery : CurrencyCodeInputQuery) : AmountInWordsDetails
 }
 

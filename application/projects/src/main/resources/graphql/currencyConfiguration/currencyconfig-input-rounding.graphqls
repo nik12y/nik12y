@@ -1,0 +1,5 @@
+input RoundingAmountInput{
+
+     currencyCode: String! @Size(min: 3, max: 3, message: "currencyCode.message") @Pattern(regexp: "[A-Z]+",message: "Currency code should be uppercase alphabet of size 3")
+     amount: String! @Size(min: 1, max: 40, message: "amount.message") @Pattern(regexp: "[0-9.]+",message: "Amount should be of size up to 40 with decimal")
+}

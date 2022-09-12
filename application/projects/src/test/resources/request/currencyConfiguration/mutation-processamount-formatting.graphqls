@@ -1,0 +1,32 @@
+mutation {
+  processAmountFormatting(
+    sessionContext: {
+       bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: "rakshit"
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: ["checker"]
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+    }
+    amount: { currencyCode: "TES", amount: "1234567890123456" }
+  ) {
+    formattedAmount
+  }
+}

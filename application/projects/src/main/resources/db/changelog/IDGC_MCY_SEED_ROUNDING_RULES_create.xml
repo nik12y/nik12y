@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="IDGC_MCY_SEED_ROUNDING_RULES_create" author="rakshit">
+        <comment>Seed table modification idgc_mcy_seed_rounding_rules</comment>
+        <createTable tableName="idgc_mcy_seed_rounding_rules"
+                     remarks="Table to store amount rounding rules information">
+            <column name="rounding_rule" type="character varying(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rounding_flag" type="character varying(2)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -40,5 +40,8 @@ type Mutation {
 
     processCurrencyPair(sessionContext: SessionContextInput, currencyPair: CurrencyPairInput): TransactionStatus
     processVirtualEntity(sessionContext: SessionContextInput, virtualEntity: VirtualEntityInput): TransactionStatus
+    processAmountFormatting(sessionContext: SessionContextInput, amount: AmountInput) : FormattedAmount
+    processAmountRounding(sessionContext: SessionContextInput, roundingAmount: RoundingAmountInput) : FormattedAmount
+    processAmountInWords(sessionContext: SessionContextInput, currencyAmountInWords:CurrencyAmountInWordsInput) : TransactionStatus
 }
 
