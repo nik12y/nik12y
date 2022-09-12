@@ -39,6 +39,7 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
     private static final String ENTERED_STRING="Entered into ";
     private static final String EXIT_STRING="Exited from ";
 
+
     @Autowired
     private IMutationsDomainService mutationsDomainService;
 
@@ -49,7 +50,7 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
     private CurrencyAmountInWordDomainService currencyAmountInWordDomainService;
 
     @Autowired
-    CurrencyAmountInWordAssembler currencyAmountInWordAssembler;
+    private CurrencyAmountInWordAssembler currencyAmountInWordAssembler;
 
     private final ModelMapper modelMapper = new ModelMapper();
 
@@ -63,15 +64,15 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
     ModelMapper mapper = new ModelMapper();
 
     public void addUpdateRecord (String data) throws JsonProcessingException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"addUpdateRecord() with data{}",data);
-        }
+
         ObjectMapper objMapper = new ObjectMapper();
         CurrencyAmountInWordDTO currencyAmountInWordDTO = objMapper.readValue(data, CurrencyAmountInWordDTO.class);
         save(currencyAmountInWordDTO);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"addUpdateRecord()");
-        }
+
     }
 
     @Override
@@ -80,15 +81,15 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
     }
 
     public void save (CurrencyAmountInWordDTO currencyAmountInWordDTO) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"save() with CurrencyAmountInWordsDTO{}",
                     currencyAmountInWordDTO);
-        }
+
         currencyAmountInWordDomainService.save(currencyAmountInWordDTO);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"save() by saving the above CurrencyAmountInWordDTO {} :",
                     currencyAmountInWordDTO);
-        }
+
     }
 
     @Transactional
@@ -96,10 +97,10 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
             CurrencyAmountInWordDTO currencyAmountInWordDTO) throws FatalException,
             JsonProcessingException {
 
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"processAmountInWords() with SessionContext{} and CurrencyAmountInWordsDTO{}"
                     ,sessionContext, currencyAmountInWordDTO);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         try {
             Interaction.begin(sessionContext);
@@ -118,18 +119,18 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
                 Interaction.close();
             }
         }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"processAmountInWords() with following response transactionStatus {}",transactionStatus);
-        }
+
         return transactionStatus;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public List<CurrencyAmountInWordDTO> getAmountInWordsList(SessionContext sessionContext) throws
             FatalException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsList() with SessionContext{}",sessionContext);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
@@ -165,20 +166,20 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
         finally {
             Interaction.close();
         }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"getAmountInWordsList() with following response CurrencyAmountInWordDTOList {}",
                     currencyAmountInWordDTOList);
-        }
+
         return currencyAmountInWordDTOList;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public CurrencyAmountInWordDTO getAmountInWordsDetails (SessionContext sessionContext, CurrencyDetailsInputDTO currencyDetailsInputDTO)
             throws FatalException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsDetails() with SessionContext{} and CurrencyDetailsInputDTO {}",sessionContext,
                     currencyDetailsInputDTO);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
@@ -209,10 +210,10 @@ public class CurrencyAmountInWordService extends AbstractApplicationService impl
         finally {
             Interaction.close();
         }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"getAmountInWordsDetails() with following response CurrencyAmountInWordDTO {}",
                     currencyAmountInWordDTO);
-        }
+
         return currencyAmountInWordDTO;
     }
 

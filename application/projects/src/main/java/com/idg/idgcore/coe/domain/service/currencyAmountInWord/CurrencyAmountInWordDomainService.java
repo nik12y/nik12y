@@ -29,17 +29,17 @@ public class CurrencyAmountInWordDomainService implements ICurrencyAmountInWordD
 
     public void save (CurrencyAmountInWordDTO currencyAmountInWordDTO) {
 
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"save() with CurrencyAmountInWordsDTO{}",
                     currencyAmountInWordDTO);
-        }
+
 
         try{
             CurrencyAmountInWordEntity currencyAmountInWordEntity = currencyAmountInWordAssembler.convertDtoToEntity(
                     currencyAmountInWordDTO);
-            if (log.isInfoEnabled()) {
+
                 log.info(EXIT_STRING+CLASS_NAME+"save()");
-            }
+
             this.iCurrencyAmountInWordRepository.save(currencyAmountInWordEntity);
         }
         catch (Exception e) {
@@ -49,13 +49,13 @@ public class CurrencyAmountInWordDomainService implements ICurrencyAmountInWordD
     }
 
     public Optional<CurrencyAmountInWordEntity> getCurrencyAmountInWordsDetails(String currencyCode) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getCurrencyAmountInWordsDetails() with Currency code{}", currencyCode);
-        }
+
         Optional<CurrencyAmountInWordEntity> currencyAmountInWordsEntity = this.iCurrencyAmountInWordRepository.findById(currencyCode);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"getCurrencyAmountInWordsDetails()");
-        }
+
         return currencyAmountInWordsEntity;
     }
 }

@@ -25,17 +25,17 @@ public class CurrencyAmountInWordQueryResolver implements GraphQLQueryResolver {
 
     public List<CurrencyAmountInWordDTO> getAmountInWordsList(SessionContext sessionContext) throws
             FatalException, JsonProcessingException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsList() with SessionContext{}",sessionContext);
-        }
+
         return iCurrencyAmountInWordService.getAmountInWordsList(sessionContext);
     }
 
     public CurrencyAmountInWordDTO getAmountInWordsDetails(SessionContext sessionContext,CurrencyDetailsInputDTO currencyDetailsInputDTO)
             throws FatalException, JsonProcessingException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsDetails() with SessionContext{}",sessionContext);
-        }
+
         return iCurrencyAmountInWordService.getAmountInWordsDetails(sessionContext,currencyDetailsInputDTO);
     }
 }

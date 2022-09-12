@@ -1,5 +1,6 @@
 package com.idg.idgcore.coe.domain.assembler.currencyConfiguration;
 
+import com.idg.idgcore.coe.domain.assembler.common.*;
 import com.idg.idgcore.coe.domain.entity.currencyConfiguration.*;
 import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.dto.currencyConfiguration.*;
@@ -10,8 +11,6 @@ import org.springframework.stereotype.*;
 
 import javax.annotation.*;
 import java.util.*;
-
-import static com.idg.idgcore.coe.common.Constants.*;
 
 @Component
 @Slf4j
@@ -30,44 +29,55 @@ public class CurrencyConfigurationAssembler {
     }
 
     public CurrencyCutOffRoundingDTO convertEntityToDto(Optional<CurrencyConfigurationCutOffRoundingEntity> currencyConfigCutOffRoundingEntity){
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"convertEntityToDto() with CurrencyConfigCutOffRoundingEntity {}",currencyConfigCutOffRoundingEntity);
-        }
+
         CurrencyCutOffRoundingDTO currencyCutOffRoundingDTO = modelMapper.map(currencyConfigCutOffRoundingEntity, CurrencyCutOffRoundingDTO.class);
-        currencyCutOffRoundingDTO.setEnableMt101Remit(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEnableMt101Remit()));
-        currencyCutOffRoundingDTO.setEnableMt103Stp(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEnableMt103Stp()));
-        currencyCutOffRoundingDTO.setIndexFlag(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getIndexFlag()));
-        currencyCutOffRoundingDTO.setEnableMt202Cov(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEnableMt202Cov()));
-        currencyCutOffRoundingDTO.setClsCurrencyFlag(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getClsCurrencyFlag()));
-        currencyCutOffRoundingDTO.setValidateTag50fFlag(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getValidateTag50fFlag()));
-        currencyCutOffRoundingDTO.setEuroTransactionCurrency(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEuroTransactionCurrency()));
-        currencyCutOffRoundingDTO.setEuroCloseFlag(getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEuroTransactionCurrency()));
-        if (log.isInfoEnabled()) {
+        currencyCutOffRoundingDTO.setEnableMt101Remit(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEnableMt101Remit()));
+        currencyCutOffRoundingDTO.setEnableMt103Stp(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEnableMt103Stp()));
+        currencyCutOffRoundingDTO.setIndexFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getIndexFlag()));
+        currencyCutOffRoundingDTO.setEnableMt202Cov(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEnableMt202Cov()));
+        currencyCutOffRoundingDTO.setClsCurrencyFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getClsCurrencyFlag()));
+        currencyCutOffRoundingDTO.setValidateTag50fFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getValidateTag50fFlag()));
+        currencyCutOffRoundingDTO.setEuroTransactionCurrency(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEuroTransactionCurrency()));
+        currencyCutOffRoundingDTO.setEuroCloseFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigCutOffRoundingEntity.get().getEuroTransactionCurrency()));
+
             log.info(EXIT_STRING+CLASS_NAME+"convertDtoToEntity() with following converted DTO {} CurrencyCutOffRoundingDTO :", currencyCutOffRoundingDTO);
-        }
+
        return currencyCutOffRoundingDTO;
     }
 
     public CurrencyConfigurationDTO currencyConfigConvertEntityToDto(Optional<CurrencyConfigurationEntity>  currencyConfigEntity){
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"currencyConfigConvertEntityToDto() with CurrencyConfigEntity {}",currencyConfigEntity);
-        }
+
         CurrencyConfigurationDTO currencyConfigurationDTO = modelMapper.map(currencyConfigEntity, CurrencyConfigurationDTO.class);
-        currencyConfigurationDTO.setBeforeFormattingFlag(getBooleanValueFromChar(currencyConfigEntity.get().getBeforeFormattingFlag()));
-        currencyConfigurationDTO.setAfterFormattingFlag(getBooleanValueFromChar(currencyConfigEntity.get().getAfterFormattingFlag()));
-        currencyConfigurationDTO.setIncludeSpaceFormattingFlag(getBooleanValueFromChar(currencyConfigEntity.get().getIncludeSpaceFormattingFlag()));
-        if (log.isInfoEnabled()) {
+        currencyConfigurationDTO.setBeforeFormattingFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigEntity.get().getBeforeFormattingFlag()));
+        currencyConfigurationDTO.setAfterFormattingFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigEntity.get().getAfterFormattingFlag()));
+        currencyConfigurationDTO.setIncludeSpaceFormattingFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigEntity.get().getIncludeSpaceFormattingFlag()));
+
             log.info(EXIT_STRING+CLASS_NAME+"currencyConfigConvertEntityToDto() with following converted DTO {} CurrencyConfigurationDTO :", currencyConfigurationDTO);
-        }
+
         return currencyConfigurationDTO;
 
     }
 
     public CurrencyConfigurationEntity convertDtoToEntity(
             CurrencyConfigurationDTO currencyConfigurationDTO) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"convertDtoToEntity() with CurrencyConfigurationDTO {}",currencyConfigurationDTO);
-        }
+
         List<CurrencyCountryMapDTO> currencyCountryMapDTO = currencyConfigurationDTO.getCurrencyCountryMap();
         List<CurrencyCountryMapEntity> currencyCountryMapEntityList = new ArrayList<>();
         currencyCountryMapEntityList.addAll(currencyCountryMapDTO.stream().map(entity->{
@@ -97,14 +107,14 @@ public class CurrencyConfigurationAssembler {
         CurrencyCutOffRoundingDTO currencyCutOffRoundingDTO = currencyConfigurationDTO.getCurrencyCutOff();
         CurrencyConfigurationCutOffRoundingEntity currencyConfigurationCutOffRoundingEntity = modelMapper.map(
                 currencyCutOffRoundingDTO, CurrencyConfigurationCutOffRoundingEntity.class);
-        currencyConfigurationCutOffRoundingEntity.setEnableMt101Remit(getCharValueFromBoolean(currencyCutOffRoundingDTO.isEnableMt101Remit()));
-        currencyConfigurationCutOffRoundingEntity.setEnableMt103Stp(getCharValueFromBoolean(currencyCutOffRoundingDTO.isEnableMt103Stp()));
-        currencyConfigurationCutOffRoundingEntity.setIndexFlag(getCharValueFromBoolean(currencyCutOffRoundingDTO.isIndexFlag()));
-        currencyConfigurationCutOffRoundingEntity.setEnableMt202Cov(getCharValueFromBoolean(currencyCutOffRoundingDTO.isEnableMt202Cov()));
-        currencyConfigurationCutOffRoundingEntity.setClsCurrencyFlag(getCharValueFromBoolean(currencyCutOffRoundingDTO.isClsCurrencyFlag()));
-        currencyConfigurationCutOffRoundingEntity.setValidateTag50fFlag(getCharValueFromBoolean(currencyCutOffRoundingDTO.isValidateTag50fFlag()));
-        currencyConfigurationCutOffRoundingEntity.setEuroTransactionCurrency(getCharValueFromBoolean(currencyCutOffRoundingDTO.isEuroTransactionCurrency()));
-        currencyConfigurationCutOffRoundingEntity.setEuroCloseFlag(getCharValueFromBoolean(currencyCutOffRoundingDTO.isEuroTransactionCurrency()));
+        currencyConfigurationCutOffRoundingEntity.setEnableMt101Remit(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isEnableMt101Remit()));
+        currencyConfigurationCutOffRoundingEntity.setEnableMt103Stp(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isEnableMt103Stp()));
+        currencyConfigurationCutOffRoundingEntity.setIndexFlag(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isIndexFlag()));
+        currencyConfigurationCutOffRoundingEntity.setEnableMt202Cov(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isEnableMt202Cov()));
+        currencyConfigurationCutOffRoundingEntity.setClsCurrencyFlag(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isClsCurrencyFlag()));
+        currencyConfigurationCutOffRoundingEntity.setValidateTag50fFlag(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isValidateTag50fFlag()));
+        currencyConfigurationCutOffRoundingEntity.setEuroTransactionCurrency(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isEuroTransactionCurrency()));
+        currencyConfigurationCutOffRoundingEntity.setEuroCloseFlag(AssemblerUtils.getCharValueFromBoolean(currencyCutOffRoundingDTO.isEuroTransactionCurrency()));
         currencyConfigurationCutOffRoundingEntity.setStatus(currencyConfigurationDTO.getStatus());
         currencyConfigurationCutOffRoundingEntity.setRecordVersion(currencyConfigurationDTO.getRecordVersion());
         currencyConfigurationCutOffRoundingEntity.setAuthorized(currencyConfigurationDTO.getAuthorized());
@@ -113,11 +123,11 @@ public class CurrencyConfigurationAssembler {
 
         CurrencyConfigurationEntity currencyConfigurationEntity = modelMapper.map(
                 currencyConfigurationDTO, CurrencyConfigurationEntity.class);
-        currencyConfigurationEntity.setBeforeFormattingFlag(getCharValueFromBoolean(
+        currencyConfigurationEntity.setBeforeFormattingFlag(AssemblerUtils.getCharValueFromBoolean(
                 currencyConfigurationDTO.isBeforeFormattingFlag()));
-        currencyConfigurationEntity.setAfterFormattingFlag(getCharValueFromBoolean(
+        currencyConfigurationEntity.setAfterFormattingFlag(AssemblerUtils.getCharValueFromBoolean(
                 currencyConfigurationDTO.isAfterFormattingFlag()));
-        currencyConfigurationEntity.setIncludeSpaceFormattingFlag(getCharValueFromBoolean(
+        currencyConfigurationEntity.setIncludeSpaceFormattingFlag(AssemblerUtils.getCharValueFromBoolean(
                 currencyConfigurationDTO.isIncludeSpaceFormattingFlag()));
         currencyConfigurationEntity.setCurrencyCode(currencyConfigurationDTO.getCurrencyCode());
         currencyConfigurationEntity.setCurrencyConfigurationCutOffRoundingEntity(
@@ -125,17 +135,17 @@ public class CurrencyConfigurationAssembler {
 
         currencyConfigurationEntity.setCurrencyCountryMapEntity(currencyCountryMapEntityList);
         currencyConfigurationEntity.setCurrencyExtraFieldMapEntity(currencyExtraFieldMapEntityList);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"convertDtoToEntity() with following converted entity {} CurrencyConfigurationEntity :", currencyConfigurationEntity);
-        }
+
         return currencyConfigurationEntity;
     }
 
     public CurrencyConfigurationDTO convertEntityToDtoCurrencyConfigDetails(
             Optional<CurrencyConfigurationEntity> currencyConfigEntity){
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"convertEntityToDtoCurrencyConfigDetails() with CurrencyConfigEntity {}",currencyConfigEntity);
-        }
+
         List<CurrencyCountryMapDTO> currencyCountryMapDTOList = new ArrayList<>();
         List<CurrencyCountryMapEntity> currencyCountryMapEntity = currencyConfigEntity.get().getCurrencyCountryMapEntity();
         currencyCountryMapDTOList.addAll(currencyCountryMapEntity.stream().map(dto->{
@@ -159,27 +169,30 @@ public class CurrencyConfigurationAssembler {
         CurrencyConfigurationCutOffRoundingEntity currencyConfigurationCutOffRoundingEntity = currencyConfigEntity.get().getCurrencyConfigurationCutOffRoundingEntity();
         CurrencyCutOffRoundingDTO currencyCutOffRoundingDTO = modelMapper.map(
                 currencyConfigurationCutOffRoundingEntity, CurrencyCutOffRoundingDTO.class);
-        currencyCutOffRoundingDTO.setEnableMt101Remit(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setEnableMt101Remit(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getEnableMt101Remit()));
-        currencyCutOffRoundingDTO.setEnableMt103Stp(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setEnableMt103Stp(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getEnableMt103Stp()));
-        currencyCutOffRoundingDTO.setIndexFlag(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setIndexFlag(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getIndexFlag()));
-        currencyCutOffRoundingDTO.setEnableMt202Cov(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setEnableMt202Cov(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getEnableMt202Cov()));
-        currencyCutOffRoundingDTO.setClsCurrencyFlag(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setClsCurrencyFlag(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getClsCurrencyFlag()));
-        currencyCutOffRoundingDTO.setValidateTag50fFlag(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setValidateTag50fFlag(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getValidateTag50fFlag()));
-        currencyCutOffRoundingDTO.setEuroTransactionCurrency(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setEuroTransactionCurrency(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getEuroTransactionCurrency()));
-        currencyCutOffRoundingDTO.setEuroCloseFlag(getBooleanValueFromChar(
+        currencyCutOffRoundingDTO.setEuroCloseFlag(AssemblerUtils.getBooleanValueFromChar(
                 currencyConfigurationCutOffRoundingEntity.getEuroTransactionCurrency()));
 
         CurrencyConfigurationDTO currencyConfigurationDTO = modelMapper.map(currencyConfigEntity, CurrencyConfigurationDTO.class);
-        currencyConfigurationDTO.setBeforeFormattingFlag(getBooleanValueFromChar(currencyConfigEntity.get().getBeforeFormattingFlag()));
-        currencyConfigurationDTO.setAfterFormattingFlag(getBooleanValueFromChar(currencyConfigEntity.get().getAfterFormattingFlag()));
-        currencyConfigurationDTO.setIncludeSpaceFormattingFlag(getBooleanValueFromChar(currencyConfigEntity.get().getIncludeSpaceFormattingFlag()));
+        currencyConfigurationDTO.setBeforeFormattingFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigEntity.get().getBeforeFormattingFlag()));
+        currencyConfigurationDTO.setAfterFormattingFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigEntity.get().getAfterFormattingFlag()));
+        currencyConfigurationDTO.setIncludeSpaceFormattingFlag(
+                AssemblerUtils.getBooleanValueFromChar(currencyConfigEntity.get().getIncludeSpaceFormattingFlag()));
         currencyConfigurationDTO.setStatus(currencyConfigEntity.get().getStatus());
         currencyConfigurationDTO.setAction(currencyConfigEntity.get().getLastConfigurationAction());
         currencyConfigurationDTO.setRecordVersion(currencyConfigEntity.get().getRecordVersion());
@@ -190,16 +203,16 @@ public class CurrencyConfigurationAssembler {
         currencyConfigurationDTO.setCurrencyCountryMap(currencyCountryMapDTOList);
         currencyConfigurationDTO.setCurrencyExtraFieldMap(currencyExtraFieldMapDTOList);
         currencyConfigurationDTO.setCurrencyCutOff(currencyCutOffRoundingDTO);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"convertEntityToDtoCurrencyConfigDetails() with following converted DTO {} CurrencyConfigurationDTO :", currencyConfigurationDTO);
-        }
+
         return currencyConfigurationDTO;
     }
 
     public CurrencyConfigurationDTO setAuditFields (MutationEntity mutationEntity, CurrencyConfigurationDTO currencyConfigurationDTO) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"setAuditFields() with MutationEntity {} and CurrencyConfigurationDTO {} ",mutationEntity,currencyConfigurationDTO);
-        }
+
         currencyConfigurationDTO.setAction(mutationEntity.getAction());
         currencyConfigurationDTO.setAuthorized(mutationEntity.getAuthorized());
         currencyConfigurationDTO.setRecordVersion(mutationEntity.getRecordVersion());
@@ -211,18 +224,10 @@ public class CurrencyConfigurationAssembler {
         currencyConfigurationDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
         currencyConfigurationDTO.setTaskCode(mutationEntity.getTaskCode());
         currencyConfigurationDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"setAuditFields() with following massaged DTO CurrencyConfigurationDTO :", currencyConfigurationDTO);
-        }
+
         return currencyConfigurationDTO;
-    }
-
-    public char getCharValueFromBoolean (boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar (Character value) {
-        return value.equals(CHAR_Y);
     }
 
 }

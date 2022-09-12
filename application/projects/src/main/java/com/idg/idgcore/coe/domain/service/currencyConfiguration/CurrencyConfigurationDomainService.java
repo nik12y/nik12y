@@ -37,17 +37,17 @@ public class CurrencyConfigurationDomainService implements ICurrencyConfiguratio
 
     public void save (CurrencyConfigurationDTO currencyConfigurationDTO) {
 
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"save() with CurrencyConfigDTO{}",
                     currencyConfigurationDTO);
-        }
+
 
         try{
             CurrencyConfigurationEntity currencyConfigurationEntity = currencyConfigurationAssembler.convertDtoToEntity(
                     currencyConfigurationDTO);
-            if (log.isInfoEnabled()) {
+
                 log.info(EXIT_STRING+CLASS_NAME+"save()");
-            }
+
             this.iCurrencyConfigurationDetailsRepository.save(currencyConfigurationEntity);
         }
         catch (Exception e) {
@@ -57,24 +57,24 @@ public class CurrencyConfigurationDomainService implements ICurrencyConfiguratio
     }
 
     public Optional<CurrencyConfigurationCutOffRoundingEntity> getCurrencyConfigCutOffRoundDetails(String currencyCode) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getCurrencyConfigCutOffRoundDetails() with Currency code{}", currencyCode);
-        }
+
         Optional<CurrencyConfigurationCutOffRoundingEntity> currencyConfigCutOffRoundingEntity = this.icurrencyCutOffRepository.findById(currencyCode);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"getCurrencyConfigCutOffRoundDetails()");
-        }
+
         return currencyConfigCutOffRoundingEntity;
     }
 
     public Optional<CurrencyConfigurationEntity> getCurrencyConfigDetails(String currencyCode) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getCurrencyConfigDetails() with Currency code{}", currencyCode);
-        }
+
         Optional<CurrencyConfigurationEntity>currencyConfigEntity = this.icurrencyConfigurationRepository.findById(currencyCode);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"getCurrencyConfigDetails()");
-        }
+
         return currencyConfigEntity;
     }
 

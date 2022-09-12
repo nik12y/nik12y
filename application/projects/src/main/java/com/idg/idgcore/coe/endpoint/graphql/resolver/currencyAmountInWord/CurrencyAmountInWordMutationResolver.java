@@ -24,10 +24,10 @@ public class CurrencyAmountInWordMutationResolver implements GraphQLMutationReso
     public TransactionStatus processAmountInWords (SessionContext sessionContext,
             CurrencyAmountInWordDTO currencyAmountInWordDTO)
             throws FatalException, JsonProcessingException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"processAmountInWords() with SessionContext{} and CurrencyAmountInWordsDTO{}"
                     ,sessionContext, currencyAmountInWordDTO);
-        }
+
         return this.iCurrencyAmountInWordService.processAmountInWords(sessionContext,
                 currencyAmountInWordDTO);
     }

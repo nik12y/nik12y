@@ -106,16 +106,16 @@ databaseChangeLog:
   - include:
       file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_drop.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_CURRENCY_DTLS_create.xml
+      file: db/changelog/IDGC_MCY_CNFG_CURRENCY_DTLS_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create.xml
+      file: db/changelog/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_COUNTRY_MAP_create.xml
+      file: db/changelog/IDGC_MCY_CNFG_COUNTRY_MAP_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_EXTRA_FIELD_MAP_create.xml
+      file: db/changelog/IDGC_MCY_CNFG_EXTRA_FIELD_MAP_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_create.xml
+      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_create_tbl.xml
   - include:
       file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_insert_01.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_AMT_IN_WORDS_create.xml
+      file: db/changelog/IDGC_MCY_CNFG_AMT_IN_WORDS_create_tbl.xml

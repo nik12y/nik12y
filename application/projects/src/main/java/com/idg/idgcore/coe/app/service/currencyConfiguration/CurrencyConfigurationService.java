@@ -74,15 +74,15 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
 
 
     public void addUpdateRecord (String data) throws JsonProcessingException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"addUpdateRecord() with data{}",data);
-        }
+
         ObjectMapper objMapper = new ObjectMapper();
         CurrencyConfigurationDTO currencyConfigurationDTO = objMapper.readValue(data, CurrencyConfigurationDTO.class);
         save(currencyConfigurationDTO);
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"addUpdateRecord()");
-        }
+
     }
 
     @Override
@@ -91,14 +91,13 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
     }
 
     public void save (CurrencyConfigurationDTO currencyConfigurationDTO) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getConfigurationByCode() with CurrencyTestDTO{}",
                     currencyConfigurationDTO);
-        }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"getConfigurationByCode() :",
                     currencyConfigurationDTO);
-        }
+
         currencyConfigurationDomainService.save(currencyConfigurationDTO);
     }
 
@@ -107,10 +106,10 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
             CurrencyConfigurationDTO currencyConfigurationDTO) throws FatalException,
             JsonProcessingException {
 
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"processCurrencyConfiguration() with SessionContext{} and CurrencyConfigurationDTO{}"
                     ,sessionContext, currencyConfigurationDTO);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         try {
             Interaction.begin(sessionContext);
@@ -129,16 +128,16 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
                 Interaction.close();
             }
         }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"processCurrencyConfiguration() with following response transactionStatus {}",transactionStatus);
-        }
+
         return transactionStatus;
     }
 
     public FormattedAmountDTO processAmountFormatting(SessionContext sessionContext,AmountInputDTO amountInputDTO)throws FatalException{
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"processAmountFormatting() with SessionContext{} and AmountInputDTO{}",sessionContext,amountInputDTO);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
@@ -159,16 +158,16 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
         finally {
             Interaction.close();
         }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"processAmountFormatting() with following response formattedAmountDTO{}",formattedAmountDTO);
-        }
+
         return formattedAmountDTO;
     }
 
     public FormattedAmountDTO processAmountRounding(SessionContext sessionContext,AmountInputDTO amountInputDTO)throws FatalException{
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"processAmountRounding() with SessionContext{} and AmountInputDTO{}",sessionContext,amountInputDTO);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
@@ -202,17 +201,17 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
             Interaction.close();
         }
 
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"processAmountRounding() with following response formattedAmountDTO{}",formattedAmountDTO);
-        }
+
         return formattedAmountDTO;
     }
 
     public static String truncateAmount(String amount, short decimals){
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"truncateAmount() with amount:"+amount+
                     ", decimals:"+decimals);
-        }
+
         String roundedAmount = null;
         if(amount.contains(".")) {
             String [] splitAmountByDecimal = amount.split("[.]");
@@ -220,24 +219,24 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
             decimalFigures = (String) decimalFigures.subSequence(0, decimals);
             roundedAmount = splitAmountByDecimal[0] +"."+decimalFigures;
 
-            if (log.isInfoEnabled()) {
+
                 log.info(EXIT_STRING+CLASS_NAME+"truncateAmount() :", roundedAmount);
-            }
+
 
             return roundedAmount;
         }else {
-            if (log.isInfoEnabled()) {
+
                 log.info(EXIT_STRING+CLASS_NAME+"truncateAmount():");
-            }
+
             return "Entered amount is not suitable for rounding :"+amount;
         }
     }
 
     public static String roundNear(String amount, short decimals, float roundingUnit){
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"roundNear() with amount:"+amount+
                     ", decimals:"+decimals,"and rounding unit:"+roundingUnit);
-        }
+
         String roundedAmount = null;
         String [] splitAmountByDecimal = amount.split("[.]");
         splitAmountByDecimal[1] = "0."+splitAmountByDecimal[1];
@@ -250,17 +249,17 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
         String decimalFigures = splitAmountByDecimal1[1];
         decimalFigures = (String) decimalFigures.subSequence(0, decimals);
         roundedAmount = splitAmountByDecimal1[0] +"."+decimalFigures;
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"roundNear():");
-        }
+
         return roundedAmount;
     }
 
 
     public static String formatAmount(String pattern ,String amount) {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"formatAmount() with pattern and amount",pattern,amount);
-        }
+
 
         int count = 0;
         int positionOfDecimal = 0;
@@ -307,18 +306,18 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
 
             }
         }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"formatAmount() with the following formatted amount :",formAmount.toString());
-        }
+
         return formAmount.toString();
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public List<CurrencyConfigurationDTO> getCurrencies(SessionContext sessionContext) throws
             FatalException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getCurrencies() with SessionContext{}",sessionContext);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
@@ -354,18 +353,18 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
         finally {
             Interaction.close();
         }
-        if (log.isInfoEnabled()) {
+
             log.info(EXIT_STRING+CLASS_NAME+"getCurrencies() with following response currenciesList {}",currenciesDTOList);
-        }
+
         return currenciesDTOList;
     }
     @Transactional(propagation = Propagation.REQUIRED)
     public CurrencyConfigurationDTO getCurrencyDetails (SessionContext sessionContext, CurrencyDetailsInputDTO currencyDetailsInputDTO)
             throws FatalException {
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getCurrencyDetails() with SessionContext{} and CurrencyDetailsInputDTO {}",sessionContext,
                     currencyDetailsInputDTO);
-        }
+
         TransactionStatus transactionStatus = fetchTransactionStatus();
         Interaction.begin(sessionContext);
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
@@ -396,9 +395,9 @@ public class CurrencyConfigurationService extends AbstractApplicationService imp
         finally {
             Interaction.close();
         }
-        if (log.isInfoEnabled()) {
+
             log.info(ENTERED_STRING+CLASS_NAME+"getCurrencyDetails() with  CurrencyConfigurationDTO {} :",currencyConfigurationDTO);
-        }
+
         return currencyConfigurationDTO;
     }
 
