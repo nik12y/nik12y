@@ -27,4 +27,8 @@ public class CountryQueryResolver implements GraphQLQueryResolver {
         return this.countryService.getCountries(sessionContext);
     }
 
+    public List<CountryDTO> searchCountry (SessionContext sessionContext, CountryDTO countryDTO) throws FatalException, JsonProcessingException {
+        return this.countryService.searchCountry(sessionContext, countryDTO);
+    }
+
 }
