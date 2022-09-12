@@ -1,4 +1,4 @@
 type CountryQuery {
     countryCode: String!
-    authorized: String!
+    authorized: String
 }

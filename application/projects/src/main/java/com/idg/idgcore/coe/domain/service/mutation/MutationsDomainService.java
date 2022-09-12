@@ -57,6 +57,23 @@ public class MutationsDomainService implements IMutationsDomainService {
         }
         return mutationEntity;
     }
+  //  findByTaskCodeAndTaskIdentifierStartsWith
+    public MutationEntity getConfigurationByTaskCodeAndIdentifier (final String taskCode, final String taskIdentifier) {
+        if (log.isInfoEnabled()) {
+            log.info("In getConfigurationByCode with parameters taskIdentifier {}", taskIdentifier);
+        }
+        MutationEntity mutationEntity = null;
+        try {
+            mutationEntity = mutationRepository.findByTaskCodeAndTaskIdentifier(taskCode, taskIdentifier);
+        }
+        catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error(e.getMessage());
+            }
+            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+        }
+        return mutationEntity;
+    }
 
     public MutationEntity addUpdate (MutationDTO mutationDTO) throws BusinessException {
         if (log.isInfoEnabled()) {
@@ -86,6 +103,25 @@ public class MutationsDomainService implements IMutationsDomainService {
         }
         return mutationEntity;
     }
+
+    public List<MutationEntity> findByTaskCodeAndTaskIdentifierStartsWith (final String taskCode, final String taskIdentifier) {
+        if (log.isInfoEnabled()) {
+            log.info("In getConfigurationByCode with parameters taskIdentifier {}", taskIdentifier);
+        }
+        List<MutationEntity> mutationEntity = null;
+        try {
+            mutationEntity = mutationRepository.findByTaskCodeAndTaskIdentifierStartsWith(taskCode, taskIdentifier);
+        }
+        catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error(e.getMessage());
+            }
+            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+        }
+        return mutationEntity;
+    }
+
+
 
     public MutationEntity save (MutationDTO mutationDTO) {
         if (log.isInfoEnabled()) {
