@@ -1,6 +1,7 @@
 type Query{
     getCountryByCode(sessionContext: SessionContextInput, countryQuery: CountryInputQuery): Country
     getCountries(sessionContext: SessionContextInput): [Country]
+    searchCountry(sessionContext: SessionContextInput, countryQuery: CountryInputQuery): [Country]
     getStateByCode(sessionContext: SessionContextInput, stateQuery: StateInputQuery): State
     getStates(sessionContext: SessionContextInput): [State]
     getCityByCode(sessionContext: SessionContextInput, city: CityInputQuery): City
