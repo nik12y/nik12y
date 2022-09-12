@@ -105,12 +105,9 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
         ObjectMapper objectMapper = new ObjectMapper();
         List<CurrencyPairDTO> currencyPairDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            currencyPairDTOList.addAll(currencyPairDomainService.getCurrencyPairs().stream()
-                    .map(entity -> currencyPairAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            currencyPairDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            currencyPairDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 CurrencyPairDTO currencyPairDTO = null;
                 try {
@@ -120,11 +117,10 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return currencyPairDTO;
-            }).collect(Collectors.toList()));
-            currencyPairDTOList = currencyPairDTOList.stream().collect(
-                    Collectors.groupingBy(CurrencyPairDTO::getPairId, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(CurrencyPairDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+            //Order by date
+            Comparator<CurrencyPairDTO> compareByCreationTime = Comparator.comparing(CurrencyPairDTO::getCreationTime);
+            currencyPairDTOList = currencyPairDTOList.stream().sorted(compareByCreationTime.reversed()).toList();
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

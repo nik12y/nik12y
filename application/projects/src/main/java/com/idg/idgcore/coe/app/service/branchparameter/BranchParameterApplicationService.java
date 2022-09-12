@@ -106,12 +106,9 @@ public class BranchParameterApplicationService extends AbstractApplicationServic
         ObjectMapper objectMapper = new ObjectMapper();
         List<BranchParameterDTO> branchParameterDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            branchParameterDTOList.addAll(branchParameterDomainService.getBranchParameters().stream()
-                    .map(entity -> branchParameterAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            branchParameterDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            branchParameterDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 BranchParameterDTO branchParameterDTO = null;
                 try {
@@ -123,13 +120,7 @@ public class BranchParameterApplicationService extends AbstractApplicationServic
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return branchParameterDTO;
-            }).collect(Collectors.toList()));
-            branchParameterDTOList = branchParameterDTOList.stream().collect(
-                    Collectors.groupingBy(BranchParameterDTO::getBranchCode,
-                            Collectors.collectingAndThen(
-                                    Collectors.maxBy(Comparator.comparing(
-                                            BranchParameterDTO::getRecordVersion)),
-                                    Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

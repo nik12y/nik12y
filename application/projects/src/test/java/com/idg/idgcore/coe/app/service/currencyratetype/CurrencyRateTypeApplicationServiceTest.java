@@ -11,6 +11,7 @@ import com.idg.idgcore.coe.domain.entity.mutation.Payload;
 import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.currencyratetype.ICurrencyRateTypeDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
+import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.currencyratetype.CurrencyRateTypeDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -29,8 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.CURRENCY_RATE_TYPE;
+import static com.idg.idgcore.coe.common.Constants.*;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CurrencyRateTypeApplicationServiceTest {
+class CurrencyRateTypeApplicationServiceTest {
 
     @InjectMocks
     CurrencyRateTypeApplicationService currencyRateTypeApplicationService;
@@ -106,20 +106,13 @@ public class CurrencyRateTypeApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getCurrencyRateTypes where return all currency rate types when there are no unauthorized mutations")
-    void getCurrencyRateTypesWhenThereAreNoUnauthorizedMutationsThenReturnAllCurrencyRateTypes() throws FatalException {
-        given(currencyRateTypeDomainService.getCurrencyRateTypes())
-                .willReturn(List.of(currencyRateTypeEntity));
-        given(mutationsDomainService.getUnauthorizedMutation(CURRENCY_RATE_TYPE, AUTHORIZED_N))
-                .willReturn(List.of());
-        given(currencyRateTypeAssembler.convertEntityToDto(currencyRateTypeEntity))
-                .willReturn(currencyRateTypeDTO);
-
+    @DisplayName("JUnit for getCurrencyRateTypes in application service for try block")
+    void getCurrencyRateTypesTryBlock() throws FatalException {
+        given(mutationsDomainService.getMutations(CURRENCY_RATE_TYPE))
+                .willReturn(List.of(mutationEntity));
         List<CurrencyRateTypeDTO> currencyRateTypeDTOList =
                 currencyRateTypeApplicationService.getCurrencyRateTypes(sessionContext);
-
-        assertEquals(1, currencyRateTypeDTOList.size());
-        assertEquals(currencyRateTypeDTO,currencyRateTypeDTOList.get(0));
+        assertThat(currencyRateTypeDTOList).isNotNull();
     }
 
     @Test

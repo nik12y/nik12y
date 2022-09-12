@@ -104,12 +104,8 @@ public class LanguageApplicationService extends AbstractApplicationService
         List<LanguageDTO> languageDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            languageDTOList.addAll(languageDomainService.getLanguages().stream()
-                    .map(entity -> languageAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            languageDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            languageDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 LanguageDTO languageDTO = null;
                 try {
@@ -120,11 +116,8 @@ public class LanguageApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return languageDTO;
-            }).collect(Collectors.toList()));
-            languageDTOList = languageDTOList.stream().collect(
-                    Collectors.groupingBy(LanguageDTO::getLanguageCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(LanguageDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

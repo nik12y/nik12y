@@ -198,9 +198,9 @@ class ErrorOverrideApplicationServiceTest {
         ObjectMapper objectMapper = new ObjectMapper();
         given(domainService.getErrorCodes()).willReturn(
                 List.of(errorOverrideEntity));
-        given(mutationsDomainService.getUnauthorizedMutation(
-                "ERROR-OVERRIDE", AUTHORIZED_N)).willReturn(
-                List.of(unauthorizedEntities));
+//        given(mutationsDomainService.getUnauthorizedMutation(
+//                "ERROR-OVERRIDE", AUTHORIZED_N)).willReturn(
+//                List.of(unauthorizedEntities));
         given(assembler.setAuditFields(unauthorizedEntities,
                 errorOverrideDTO)).willReturn(errorOverrideDTO);
         given(assembler.convertEntityToDto(errorOverrideEntity)).willReturn(

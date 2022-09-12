@@ -103,12 +103,8 @@ public class PurgingApplicationService extends AbstractApplicationService
         List<PurgingDTO> purgingDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            purgingDTOList.addAll(purgingDomainService.getPurgingAll().stream()
-                    .map(entity -> purgingAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            purgingDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            purgingDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 PurgingDTO purgingDTO = null;
                 try {
@@ -119,11 +115,8 @@ public class PurgingApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return purgingDTO;
-            }).collect(Collectors.toList()));
-            purgingDTOList = purgingDTOList.stream().collect(
-                    Collectors.groupingBy(PurgingDTO::getModuleCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(PurgingDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

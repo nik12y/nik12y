@@ -11,7 +11,9 @@ import com.idg.idgcore.coe.domain.entity.mutation.Payload;
 import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.branchtype.IBranchTypeDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
+import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
+import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -26,8 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.BRANCHTYPE;
+import static com.idg.idgcore.coe.common.Constants.*;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -189,17 +190,32 @@ class BranchTypeApplicationServiceTest {
 
 
     @Test
-    @DisplayName("Should return all getBranches when there are no unauthorized")
-    void getBranchesWhenThereAreNoUnauthorized() throws FatalException {
-        given(branchTypeDomainService.getBranches()).willReturn(List.of(branchTypeEntity));
-        given(mutationsDomainService.getUnauthorizedMutation(BRANCHTYPE, AUTHORIZED_N)).willReturn(List.of());
-        given(branchTypeAssembler.convertEntityToDto(branchTypeEntity)).willReturn(branchTypeDTO);
-        List<BranchTypeDTO> branchTypeDTOList = branchTypeApplicationService.getBranches(sessionContext);
-        assertEquals(1, branchTypeDTOList.size());
-        assertEquals(branchTypeDTO, branchTypeDTOList.get(0));
+    @DisplayName("Should return all getBranches in application service for try block")
+    void getBranchesTryBlock() throws FatalException {
+        given(mutationsDomainService.getMutations(BRANCHTYPE))
+                .willReturn(List.of(mutationEntity));
+        List<BranchTypeDTO> branchTypeDTOList =
+                branchTypeApplicationService.getBranches(sessionContext);
+        assertThat(branchTypeDTOList).isNotNull();
     }
 
 
+
+    @Test
+    @DisplayName("JUnit for getBranches in application service for catch block for checker")
+    void getBranchesCatchBlockForChecker() throws JsonProcessingException, FatalException {
+
+        MutationEntity unauthorizedEntities = getMutationEntity();
+        MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
+        sessionContext.setRole(new String[] { "" });
+        given(mutationsDomainService.getMutations(
+                branchTypeDTO1.getTaskCode()))
+                .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
+        Assertions.assertThrows(FatalException.class,()-> {
+            List<BranchTypeDTO> branchTypeDTO1 = branchTypeApplicationService.getBranches(sessionContext);
+            assertThat(branchTypeDTO1).isNotNull();
+        });
+    }
 
 
     @Test
