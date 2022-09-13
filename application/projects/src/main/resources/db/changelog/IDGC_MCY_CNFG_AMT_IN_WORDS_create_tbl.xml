@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="IDGC_MCY_CNFG_AMT_IN_WORDS_create" author="rakshit">
+    <changeSet id="IDGC_MCY_CNFG_AMT_IN_WORDS_create_tbl" author="rakshit">
         <comment>Amount in words configuration table creation</comment>
         <createTable tableName="IDGC_MCY_CNFG_AMT_IN_WORDS"
                      remarks="Table to store all Amount in words configurations for a currency">

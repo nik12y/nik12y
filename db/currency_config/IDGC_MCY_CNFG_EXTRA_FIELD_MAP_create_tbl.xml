@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="IDGC_MCY_CNFG_EXTRA_FIELD_MAP_create" author="rakshit">
+    <changeSet id="IDGC_MCY_CNFG_EXTRA_FIELD_MAP_create_tbl" author="rakshit">
         <comment>Currency configuration table modification idgc_mcy_cnfg_extra_field_map</comment>
         <createTable tableName="idgc_mcy_cnfg_extra_field_map"
                      remarks="Table to store all extra field defined for a currency">

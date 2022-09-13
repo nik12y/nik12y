@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create" author="rakshit">
+    <changeSet id="IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create_tbl" author="rakshit">
         <comment>Currency configuration table modification idgc_mcy_cnfg_cut_off_rounding_rules</comment>
         <createTable tableName="idgc_mcy_cnfg_cut_off_rounding_rules"
                      remarks="Table to store currency cut off and rounding rules information">
