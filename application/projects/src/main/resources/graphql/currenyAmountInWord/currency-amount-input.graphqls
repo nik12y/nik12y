@@ -1,0 +1,24 @@
+input CurrencyAmountInWordsInput{
+
+     currencyCode : String! @Size(min: 3, max: 3, message: "currencyCode.message") @Pattern(regexp: "[A-Z]+",message: "Currency code should be uppercase alphabet of size 3")
+     languageCode : String! @Size(min: 2, max: 2, message: "languageCode.message") @Pattern(regexp: "[A-Z]+",message: "Language code should be uppercase alphabet of size 2")
+     languageName : String! @Size(min: 1, max: 100, message: "languageName.message") @Pattern(regexp: "[A-Za-z() ]+",message: "Language Name should alphabet with special character of size up to 100")
+     localeCode : String! @Size(min: 1, max: 30, message: "localeCode.message") @Pattern(regexp: "[A-Za-z_]+",message: "Locale code should be alphabet with special character of size up to 30")
+     localeName : String! @Size(min: 1, max: 100, message: "localeName.message") @Pattern(regexp: "[A-Za-z() ]+",message: "Locale name should be alphabet with special character of size up to 100")
+     beforeDecimalVerbose : String! @Size(min: 1, max: 35, message: "beforeDecimalVerbose.message") @Pattern(regexp: "[A-Za-z]+",message: "Before decimal verbose should be alphabet of size up to 35")
+     afterDecimalVerbose : String! @Size(min: 1, max: 35, message: "afterDecimalVerbose.message") @Pattern(regexp: "[A-Za-z]+",message: "After decimal verbose should be alphabet of size up to 35")
+     suffixText : String! @Size(min: 0, max: 10, message: "suffixText.message") @Pattern(regexp: "[A-Za-z]+",message: "Suffix Text should be alphabet of size 10")
+     prefixTextWithCurrency : String! @Size(min: 0, max: 35, message: "prefixTextWithCurrency.message") @Pattern(regexp: "[A-Za-z]+",message: "Prefix text with currency should be alphabet of size up to 35")
+     fraction : Boolean
+     textBetween : String! @Size(min: 0, max: 10, message: "textBetween.message") @Pattern(regexp: "[A-Za-z]+",message: "Text between should be alphabet of size up to 10")
+     amountInFigures : Int! @PositiveOrZero(message : "Amount in figures cannot be negative")
+     amountInWords : String! @Size(min: 1, max: 100, message: "amountInWords.message") @Pattern(regexp: "[A-Za-z ]+",message: "Amount in words should be alphabet of size up to 100")
+     action : String!
+     status : String!
+     recordVersion : Int!
+     createdBy: String
+     creationTime: String
+     lastUpdatedBy: String
+     lastUpdatedTime: String
+
+}

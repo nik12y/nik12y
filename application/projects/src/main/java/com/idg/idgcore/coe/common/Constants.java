@@ -130,6 +130,10 @@ public final class Constants {
     public static final String CURRENCY_PAIR_SERVICE = "currencyPairApplicationService";
     public static final String CURRENCY_PAIR_CONFIG = "CURRENCY_PAIR_CONFIG";
 
+    public static final String AMOUNT_IN_WORDS = "AMOUNT_IN_WORDS";
+
+    public static final String AMOUNT_IN_WORDS_SERVICE = "amountInWordsApplicationService";
+
     private Constants () {
     }
 
