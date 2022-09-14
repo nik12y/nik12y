@@ -19,12 +19,17 @@ import java.util.*;
 public class QuestionnaireChecklistEntity extends AbstractAuditableDomainEntity implements Serializable {
 
     @Id
+    @Column(name="question_checklist_id")
     private String questionChecklistId;
+    @Column(name="question_checklist_name")
     private String questionChecklistName;
+    @Column(name="question_category")
     private String questionCategory;
+    @Column(name="effective_date")
     private Date effectiveDate;
-
+    @Column(name="life_cycle_id")
     private String lifeCycleId;
+    @Column(name="reference_no")
     private String referenceNo;
     @Column(name = "record_status")
     private String status;
@@ -32,6 +37,7 @@ public class QuestionnaireChecklistEntity extends AbstractAuditableDomainEntity 
     private Integer recordVersion;
     @Column(name = "is_authorized")
     private String authorized;
+    @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
 
 

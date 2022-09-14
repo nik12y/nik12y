@@ -11,7 +11,7 @@ public class QuestionnaireChecklistDetailsCategoryDTO extends CoreEngineBaseDTO 
 
     private Long questionChecklistDetailsId;
 
-    private String questionCategoryId;
+    private String questionaireCategoryId;
 
 
 }
