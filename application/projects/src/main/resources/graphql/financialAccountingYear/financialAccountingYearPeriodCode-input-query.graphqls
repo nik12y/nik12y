@@ -1,0 +1,11 @@
+input FinancialAccountingYearPeriodCodeInputQuery {
+    bankCode : String!
+    branchCode : String!
+    startDate : String!
+    endDate : String!
+    financialAccountingYearCode : String!
+    financialAccountingYearName : String!
+    periodCodeFrequency : String!
+
+}
+
