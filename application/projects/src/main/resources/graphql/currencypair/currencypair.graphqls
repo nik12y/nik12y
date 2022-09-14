@@ -1,10 +1,10 @@
 type CurrencyPair {
     pairId: Int
     currency1 : String!
-    currency1Description : String
+    currency1Name : String
     currency2: String!
-    currency2Description : String
-    entityCodeType : String!
+    currency2Name : String
+    entityType : String!
     entityCode : String!
     countryCode : String!
     throughCurrency : Boolean

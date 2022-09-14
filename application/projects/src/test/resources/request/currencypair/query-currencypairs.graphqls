@@ -26,10 +26,10 @@ query{
         })
     {
         currency1
-        currency1Description
+        currency1Name
         currency2
-        currency2Description
-        entityCodeType
+        currency2Name
+        entityType
         entityCode
         countryCode
         throughCurrency

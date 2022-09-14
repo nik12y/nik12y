@@ -24,19 +24,19 @@ public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements
     @Column(name = "currency_1")
     private String currency1;
 
-    @Column(name = "currency_1_description")
-    private String currency1Description;
+    @Column(name = "currency_1_name")
+    private String currency1Name;
 
     @Column(name = "currency_2")
     private String currency2;
 
-    @Column(name = "currency_2_description")
-    private String currency2Description;
+    @Column(name = "currency_2_name")
+    private String currency2Name;
 
-    @Column(name = "entity_code_type")
-    private String entityCodeType;
+    @Column(name = "entity_type")
+    private String entityType;
 
-    @Column(name="entity_code")
+    @Column(name = "entity_code")
     private String entityCode;
 
     @Column(name = "country_code")

@@ -27,10 +27,10 @@ mutation{
         },
         currencyPair:{
             currency1 : "EUR"
-            currency1Description : "Euro"
+            currency1Name : "Euro"
             currency2 : "RIY"
-            currency2Description : "Riyal"
-            entityCodeType : "MarketEntity"
+            currency2Name : "Riyal"
+            entityType : "MarketEntity"
             entityCode : "ME40"
             countryCode : "EU"
             throughCurrency : false

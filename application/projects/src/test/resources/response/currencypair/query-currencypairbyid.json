@@ -3,10 +3,10 @@
     "getCurrencyPairById": {
       "pairId": 1,
       "currency1": "DIR",
-      "currency1Description": "Diram",
+      "currency1Name": "Diram",
       "currency2": "EUR",
-      "currency2Description": "Euro",
-      "entityCodeType": "BusinessEntity",
+      "currency2Name": "Euro",
+      "entityType": "BusinessEntity",
       "entityCode" : "BE001",
       "countryCode": "UA",
       "throughCurrency": false,

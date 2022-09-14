@@ -1,15 +1,15 @@
 input CurrencyPairInput {
     pairId: Int @Range(min : 1, max : 9999, message : "pairId.message")
     currency1 : String! @Size(min: 3, max: 3, message: "currency1.message") @Pattern(regexp: "[A-Z]+",message: "Currency 1 should be uppercase alphabet of size 3")
-    currency1Description : String @Size(min: 1, max: 35, message: "currency1Description.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,35}",message: "currency1Description Invalid pattern")
+    currency1Name : String @Size(min: 1, max: 35, message: "currency1Name.message") @Pattern(regexp: "[A-Za-z0-9 ]+",message: "currency1 Name should be alphanumeric of size up to 35")
     currency2 : String! @Size(min: 3, max: 3, message: "currency2.message") @Pattern(regexp: "[A-Z]+",message: "Currency 2 should be uppercase alphabet of size 3")
-    currency2Description : String @Size(min: 1, max: 35, message: "currency2Description.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,35}",message: "currency2Description Invalid pattern")
-    entityCodeType : String! @Size(min: 1, max: 20, message: "entityCodeType.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,20}",message: "entityCodeType Invalid pattern")
-    entityCode : String! @Size(min: 1, max: 100, message: "entityCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,100}",message: "entityCode Invalid pattern")
+    currency2Name : String @Size(min: 1, max: 35, message: "currency2Name.message") @Pattern(regexp: "[A-Za-z0-9 ]+",message: "currency2 Name should be alphanumeric of size up to 35")
+    entityType : String! @Size(min: 1, max: 20, message: "entityType.message") @Pattern(regexp: "^[A-Za-z0-9 ^ <>%$@#!%&*_+'=-]*${1,20}",message: "entity Type Invalid pattern")
+    entityCode: String! @Size(min: 1, max: 10, message: "entityCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "Entity Code Invalid pattern")
     countryCode: String! @Size(min: 2, max: 2, message: "countryCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,2}",message: "Country Code Invalid pattern")
     throughCurrency : Boolean
     throughCurrencyCode : String @Size(min: 3, max: 3, message: "throughCurrencyCode.message") @Pattern(regexp: "[A-Z]+",message: "throughCurrencyCode should be uppercase alphabet of size 3")
-    throughCurrencyDescription : String @Size(min: 1, max: 35, message: "throughCurrencyDescription.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,35}",message: "throughCurrencyDescription Invalid pattern")
+    throughCurrencyDescription : String @Size(min: 1, max: 10, message: "throughCurrencyDescription.message") @Pattern(regexp: "[A-Za-z0-9 ]+",message: "throughCurrencyDescription should be alphanumeric of size up to 10")
     noofunits : Int!
     pointMultiplier : Float
     quotationMethods : Boolean!

@@ -18,10 +18,10 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
 
     private Integer pairId;
     private String currency1;
-    private String currency1Description;
+    private String currency1Name;
     private String currency2;
-    private String currency2Description;
-    private String entityCodeType;
+    private String currency2Name;
+    private String entityType;
     private String entityCode;
     private String countryCode;
     private boolean throughCurrency;
@@ -60,7 +60,7 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
         if(this.getPairId() != null) {
             return this.getPairId()+"";
         }
-        return  getCurrency1()+getCurrency2()+getEntityCodeType()+getEntityCode();
+        return  getCurrency1()+getCurrency2()+getEntityType()+getEntityCode();
     }
 
 }
