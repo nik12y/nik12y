@@ -1,5 +1,7 @@
 package com.idg.idgcore.coe.common;
 
+import org.apache.kafka.common.protocol.types.*;
+
 public final class Constants {
     public static final String EMPTY_STRING = "";
     public static final char CHAR_Y = 'Y';
@@ -133,6 +135,14 @@ public final class Constants {
     public static final String AMOUNT_IN_WORDS = "AMOUNT_IN_WORDS";
 
     public static final String AMOUNT_IN_WORDS_SERVICE = "amountInWordsApplicationService";
+
+    public static final String FNC = "FNC";
+    public static final String MONTHLY = "Monthly";
+    public static final String HALF_YEARLY = "Half-Yearly";
+    public static final String QUARTERLY = "Quarterly";
+    public static final String YEARLY = "Yearly";
+    public static final String BI_MONTHLY = "Bi-Monthly";
+    public static final String DATE_FORMATTER="yyyy-MM-dd";
 
     private Constants () {
     }

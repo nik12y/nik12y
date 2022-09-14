@@ -83,5 +83,8 @@ type Query{
 
     getAmountInWordsList(sessionContext: SessionContextInput) : [AmountInWordsDetails]
     getAmountInWordsDetails(sessionContext: SessionContextInput,currencyCodeQuery : CurrencyCodeInputQuery) : AmountInWordsDetails
+
+    getPeriodCodeDetails(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearPeriodCodeInputQuery): FinancialAccountingYear
+
 }
 

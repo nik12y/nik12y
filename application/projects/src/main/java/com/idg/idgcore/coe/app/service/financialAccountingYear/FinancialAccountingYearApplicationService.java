@@ -11,6 +11,7 @@ import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.domain.process.*;
 import com.idg.idgcore.coe.domain.service.financialAccountingYear.*;
 import com.idg.idgcore.coe.domain.service.mutation.*;
+import com.idg.idgcore.coe.domain.util.*;
 import com.idg.idgcore.coe.dto.base.*;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
 import com.idg.idgcore.coe.dto.mutation.*;
@@ -228,8 +229,6 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
     /**
      * service for the given system dates according to the bank & branch dates,
      * the financial cycle & period code will be returned to the branches
-     *
-     *
      */
     public FinancialAccountingYearProcessDTO getFinancialAccountingYearDateAndPeriodCode (
             String branchCode, Date inputDate) throws FatalException {
@@ -256,6 +255,20 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
         FinancialAccountingYearEntity entity = domainService.getFinancialAccountingYearForProcessCall(
                 branchCode, inputDate);
         return assembler.getDtoFromEntity(entity, inputDate);
+    }
+
+    /**
+     * service for retrieval of Start Date & End Date of financial cycle and each of the period code defined in the system in Financial Cycle Configuration screen.
+     */
+    public FinancialAccountingYearDTO getPeriodCodeDetails (SessionContext sessionContext,
+            FinancialAccountingYearDTO dto) {
+        if (log.isInfoEnabled()) {
+            log.info(" IN getPeriodCodeDetails with {}  ", dto);
+        }
+        FinancialAccountingYearUtil financialAccountingYearUtil = new FinancialAccountingYearUtil();
+        FinancialAccountingYearDTO financialAccountingYearDTO = financialAccountingYearUtil.getPeriodCodeDetails(
+                dto);
+        return financialAccountingYearDTO;
     }
 
 }
