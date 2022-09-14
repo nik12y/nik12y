@@ -26,12 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
+
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
@@ -66,7 +63,7 @@ public class QuestionnaireChecklistApplicationService extends AbstractApplicatio
         try {
             if (isAuthorized(questionnaireChecklistDTO.getAuthorized())) {
                 QuestionnaireChecklistEntity questionnaireChecklistEntity = domainService.getQuestionnaireChecklistById(
-                        questionnaireChecklistDTO.getQuestionChecklistId());
+                        questionnaireChecklistDTO.getQuestionaireChecklistId());
                 result = assembler.convertEntityToDto(questionnaireChecklistEntity);
             }
             else {

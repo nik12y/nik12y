@@ -28,7 +28,7 @@ public class QuestionnaireChecklistDomainService implements
         QuestionnaireChecklistEntity questionnaireChecklistEntity = null;
         try {
             questionnaireChecklistEntity = this.questionnaireChecklistRepository.findByQuestionChecklistId(
-                    questionnaireChecklistDTO.getQuestionChecklistId());
+                    questionnaireChecklistDTO.getQuestionaireChecklistId());
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {
