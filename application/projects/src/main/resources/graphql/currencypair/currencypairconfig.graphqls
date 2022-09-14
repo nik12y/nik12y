@@ -1,9 +1,0 @@
-type CurrencyPairConfig {
-#    pairConfigId : Int!
-    pairId : Int!
-    entityCode : String!
-    createdBy: String
-    creationTime: String
-    lastUpdatedBy: String
-    lastUpdatedTime: String
-}

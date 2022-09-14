@@ -1,0 +1,86 @@
+{
+  "data": {
+    "getCurrencyPairs": [
+      {
+        "currency1": "DIR",
+        "currency1Description": "Diram",
+        "currency2": "EUR",
+        "currency2Description": "Euro",
+        "entityCodeType": "BusinessEntity",
+        "entityCode" : "BE001",
+        "countryCode": "UA",
+        "throughCurrency": false,
+        "throughCurrencyCode": "USD",
+        "throughCurrencyDescription": "Dollar",
+        "noofunits": 1,
+        "pointMultiplier": 0.5,
+        "quotationMethods": false,
+        "spreadDefinition": false
+      },
+      {
+        "currency1": "EUR",
+        "currency1Description": "Euro",
+        "currency2": "RIY",
+        "currency2Description": "Riyal",
+        "entityCodeType": "MarketEntity",
+        "entityCode" : "ME001",
+        "countryCode": "EU",
+        "throughCurrency": false,
+        "throughCurrencyCode": "USD",
+        "throughCurrencyDescription": "Dollar",
+        "noofunits": 1,
+        "pointMultiplier": 0.5,
+        "quotationMethods": false,
+        "spreadDefinition": false
+      },
+      {
+        "currency1": "JPY",
+        "currency1Description": "Yen",
+        "currency2": "RIY",
+        "currency2Description": "Riyal",
+        "entityCodeType": "MarketEntity",
+        "entityCode" : "ME002",
+        "countryCode": "EU",
+        "throughCurrency": false,
+        "throughCurrencyCode": "USD",
+        "throughCurrencyDescription": "Dollar",
+        "noofunits": 1,
+        "pointMultiplier": 0.5,
+        "quotationMethods": false,
+        "spreadDefinition": false
+      },
+      {
+        "currency1": "EUR",
+        "currency1Description": "Euro",
+        "currency2": "RIY",
+        "currency2Description": "Riyal",
+        "entityCodeType": "MarketEntity",
+        "entityCode" : "ME003",
+        "countryCode": "EU",
+        "throughCurrency": false,
+        "throughCurrencyCode": "USD",
+        "throughCurrencyDescription": "Dollar",
+        "noofunits": 1,
+        "pointMultiplier": 0.5,
+        "quotationMethods": false,
+        "spreadDefinition": false
+      },
+      {
+        "currency1": "INR",
+        "currency1Description": "Rupee",
+        "currency2": "RIY",
+        "currency2Description": "Riyal",
+        "entityCodeType": "MarketEntity",
+        "entityCode" : "ME004",
+        "countryCode": "EU",
+        "throughCurrency": false,
+        "throughCurrencyCode": "USD",
+        "throughCurrencyDescription": "Dollar",
+        "noofunits": 1,
+        "pointMultiplier": 0.5,
+        "quotationMethods": false,
+        "spreadDefinition": false
+      }
+    ]
+  }
+}

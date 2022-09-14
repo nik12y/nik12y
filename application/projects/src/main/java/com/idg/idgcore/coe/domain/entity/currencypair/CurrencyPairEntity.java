@@ -5,15 +5,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "IDGC_MCY_CNFG_CURRENCY_PAIR")
+@Table(name = "idgc_mcy_cnfg_currency_pair")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
 public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements Serializable {
@@ -37,6 +35,9 @@ public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements
 
     @Column(name = "entity_code_type")
     private String entityCodeType;
+
+    @Column(name="entity_code")
+    private String entityCode;
 
     @Column(name = "country_code")
     private String countryCode;
@@ -80,7 +81,4 @@ public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements
     @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "pair_id")
-    private List<CurrencyPairConfigEntity> currencyPairConfigEntityList = new ArrayList<>();
 }

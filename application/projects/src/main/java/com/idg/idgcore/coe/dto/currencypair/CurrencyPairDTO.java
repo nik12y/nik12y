@@ -5,8 +5,6 @@ import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 import static com.idg.idgcore.coe.common.Constants.CURRENCY_PAIR;
 
 @ToString(callSuper = true)
@@ -24,6 +22,7 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
     private String currency2;
     private String currency2Description;
     private String entityCodeType;
+    private String entityCode;
     private String countryCode;
     private boolean throughCurrency;
     private String throughCurrencyCode;
@@ -45,8 +44,6 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
         return spreadDefinition;
     }
 
-    private List<CurrencyPairConfigDTO> currencyPairConfigDTOList;
-
     @Override
     public String getTaskCode () {
         return CURRENCY_PAIR;
@@ -60,11 +57,10 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier () {
-        List<CurrencyPairConfigDTO> currencyPairConfigDTOList = getCurrencyPairConfigDTOList();
-        StringBuffer buff = new StringBuffer();
-        for(CurrencyPairConfigDTO dto : currencyPairConfigDTOList) {
-            buff.append(dto.getEntityCode());
+        if(this.getPairId() != null) {
+            return this.getPairId()+"";
         }
-        return this.getPairId()+getCurrency1()+getCurrency2()+buff.toString();
+        return  getCurrency1()+getCurrency2()+getEntityCodeType()+getEntityCode();
     }
+
 }

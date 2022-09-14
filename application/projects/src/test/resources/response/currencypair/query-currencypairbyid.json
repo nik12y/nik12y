@@ -1,0 +1,21 @@
+{
+  "data": {
+    "getCurrencyPairById": {
+      "pairId": 1,
+      "currency1": "DIR",
+      "currency1Description": "Diram",
+      "currency2": "EUR",
+      "currency2Description": "Euro",
+      "entityCodeType": "BusinessEntity",
+      "entityCode" : "BE001",
+      "countryCode": "UA",
+      "throughCurrency": false,
+      "throughCurrencyCode": "USD",
+      "throughCurrencyDescription": "Dollar",
+      "noofunits": 1,
+      "pointMultiplier": 0.5,
+      "quotationMethods": false,
+      "spreadDefinition": false
+    }
+  }
+}

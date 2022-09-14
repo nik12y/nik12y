@@ -54,7 +54,6 @@ public class ServiceBeanConfig {
         beanMappings.put(REGULATORY_SERVICE,REGULATORY_REGION_SERVICE);
 
         beanMappings.put(CURRENCY_PAIR, CURRENCY_PAIR_SERVICE);
-        beanMappings.put(CURRENCY_PAIR_CONFIG, CURRENCY_PAIR_SERVICE);
         beanMappings.put(CURRENCY_RATE_TYPE, CURRENCY_RATE_TYPE_SERVICE);
         beanMappings.put(CURRENCY, CURRENCY_SERVICE);
         beanMappings.put(AMOUNT_IN_WORDS, AMOUNT_IN_WORDS_SERVICE);
