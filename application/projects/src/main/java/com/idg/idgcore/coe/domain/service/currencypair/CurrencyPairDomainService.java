@@ -58,6 +58,22 @@ public class CurrencyPairDomainService implements ICurrencyPairDomainService{
         return currencyPairEntity;
     }
 
+        public CurrencyPairEntity getByCurrency1AndCurrency2AndEntityTypeAndEntityCode (
+            String currency1, String currency2, String entityType, String entityCode) {
+        CurrencyPairEntity currencyPairEntity = null;
+        try {
+            currencyPairEntity = this.currencyPairRepository.getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(
+                    currency1, currency2, entityType, entityCode);
+        }
+        catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error(e.getMessage());
+            }
+            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+        }
+        return currencyPairEntity;
+    }
+
     @Override
     public void save(CurrencyPairDTO currencyPairDTO) {
         try {

@@ -22,8 +22,11 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
     private String currency2;
     private String currency2Name;
     private String entityType;
+    private Integer entityLevel;
     private String entityCode;
+    private String entityName;
     private String countryCode;
+    private String countryName;
     private boolean throughCurrency;
     private String throughCurrencyCode;
     private String throughCurrencyDescription;

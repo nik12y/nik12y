@@ -5,8 +5,11 @@ type CurrencyPair {
     currency2: String!
     currency2Name : String
     entityType : String!
+    entityLevel : Int!
     entityCode : String!
+    entityName : String!
     countryCode : String!
+    countryName : String!
     throughCurrency : Boolean
     throughCurrencyCode : String
     throughCurrencyDescription : String

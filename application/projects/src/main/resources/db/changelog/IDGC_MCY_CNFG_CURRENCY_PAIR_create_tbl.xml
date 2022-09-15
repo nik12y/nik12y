@@ -35,11 +35,23 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="entity_level" type="int">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="entity_code" type="varchar(10)">
                 <constraints unique="true" nullable="false"/>
             </column>
 
+            <column name="entity_name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="country_code" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="country_name" type="varchar(35)">
                 <constraints nullable="false"/>
             </column>
 
@@ -108,6 +120,14 @@
         <addUniqueConstraint
                 columnNames="pair_id" tableName="idgc_mcy_cnfg_currency_pair"
                 constraintName="idgc_mcy_cnfg_currency_pair_pk" />
+
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_1" constraintName="currency_1_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code" />
+
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_2" constraintName="currency_2_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code"/>
+
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="through_currency_code" constraintName="through_currency_code_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code"/>
+
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="entity_code" constraintName="entity_code_fk_for_currency_pair" referencedTableName="idgc_coe_ve_code_cnfg" referencedColumnNames="entity_code" />
 
     </changeSet>
 

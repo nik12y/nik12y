@@ -28,4 +28,9 @@ public class CurrencyPairQueryResolver implements GraphQLQueryResolver {
         return this.currencyPairApplicationService.getCurrencyPairs(sessionContext);
     }
 
+    public CurrencyPairDTO getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(SessionContext sessionContext, CurrencyPairDTO currencyPairDTO)
+            throws FatalException, JsonProcessingException {
+        return this.currencyPairApplicationService.getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(sessionContext, currencyPairDTO);
+    }
+
 }

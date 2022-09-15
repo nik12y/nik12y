@@ -114,7 +114,7 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
                 }
                 return currencyPairDTO;
             }).toList());
-
+            fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
@@ -150,6 +150,46 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
             }
         }
         return transactionStatus;
+    }
+
+    public CurrencyPairDTO getByCurrency1AndCurrency2AndEntityTypeAndEntityCode (SessionContext sessionContext, CurrencyPairDTO currencyPairDTO) throws FatalException {
+        if (log.isInfoEnabled()) {
+            log.info(
+                    "In getByCurrency1AndCurrency2AndEntityCodeType with parameters sessionContext {}, currencyPairDTO {}",
+                    sessionContext, currencyPairDTO);
+        }
+        TransactionStatus transactionStatus = fetchTransactionStatus();
+        Interaction.begin(sessionContext);
+        prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
+        CurrencyPairDTO result = null;
+        try {
+            if (isAuthorized(currencyPairDTO.getAuthorized())) {
+                CurrencyPairEntity currencyPairEntity = currencyPairDomainService.getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(
+                        currencyPairDTO.getCurrency1(), currencyPairDTO.getCurrency2(),
+                        currencyPairDTO.getEntityType(), currencyPairDTO.getEntityCode());
+                result = currencyPairAssembler.convertEntityToDto(currencyPairEntity);
+            }
+            else {
+                MutationEntity mutationEntity = mutationsDomainService.getConfigurationByCode(
+                        currencyPairDTO.getTaskIdentifier());
+                ObjectMapper objectMapper = new ObjectMapper();
+                PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
+                result = objectMapper.readValue(payload.getData(),
+                        CurrencyPairDTO.class);
+                result = currencyPairAssembler.setAuditFields(mutationEntity, result);
+                fillTransactionStatus(transactionStatus);
+            }
+        }
+        catch (JsonProcessingException jpe) {
+            ExceptionUtil.handleException(JSON_PARSING_ERROR);
+        }
+        catch (Exception exception) {
+            fillTransactionStatus(transactionStatus, exception);
+        }
+        finally {
+            Interaction.close();
+        }
+        return result;
     }
 
     @Override
