@@ -29,8 +29,8 @@ public class MulBranchParameterQueryResolverTest {
         }
 
         @Test
-        void TestForGetBranchParameterById() throws IOException, JSONException {
-            GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/mulbranchparameter/query-mulBranchParameter-byId.graphqls");
+        void TestForGetBranchParameterByCurrencyCodeAndEntityCode() throws IOException, JSONException {
+            GraphQLResponse graphQLResponse = graphQLTestTemplate.postForResource("request/mulbranchparameter/query-mulBranchParameter-byCurrencyAndEntityCode.graphqls");
             assertThat(graphQLResponse.isOk(), equalTo(true));
             assertTrue(graphQLResponse.getStatusCode().is2xxSuccessful());
         }

@@ -1,4 +1,5 @@
 type MulBranchParameterQuery{
-    branchParamId: Int
+    currencyCode:String!
+    entityCode:String!
     authorized : String!
 }

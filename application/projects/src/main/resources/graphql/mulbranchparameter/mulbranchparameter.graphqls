@@ -1,5 +1,5 @@
 type MulBranchParameter{
-    branchParamId: Int
+
     currencyCode:String!
     entityCode:String!
     spotDays: Int

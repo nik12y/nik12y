@@ -17,7 +17,7 @@ public interface IMulBranchParameterApplicationService extends IBaseApplicationS
     TransactionStatus processMulBranchParameter(SessionContext sessionContext, MulBranchParameterDTO mulBranchParameterDTO) throws FatalException,
             JsonProcessingException;
     void save (MulBranchParameterDTO mulBranchParameterDTO);
-    MulBranchParameterDTO getMulBranchParameterById (SessionContext sessionContext,MulBranchParameterDTO mulBranchParameterDTO)
+    MulBranchParameterDTO getByCurrencyCodeAndEntityCode(SessionContext sessionContext,MulBranchParameterDTO mulBranchParameterDTO)
             throws FatalException, JsonProcessingException;
     List<MulBranchParameterDTO> getMulBranchParameters(SessionContext sessionContext)
             throws FatalException;

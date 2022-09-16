@@ -3,6 +3,7 @@ package com.idg.idgcore.coe.domain.service.mulbranchparameter;
 
 import com.idg.idgcore.coe.domain.assembler.mulbranchparameter.MulBranchParameterAssembler;
 import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairEntity;
+import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntity;
 import com.idg.idgcore.coe.domain.entity.mulbranchparameter.MulBranchParameterEntity;
 
 import com.idg.idgcore.coe.domain.repository.mulbranchparameter.IMulBranchParameterRepository;
@@ -31,7 +32,7 @@ public class MulBranchParameterDomainService implements IMulBranchParameterDomai
     public MulBranchParameterEntity getConfigurationByCode(MulBranchParameterDTO mulBranchParameterDTO) {
         MulBranchParameterEntity mulBranchParameterEntity = null;
         try {
-            mulBranchParameterEntity = this.mulBranchParameterRepository.findByBranchParamId(mulBranchParameterDTO.getBranchParamId());
+            mulBranchParameterEntity = this.mulBranchParameterRepository.getByCurrencyCodeAndEntityCode(mulBranchParameterDTO.getCurrencyCode(),mulBranchParameterDTO.getEntityCode());
         } catch (Exception e)  {
             log.error("Exception in getConfigurationByCode",e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
@@ -45,12 +46,13 @@ public class MulBranchParameterDomainService implements IMulBranchParameterDomai
     }
 
     @Override
-    public MulBranchParameterEntity getMulBranchParameterById(Integer branchParamId) {
-        MulBranchParameterEntity mulBranchParameterEntity=null;
+    public MulBranchParameterEntity getByCurrencyCodeAndEntityCode(String currencyCode, String entityCode) {
+        MulBranchParameterEntity mulBranchParameterEntity = null;
         try {
-            mulBranchParameterEntity=this.mulBranchParameterRepository.findByBranchParamId(branchParamId);
-        } catch (Exception e) {
-            log.error("Exception in getMulBranchParameterById",e);
+            mulBranchParameterEntity = this.mulBranchParameterRepository.getByCurrencyCodeAndEntityCode(currencyCode,entityCode);
+            }
+        catch (Exception e) {
+            log.error("Exception in getByCurrencyCodeAndEntityCode",e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return mulBranchParameterEntity;

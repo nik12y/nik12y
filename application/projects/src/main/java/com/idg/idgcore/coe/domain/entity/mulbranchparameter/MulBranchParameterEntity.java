@@ -3,6 +3,7 @@ package com.idg.idgcore.coe.domain.entity.mulbranchparameter;
 
 import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairConfigEntity;
 import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairEntity;
+import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntityKey;
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
 import lombok.*;
 
@@ -20,17 +21,14 @@ import java.util.List;
 @Table(name ="IDGC_MCY_BRANCH_PARAMETER_CONFIG")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
-
+@IdClass (MulBranchParameterEntityKey.class)
 public class MulBranchParameterEntity extends AbstractAuditableDomainEntity implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "branch_param_id")
-    private Integer branchParamId;
-
     @Column(name= "currency_code")
     private String currencyCode;
 
+    @Id
     @Column(name= "entity_code")
     private String entityCode;
 

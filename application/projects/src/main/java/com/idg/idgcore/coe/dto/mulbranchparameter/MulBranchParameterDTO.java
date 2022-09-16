@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 import static com.idg.idgcore.coe.common.Constants.CURR_BRANCH_PARAM;
+import static com.idg.idgcore.coe.common.Constants.FIELD_SEPARATOR;
 
 
 @ToString(callSuper = true)
@@ -21,7 +22,6 @@ import static com.idg.idgcore.coe.common.Constants.CURR_BRANCH_PARAM;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MulBranchParameterDTO extends CoreEngineBaseDTO {
 
-    private Integer branchParamId;
     private String currencyCode;
     private String entityCode;
     private Integer spotDays;
@@ -41,7 +41,7 @@ public class MulBranchParameterDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier () {
-        return this.getBranchParamId()+getCurrencyCode()+getEntityCode();
+        return currencyCode + FIELD_SEPARATOR + entityCode;
     }
 
 }

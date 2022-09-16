@@ -26,7 +26,8 @@ query{
             originatingModuleCode: null
         },
         mulBranchParameterQuery:{
-            branchParamId:2
+            currencyCode:"USD"
+            entityCode: "BR001"
             authorized:"Y"
         }
     ) {

@@ -10,10 +10,6 @@
         <createTable tableName="idgc_mcy_branch_parameter_config"
                      remarks="A table to contain all the branch parameter">
 
-            <column name="branch_param_id" type="integer" autoIncrement="true">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
-            </column>
-
             <column name="currency_code" type="varchar(3)">
                  <constraints nullable="false"/>
             </column>
@@ -70,7 +66,8 @@
         </createTable>
 
         <addUniqueConstraint
-                columnNames="branch_param_id" tableName="idgc_mcy_branch_parameter_config"
+                columnNames="currency_code,entity_code"
+                tableName="idgc_mcy_branch_parameter_config"
                 constraintName="idgc_mcy_branch_parameter_config_pk" />
     </changeSet>
 </databaseChangeLog>

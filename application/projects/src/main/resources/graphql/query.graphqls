@@ -62,6 +62,7 @@ type Query{
     getQuestionnaireChecklistById(sessionContext: SessionContextInput, questionnaireChecklistQuery: QuestionnaireChecklistInputQuery): QuestionnaireChecklist
     getQuestionnaireChecklists(sessionContext: SessionContextInput): [QuestionnaireChecklist]
     getFinancialAccountByBankCodeAndBranchCodeAndFinancialAccountingYearCode(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): FinancialAccountingYear
+
     getFinancialAccountingYears(sessionContext: SessionContextInput): [FinancialAccountingYear]
     getErrorOverrideByCode(sessionContext: SessionContextInput, errorOverrideQuery: ErrorOverrideInputQuery): ErrorOverride
     getErrorCodes(sessionContext: SessionContextInput): [ErrorOverride]
@@ -86,7 +87,7 @@ type Query{
 
     getPeriodCodeDetails(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearPeriodCodeInputQuery): FinancialAccountingYear
 
-    getMulBranchParameterById(sessionContext: SessionContextInput,mulBranchParameterQuery:MulBranchParameterInputQuery ): MulBranchParameter
+    getMulBranchParameterByCurrencyAndEntityCode(sessionContext: SessionContextInput,mulBranchParameterQuery:MulBranchParameterInputQuery ): MulBranchParameter
     getMulBranchParameters(sessionContext: SessionContextInput): [MulBranchParameter]
 }
 

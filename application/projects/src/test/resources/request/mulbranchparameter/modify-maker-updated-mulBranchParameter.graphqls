@@ -27,7 +27,6 @@ mutation{
         },
         mulBranchParameter:{
 
-           branchParamId: 1
             currencyCode:"USD"
             entityCode: "BR001"
             spotDays:56
