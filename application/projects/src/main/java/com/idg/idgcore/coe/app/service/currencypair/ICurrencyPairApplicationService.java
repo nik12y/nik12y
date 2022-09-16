@@ -21,6 +21,4 @@ public interface ICurrencyPairApplicationService extends IBaseApplicationService
             throws FatalException, JsonProcessingException;
     List<CurrencyPairDTO> getCurrencyPairs (SessionContext sessionContext)
             throws FatalException;
-    CurrencyPairDTO getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(SessionContext sessionContext, CurrencyPairDTO currencyPairDTO)
-            throws FatalException, JsonProcessingException;
 }

@@ -77,7 +77,6 @@ type Query{
 
     getCurrencyPairById(sessionContext: SessionContextInput, currencyPairQuery:CurrencyPairInputQuery):CurrencyPair
     getCurrencyPairs(sessionContext: SessionContextInput): [CurrencyPair]
-    getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(sessionContext: SessionContextInput, currencyPairQuery:CurrencyPairInputQuery) : CurrencyPair
 
     getVirtualEntityByEntityCode(sessionContext: SessionContextInput, virtualEntityQuery: VirtualEntityInputQuery): VirtualEntity
     getVirtualEntityAll(sessionContext: SessionContextInput): [VirtualEntity]
