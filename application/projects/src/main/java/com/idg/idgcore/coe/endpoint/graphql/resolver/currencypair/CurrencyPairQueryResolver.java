@@ -28,4 +28,6 @@ public class CurrencyPairQueryResolver implements GraphQLQueryResolver {
         return this.currencyPairApplicationService.getCurrencyPairs(sessionContext);
     }
 
+
+
 }
