@@ -1,4 +1,9 @@
 type CurrencyPairQuery {
     pairId: Int
-    authorized: String!
+    currency1 : String!
+    currency2: String!
+    entityType : String!
+    entityCode : String!
+    authorized : String!
+
 }

@@ -27,13 +27,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
@@ -55,7 +51,7 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
     private MutationAssembler mutationAssembler;
 
     @Transactional(Transactional.TxType.NOT_SUPPORTED)
-    public CurrencyPairDTO getCurrencyPairById(SessionContext sessionContext, CurrencyPairDTO currencyPairDTO) throws FatalException, JsonProcessingException {
+    public CurrencyPairDTO getCurrencyPairById(SessionContext sessionContext, CurrencyPairDTO currencyPairDTO) throws FatalException{
         if (log.isInfoEnabled()) {
             log.info("In getCurrencyPairById with parameters sessionContext{}, currencyPairDTO {}",
                     sessionContext, currencyPairDTO);
@@ -67,8 +63,7 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
         CurrencyPairDTO result = null;
         try{
             if (isAuthorized(currencyPairDTO.getAuthorized())) {
-                CurrencyPairEntity currencyPairEntity = currencyPairDomainService.getCurrencyPairById(
-                        currencyPairDTO.getPairId());
+                CurrencyPairEntity currencyPairEntity = getCurrencyPairEntity(currencyPairDTO);
                 result = currencyPairAssembler.convertEntityToDto(currencyPairEntity);
             }
             else {
@@ -91,6 +86,18 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
             Interaction.close();
         }
         return result;
+    }
+
+    private CurrencyPairEntity getCurrencyPairEntity(CurrencyPairDTO currencyPairDTO) {
+        CurrencyPairEntity currencyPairEntity;
+        if(currencyPairDTO.getPairId() != null) {
+            currencyPairEntity = currencyPairDomainService.getCurrencyPairById(
+                    currencyPairDTO.getPairId());
+        } else {
+            currencyPairEntity = currencyPairDomainService.getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(currencyPairDTO.getCurrency1(), currencyPairDTO.getCurrency2(),
+                    currencyPairDTO.getEntityType(), currencyPairDTO.getEntityCode());
+        }
+        return currencyPairEntity;
     }
 
     @Transactional(Transactional.TxType.NOT_SUPPORTED)
@@ -118,9 +125,6 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
                 }
                 return currencyPairDTO;
             }).toList());
-            //Order by date
-            Comparator<CurrencyPairDTO> compareByCreationTime = Comparator.comparing(CurrencyPairDTO::getCreationTime);
-            currencyPairDTOList = currencyPairDTOList.stream().sorted(compareByCreationTime.reversed()).toList();
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -172,7 +176,6 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
     }
 
     @Override
-    @Transactional(Transactional.TxType.REQUIRED)
     public void save(CurrencyPairDTO currencyPairDTO){
         currencyPairDomainService.save(currencyPairDTO);
     }
@@ -185,5 +188,4 @@ public class CurrencyPairApplicationService extends AbstractApplicationService i
     private String getTaskCode () {
         return CurrencyPairDTO.builder().build().getTaskCode();
     }
-
 }
