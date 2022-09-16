@@ -147,12 +147,8 @@ public class MitigantApplicationService extends AbstractApplicationService imple
         List<MitigantDTO> mitigantDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            mitigantDTOList.addAll(mitigantDomainService.getMitigantAll().stream()
-                    .map(entity -> mitigantAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            mitigantDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            mitigantDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 MitigantDTO mitigantDTO = null;
                 try {
@@ -163,11 +159,8 @@ public class MitigantApplicationService extends AbstractApplicationService imple
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return mitigantDTO;
-            }).collect(Collectors.toList()));
-            mitigantDTOList = mitigantDTOList.stream().collect(
-                    Collectors.groupingBy(MitigantDTO::getMitigantCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(MitigantDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

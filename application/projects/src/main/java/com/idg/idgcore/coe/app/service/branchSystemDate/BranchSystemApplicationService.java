@@ -6,14 +6,14 @@ import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.app.Interaction;
 import com.idg.idgcore.coe.app.config.MappingConfig;
 import com.idg.idgcore.coe.domain.assembler.audit.MutationAssembler;
-import com.idg.idgcore.coe.domain.assembler.branchSystem.BranchSystemDateAssembler;
-import com.idg.idgcore.coe.domain.entity.branchSystem.BranchSystemDateEntity;
+import com.idg.idgcore.coe.domain.assembler.branchSystemDate.BranchSystemDateAssembler;
+import com.idg.idgcore.coe.domain.entity.branchSystemDate.BranchSystemDateEntity;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
-import com.idg.idgcore.coe.domain.service.branchSystem.IBranchSystemDateDomainService;
+import com.idg.idgcore.coe.domain.service.branchSystemDate.IBranchSystemDateDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
-import com.idg.idgcore.coe.dto.branchSystem.BranchSystemDateDTO;
+import com.idg.idgcore.coe.dto.branchSystemDate.BranchSystemDateDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
@@ -103,12 +103,8 @@ public class BranchSystemApplicationService extends AbstractApplicationService
         List<BranchSystemDateDTO> branchSystemDateDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            branchSystemDateDTOList.addAll(branchSystemDomainService.getBranchSystemDateAll().stream()
-                    .map(entity -> branchSystemAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            branchSystemDateDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            branchSystemDateDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 BranchSystemDateDTO branchSystemDateDTO = null;
                 try {
@@ -119,11 +115,8 @@ public class BranchSystemApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return branchSystemDateDTO;
-            }).collect(Collectors.toList()));
-            branchSystemDateDTOList = branchSystemDateDTOList.stream().collect(
-                    Collectors.groupingBy(BranchSystemDateDTO::getBranchCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(BranchSystemDateDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

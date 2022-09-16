@@ -7,7 +7,9 @@ public enum Error {
     JSON_PARSING_ERROR("IDC_COE_0004", "Error occurred while parsing the record."),
     NO_RECORD_FOUND("IDC_COE_0005", "No records found."),
     VALIDATION_FAILED("IDC_COE_0006", "Record validation failed. No mapping found for record."),
+    RECORD_EXCLUDED("IDC_COE_0008", "Records is excluded."),
     KAFKA_MESSAGE_PUBLISH_FAILED("IDC_COE_0007", "Failure while sending message over kafka.");
+
 
     private final String code;
     private final String message;

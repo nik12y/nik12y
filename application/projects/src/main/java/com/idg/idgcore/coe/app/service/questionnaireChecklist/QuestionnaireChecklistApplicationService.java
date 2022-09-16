@@ -26,12 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
+
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
@@ -66,7 +63,7 @@ public class QuestionnaireChecklistApplicationService extends AbstractApplicatio
         try {
             if (isAuthorized(questionnaireChecklistDTO.getAuthorized())) {
                 QuestionnaireChecklistEntity questionnaireChecklistEntity = domainService.getQuestionnaireChecklistById(
-                        questionnaireChecklistDTO.getQuestionChecklistId());
+                        questionnaireChecklistDTO.getQuestionaireChecklistId());
                 result = assembler.convertEntityToDto(questionnaireChecklistEntity);
             }
             else {
@@ -102,12 +99,8 @@ public class QuestionnaireChecklistApplicationService extends AbstractApplicatio
         List<QuestionnaireChecklistDTO> questionnaireChecklistDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            questionnaireChecklistDTOList.addAll(domainService.getQuestionnaireChecklists().stream()
-                    .map(entity -> assembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            questionnaireChecklistDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            questionnaireChecklistDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 QuestionnaireChecklistDTO questionnaireChecklistDTO = null;
                 try {
@@ -118,11 +111,8 @@ public class QuestionnaireChecklistApplicationService extends AbstractApplicatio
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return questionnaireChecklistDTO;
-            }).collect(Collectors.toList()));
-            questionnaireChecklistDTOList = questionnaireChecklistDTOList.stream().collect(
-                    Collectors.groupingBy(QuestionnaireChecklistDTO::getQuestionChecklistId, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(QuestionnaireChecklistDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

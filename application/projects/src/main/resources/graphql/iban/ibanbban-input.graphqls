@@ -1,8 +1,8 @@
 input IbanBbanInput {
-    bankIdentifierPosition:Int! @Digits(integer : 1, fraction : 0, message : "bankIdentifierPosition.message") @Positive(message : "Bank Identifier Position Cannot be negative or zero.")
-    bankIdentifierLength:String! @Size(min: 1, max: 10, message: "bankIdentifierLength.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "Bank Identifier Length Invalid pattern")
-    branchIdentifierPosition:String! @Size(min: 1, max: 2, message: "branchIdentifierPosition.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=0-9]*${1,2}",message: "Branch Identifier Position Invalid pattern")
-    branchIdentifierLength:String @Size(min: 1, max: 10, message: "branchIdentifierLength.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "Branch Identifier Length Invalid pattern")
-    accountNumberPosition:Int! @Digits(integer : 2, fraction : 0, message : "accountNumberPosition.message") @Positive(message : "Account Number Position Cannot be negative or zero.")
-    accountNumberLength:Int @Range(min : 1, max : 16, message : "accountNumberLength.message")
+    bankIdentifierPosition:Int! @Digits(integer : 1, fraction : 0, message : "bankIdentifierPosition.message") #@PositiveOrZero(message : "Bank Identifier Position Cannot be negative or zero.")
+    bankIdentifierLength:Int! @Digits(integer : 10, fraction : 0, message: "bankIdentifierLength.message") #@PositiveOrZero(message: "Bank Identifier Length cannot be negative or zero.")
+    branchIdentifierPosition:Int! @Digits(integer : 2, fraction : 0, message: "branchIdentifierPosition.message") #@PositiveOrZero(message: "Branch Identifier Position cannot be negative or zero.")
+    branchIdentifierLength:Int @Digits(integer : 10, fraction : 0, message: "branchIdentifierLength.message") #@PositiveOrZero(message: "Branch Identifier Length cannot be negative")
+    accountNumberPosition:Int! @Digits(integer : 2, fraction : 0, message : "accountNumberPosition.message") #@PositiveOrZero(message : "Account Number Position cannot be negative or zero.")
+    accountNumberLength:Int @Range(min : 1, max : 16, message : "accountNumberLength.message") #@PositiveOrZero(message : "Account Number length cannot be negative.")
  }

@@ -150,12 +150,9 @@ public class RiskCategoryApplicationService extends AbstractApplicationService
         List<RiskCategoryDTO> riskCategoryDTOList = new ArrayList<>();
 
         try{
-            List<MutationEntity> unauthorizedEntities = mutationdomainservice.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            riskCategoryDTOList.addAll(riskcategorydomainservice.getRiskCategories().stream()
-                    .map(entity -> riskcategoryassembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            riskCategoryDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationdomainservice.getMutations(
+                    getTaskCode());
+            riskCategoryDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                RiskCategoryDTO riskCategoryDTO = null;
                 try {
@@ -166,11 +163,8 @@ public class RiskCategoryApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return riskCategoryDTO;
-            }).collect(Collectors.toList()));
-            riskCategoryDTOList = riskCategoryDTOList.stream().collect(
-                    Collectors.groupingBy(RiskCategoryDTO::getRiskCategoryCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(RiskCategoryDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
 
 

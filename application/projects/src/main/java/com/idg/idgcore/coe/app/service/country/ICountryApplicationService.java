@@ -10,11 +10,16 @@ import com.idg.idgcore.coe.dto.country.CountryDTO;
 import java.util.List;
 
 public interface ICountryApplicationService extends IBaseApplicationService {
-    TransactionStatus processCountry (SessionContext sessionContext, CountryDTO dto)
+    TransactionStatus processCountry(SessionContext sessionContext, CountryDTO dto)
             throws FatalException, JsonProcessingException;
-    void save (CountryDTO countryDTO);
-    CountryDTO getCountryByCode (SessionContext sessionContext, CountryDTO countryDTO)
+
+    void save(CountryDTO countryDTO);
+
+    CountryDTO getCountryByCode(SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException, JsonProcessingException;
-    List<CountryDTO> getCountries (SessionContext sessionContext) throws FatalException;
+
+    List<CountryDTO> getCountries(SessionContext sessionContext) throws FatalException;
+
+    List<CountryDTO> searchCountry(SessionContext sessionContext, CountryDTO countryDTO) throws FatalException, JsonProcessingException;
 
 }

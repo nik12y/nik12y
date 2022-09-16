@@ -1,5 +1,7 @@
 package com.idg.idgcore.coe.common;
 
+import org.apache.kafka.common.protocol.types.*;
+
 public final class Constants {
     public static final String EMPTY_STRING = "";
     public static final char CHAR_Y = 'Y';
@@ -11,7 +13,6 @@ public final class Constants {
     public static final String CITY = "CITY";
     public static final String STATE = "STATE";
     public static final String STATE_SERVICE = "stateApplicationService";
-
     public static final String BANK_IDENTIFIER = "BANKIDENTIFIER";
     public static final String COUNTRY_SERVICE = "countryApplicationService";
     public static final String BANK = "BANK";
@@ -86,7 +87,6 @@ public final class Constants {
     public static final String IBAN = "IBAN";
     public static final String IBAN_SERVICE = "ibanApplicationService";
     public static final String RISKCATEGORY = "RISKCATEGORY";
-
     public static final String RISKCATEGORY_SERVICE = "riskCategoryApplicationService";
     public static final String RISKCODE_SERVICE = "riskCodeApplicationService";
     public static final String PURGING_POLICY = "PURGING_POLICY";
@@ -99,6 +99,8 @@ public final class Constants {
     public static final String FINANCIAL_ACCOUNTING_YEAR_SERVICE = "financialAccountingYearService";
     public static final String ERROR_OVERRIDE = "ERROR-OVERRIDE";
     public static final String ERROR_OVERRIDE_SERVICE= "errorOverrideService";
+    public static final String VIRTUAL_ENTITY = "VIRTUAL_ENTITY";
+    public static final String VIRTUAL_ENTITY_SERVICE = "virtualEntityApplicationService";
     public static final String CURRENCY_RATE_TYPE = "CURRTYPE";
     public static final String CURRENCY_RATE_TYPE_SERVICE = "currencyRateTypeApplicationService";
     public static final String FIELD_SEPARATOR = "_";
@@ -115,6 +117,8 @@ public final class Constants {
     public static final String SUCCESS_MSG = "Success";
 
     public static final String KEY_CNST = "KEY_";
+    public static final String CLOSED = "closed";
+    public static final String ALL = "ALL";
 
     public static final String CURRENCY = "CURRENCY";
 
@@ -123,6 +127,22 @@ public final class Constants {
     public static final String CURR_FORM_ERROR_MSG ="Their are no occurence of \"D\" in amount format pattern";
 
     public static final String CURR_FORM_ERROR_MSG2 ="Found more than one occurence of \"D\" in amount format pattern";
+
+    public static final String CURRENCY_PAIR = "CURRENCY_PAIR";
+    public static final String CURRENCY_PAIR_SERVICE = "currencyPairApplicationService";
+    public static final String CURRENCY_PAIR_CONFIG = "CURRENCY_PAIR_CONFIG";
+
+    public static final String AMOUNT_IN_WORDS = "AMOUNT_IN_WORDS";
+
+    public static final String AMOUNT_IN_WORDS_SERVICE = "amountInWordsApplicationService";
+
+    public static final String FNC = "FNC";
+    public static final String MONTHLY = "Monthly";
+    public static final String HALF_YEARLY = "Half-Yearly";
+    public static final String QUARTERLY = "Quarterly";
+    public static final String YEARLY = "Yearly";
+    public static final String BI_MONTHLY = "Bi-Monthly";
+    public static final String DATE_FORMATTER="yyyy-MM-dd";
 
     private Constants () {
     }

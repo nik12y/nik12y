@@ -18,9 +18,9 @@ import static com.idg.idgcore.coe.common.Constants.REGULATORY_SERVICE;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RegulatoryRegionConfigDTO extends CoreEngineBaseDTO {
 
-    private String regRegionCode;
-    private String regionName;
-    private String regionDescription;
+    private String regulatoryRegionCode;
+    private String regulatoryRegionName;
+    private String regulatoryRegionDescription;
     private String regionEffectiveDate;
     private String regionGroupCode;
     private String purpose;
@@ -38,6 +38,6 @@ public class RegulatoryRegionConfigDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier() {
-        return this.getRegRegionCode();
+        return this.getRegulatoryRegionCode();
     }
 }

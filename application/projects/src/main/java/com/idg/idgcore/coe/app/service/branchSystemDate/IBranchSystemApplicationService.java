@@ -2,7 +2,7 @@ package com.idg.idgcore.coe.app.service.branchSystemDate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.idg.idgcore.coe.app.service.base.IBaseApplicationService;
-import com.idg.idgcore.coe.dto.branchSystem.BranchSystemDateDTO;
+import com.idg.idgcore.coe.dto.branchSystemDate.BranchSystemDateDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;

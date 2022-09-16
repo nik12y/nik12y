@@ -110,11 +110,9 @@ public class BankParameterApplicationService extends AbstractApplicationService
         ObjectMapper objectMapper = new ObjectMapper();
         List<BankParameterDTO> bankParameterDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            bankParameterDTOList.addAll(bankParameterDomainService.getBankParameters().stream()
-                    .map(entity -> bankParameterAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
+            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getMutations(
+                    getTaskCode());
+
             bankParameterDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 BankParameterDTO bankParameterDTO = null;
@@ -127,13 +125,8 @@ public class BankParameterApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return bankParameterDTO;
-            }).collect(Collectors.toList()));
-            bankParameterDTOList = bankParameterDTOList.stream().collect(
-                    Collectors.groupingBy(BankParameterDTO::getBankCode,
-                            Collectors.collectingAndThen(
-                                    Collectors.maxBy(Comparator.comparing(
-                                            BankParameterDTO::getRecordVersion)),
-                                    Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

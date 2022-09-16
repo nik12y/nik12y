@@ -23,7 +23,6 @@ import lombok.extern.slf4j.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -51,10 +50,12 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
     @Autowired
     private MutationAssembler mutationAssembler;
 
-    public ErrorOverrideDTO getErrorOverrideByCode (SessionContext sessionContext, ErrorOverrideDTO errorOverrideDTO)
+    public ErrorOverrideDTO getErrorOverrideByCode (SessionContext sessionContext,
+            ErrorOverrideDTO errorOverrideDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In getErrorOverrideByCode with parameters sessionContext {}, errorOverrideDTO {}",
+            log.info(
+                    "In getErrorOverrideByCode with parameters sessionContext {}, errorOverrideDTO {}",
                     sessionContext, errorOverrideDTO);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
@@ -63,8 +64,8 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
         ErrorOverrideDTO result = null;
         try {
             if (isAuthorized(errorOverrideDTO.getAuthorized())) {
-                ErrorOverrideEntity errorOverrideEntity = errorOverrideDomainService.getErrorOverrideByCode(
-                        errorOverrideDTO.getErrorCode());
+                ErrorOverrideEntity errorOverrideEntity = errorOverrideDomainService.getRecordByErrorCodeAndBranchCode(
+                        errorOverrideDTO.getErrorCode(), errorOverrideDTO.getBranchCode());
                 result = errorOverrideAssembler.convertEntityToDto(errorOverrideEntity);
             }
             else {
@@ -73,7 +74,7 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), ErrorOverrideDTO.class);
-                result = errorOverrideAssembler.setAuditFields(mutationEntity,result);
+                result = errorOverrideAssembler.setAuditFields(mutationEntity, result);
                 fillTransactionStatus(transactionStatus);
             }
         }
@@ -89,7 +90,8 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
         return result;
     }
 
-    public List<ErrorOverrideDTO> getErrorCodes (SessionContext sessionContext) throws FatalException {
+    public List<ErrorOverrideDTO> getErrorCodes (SessionContext sessionContext)
+            throws FatalException {
         if (log.isInfoEnabled()) {
             log.info("In getCountries with parameters sessionContext {}", sessionContext);
         }
@@ -98,29 +100,22 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         ObjectMapper objectMapper = new ObjectMapper();
         List<ErrorOverrideDTO> errorOverrideDTOList = new ArrayList<>();
-
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            errorOverrideDTOList.addAll(errorOverrideDomainService.getErrorCodes().stream()
-                    .map(entity -> errorOverrideAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            errorOverrideDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            errorOverrideDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 ErrorOverrideDTO errorOverrideDTO = null;
                 try {
                     errorOverrideDTO = objectMapper.readValue(data, ErrorOverrideDTO.class);
-                    errorOverrideDTO = errorOverrideAssembler.setAuditFields(entity,errorOverrideDTO);
+                    errorOverrideDTO = errorOverrideAssembler.setAuditFields(entity,
+                            errorOverrideDTO);
                 }
                 catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return errorOverrideDTO;
-            }).collect(Collectors.toList()));
-            errorOverrideDTOList = errorOverrideDTOList.stream().collect(
-                    Collectors.groupingBy(ErrorOverrideDTO::getErrorCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(ErrorOverrideDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -132,14 +127,21 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
         return errorOverrideDTOList;
     }
 
-    public TransactionStatus processErrorOverride (SessionContext sessionContext, ErrorOverrideDTO errorOverrideDTO)
+    public TransactionStatus processErrorOverride (SessionContext sessionContext,
+            ErrorOverrideDTO errorOverrideDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
-            log.info("In processErrorOverride with parameters sessionContext {}, errorOverrideDTO {}",
+            log.info(
+                    "In processErrorOverride with parameters sessionContext {}, errorOverrideDTO {}",
                     sessionContext, errorOverrideDTO);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
         try {
+            if (AUTHORIZE.equals(errorOverrideDTO.getAction()) && CLOSED.equals(
+                    errorOverrideDTO.getStatus()))
+                errorOverrideDTO.setIsExcluded(true);
+            else
+                errorOverrideDTO.setIsExcluded(false);
             Interaction.begin(sessionContext);
             prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
             process.process(errorOverrideDTO);
@@ -168,12 +170,20 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
 
     @Override
     public CoreEngineBaseDTO getConfigurationByCode (String code) {
-        return errorOverrideAssembler.convertEntityToDto(errorOverrideDomainService.getErrorOverrideByCode(code));
+        String[] fields = code.split(FIELD_SEPARATOR);
+        if (fields.length == 2) {
+            ErrorOverrideDTO withAll = errorOverrideAssembler.convertEntityToDto(
+                    errorOverrideDomainService.getByErrorCodeAndBranchCode(
+                            fields[0], ALL));
+            withAll.setBranchCode(fields[1]);
+            return withAll;
+        }
+        return null;
     }
 
     @Override
     public void save (ErrorOverrideDTO errorOverrideDTO) {
-        errorOverrideDomainService.save(errorOverrideDTO);
+        errorOverrideDomainService.validateAndSave(errorOverrideDTO);
     }
 
     private boolean isAuthorized (final String authorized) {

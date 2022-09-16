@@ -94,12 +94,10 @@ public class AppVerTypeApplicationService extends AbstractApplicationService imp
         ObjectMapper objectMapper = new ObjectMapper();
         List<AppVerTypeDTO> appVerTypeDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            appVerTypeDTOList.addAll(appVerTypeDomainService.getAppVerTypes().stream()
-                    .map(entity -> appVerTypeAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            appVerTypeDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+
+            appVerTypeDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 AppVerTypeDTO appVerTypeDTO = null;
                 try {
@@ -109,11 +107,7 @@ public class AppVerTypeApplicationService extends AbstractApplicationService imp
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return appVerTypeDTO;
-            }).collect(Collectors.toList()));
-            appVerTypeDTOList = appVerTypeDTOList.stream().collect(
-                    Collectors.groupingBy(AppVerTypeDTO::getVerificationTypeId, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(AppVerTypeDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);

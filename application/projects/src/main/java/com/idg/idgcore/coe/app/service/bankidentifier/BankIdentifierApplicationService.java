@@ -101,12 +101,8 @@ public class BankIdentifierApplicationService  extends AbstractApplicationServic
         List<BankIdentifierDTO> bankIdentifierDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            bankIdentifierDTOList.addAll(bankIdentifierDomainService.getBankIdentifiers().stream()
-                    .map(entity -> bankIdentifierAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            bankIdentifierDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            bankIdentifierDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 BankIdentifierDTO bankIdentifierDTO = null;
                 try {
@@ -117,11 +113,7 @@ public class BankIdentifierApplicationService  extends AbstractApplicationServic
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return bankIdentifierDTO;
-            }).collect(Collectors.toList()));
-            bankIdentifierDTOList = bankIdentifierDTOList.stream().collect(
-                    Collectors.groupingBy(BankIdentifierDTO::getBankIdentifierCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(BankIdentifierDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

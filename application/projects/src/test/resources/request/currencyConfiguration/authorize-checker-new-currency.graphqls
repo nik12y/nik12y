@@ -1,0 +1,116 @@
+
+mutation {
+  processCurrencyConfiguration(
+    sessionContext: {
+      bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: "rakshit"
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: ["checker"]
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+    }
+    currency: {
+     currencyCode: "TES",
+      currencyName: "Test curr name",
+      isoNumericCode: 111,
+      countryName: "Test country name",
+      countryCode: "TA",
+      locale: "te_TE",
+      alternateCurrencyCode: "TEST",
+      currencySymbol: "$",
+      currencyDescription: "TESD",
+      currencyCategory: "1",
+      decimals: 2,
+      dayDivisor: "Actual/Actual",
+      spotDays: 2,
+      fxNettingDays: 3,
+      settlementDays: 4,
+      calenderId: "TN",
+      beforeFormattingFlag: false,
+      afterFormattingFlag: true,
+      includeSpaceFormattingFlag: true
+     currencyCutOff:{
+      currencyCode: "TES",
+     days: 2,
+      hours: 2,
+      minutes: 2,
+      enableMt101Remit: true,
+      enableMt103Stp: false,
+      indexFlag: true,
+      enableMt202Cov: false,
+      clsCurrencyFlag: true,
+      validateTag50fFlag: true,
+      preferredHoliday1: "Sunday",
+      preferredHoliday2: "Saturday",
+      preferredHoliday3: "Friday",
+      roundingRule: "Truncate",
+      roundingUnit: 0,
+      amountFormatMaskPtt: "B9G999G999G999G999G999G999G999G999D999",
+      euroTransactionCurrency: false,
+      inLegCurrency: "TES",
+      outLegCurrency: "TES",
+      euroCloseFlag: true,
+      creditExchangeLimit: 1.2,
+      debitExchangeLimit: 1.5,
+    }
+       currencyCountryMap:[
+        {
+          currencyCode:"TES",
+          currencyCountryCode:"TA",
+          currencyCountryName:"Test country name"
+        },
+        {
+          currencyCode:"TES",
+          currencyCountryCode:"TB",
+          currencyCountryName:"Test country name"
+        }
+      ],
+      currencyExtraFieldMap:[
+        {
+          currencyCode:"TES",
+          extraFieldName:"UDF_061",
+          extraFieldValue:"UDF_061"
+        },
+        {
+          currencyCode:"TES",
+          extraFieldName:"UDF_62",
+          extraFieldValue:"UDF_62"
+        }
+      ]
+       action: "authorize"
+      status: "new"
+      recordVersion: 1
+    }
+  ) {
+    externalReferenceNumber
+    internalReferenceNumber
+    userReferenceNumber
+    replyCode
+    replyMessage
+    errorCode
+    isErrorToBeOverridden
+    validationErrors {
+      errorCode
+      errorMessage
+      errorMessageParams
+    }
+  }
+}
+

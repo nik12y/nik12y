@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.app.Interaction;
-import com.idg.idgcore.coe.app.config.MappingConfig;
-import com.idg.idgcore.coe.domain.assembler.audit.*;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
@@ -15,8 +13,8 @@ import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.process.IProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.country.ICountryDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
-import com.idg.idgcore.coe.exception.*;
-import com.idg.idgcore.datatypes.exceptions.*;
+import com.idg.idgcore.coe.exception.ExceptionUtil;
+import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.enumerations.core.TransactionMessageType;
@@ -26,38 +24,62 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.Arrays;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.CHECKER;
-import static com.idg.idgcore.coe.common.Constants.DRAFT;
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
-@Service ("countryApplicationService")
+@Service("countryApplicationService")
 public class CountryApplicationService extends AbstractApplicationService
-        implements ICountryApplicationService
-{
+        implements ICountryApplicationService {
     ModelMapper mapper = new ModelMapper();
     @Autowired
     private IProcessConfiguration process;
-    @Autowired
-    private MappingConfig mappingConfig;
     @Autowired
     private IMutationsDomainService mutationsDomainService;
     @Autowired
     private ICountryDomainService countryDomainService;
     @Autowired
     private CountryAssembler countryAssembler;
-    @Autowired
-    private MutationAssembler mutationAssembler;
 
-    public CountryDTO getCountryByCode (SessionContext sessionContext, CountryDTO countryDTO)
+    public List<CountryDTO> searchCountry(SessionContext sessionContext, CountryDTO countryDTO)
+            throws FatalException, JsonProcessingException {
+
+        if (log.isInfoEnabled()) {
+            log.info("In getCountryByCode with parameters sessionContext {}, countryDTO {}",
+                    sessionContext, countryDTO);
+        }
+        TransactionStatus transactionStatus = fetchTransactionStatus();
+        Interaction.begin(sessionContext);
+        prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
+
+        List<CountryDTO> result = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<MutationEntity> entities = mutationsDomainService.findByTaskCodeAndTaskIdentifierStartsWith(countryDTO.getTaskCode(), countryDTO.getTaskIdentifier());
+            result = entities.stream().map(entity -> {
+                String data = entity.getPayload().getData();
+                CountryDTO dto = null;
+                try {
+                    dto = objectMapper.readValue(data, CountryDTO.class);
+                    dto = countryAssembler.setAuditFields(entity, dto);
+                } catch (JsonProcessingException e) {
+                    ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                }
+                return dto;
+            }).toList();
+            fillTransactionStatus(transactionStatus);
+        } catch (Exception exception) {
+            fillTransactionStatus(transactionStatus, exception);
+        } finally {
+            Interaction.close();
+        }
+        return result;
+    }
+
+    public CountryDTO getCountryByCode(SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
             log.info("In getCountryByCode with parameters sessionContext {}, countryDTO {}",
@@ -72,30 +94,27 @@ public class CountryApplicationService extends AbstractApplicationService
                 CountryEntity countryEntity = countryDomainService.getCountryByCode(
                         countryDTO.getCountryCode());
                 result = countryAssembler.convertEntityToDto(countryEntity);
-            }
-            else {
+            } else {
                 MutationEntity mutationEntity = mutationsDomainService.getConfigurationByCode(
                         countryDTO.getTaskIdentifier());
                 ObjectMapper objectMapper = new ObjectMapper();
                 PayloadDTO payload = mapper.map(mutationEntity.getPayload(), PayloadDTO.class);
                 result = objectMapper.readValue(payload.getData(), CountryDTO.class);
-                result = countryAssembler.setAuditFields(mutationEntity,result);
+                result = countryAssembler.setAuditFields(mutationEntity, result);
                 fillTransactionStatus(transactionStatus);
             }
-        }
-        catch (JsonProcessingException jpe) {
+        } catch (JsonProcessingException jpe) {
             ExceptionUtil.handleException(JSON_PARSING_ERROR);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
-        }
-        finally {
+        } finally {
             Interaction.close();
         }
         return result;
     }
 
-    public List<CountryDTO> getCountries (SessionContext sessionContext) throws FatalException {
+
+    public List<CountryDTO> getCountries(SessionContext sessionContext) throws FatalException {
         if (log.isInfoEnabled()) {
             log.info("In getCountries with parameters sessionContext {}", sessionContext);
         }
@@ -104,34 +123,29 @@ public class CountryApplicationService extends AbstractApplicationService
         prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
         ObjectMapper objectMapper = new ObjectMapper();
         List<CountryDTO> countryDTOList = new ArrayList<>();
-
         try {
-            List<MutationEntity> entities = mutationsDomainService.getMutations(
-                    getTaskCode());
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
             countryDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 CountryDTO countryDTO = null;
                 try {
                     countryDTO = objectMapper.readValue(data, CountryDTO.class);
-                    countryDTO = countryAssembler.setAuditFields(entity,countryDTO);
-                }
-                catch (JsonProcessingException e) {
+                    countryDTO = countryAssembler.setAuditFields(entity, countryDTO);
+                } catch (JsonProcessingException e) {
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return countryDTO;
             }).toList());
             fillTransactionStatus(transactionStatus);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
-        }
-        finally {
+        } finally {
             Interaction.close();
         }
         return countryDTOList;
     }
 
-    public TransactionStatus processCountry (SessionContext sessionContext, CountryDTO countryDTO)
+    public TransactionStatus processCountry(SessionContext sessionContext, CountryDTO countryDTO)
             throws FatalException {
         if (log.isInfoEnabled()) {
             log.info("In processCountry with parameters sessionContext {}, countryDTO {}",
@@ -143,14 +157,11 @@ public class CountryApplicationService extends AbstractApplicationService
             prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
             process.process(countryDTO);
             fillTransactionStatus(transactionStatus);
-        }
-        catch (FatalException fatalException) {
+        } catch (FatalException fatalException) {
             fillTransactionStatus(transactionStatus, fatalException);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);
-        }
-        finally {
+        } finally {
             if (!Interaction.isLastInteraction()) {
                 Interaction.close();
             }
@@ -159,28 +170,28 @@ public class CountryApplicationService extends AbstractApplicationService
     }
 
     @Override
-    public void addUpdateRecord (String data) throws JsonProcessingException {
+    public void addUpdateRecord(String data) throws JsonProcessingException {
         ObjectMapper objMapper = new ObjectMapper();
         CountryDTO countryDTO = objMapper.readValue(data, CountryDTO.class);
         save(countryDTO);
     }
 
     @Override
-    public CoreEngineBaseDTO getConfigurationByCode (String code) {
+    public CoreEngineBaseDTO getConfigurationByCode(String code) {
         return countryAssembler.convertEntityToDto(countryDomainService.getCountryByCode(code));
     }
 
     @Override
-    public void save (CountryDTO countryDTO) {
+    public void save(CountryDTO countryDTO) {
         countryDomainService.save(countryDTO);
     }
 
-    private boolean isAuthorized (final String authorized) {
+    private boolean isAuthorized(final String authorized) {
         Predicate<String> isAuthorized = s -> s.equals("Y");
         return isAuthorized.test(authorized);
     }
 
-    private String getTaskCode () {
+    private String getTaskCode() {
         return CountryDTO.builder().build().getTaskCode();
     }
 

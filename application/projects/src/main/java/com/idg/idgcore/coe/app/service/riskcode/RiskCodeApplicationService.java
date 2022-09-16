@@ -1,6 +1,5 @@
 package com.idg.idgcore.coe.app.service.riskcode;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
@@ -156,12 +155,10 @@ public class RiskCodeApplicationService extends AbstractApplicationService
         List<RiskCodeDTO> riskcodeDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            riskcodeDTOList.addAll(riskCodeDomainService.getRiskCodes().stream()
-                    .map(entity -> riskCodeAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            riskcodeDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+
+            riskcodeDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 RiskCodeDTO riskCodeDTO = null;
                 try {
@@ -172,11 +169,8 @@ public class RiskCodeApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return riskCodeDTO;
-            }).collect(Collectors.toList()));
-            riskcodeDTOList = riskcodeDTOList.stream().collect(
-                    Collectors.groupingBy(RiskCodeDTO::getRiskCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(RiskCodeDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

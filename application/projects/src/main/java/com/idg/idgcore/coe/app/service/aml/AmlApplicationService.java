@@ -102,12 +102,10 @@ public class AmlApplicationService extends AbstractApplicationService
         List<AmlDTO> amlDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            amlDTOList.addAll(amlDomainService.getAmls().stream()
-                    .map(entity -> amlAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            amlDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+
+            amlDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 AmlDTO amlDTO = null;
                 try {
@@ -118,11 +116,7 @@ public class AmlApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return amlDTO;
-            }).collect(Collectors.toList()));
-            amlDTOList = amlDTOList.stream().collect(
-                    Collectors.groupingBy(AmlDTO::getProductCategory, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(AmlDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

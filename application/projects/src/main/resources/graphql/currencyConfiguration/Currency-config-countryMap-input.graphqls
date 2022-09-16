@@ -1,0 +1,6 @@
+input CurrencyCountryMapRequest{
+         currencyCode : String! @Size(min: 3, max: 3, message: "currencyCode.message") @Pattern(regexp: "[A-Z]+",message: "Currency code should be uppercase alphabet of size 3")
+         currencyCountryCode : String @Size(min: 2, max: 2, message: "currencyCountryCode.message") @Pattern(regexp: "[A-Z]+",message: "Country code should be uppercase alphabet of size 2")
+         currencyCountryName : String @Size(min: 1, max: 35, message: "currencyCountryName.message") @Pattern(regexp: "[A-Za-z ]+",message: "Country name should be uppercase or lowercase alphabet of size up to 35")
+
+}
