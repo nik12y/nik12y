@@ -31,8 +31,11 @@ mutation{
             currency2 : "RIY"
             currency2Name : "Riyal"
             entityType : "MarketEntity"
+            entityLevel : 1
             entityCode : "ME40"
-            countryCode : "EU"
+            entityName: "MarketEntity40"
+            countryCode : "IN"
+            countryName: "India"
             throughCurrency : false
             throughCurrencyCode : "USD"
             throughCurrencyDescription : "Dollar"

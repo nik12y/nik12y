@@ -30,8 +30,11 @@ query{
         currency2
         currency2Name
         entityType
+        entityLevel
         entityCode
+        entityName
         countryCode
+        countryName
         throughCurrency
         throughCurrencyCode
         throughCurrencyDescription

@@ -26,6 +26,10 @@ query{
         },
         currencyPairQuery:{
             pairId : 1
+            currency1 : "EUR"
+            currency2 : "RIY"
+            entityType : "MarketEntity"
+            entityCode : "ME40"
             authorized: "Y"
         }
     )
@@ -36,8 +40,11 @@ query{
         currency2
         currency2Name
         entityType
+        entityLevel
         entityCode
+        entityName
         countryCode
+        countryName
         throughCurrency
         throughCurrencyCode
         throughCurrencyDescription
