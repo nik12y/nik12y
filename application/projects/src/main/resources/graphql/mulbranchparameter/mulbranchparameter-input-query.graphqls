@@ -1,0 +1,4 @@
+input MulBranchParameterInputQuery{
+    branchParamId: Int
+    authorized: String!
+}

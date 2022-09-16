@@ -7,10 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import static com.idg.idgcore.coe.common.Constants.*;
-import static com.idg.idgcore.coe.common.Constants.AMOUNT_IN_WORDS;
-import static com.idg.idgcore.coe.common.Constants.AMOUNT_IN_WORDS_SERVICE;
-import static com.idg.idgcore.coe.common.Constants.CURRENCY;
-import static com.idg.idgcore.coe.common.Constants.CURRENCY_SERVICE;
+import static com.idg.idgcore.coe.common.Constants.CURR_BRANCH_PARAM_SERVICE;
 
 @Configuration
 public class ServiceBeanConfig {
@@ -58,6 +55,7 @@ public class ServiceBeanConfig {
         beanMappings.put(CURRENCY_RATE_TYPE, CURRENCY_RATE_TYPE_SERVICE);
         beanMappings.put(CURRENCY, CURRENCY_SERVICE);
         beanMappings.put(AMOUNT_IN_WORDS, AMOUNT_IN_WORDS_SERVICE);
+        beanMappings.put(CURR_BRANCH_PARAM, CURR_BRANCH_PARAM_SERVICE);
 
     }
 

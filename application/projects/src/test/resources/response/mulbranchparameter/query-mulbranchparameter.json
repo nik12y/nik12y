@@ -1,0 +1,34 @@
+{
+  "data": {
+    "getMulBranchParameters": [
+      {
+        "currencyCode": "USD",
+        "entityCode": "BR0076",
+        "spotDays": 232,
+        "generationOfPaymentMessage": 12,
+        "generationOfReceiveMessages": 45
+      },
+      {
+        "currencyCode": "USD",
+        "entityCode": "BR0023",
+        "spotDays": 23,
+        "generationOfPaymentMessage": 12,
+        "generationOfReceiveMessages": 45
+      },
+      {
+        "currencyCode": "USD",
+        "entityCode": "BR001",
+        "spotDays": 23,
+        "generationOfPaymentMessage": 12,
+        "generationOfReceiveMessages": 45
+      },
+      {
+        "currencyCode": "USD",
+        "entityCode": "BR001",
+        "spotDays": 23,
+        "generationOfPaymentMessage": 12,
+        "generationOfReceiveMessages": 45
+      }
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+type MulBranchParameterQuery{
+    branchParamId: Int
+    authorized : String!
+}

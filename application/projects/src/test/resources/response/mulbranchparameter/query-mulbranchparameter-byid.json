@@ -1,0 +1,11 @@
+{
+  "data": {
+    "getMulBranchParameterById": {
+      "currencyCode": "USD",
+      "entityCode": "BR0023",
+      "spotDays": 23,
+      "generationOfPaymentMessage": 12,
+      "generationOfReceiveMessages": 45
+    }
+  }
+}

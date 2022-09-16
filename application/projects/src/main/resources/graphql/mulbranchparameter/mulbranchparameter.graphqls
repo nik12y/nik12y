@@ -1,0 +1,17 @@
+type MulBranchParameter{
+    branchParamId: Int
+    currencyCode:String!
+    entityCode:String!
+    spotDays: Int
+    generationOfPaymentMessage : Int
+    generationOfReceiveMessages: Int
+    recordVersion : Int!
+    status : String!
+    authorized: String
+    action : String!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+
+}
