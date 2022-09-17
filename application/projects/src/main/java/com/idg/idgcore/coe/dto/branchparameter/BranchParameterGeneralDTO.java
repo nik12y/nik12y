@@ -18,5 +18,6 @@ public class BranchParameterGeneralDTO {
     private String generalRegionalOfficeCode;
     private String generalRegionalOfficeName;
     private String generalCutOffTime;
+    private String isHeadZoneRegionalOffice;
 
 }
