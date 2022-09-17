@@ -110,7 +110,7 @@ public class MutationsDomainService implements IMutationsDomainService {
         }
         List<MutationEntity> mutationEntity = null;
         try {
-            mutationEntity = mutationRepository.findByTaskCodeAndTaskIdentifierStartsWith(taskCode, taskIdentifier);
+            mutationEntity = mutationRepository.findByTaskCodeAndTaskIdentifierContaining(taskCode, taskIdentifier);
         }
         catch (Exception e) {
             if (log.isErrorEnabled()) {

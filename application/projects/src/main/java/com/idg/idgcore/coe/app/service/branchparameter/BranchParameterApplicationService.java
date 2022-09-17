@@ -24,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -54,6 +53,44 @@ public class BranchParameterApplicationService extends AbstractApplicationServic
     private BranchParameterAssembler branchParameterAssembler;
     @Autowired
     private MutationAssembler mutationAssembler;
+
+    public List<BranchParameterDTO> searchBranchParameter(SessionContext sessionContext, BranchParameterDTO branchParameterDTO)
+            throws FatalException, JsonProcessingException {
+
+        if (log.isInfoEnabled()) {
+            log.info("In searchBranchParameter with parameters sessionContext {}, branchParameterDTO {}",
+                    sessionContext, branchParameterDTO);
+        }
+        TransactionStatus transactionStatus = fetchTransactionStatus();
+        Interaction.begin(sessionContext);
+        prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
+
+        List<BranchParameterDTO> result = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<MutationEntity> entities = mutationsDomainService.findByTaskCodeAndTaskIdentifierStartsWith(branchParameterDTO.getTaskCode(), branchParameterDTO.getTaskIdentifier());
+            result = entities.stream().map(entity -> {
+                String data = entity.getPayload().getData();
+                BranchParameterDTO dto = null;
+                try {
+                    dto = objectMapper.readValue(data, BranchParameterDTO.class);
+                    dto = branchParameterAssembler.setAuditFields(entity, dto);
+                } catch (JsonProcessingException e) {
+                    ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                }
+                return dto;
+            }).toList();
+            fillTransactionStatus(transactionStatus);
+        } catch (Exception exception) {
+            fillTransactionStatus(transactionStatus, exception);
+        } finally {
+            Interaction.close();
+        }
+        if (log.isInfoEnabled()) {
+            log.info("RETURNING searchBranchParameter with {}", result);
+        }
+        return result;
+    }
 
     public BranchParameterDTO getBranchParameterByBranchCode (SessionContext sessionContext,
             BranchParameterDTO branchParameterDTO)

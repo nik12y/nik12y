@@ -1,6 +1,5 @@
 package com.idg.idgcore.coe.app.service.bankparameter;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
@@ -25,19 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.Arrays;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.CHECKER;
-import static com.idg.idgcore.coe.common.Constants.DRAFT;
+
+
 import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
 
 @Slf4j
@@ -58,6 +51,48 @@ public class BankParameterApplicationService extends AbstractApplicationService
     private BankParameterAssembler bankParameterAssembler;
     @Autowired
     private MutationAssembler mutationAssembler;
+
+    public List<BankParameterDTO> searchBankParameter (SessionContext sessionContext,
+            BankParameterDTO bankParameterDTO)
+            throws FatalException, JsonProcessingException {
+        if (log.isInfoEnabled()) {
+            log.info(
+                    "In searchBankParameter with parameters sessionContext {}, bankParameterDTO {}",
+                    sessionContext, bankParameterDTO);
+        }
+        TransactionStatus transactionStatus = fetchTransactionStatus();
+        Interaction.begin(sessionContext);
+        prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
+        List<BankParameterDTO> result = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<MutationEntity> entities = mutationsDomainService.findByTaskCodeAndTaskIdentifierStartsWith(
+                    bankParameterDTO.getTaskCode(), bankParameterDTO.getTaskIdentifier());
+            result = entities.stream().map(entity -> {
+                String data = entity.getPayload().getData();
+                BankParameterDTO dto = null;
+                try {
+                    dto = objectMapper.readValue(data, BankParameterDTO.class);
+                    dto = bankParameterAssembler.setAuditFields(entity, dto);
+                }
+                catch (JsonProcessingException e) {
+                    ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                }
+                return dto;
+            }).toList();
+            fillTransactionStatus(transactionStatus);
+        }
+        catch (Exception exception) {
+            fillTransactionStatus(transactionStatus, exception);
+        }
+        finally {
+            Interaction.close();
+        }
+        if (log.isInfoEnabled()) {
+            log.info("RETURNING searchBankParameter with {}", result);
+        }
+        return result;
+    }
 
     public BankParameterDTO getBankParameterByBankCode (SessionContext sessionContext,
             BankParameterDTO bankParameterDTO)
@@ -112,7 +147,6 @@ public class BankParameterApplicationService extends AbstractApplicationService
         try {
             List<MutationEntity> unauthorizedEntities = mutationsDomainService.getMutations(
                     getTaskCode());
-
             bankParameterDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 BankParameterDTO bankParameterDTO = null;
@@ -126,7 +160,6 @@ public class BankParameterApplicationService extends AbstractApplicationService
                 }
                 return bankParameterDTO;
             }).toList());
-
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
