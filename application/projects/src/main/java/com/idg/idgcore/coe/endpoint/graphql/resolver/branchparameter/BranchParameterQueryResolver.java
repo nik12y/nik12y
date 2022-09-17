@@ -27,4 +27,9 @@ public class BranchParameterQueryResolver implements GraphQLQueryResolver {
             throws FatalException {
         return this.branchParameterService.getBranchParameters(sessionContext);
     }
+
+    public List<BranchParameterDTO> searchBranchParameter (SessionContext sessionContext, BranchParameterDTO branchParameterDTO) throws FatalException, JsonProcessingException {
+        return this.branchParameterService.searchBranchParameter(sessionContext, branchParameterDTO);
+    }
+
 }

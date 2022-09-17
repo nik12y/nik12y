@@ -27,4 +27,9 @@ public class BankParameterQueryResolver implements GraphQLQueryResolver {
             throws FatalException {
             return this.bankParameterService.getBankParameters(sessionContext);
     }
+
+    public List<BankParameterDTO> searchBankParameter (SessionContext sessionContext, BankParameterDTO bankParameterDTO) throws FatalException, JsonProcessingException {
+        return this.bankParameterService.searchBankParameter(sessionContext, bankParameterDTO);
+    }
+
 }

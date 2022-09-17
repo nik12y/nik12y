@@ -28,5 +28,8 @@ public interface IFinancialAccountingYearApplicationService extends IBaseApplica
             String branchCode, Date inputDate) throws FatalException;
     FinancialAccountingYearDTO getPeriodCodeDetails (SessionContext sessionContext,
             FinancialAccountingYearDTO dto);
-
+    List<FinancialAccountingYearDTO> searchFinancialAccountingYear (
+            SessionContext sessionContext, FinancialAccountingYearDTO dto)
+            throws FatalException, JsonProcessingException;
+    ;
 }
