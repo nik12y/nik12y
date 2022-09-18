@@ -1,5 +1,5 @@
 query{
-    getFinancialAccountingYearByCode(
+    getFinancialAccountByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
         sessionContext:{
             bankCode: "003"
             defaultBranchCode: "11411"

@@ -34,6 +34,7 @@ public class FinancialAccountingYearPeriodicCodeEntity extends AbstractAuditable
 
     @Column (name = "period_code_closure_status")
     private String periodCodeClosureStatus;
+    @Column (name = "financial_year_closure_status")
     private String financialYearClosureStatus;
 
     @Column (name = "record_status")

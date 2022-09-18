@@ -29,7 +29,7 @@ public interface IFinancialAccountingYearApplicationService extends IBaseApplica
     FinancialAccountingYearDTO getPeriodCodeDetails (SessionContext sessionContext,
             FinancialAccountingYearDTO dto);
     List<FinancialAccountingYearDTO> searchFinancialAccountingYear (
-            SessionContext sessionContext, FinancialAccountingYearDTO dto)
+            SessionContext sessionContext, FinancialAccountingForSearchYearDTO dto)
             throws FatalException, JsonProcessingException;
     ;
 }

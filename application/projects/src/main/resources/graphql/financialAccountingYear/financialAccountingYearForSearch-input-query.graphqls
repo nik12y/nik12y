@@ -1,0 +1,6 @@
+input FinancialAccountingYearForSearchInputQuery {
+
+    bankCode: String!
+
+}
+

@@ -45,7 +45,7 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
     @Autowired private MutationAssembler mutationAssembler;
 
 
-    public List<FinancialAccountingYearDTO> searchFinancialAccountingYear(SessionContext sessionContext, FinancialAccountingYearDTO financialAccountingYearDTO)
+    public List<FinancialAccountingYearDTO> searchFinancialAccountingYear(SessionContext sessionContext, FinancialAccountingForSearchYearDTO financialAccountingYearDTO)
             throws FatalException, JsonProcessingException {
 
         if (log.isInfoEnabled()) {
@@ -59,6 +59,11 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
         List<FinancialAccountingYearDTO> result = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
+            if (log.isInfoEnabled()) {
+                log.info(" TO Call findByTaskCodeAndTaskIdentifierStartsWith({},{})",
+                        financialAccountingYearDTO.getTaskCode(), financialAccountingYearDTO.getTaskIdentifier());
+            }
+
             List<MutationEntity> entities = mutationsDomainService.findByTaskCodeAndTaskIdentifierStartsWith(financialAccountingYearDTO.getTaskCode(), financialAccountingYearDTO.getTaskIdentifier());
             result = entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();

@@ -88,7 +88,7 @@ type Query{
 
     searchBankParameter(sessionContext: SessionContextInput, bankParameterQuery: BankParameterInputQuery): [BankParameter]
     searchBranchParameter(sessionContext: SessionContextInput, branchParameterQuery: BranchParameterInputQuery): [BranchParameter]
-#    searchFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearInputQuery): [FinancialAccountingYear]
+   searchFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYearForSearch: FinancialAccountingYearForSearchInputQuery): [FinancialAccountingYear]
 
 }
 
