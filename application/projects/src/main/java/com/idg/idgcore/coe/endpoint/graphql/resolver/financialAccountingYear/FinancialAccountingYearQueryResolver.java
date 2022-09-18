@@ -42,7 +42,7 @@ public class FinancialAccountingYearQueryResolver implements GraphQLQueryResolve
         return this.appService.getPeriodCodeDetails(sessionContext, dto);
     }
 
-    public List<FinancialAccountingYearDTO> searchFinancialAccountingYear (SessionContext sessionContext, FinancialAccountingYearDTO financialAccountingYearDTO) throws FatalException, JsonProcessingException {
+    public List<FinancialAccountingYearDTO> searchFinancialAccountingYear (SessionContext sessionContext, FinancialAccountingForSearchYearDTO financialAccountingYearDTO) throws FatalException, JsonProcessingException {
         return this.appService.searchFinancialAccountingYear(sessionContext, financialAccountingYearDTO);
     }
 

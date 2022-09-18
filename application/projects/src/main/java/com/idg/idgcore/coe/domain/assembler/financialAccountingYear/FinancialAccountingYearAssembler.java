@@ -3,6 +3,7 @@ package com.idg.idgcore.coe.domain.assembler.financialAccountingYear;
 import com.idg.idgcore.coe.domain.entity.financialAccountingYear.*;
 import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
+import lombok.extern.slf4j.*;
 import org.modelmapper.*;
 import org.modelmapper.convention.*;
 import org.springframework.stereotype.*;
@@ -12,8 +13,8 @@ import java.text.*;
 import java.time.*;
 import java.time.temporal.*;
 import java.util.*;
-import java.util.stream.*;
 
+@Slf4j
 @Component
 public class FinancialAccountingYearAssembler {
     private final ModelMapper modelMapper = new ModelMapper();
@@ -26,6 +27,11 @@ public class FinancialAccountingYearAssembler {
     }
 
     public FinancialAccountingYearEntity convertDtoToEntity (FinancialAccountingYearDTO inputDTO) {
+        if (log.isInfoEnabled()) {
+            log.info(
+                    "In convertDtoToEntity with {}",
+                    inputDTO);
+        }
         FinancialAccountingYearEntity outEntity = modelMapper.map(inputDTO,
                 FinancialAccountingYearEntity.class);
         List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = inputDTO.getFinancialAccountingYearPeriodicCode();
@@ -45,6 +51,12 @@ public class FinancialAccountingYearAssembler {
             return map;
         }).toList());
         outEntity.setFinancialAccountingYearPeriodicCode(periodEntityList);
+
+        if (log.isInfoEnabled()) {
+            log.info(
+                    " Leaving  convertDtoToEntity with {}",
+                    outEntity);
+        }
         return outEntity;
     }
 
