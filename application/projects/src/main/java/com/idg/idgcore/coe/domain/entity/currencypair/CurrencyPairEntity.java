@@ -5,15 +5,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "IDGC_MCY_CNFG_CURRENCY_PAIR")
+@Table(name = "idgc_mcy_cnfg_currency_pair")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
 public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements Serializable {
@@ -26,20 +24,32 @@ public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements
     @Column(name = "currency_1")
     private String currency1;
 
-    @Column(name = "currency_1_description")
-    private String currency1Description;
+    @Column(name = "currency_1_name")
+    private String currency1Name;
 
     @Column(name = "currency_2")
     private String currency2;
 
-    @Column(name = "currency_2_description")
-    private String currency2Description;
+    @Column(name = "currency_2_name")
+    private String currency2Name;
 
-    @Column(name = "entity_code_type")
-    private String entityCodeType;
+    @Column(name = "entity_type")
+    private String entityType;
+
+    @Column(name = "entity_level")
+    private Integer entityLevel;
+
+    @Column(name = "entity_code")
+    private String entityCode;
+
+    @Column(name = "entity_name")
+    private String entityName;
 
     @Column(name = "country_code")
     private String countryCode;
+
+    @Column(name = "country_name")
+    private String countryName;
 
     @Column(name = "through_currency")
     private char throughCurrency;
@@ -80,7 +90,4 @@ public class CurrencyPairEntity extends AbstractAuditableDomainEntity implements
     @Column(name = "last_configuration_action")
     private String lastConfigurationAction;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "pair_id")
-    private List<CurrencyPairConfigEntity> currencyPairConfigEntityList = new ArrayList<>();
 }

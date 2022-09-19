@@ -14,4 +14,6 @@ public interface ICurrencyPairDomainService {
     CurrencyPairEntity getCurrencyPairById(Integer pairId);
 
     void save(CurrencyPairDTO currencyPairDTO);
+
+    CurrencyPairEntity getByCurrency1AndCurrency2AndEntityTypeAndEntityCode (String currency1, String currency2, String entityType, String entityCode);
 }

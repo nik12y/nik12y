@@ -44,6 +44,51 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
     @Autowired private FinancialAccountingYearAssembler assembler;
     @Autowired private MutationAssembler mutationAssembler;
 
+
+    public List<FinancialAccountingYearDTO> searchFinancialAccountingYear(SessionContext sessionContext, FinancialAccountingForSearchYearDTO financialAccountingYearDTO)
+            throws FatalException, JsonProcessingException {
+
+        if (log.isInfoEnabled()) {
+            log.info("In searchFinancialAccountingYear with parameters sessionContext {}, financialAccountingYearDTO {}",
+                    sessionContext, financialAccountingYearDTO);
+        }
+        TransactionStatus transactionStatus = fetchTransactionStatus();
+        Interaction.begin(sessionContext);
+        prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
+
+        List<FinancialAccountingYearDTO> result = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            if (log.isInfoEnabled()) {
+                log.info(" TO Call findByTaskCodeAndTaskIdentifierStartsWith({},{})",
+                        financialAccountingYearDTO.getTaskCode(), financialAccountingYearDTO.getTaskIdentifier());
+            }
+
+            List<MutationEntity> entities = mutationsDomainService.findByTaskCodeAndTaskIdentifierStartsWith(financialAccountingYearDTO.getTaskCode(), financialAccountingYearDTO.getTaskIdentifier());
+            result = entities.stream().map(entity -> {
+                String data = entity.getPayload().getData();
+                FinancialAccountingYearDTO dto = null;
+                try {
+                    dto = objectMapper.readValue(data, FinancialAccountingYearDTO.class);
+                    dto = assembler.setAuditFields(entity, dto);
+                } catch (JsonProcessingException e) {
+                    ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                }
+                return dto;
+            }).toList();
+            fillTransactionStatus(transactionStatus);
+        } catch (Exception exception) {
+            fillTransactionStatus(transactionStatus, exception);
+        } finally {
+            Interaction.close();
+        }
+        if (log.isInfoEnabled()) {
+            log.info("RETURNING searchFinancialAccountingYear with {}", result);
+        }
+        return result;
+    }
+
+
     public FinancialAccountingYearDTO getFinancialAccountingYearByCode (
             SessionContext sessionContext, FinancialAccountingYearDTO dto) throws FatalException {
         if (log.isInfoEnabled()) {

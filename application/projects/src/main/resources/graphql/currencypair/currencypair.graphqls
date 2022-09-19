@@ -1,11 +1,15 @@
 type CurrencyPair {
-    pairId: Int!
+    pairId: Int
     currency1 : String!
-    currency1Description : String
+    currency1Name : String
     currency2: String!
-    currency2Description : String
-    entityCodeType : String!
+    currency2Name : String
+    entityType : String!
+    entityLevel : Int!
+    entityCode : String!
+    entityName : String!
     countryCode : String!
+    countryName : String!
     throughCurrency : Boolean
     throughCurrencyCode : String
     throughCurrencyDescription : String
@@ -13,7 +17,6 @@ type CurrencyPair {
     pointMultiplier : Float!
     quotationMethods : Boolean!
     spreadDefinition : Boolean!
-    currencyPairConfigDTOList: [CurrencyPairConfig]
     recordVersion : Int!
     status : String!
     authorized: String
@@ -22,5 +25,4 @@ type CurrencyPair {
     creationTime: String
     lastUpdatedBy: String
     lastUpdatedTime: String
-
 }

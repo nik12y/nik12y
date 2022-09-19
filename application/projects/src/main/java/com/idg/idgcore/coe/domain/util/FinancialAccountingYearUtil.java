@@ -16,8 +16,8 @@ import static com.idg.idgcore.coe.common.Constants.QUARTERLY;
 import static com.idg.idgcore.coe.common.Constants.YEARLY;
 
 public class FinancialAccountingYearUtil {
-    public List<FinancialAccountingYearPeriodicCodeDTO> getMonthlyPeriodCodeDetails (String strDate
-    ) {
+    public List<FinancialAccountingYearPeriodicCodeDTO> getMonthlyPeriodCodeDetails (
+            String strDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
         LocalDate localDate = LocalDate.parse(strDate, formatter);
         List periodicCodeDTOSList = new ArrayList<FinancialAccountingYearPeriodicCodeDTO>();
@@ -38,7 +38,7 @@ public class FinancialAccountingYearUtil {
                 localDate = localDate.plusDays((dayOfMonth));
                 /**
                  */
-                financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode);
+                financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode.substring(0, 3));
                 financialAccountingYearPeriodicCodeDTO.setStartDateAccountingPeriod(
                         periodCodeStartDate);
                 financialAccountingYearPeriodicCodeDTO.setEndDateAccountingPeriod(
@@ -81,7 +81,7 @@ public class FinancialAccountingYearUtil {
                     periodCodeEndDate = localDate.plusDays(dayOfMonth - 1).toString();
                     /**
                      */
-                    financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode);
+                    financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode.substring(0,3));
                     financialAccountingYearPeriodicCodeDTO.setStartDateAccountingPeriod(
                             periodCodeStartDate);
                     financialAccountingYearPeriodicCodeDTO.setEndDateAccountingPeriod(
@@ -134,7 +134,7 @@ public class FinancialAccountingYearUtil {
                 if (count == 1) {
                     dayOfMonth = localDate.with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth();
                     periodCodeEndDate = localDate.plusDays(dayOfMonth - 1).toString();
-                    financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode);
+                    financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode.substring(0,3));
                     financialAccountingYearPeriodicCodeDTO.setStartDateAccountingPeriod(
                             periodCodeStartDate);
                     financialAccountingYearPeriodicCodeDTO.setEndDateAccountingPeriod(
@@ -182,13 +182,11 @@ public class FinancialAccountingYearUtil {
             String periodCodeEndDate = null;
             for (int i = 1; i <= 12; i++) {
                 FinancialAccountingYearPeriodicCodeDTO financialAccountingYearPeriodicCodeDTO = new FinancialAccountingYearPeriodicCodeDTO();
-
                 if (count == 2) {
                     //                            periodCodeEndDate = localDate.plusDays(toadd - 1).toString();
                     dayOfMonth = localDate.with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth();
                     periodCodeEndDate = localDate.plusDays(dayOfMonth - 1).toString();
-
-                    financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode);
+                    financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode.substring(0,3));
                     financialAccountingYearPeriodicCodeDTO.setStartDateAccountingPeriod(
                             periodCodeStartDate);
                     financialAccountingYearPeriodicCodeDTO.setEndDateAccountingPeriod(
@@ -236,7 +234,7 @@ public class FinancialAccountingYearUtil {
                 periodCodeEndDate = localDate.plusDays(dayOfMonth - 1).toString();
                 localDate = localDate.plusDays((dayOfMonth));
             }
-            financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode);
+            financialAccountingYearPeriodicCodeDTO.setPeriodCode(periodCode.substring(0,3));
             financialAccountingYearPeriodicCodeDTO.setStartDateAccountingPeriod(
                     periodCodeStartDate);
             financialAccountingYearPeriodicCodeDTO.setEndDateAccountingPeriod(

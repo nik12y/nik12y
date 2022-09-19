@@ -30,4 +30,6 @@ public class BranchParameterGeneralEntity implements Serializable {
     private String generalRegionalOfficeName;
     @Column (name="general_cut_off_time")
     private String generalCutOffTime;
+    @Column (name="is_head_zone_regional_office")
+    private String isHeadZoneRegionalOffice;
 }

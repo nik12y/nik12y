@@ -10,12 +10,16 @@ import com.idg.idgcore.coe.dto.branchparameter.BranchParameterDTO;
 import java.util.*;
 
 public interface IBranchParameterApplicationService extends IBaseApplicationService {
-    TransactionStatus processBranchParameter(SessionContext sessionContext, BranchParameterDTO dto) throws FatalException,
+    TransactionStatus processBranchParameter (SessionContext sessionContext, BranchParameterDTO dto)
+            throws FatalException,
             JsonProcessingException;
     void save (BranchParameterDTO bankParameterDTO);
-    BranchParameterDTO getBranchParameterByBranchCode (SessionContext sessionContext, BranchParameterDTO branchParameterDTO)
+    BranchParameterDTO getBranchParameterByBranchCode (SessionContext sessionContext,
+            BranchParameterDTO branchParameterDTO)
             throws FatalException, JsonProcessingException;
-    List<BranchParameterDTO> getBranchParameters(SessionContext sessionContext)
+    List<BranchParameterDTO> getBranchParameters (SessionContext sessionContext)
             throws FatalException;
+    List<BranchParameterDTO> searchBranchParameter (SessionContext sessionContext,
+            BranchParameterDTO branchParameterDTO) throws FatalException, JsonProcessingException;
 
 }

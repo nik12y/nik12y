@@ -1,9 +1,0 @@
-input CurrencyPairConfigInput {
-#    pairConfigId : Int! @Range(min : 1, max : 9999, message : "pairConfigId.message")
-#    pairId: Int! @Range(min : 1, max : 9999, message : "pairId.message")
-    entityCode : String! @Size(min: 1, max: 20, message: "entityCode.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,10}",message: "entityCode Invalid pattern")
-    createdBy: String
-    creationTime: String
-    lastUpdatedBy: String
-    lastUpdatedTime: String
-}

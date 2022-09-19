@@ -1,0 +1,24 @@
+{
+  "data": {
+    "getCurrencyPairById": {
+      "pairId": 1,
+      "currency1": "DIR",
+      "currency1Name": "Diram",
+      "currency2": "EUR",
+      "currency2Name": "Euro",
+      "entityType": "BusinessEntity",
+      "entityLevel": 1,
+      "entityCode" : "BE001",
+      "entityName" : "BusinessEntity1",
+      "countryCode": "IN",
+      "countryName" : "India",
+      "throughCurrency": false,
+      "throughCurrencyCode": "USD",
+      "throughCurrencyDescription": "Dollar",
+      "noofunits": 1,
+      "pointMultiplier": 0.5,
+      "quotationMethods": false,
+      "spreadDefinition": false
+    }
+  }
+}

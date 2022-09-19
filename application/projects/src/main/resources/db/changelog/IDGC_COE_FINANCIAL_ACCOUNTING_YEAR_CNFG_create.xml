@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="idgc_coe_financial_accounting_year_cnfg" author="PreetiS">
+    <changeSet id="IDGC_COE_FINANCIAL_ACCOUNTING_YEAR_CNFG_create" author="PreetiS">
 
         <createTable tableName="idgc_coe_financial_accounting_year_cnfg"
                      remarks="A table to contain all the financial accounting year ">
@@ -91,7 +91,8 @@
             <column name="financial_accounting_year_code" type="varchar(6)">
             </column>
 
-            <column name="period_code" type="varchar(2)">
+            <column name="period_code" type="varchar(3)">
+                <constraints nullable="false"/>
             </column>
 
             <column name="start_date_accounting_period" type="date">
@@ -99,6 +100,28 @@
             </column>
 
             <column name="end_date_accounting_period" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="period_code_closure_status" type="varchar(6)">
+            </column>
+
+            <column name="financial_year_closure_status" type="varchar(6)">
+            </column>
+
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
 

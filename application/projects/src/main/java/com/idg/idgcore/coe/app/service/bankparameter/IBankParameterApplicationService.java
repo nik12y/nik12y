@@ -17,5 +17,7 @@ public interface IBankParameterApplicationService extends IBaseApplicationServic
             throws FatalException, JsonProcessingException;
     List<BankParameterDTO> getBankParameters(SessionContext sessionContext)
             throws FatalException;
-
+    List<BankParameterDTO> searchBankParameter (SessionContext sessionContext,
+            BankParameterDTO bankParameterDTO)
+            throws FatalException, JsonProcessingException;
 }
