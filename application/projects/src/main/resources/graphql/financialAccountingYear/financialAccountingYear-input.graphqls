@@ -9,8 +9,13 @@ input FinancialAccountingYearInput {
     periodCodeFrequency : String!
 
     financialAccountingYearPeriodicCode : [FinancialAccountingYearPeriodCodeInput]
+
     action : String!
     status : String!
-    recordVersion : Int
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
 
 }
