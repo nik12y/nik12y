@@ -1,5 +1,5 @@
 query{
-    getMulBranchParameterById(
+    getMulBranchParameterByCurrencyAndEntityCode(
         sessionContext:{
             bankCode: "05"
             defaultBranchCode: "1392"

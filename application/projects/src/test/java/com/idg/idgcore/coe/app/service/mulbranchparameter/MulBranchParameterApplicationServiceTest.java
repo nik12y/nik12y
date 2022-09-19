@@ -3,6 +3,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.coe.domain.assembler.mulbranchparameter.MulBranchParameterAssembler;
+import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntity;
 import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntityKey;
 import com.idg.idgcore.coe.domain.entity.language.LanguageEntityKey;
 import com.idg.idgcore.coe.domain.entity.mulbranchparameter.MulBranchParameterEntity;
@@ -13,6 +14,7 @@ import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.mulbranchparameter.IMulBranchParameterDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
+import com.idg.idgcore.coe.dto.financialAccountingYear.FinancialAccountingYearDTO;
 import com.idg.idgcore.coe.dto.language.LanguageDTO;
 import com.idg.idgcore.coe.dto.mulbranchparameter.MulBranchParameterDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
@@ -365,6 +367,7 @@ public class MulBranchParameterApplicationServiceTest {
         mutationEntity2.setLastConfigurationAction("unauthorized");
         return mutationEntity2;
     }
+
     @Test
     @DisplayName("JUnit for getBranchParameters in application service for try block")
     void getBranchParametersTryBlock() throws FatalException {
@@ -373,6 +376,25 @@ public class MulBranchParameterApplicationServiceTest {
         List<MulBranchParameterDTO> mulBranchParameterDTOList =
                 mulBranchParameterApplicationService.getMulBranchParameters(sessionContext);
         assertThat(mulBranchParameterDTOList).isNotNull();
+    }
+    @Test
+    @DisplayName("JUnit for getByCurrencyCodeAndEntityCode in application service check Parameter not null")
+    void getByCurrencyCodeAndEntityCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
+        MulBranchParameterDTO mulBranchParameterDTOnull=null;
+        MulBranchParameterDTO mulBranchParameterDTOEx=new MulBranchParameterDTO();
+        mulBranchParameterDTOEx.setCurrencyCode("INR");
+        mulBranchParameterDTOEx.setEntityCode("BR001");
+        mulBranchParameterDTOEx.setAuthorized("Y");
+
+        MulBranchParameterEntityKey mulBranchParameterEntityKey = new MulBranchParameterEntityKey();
+        mulBranchParameterEntityKey.setCurrencyCode("INR");
+        mulBranchParameterEntityKey.setEntityCode("BR001");
+
+        given(mulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(mulBranchParameterDTOEx.getCurrencyCode(),mulBranchParameterDTOEx.getEntityCode())).willReturn(mulBranchParameterEntity);
+        given(mulBranchParameterAssembler.convertEntityToDto(mulBranchParameterEntity)).willReturn(mulBranchParameterDTO);
+        MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCode(sessionContext, mulBranchParameterDTOEx);
+        assertThat(mulBranchParameterDTOEx.getCurrencyCode()).isNotBlank();
+        assertThat(mulBranchParameterDTOEx.getAuthorized()).isNotBlank();
     }
 
     @Test
@@ -417,5 +439,15 @@ public class MulBranchParameterApplicationServiceTest {
             assertThat(mulBranchParameterDTO1).isNotNull();
         });
     }
+    @Test
+    @DisplayName("JUnit for proccessMulBranchParameter  in application service for Catch Block")
+    void proccessMulBranchParameterForCatchBlock() throws FatalException {
+        SessionContext sessionContext2=null;
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class,()-> {
+            mulBranchParameterApplicationService.processMulBranchParameter(sessionContext2, mulBranchParameterDTO);
+            assertThat(mulBranchParameterDTO).descriptionText();
+        });
+    }
+
 
 }

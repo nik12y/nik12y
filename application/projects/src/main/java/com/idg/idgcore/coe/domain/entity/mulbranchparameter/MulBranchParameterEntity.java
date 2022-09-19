@@ -1,9 +1,5 @@
 package com.idg.idgcore.coe.domain.entity.mulbranchparameter;
 
-
-import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairConfigEntity;
-import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairEntity;
-import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntityKey;
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
 import lombok.*;
 

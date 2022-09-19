@@ -2,8 +2,6 @@ package com.idg.idgcore.coe.dto.mulbranchparameter;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
-import com.idg.idgcore.coe.dto.currencypair.CurrencyPairConfigDTO;
-import com.idg.idgcore.coe.dto.currencypair.CurrencyPairDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
