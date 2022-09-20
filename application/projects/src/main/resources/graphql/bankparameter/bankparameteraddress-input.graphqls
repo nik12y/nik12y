@@ -1,8 +1,8 @@
 input BankParameterAddressInput {
-    bankAddress1: String @Size(min: 0, max: 100, message: "bankAddress1.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Bank Address 1 is Invalid pattern.")
-    bankAddress2: String @Size(min: 0, max: 100, message: "bankAddress2.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Bank Address 2 is Invalid pattern.")
-    bankAddress3: String @Size(min: 0, max: 100, message: "bankAddress3.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Bank Address 3 is Invalid pattern.")
-    bankAddress4: String @Size(min: 0, max: 100, message: "bankAddress4.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ]{1,100}",message: "Bank Address 4 is Invalid pattern.")
+    bankAddress1: String @Size(min: 0, max: 100, message: "bankAddress1.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ./=+:?!&#_%{}<>@*;\"]{1,100}",message: "Bank Address 1 is Invalid pattern.")
+    bankAddress2: String @Size(min: 0, max: 100, message: "bankAddress2.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ./=+:?!&#_%{}<>@*;\"]{1,100}",message: "Bank Address 2 is Invalid pattern.")
+    bankAddress3: String @Size(min: 0, max: 100, message: "bankAddress3.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ./=+:?!&#_%{}<>@*;\"]{1,100}",message: "Bank Address 3 is Invalid pattern.")
+    bankAddress4: String @Size(min: 0, max: 100, message: "bankAddress4.message") @Pattern(regexp: ".[A-Za-z0-9 (),^'ç\\-éÅ./=+:?!&#_%{}<>@*;\"]{1,100}",message: "Bank Address 4 is Invalid pattern.")
     country: String! #@Size(min: 2, max: 2, message: "country.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "Country Code Invalid pattern")
     state: String #@Size(min: 3, max: 3, message: "state.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "State Code Invalid pattern")
     city: String! #@Size(min: 3, max: 3, message: "city.message") @Pattern(regexp: "^[^ <>%$@#!%&*_+'=-]*${1,4}",message: "City Code Invalid pattern")

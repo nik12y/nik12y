@@ -7,5 +7,5 @@ type BranchParameterGeneral {
     generalRegionalOfficeCode: String
     generalRegionalOfficeName: String
     generalCutOffTime: String
-    isHeadZoneRegionalOffice: String!
+    isHeadZoneRegionalOffice: String
 }
