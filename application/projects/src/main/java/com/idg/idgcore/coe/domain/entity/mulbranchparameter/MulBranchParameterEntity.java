@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name ="IDGC_MCY_BRANCH_PARAMETER_CONFIG")
+@Table(name ="idgc_mcy_cnfg_branch_parameter")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
 @IdClass (MulBranchParameterEntityKey.class)
@@ -27,6 +27,19 @@ public class MulBranchParameterEntity extends AbstractAuditableDomainEntity impl
     @Id
     @Column(name= "entity_code")
     private String entityCode;
+
+    @Id
+    @Column(name= "entity_type")
+    private String entityType;
+
+    @Column(name= "entity_level")
+    private String entityLevel;
+
+    @Column(name= "entity_name")
+    private String entityName;
+
+    @Column(name= "currency_name")
+    private String currencyName;
 
     @Column(name= "spot_days")
     private Integer spotDays;

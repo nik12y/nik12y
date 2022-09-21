@@ -1,5 +1,6 @@
 input MulBranchParameterInputQuery{
     currencyCode:String!
     entityCode:String!
+    entityType:String!
     authorized: String!
 }

@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IMulBranchParameterRepository extends JpaRepository<MulBranchParameterEntity, MulBranchParameterEntityKey> {
 
-    MulBranchParameterEntity getByCurrencyCodeAndEntityCode (String currencyCode,String entityCode);
+    MulBranchParameterEntity getByCurrencyCodeAndEntityCodeAndEntityType (String currencyCode,String entityCode,String entityType);
 }

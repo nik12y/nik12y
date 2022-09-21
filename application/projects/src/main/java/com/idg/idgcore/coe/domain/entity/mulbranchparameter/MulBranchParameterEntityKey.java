@@ -12,23 +12,22 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "IDGC_MCY_BRANCH_PARAMETER_CONFIG")
+@Table(name = "idgc_mcy_cnfg_branch_parameter")
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public class MulBranchParameterEntityKey extends AbstractDomainKey
         implements Serializable{
 
     @Id
-    @Column(name= "currency_code")
     private String currencyCode;
-
     @Id
-    @Column(name= "entity_code")
     private String entityCode;
+    @Id
+    private String entityType;
 
     @Override
     public String keyAsString () {
-        return currencyCode + entityCode;
+        return currencyCode+entityCode+entityType;
     }
 
 }

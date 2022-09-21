@@ -5,6 +5,7 @@ import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import java.util.List;
 
 import static com.idg.idgcore.coe.common.Constants.CURR_BRANCH_PARAM;
@@ -22,6 +23,10 @@ public class MulBranchParameterDTO extends CoreEngineBaseDTO {
 
     private String currencyCode;
     private String entityCode;
+    private String entityType;
+    private String entityLevel;
+    private String entityName;
+    private String currencyName;
     private Integer spotDays;
     private Integer generationOfPaymentMessage;
     private Integer generationOfReceiveMessages;
@@ -39,7 +44,7 @@ public class MulBranchParameterDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier () {
-        return currencyCode + FIELD_SEPARATOR + entityCode;
+        return currencyCode + FIELD_SEPARATOR + entityCode+FIELD_SEPARATOR+entityType;
     }
 
 }

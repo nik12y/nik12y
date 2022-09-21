@@ -122,12 +122,11 @@ public class MulBranchParameterApplicationService extends AbstractApplicationSer
     public CoreEngineBaseDTO getConfigurationByCode(String code) {
 
         String[] fields = code.split(FIELD_SEPARATOR);
-        if (fields.length == 2) {
+        if (fields.length == 3) {
             return mulBranchParameterAssembler.convertEntityToDto(
-                    imulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(
-                            fields[0], fields[1]));
+                   imulBranchParameterDomainService.getByCurrencyCodeAndEntityCodeAndEntityType(
+                            fields[0], fields[1], fields[2]));
         }
-        else
             return null;
     }
 
@@ -137,10 +136,10 @@ public class MulBranchParameterApplicationService extends AbstractApplicationSer
     }
 
     @Override
-    public MulBranchParameterDTO getByCurrencyCodeAndEntityCode(SessionContext sessionContext, MulBranchParameterDTO mulBranchParameterDTO) throws FatalException, JsonProcessingException {
+    public MulBranchParameterDTO getByCurrencyCodeAndEntityCodeAndEntityType(SessionContext sessionContext, MulBranchParameterDTO mulBranchParameterDTO) throws FatalException, JsonProcessingException {
         if (log.isInfoEnabled()) {
             log.info(
-                    "In  getByCurrencyCodeAndEntityCode with parameters sessionContext {}, countryDTO {}",
+                    "In getByCurrencyCodeAndEntityCodeAndEntityType with parameters sessionContext {}, countryDTO {}",
                     sessionContext, mulBranchParameterDTO);
         }
         TransactionStatus transactionStatus = fetchTransactionStatus();
@@ -149,8 +148,8 @@ public class MulBranchParameterApplicationService extends AbstractApplicationSer
         MulBranchParameterDTO result = null;
         try {
             if (isAuthorized(mulBranchParameterDTO.getAuthorized())) {
-                MulBranchParameterEntity mulBranchParameterEntity  = imulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(
-                        mulBranchParameterDTO.getCurrencyCode(), mulBranchParameterDTO.getEntityCode());
+                MulBranchParameterEntity mulBranchParameterEntity  = imulBranchParameterDomainService.getByCurrencyCodeAndEntityCodeAndEntityType(
+                        mulBranchParameterDTO.getCurrencyCode(), mulBranchParameterDTO.getEntityCode(),mulBranchParameterDTO.getEntityType());
                 result = mulBranchParameterAssembler.convertEntityToDto(mulBranchParameterEntity);
             }
             else {
@@ -165,11 +164,11 @@ public class MulBranchParameterApplicationService extends AbstractApplicationSer
             }
         }
         catch (JsonProcessingException jpe)  {
-            log.error("Exception in getByCurrencyCodeAndEntityCode",jpe);
+            log.error("Exception in getByCurrencyCodeAndEntityCodeAndEntityType",jpe);
             ExceptionUtil.handleException(JSON_PARSING_ERROR);
         }
         catch (Exception exception) {
-            log.error("Exception in getByCurrencyCodeAndEntityCode",exception);
+            log.error("Exception in getByCurrencyCodeAndEntityCodeAndEntityType",exception);
             ExceptionUtil.handleException(JSON_PARSING_ERROR);
         }
         finally {

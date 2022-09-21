@@ -13,6 +13,6 @@ public interface IMulBranchParameterDomainService {
 
     MulBranchParameterEntity getConfigurationByCode (MulBranchParameterDTO mulBranchParameterDTO);
     List<MulBranchParameterEntity> getMulBranchParameters();
-    MulBranchParameterEntity getByCurrencyCodeAndEntityCode (String currencyCode,String entityCode);
+    MulBranchParameterEntity getByCurrencyCodeAndEntityCodeAndEntityType (String currencyCode,String entityCode,String entityType);
     void save (MulBranchParameterDTO mulBranchParameterDTO);
 }

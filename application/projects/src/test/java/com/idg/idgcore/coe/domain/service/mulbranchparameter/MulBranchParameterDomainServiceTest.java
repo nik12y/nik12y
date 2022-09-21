@@ -64,46 +64,55 @@ public class MulBranchParameterDomainServiceTest {
         }
 
 
-        @Test
-        @DisplayName("JUnit test for getBankParameterByCurrencyCodeAndEntityCode method")
+       @Test
+        @DisplayName("JUnit test for getBankParameterByCurrencyCodeAndEntityCodeAndEntityType method")
         void getBankParameterByCurrencyandEntityCodeReturnBankParameterEntityObject() {
-            given(mulBranchParameterRepository.getByCurrencyCodeAndEntityCode("INR", "BR001")).willReturn(mulBranchParameterEntity);
-            MulBranchParameterEntity mulBranchParameterEntity1 = mulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(mulBranchParameterEntity.getCurrencyCode(), mulBranchParameterEntity.getEntityCode());
+            given(mulBranchParameterRepository.getByCurrencyCodeAndEntityCodeAndEntityType("INR", "BR0021","Branch")).willReturn(mulBranchParameterEntity);
+            MulBranchParameterEntity mulBranchParameterEntity1 = mulBranchParameterDomainService.getByCurrencyCodeAndEntityCodeAndEntityType(mulBranchParameterEntity.getCurrencyCode(), mulBranchParameterEntity.getEntityCode(),mulBranchParameterEntity.getEntityType());
             ;
             assertThat(mulBranchParameterEntity1).isNotNull();
         }
 
 
-        @Test
-        @DisplayName("JUnit test forgetBankParameterByCurrencyCodeAndEntityCode catch block method")
-        void getBankParameterByCurrencyCodeAndEntityCodeReturnCatchBlock() {
+       @Test
+        @DisplayName("JUnit test for getBranchParameterByCurrencyCodeAndEntityCodeAndEntityType catch block method")
+        void getBankParameterByCurrencyCodeAndEntityCodeAndEntityTypeReturnCatchBlock() {
             MulBranchParameterEntity mulBranchParameterEntity1 = null;
 
             assertThrows(Exception.class, () -> {
-                MulBranchParameterEntity mulBranchParameterEntity2 = mulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(mulBranchParameterEntity1.getCurrencyCode(), mulBranchParameterEntity1.getEntityCode());
+                MulBranchParameterEntity mulBranchParameterEntity2 =
+                        mulBranchParameterDomainService.getByCurrencyCodeAndEntityCodeAndEntityType(mulBranchParameterEntity1.getCurrencyCode(), mulBranchParameterEntity1.getEntityCode(),mulBranchParameterEntity1.getEntityType());
             });
         }
 
         @Test
         @DisplayName("JUnit test for getConfigurationByCode try block method")
         void getConfigurationByCodeTryBlock() {
-            given(mulBranchParameterRepository.getByCurrencyCodeAndEntityCode("INR", "BR001")).willReturn(mulBranchParameterEntity);
+            given(mulBranchParameterRepository.getByCurrencyCodeAndEntityCodeAndEntityType("INR", "BR0021","Branch")).willReturn(mulBranchParameterEntity);
             MulBranchParameterEntity branchParameterByCurrencyCodeAndEntityCode = mulBranchParameterDomainService.getConfigurationByCode(mulBranchParameterDTO);
             assertThat(branchParameterByCurrencyCodeAndEntityCode).isNotNull();
         }
+    @Test
+    @DisplayName("Junit test for Get BranchParameters method ")
+    void getMulBranchParametersReturnMulBranchParametersList() {
+        given(mulBranchParameterRepository.findAll()).willReturn(List.of(mulBranchParameterEntity));
+        List<MulBranchParameterEntity> mulBranchParameterEntityList = mulBranchParameterDomainService.getMulBranchParameters();
+        assertThat(mulBranchParameterEntityList).isNotNull();
+        assertThat(mulBranchParameterEntityList.size()).isEqualTo(1);
+    }
 
 
-       // @Test
+     //  @Test
         @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
         void getConfigurationByCodeCatchBlock() {
             MulBranchParameterDTO mulBranchParameterDTO = null;
             assertThrows(BusinessException.class, () -> {
-                MulBranchParameterEntity branchParmeterByCurrencyCodeAndEntityCode = mulBranchParameterDomainService.getConfigurationByCode(mulBranchParameterDTO);
+                MulBranchParameterEntity branchParameterByCurrencyCodeAndEntityCodeAndEntityType = mulBranchParameterDomainService.getConfigurationByCode(mulBranchParameterDTO);
             });
         }
 
 
-       // @Test
+       //@Test
         @DisplayName("JUnit test for getSaveCode Catch Block method")
         void getSaveCodeCatchBlock() {
             MulBranchParameterDTO mulBranchParameterDTO = null;
@@ -116,7 +125,11 @@ public class MulBranchParameterDomainServiceTest {
         private MulBranchParameterEntity getMulBranchParameterEntity() {
             MulBranchParameterEntity mulBranchParameterEntity = new MulBranchParameterEntity();
             mulBranchParameterEntity.setCurrencyCode("INR");
-            mulBranchParameterEntity.setEntityCode("BR001");
+            mulBranchParameterEntity.setEntityCode("BR0021");
+            mulBranchParameterEntity.setEntityType("Branch");
+            mulBranchParameterEntity.setEntityLevel("Level4");
+            mulBranchParameterEntity.setEntityName("Pune");
+            mulBranchParameterEntity.setCurrencyName("Indian");
             mulBranchParameterEntity.setSpotDays(1);
             mulBranchParameterEntity.setGenerationOfPaymentMessage(23);
             mulBranchParameterEntity.setGenerationOfReceiveMessages(2);
@@ -124,13 +137,18 @@ public class MulBranchParameterDomainServiceTest {
             return mulBranchParameterEntity;
         }
 
+
         private MulBranchParameterDTO getMulBranchParameterDTO() {
             MulBranchParameterDTO mulBranchParameterDTO = new MulBranchParameterDTO();
             mulBranchParameterDTO.setCurrencyCode("INR");
-            mulBranchParameterDTO.setEntityCode("BR001");
+            mulBranchParameterDTO.setEntityCode("BR0021");
+            mulBranchParameterDTO.setEntityType("Branch");
+            mulBranchParameterDTO.setEntityLevel("Level4");
+            mulBranchParameterDTO.setEntityName("Nashik");
+            mulBranchParameterDTO.setCurrencyName("Indian");
             mulBranchParameterDTO.setSpotDays(1);
-            mulBranchParameterDTO.setGenerationOfPaymentMessage(23);
-            mulBranchParameterDTO.setGenerationOfReceiveMessages(2);
+            mulBranchParameterDTO.setGenerationOfPaymentMessage(11);
+            mulBranchParameterDTO.setGenerationOfReceiveMessages(21);
             return mulBranchParameterDTO;
         }
 

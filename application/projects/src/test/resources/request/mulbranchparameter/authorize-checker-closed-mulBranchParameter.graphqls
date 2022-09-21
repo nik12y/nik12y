@@ -27,11 +27,15 @@ mutation{
         },
         mulBranchParameter:
         {
-            currencyCode:"USD"
+            currencyCode:"INR"
+            currencyName:"Indian"
             entityCode: "BR001"
-            spotDays:56
-            generationOfPaymentMessage:12
-            generationOfReceiveMessages:45
+            entityType:"Branch"
+            entityLevel:"Level4"
+            entityName:"Pune"
+            spotDays:1
+            generationOfPaymentMessage:2
+            generationOfReceiveMessages:3
 
             action : "authorize"
             status: "closed"

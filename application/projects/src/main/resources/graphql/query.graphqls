@@ -91,7 +91,7 @@ type Query{
     searchBranchParameter(sessionContext: SessionContextInput, branchParameterQuery: BranchParameterInputQuery): [BranchParameter]
    searchFinancialAccountingYear(sessionContext: SessionContextInput, financialAccountingYearForSearch: FinancialAccountingYearForSearchInputQuery): [FinancialAccountingYear]
 
-    getMulBranchParameterByCurrencyAndEntityCode(sessionContext: SessionContextInput,mulBranchParameterQuery:MulBranchParameterInputQuery ): MulBranchParameter
+    getBranchParameterByCurrencyCodeAndEntityCodeAndEntityType(sessionContext: SessionContextInput,mulBranchParameterQuery:MulBranchParameterInputQuery ): MulBranchParameter
     getMulBranchParameters(sessionContext: SessionContextInput): [MulBranchParameter]
 }
 

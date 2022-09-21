@@ -1,5 +1,5 @@
 query{
-    getMulBranchParameterByCurrencyAndEntityCode(
+    getBranchParameterByCurrencyCodeAndEntityCodeAndEntityType(
         sessionContext:{
             bankCode: "05"
             defaultBranchCode: "1392"
@@ -26,13 +26,19 @@ query{
             originatingModuleCode: null
         },
         mulBranchParameterQuery:{
-            currencyCode:"USD"
+            currencyCode:"INR"
             entityCode: "BR001"
+            entityType: "Branch"
+            authorized:"Y"
             authorized:"Y"
         }
     ) {
         currencyCode
         entityCode
+        entityType
+        entityLevel
+        entityName
+        currencyName
         spotDays
         generationOfPaymentMessage
         generationOfReceiveMessages

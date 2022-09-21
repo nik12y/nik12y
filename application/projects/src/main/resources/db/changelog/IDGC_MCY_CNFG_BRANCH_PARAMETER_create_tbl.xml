@@ -5,9 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="branch_param_config" author="Vidya">
+    <changeSet id="IDGC_MCY_CNFG_BRANCH_PARAMETER_create_tbl" author="Vidya">
 
-        <createTable tableName="idgc_mcy_branch_parameter_config"
+        <createTable tableName="idgc_mcy_cnfg_branch_parameter"
                      remarks="A table to contain all the branch parameter">
 
             <column name="currency_code" type="varchar(3)">
@@ -17,6 +17,23 @@
             <column name="entity_code" type="character varying(100)">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="entity_type" type="character varying(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="entity_level" type="character varying(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="entity_name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="currency_name" type="varchar(35)">
+                <constraints nullable="false"/>
+            </column>
+
 
             <column name="spot_days" type="integer">
                 <constraints nullable="false"/>
@@ -66,8 +83,8 @@
         </createTable>
 
         <addUniqueConstraint
-                columnNames="currency_code,entity_code"
-                tableName="idgc_mcy_branch_parameter_config"
-                constraintName="idgc_mcy_branch_parameter_config_pk" />
+                columnNames="currency_code,entity_code,entity_type"
+                tableName="idgc_mcy_cnfg_branch_parameter"
+                constraintName="idgc_mcy_cnfg_branch_parameter_pk" />
     </changeSet>
 </databaseChangeLog>

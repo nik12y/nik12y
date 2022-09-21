@@ -3,9 +3,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idg.idgcore.app.AbstractApplicationService;
 import com.idg.idgcore.coe.domain.assembler.mulbranchparameter.MulBranchParameterAssembler;
-import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntity;
-import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntityKey;
-import com.idg.idgcore.coe.domain.entity.language.LanguageEntityKey;
 import com.idg.idgcore.coe.domain.entity.mulbranchparameter.MulBranchParameterEntity;
 import com.idg.idgcore.coe.domain.entity.mulbranchparameter.MulBranchParameterEntityKey;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
@@ -13,9 +10,6 @@ import com.idg.idgcore.coe.domain.entity.mutation.Payload;
 import com.idg.idgcore.coe.domain.process.ProcessConfiguration;
 import com.idg.idgcore.coe.domain.service.mulbranchparameter.IMulBranchParameterDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
-import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
-import com.idg.idgcore.coe.dto.financialAccountingYear.FinancialAccountingYearDTO;
-import com.idg.idgcore.coe.dto.language.LanguageDTO;
 import com.idg.idgcore.coe.dto.mulbranchparameter.MulBranchParameterDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -94,40 +88,39 @@ public class MulBranchParameterApplicationServiceTest {
         mutationEntity2=getMutationEntityJsonError();
     }
     @Test
-    @DisplayName ("JUnit for getByCurrencyCodeAndEntityCode in application service when Authorize try Block")
+    @DisplayName ("JUnit for .getByCurrencyCodeAndEntityCodeAndEntityType in application service when Authorize try Block")
     void getByCurrencyCodeAndEntityCodeIsAuthorize ()
             throws FatalException, JsonProcessingException {
-        given(mulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(
+        given(mulBranchParameterDomainService.getByCurrencyCodeAndEntityCodeAndEntityType(
                 mulBranchParameterDTO.getCurrencyCode(),
-                mulBranchParameterDTO.getEntityCode())).
+                mulBranchParameterDTO.getEntityCode(),
+                mulBranchParameterEntity.getEntityType())).
                 willReturn(mulBranchParameterEntity);
         given(mulBranchParameterAssembler.convertEntityToDto(mulBranchParameterEntity)).willReturn(
                 mulBranchParameterDTO);
-        MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCode(
+        MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCodeAndEntityType(
                 sessionContext, mulBranchParameterDTO);
         assertEquals("Y", mulBranchParameterDTO1.getAuthorized());
         Assertions.assertThat(mulBranchParameterDTO1).isNotNull();
     }
     @Test
-    @DisplayName("JUnit for getByCurrencyCodeAndEntityCode in application service when Authorize for Negative")
-    void getgetByCurrencyCodeAndEntityCodeIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
-        given(mulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(mulBranchParameterDTO.getCurrencyCode(),mulBranchParameterDTO.getEntityCode())).willReturn(mulBranchParameterEntity);
+    @DisplayName("JUnit for getByCurrencyCodeAndEntityCodeAndEntityType in application service when Authorize for Negative")
+    void getByCurrencyCodeAndEntityCodeAndEntityTypeIsAuthorizeforNegative() throws FatalException, JsonProcessingException {
+        given(mulBranchParameterDomainService.getByCurrencyCodeAndEntityCodeAndEntityType(mulBranchParameterDTO.getCurrencyCode(),mulBranchParameterDTO.getEntityCode(),mulBranchParameterDTO.getEntityType())).willReturn(mulBranchParameterEntity);
         given(mulBranchParameterAssembler.convertEntityToDto(mulBranchParameterEntity)).willReturn(mulBranchParameterDTO);
-        MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCode(sessionContext, mulBranchParameterDTO);
+        MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCodeAndEntityType(sessionContext, mulBranchParameterDTO);
         assertNotEquals("N",mulBranchParameterDTO1.getAuthorized());
         assertThat(mulBranchParameterDTO1).isNotNull();
     }
 
     @Test
-    @DisplayName("JUnit for getByCurrencyCodeAndEntityCode  in application service when Not Authorize in catch block")
+    @DisplayName("JUnit for getByCurrencyCodeAndEntityCodeAndEntityType  in application service when Not Authorize in catch block")
     void getByCurrencyCodeAndEntityCodeWhenNotAuthorizeCatchBlock () throws FatalException, JsonProcessingException {
 
-        String payLoadString1 ="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"authorize\",\"status\":\"closed\"," +
-                "\"recordVersion\":1,\"authorized\":\"N\",\"lastConfigurationAction\":\"authorized\"," +
-                "\"taskCode\":\"MULBRANCHPARAM\",\"taskIdentifier\":\"INR_BR003\","+
-                "\"currencyCode\":\"INR\",\"entityCode\":\"BR001\",\"spotDays\":1,\"generationOfPaymentMessage\":11," +
-                "\"generationOfReceiveMessages\":21}";
+        String payLoadString1 ="{\"action\":\"draft\",\"status\":\"draft\",\"recordVersion\":0,\"authorized\":\"N\"," +
+                "\"lastConfigurationAction\":\"draft\",\"taskCode\":\"MULBRANCHPARAM\",\"taskIdentifier\":\"INR_BR0021_Branch\"," +
+                "\"currencyCode\":\"INR\",\"entityCode\":\"BR0021\",\"entityType\":\"Branch\",\"entityLevel\":\"Level4\",\"entityName\":\"Pune\"," +
+                "\"currencyName\":\"Indian\",\"spotDays\":1,\"generationOfPaymentMessage\":2,\"generationOfReceiveMessages\":3}";
 
         given(mutationsDomainService.getConfigurationByCode(mulBranchParameterDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity2);
         ModelMapper mapper=new ModelMapper();
@@ -136,21 +129,21 @@ public class MulBranchParameterApplicationServiceTest {
         PayloadDTO helper = org.mockito.Mockito.mock(PayloadDTO.class);
 
         org.junit.jupiter.api.Assertions.assertThrows(Exception.class,()-> {
-            MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCode(sessionContext,mulBranchParameterDTOMapper);
+            MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCodeAndEntityType(sessionContext,mulBranchParameterDTOMapper);
             assertEquals("N",mulBranchParameterDTO1.getAuthorized());
             assertThat(mulBranchParameterDTO1).isNotNull();
         });
     }
-    @Test
+ @Test
     @DisplayName ("JUnit for MulBranchParameterEntityKey")
     void getMulBranchParameterEntityKey () {
         MulBranchParameterEntityKey mulBranchParameterEntityKey = new MulBranchParameterEntityKey(
-                "INR", "BR001");
+                "INR","BR0021","Branch");
         Assertions.assertThat(mulBranchParameterEntityKey.toString()).isNotNull();
         mulBranchParameterEntityKey.setCurrencyCode("INR");
         mulBranchParameterEntityKey.keyAsString();
         mulBranchParameterEntityKey.builder().currencyCode("INR")
-                .entityCode("BR001").build();
+                .entityCode("BR0021").entityType("Branch").build();
         Assertions.assertThat(mulBranchParameterEntityKey).descriptionText();
         Assertions.assertThat(mulBranchParameterEntityKey.toString()).isNotNull();
     }
@@ -163,8 +156,9 @@ public class MulBranchParameterApplicationServiceTest {
         mulBranchParameterApplicationService.processMulBranchParameter(sessionContext, mulBranchParameterDTO);
         verify(process, times(1)).process(mulBranchParameterDTO);
     }
-    @DisplayName ("Test processMulBranchParameter")
+
     @Test
+    @DisplayName ("Test processMulBranchParameter")
     void processMulBranchParameter() throws JsonProcessingException, FatalException {
         mulBranchParameterDTOMapper = getMulBranchParameterDTOMapper();
         doNothing().when(process).process(mulBranchParameterDTOMapper);
@@ -175,12 +169,11 @@ public class MulBranchParameterApplicationServiceTest {
     @Test
     @DisplayName("JUnit for addUpdateRecord in application service")
     void addUpdateRecordTest() throws JsonProcessingException {
-        String payLoadString1 ="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"authorize\",\"status\":\"closed\"," +
-                "\"recordVersion\":1,\"authorized\":\"N\",\"lastConfigurationAction\":\"authorized\"," +
-                "\"taskCode\":\"MULBRANCHPARAM\",\"taskIdentifier\":\"INR_BR003\","+
-                "\"currencyCode\":\"INR\",\"entityCode\":\"BR001\",\"spotDays\":1,\"generationOfPaymentMessage\":11," +
-                "\"generationOfReceiveMessages\":21}";
+        String payLoadString1 ="{\"action\":\"modify\",\"status\":\"updated\",\"recordVersion\":1,\"authorized\":\"N\"," +
+                "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"MULBRANCHPARAM\"," +
+                "\"taskIdentifier\":\"INR_BR0021_Branch\",\"currencyCode\":\"INR\",\"entityCode\":\"BR0021\"," +
+                "\"entityType\":\"Branch\",\"entityLevel\":\"Level4\",\"entityName\":\"Nashik\",\"currencyName\":\"Indian\"," +
+                "\"spotDays\":1,\"generationOfPaymentMessage\":2,\"generationOfReceiveMessages\":3}";
 
         doNothing().when(mulBranchParameterDomainService).save(mulBranchParameterDTO);
         mulBranchParameterApplicationService.save(mulBranchParameterDTO);
@@ -248,7 +241,11 @@ public class MulBranchParameterApplicationServiceTest {
     private MulBranchParameterDTO getmulBranchParameterDTOAuthorized() {
         MulBranchParameterDTO mulBranchParameterDTO=new MulBranchParameterDTO();
         mulBranchParameterDTO.setCurrencyCode("INR");
-        mulBranchParameterDTO.setEntityCode("BR001");
+        mulBranchParameterDTO.setEntityCode("BR0021");
+        mulBranchParameterDTO.setEntityType("Branch");
+        mulBranchParameterDTO.setEntityLevel("Level4");
+        mulBranchParameterDTO.setEntityName("Nashik");
+        mulBranchParameterDTO.setCurrencyName("Indian");
         mulBranchParameterDTO.setSpotDays(1);
         mulBranchParameterDTO.setGenerationOfPaymentMessage(11);
         mulBranchParameterDTO.setGenerationOfReceiveMessages(21);
@@ -260,7 +257,11 @@ public class MulBranchParameterApplicationServiceTest {
     {
         MulBranchParameterDTO mulBranchParameterDTO=new MulBranchParameterDTO();
         mulBranchParameterDTO.setCurrencyCode("INR");
-        mulBranchParameterDTO.setEntityCode("BR001");
+        mulBranchParameterDTO.setEntityCode("BR0021");
+        mulBranchParameterDTO.setEntityType("Branch");
+        mulBranchParameterDTO.setEntityLevel("Level4");
+        mulBranchParameterDTO.setEntityName("Nashik");
+        mulBranchParameterDTO.setCurrencyName("Indian");
         mulBranchParameterDTO.setSpotDays(1);
         mulBranchParameterDTO.setGenerationOfPaymentMessage(11);
         mulBranchParameterDTO.setGenerationOfReceiveMessages(21);
@@ -268,12 +269,17 @@ public class MulBranchParameterApplicationServiceTest {
         mulBranchParameterDTO.setStatus("DELETED");
         mulBranchParameterDTO.setRecordVersion(1);
         return  mulBranchParameterDTO;
+
     }
 
     private MulBranchParameterEntity getMulBranchParameterEntity(){
         MulBranchParameterEntity mulBranchParameterEntity = new MulBranchParameterEntity(
                 "INR",
-                "BR001",
+                "BR0021",
+                "Branch",
+                "Level4",
+                "Nashik",
+                "India",
                 1,
                 11,
                 21,
@@ -289,11 +295,15 @@ public class MulBranchParameterApplicationServiceTest {
     private MulBranchParameterEntity getMulBranchParameterEntity1()
     {
           MulBranchParameterEntity mulBranchParameterEntity = new MulBranchParameterEntity();
-          mulBranchParameterEntity.setCurrencyCode("INR");
-          mulBranchParameterEntity.setEntityCode("BR001");
-          mulBranchParameterEntity.setSpotDays(1);
-          mulBranchParameterEntity.setGenerationOfPaymentMessage(11);
-          mulBranchParameterEntity.setGenerationOfReceiveMessages(21);
+        mulBranchParameterDTO.setCurrencyCode("INR");
+        mulBranchParameterDTO.setEntityCode("BR0021");
+        mulBranchParameterDTO.setEntityType("Branch");
+        mulBranchParameterDTO.setEntityLevel("Level4");
+        mulBranchParameterDTO.setEntityName("Nashik");
+        mulBranchParameterDTO.setCurrencyName("Indian");
+        mulBranchParameterDTO.setSpotDays(1);
+        mulBranchParameterDTO.setGenerationOfPaymentMessage(11);
+        mulBranchParameterDTO.setGenerationOfReceiveMessages(21);
           mulBranchParameterEntity.setLifeCycleId(null);
           mulBranchParameterEntity.setReferenceNo(null);
           mulBranchParameterEntity.setStatus("closed");
@@ -304,39 +314,46 @@ public class MulBranchParameterApplicationServiceTest {
         MulBranchParameterDTO mulBranchParameterDTO =
                 new MulBranchParameterDTO(
                         "INR",
-                        "BR001",
+                        "BR0021",
+                        "Branch",
+                        "Level4",
+                        "Nashik",
+                        "India",
                         1,
                         11,
                         21);
 
         mulBranchParameterDTO.setAuthorized("N");
-        mulBranchParameterDTO.setTaskIdentifier("nullINRBR001");
+        mulBranchParameterDTO.setTaskIdentifier("INR_BR0021_Branch");
         return mulBranchParameterDTO;
     }
 
     private MulBranchParameterDTO getMulBranchParameterDTOMapper(){
         MulBranchParameterDTO mulBranchParameterDTOMapper=new MulBranchParameterDTO();
-        mulBranchParameterDTOMapper.setCurrencyCode("INR");
-        mulBranchParameterDTOMapper.setEntityCode("BR001");
-        mulBranchParameterDTOMapper.setSpotDays(1);
-        mulBranchParameterDTOMapper.setGenerationOfPaymentMessage(11);
-        mulBranchParameterDTOMapper.setGenerationOfReceiveMessages(21);
+        mulBranchParameterDTO.setCurrencyCode("INR");
+        mulBranchParameterDTO.setEntityCode("BR0021");
+        mulBranchParameterDTO.setEntityType("Branch");
+        mulBranchParameterDTO.setEntityLevel("Level4");
+        mulBranchParameterDTO.setEntityName("Nashik");
+        mulBranchParameterDTO.setCurrencyName("Indian");
+        mulBranchParameterDTO.setSpotDays(1);
+        mulBranchParameterDTO.setGenerationOfPaymentMessage(11);
+        mulBranchParameterDTO.setGenerationOfReceiveMessages(21);
         mulBranchParameterDTOMapper.setAuthorized("N");
         mulBranchParameterDTOMapper.setTaskCode(BRANCH_PARAMETER);
-        mulBranchParameterDTOMapper.setTaskIdentifier("INR_BR001");
+        mulBranchParameterDTOMapper.setTaskIdentifier("INR_BR0021_Branch");
         return mulBranchParameterDTOMapper;
     }
 
     private MutationEntity getMutationEntity() {
-        Payload payload = new Payload("{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"add\",\"status\":\"new\",\"recordVersion\":1," +
-                "\"authorized\":\"N\",\"lastConfigurationAction\":\"unauthorized\"," +
-                "\"taskCode\":\"MULBRANCHPARAM\",\"taskIdentifier\":\"INR_BR001\","+
-                "\"currencyCode\":\"INR\",\"entityCode\":\"BR001\",\"spotDays\":1,\"generationOfPaymentMessage\":11," +
-                "\"generationOfReceiveMessages\":21}");
+        Payload payload = new Payload("{\"action\":\"modify\",\"status\":\"updated\",\"recordVersion\":1,\"authorized\":\"N\"," +
+                "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"MULBRANCHPARAM\"," +
+                "\"taskIdentifier\":\"INR_BR0021_Branch\",\"currencyCode\":\"INR\",\"entityCode\":\"BR0021\"," +
+                "\"entityType\":\"Branch\",\"entityLevel\":\"Level4\",\"entityName\":\"Nashik\",\"currencyName\":\"Indian\"," +
+                "\"spotDays\":1,\"generationOfPaymentMessage\":2,\"generationOfReceiveMessages\":3}");
 
         MutationEntity mutationEntity = new MutationEntity();
-        mutationEntity.setTaskIdentifier("INR_BR001");
+        mutationEntity.setTaskIdentifier("INR_BR0021_Branch");
         mutationEntity.setTaskCode("MULBRANCHPARAM");
         mutationEntity.setPayload(payload);
         mutationEntity.setStatus("new");
@@ -349,15 +366,14 @@ public class MulBranchParameterApplicationServiceTest {
 
     private MutationEntity getMutationEntityJsonError()
     {
-        String payLoadString1 ="{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null," +
-                "\"lastUpdatedTime\":null,\"action\":\"authorize\",\"status\":\"closed\"," +
-                "\"recordVersion\":1,\"authorized\":\"N\",\"lastConfigurationAction\":\"authorized\"," +
-                "\"taskCode\":\"MULBRANCHPARAM\",\"taskIdentifier\":\"INR_BR003\","+
-                "\"currencyCode\":\"INR\",\"entityCode\":\"BR001\",\"spotDays\":1,\"generationOfPaymentMessage\":11," +
-                "\"generationOfReceiveMessages\":21}";
+        String payLoadString1 ="{\"action\":\"modify\",\"status\":\"updated\",\"recordVersion\":1,\"authorized\":\"N\"," +
+                "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"MULBRANCHPARAM\"," +
+                "\"taskIdentifier\":\"INR_BR0021_Branch\",\"currencyCode\":\"INR\",\"entityCode\":\"BR0021\"," +
+                "\"entityType\":\"Branch\",\"entityLevel\":\"Level4\",\"entityName\":\"Nashik\",\"currencyName\":\"Indian\"," +
+                "\"spotDays\":1,\"generationOfPaymentMessage\":2,\"generationOfReceiveMessages\":3}";
 
         MutationEntity mutationEntity2 = new MutationEntity();
-        mutationEntity2.setTaskIdentifier("INR_BR003");
+        mutationEntity2.setTaskIdentifier("INR_BR0021_Branch");
         mutationEntity2.setTaskCode("MULBRANCHPARAM");
         mutationEntity2.setPayload(new Payload(payLoadString1));
         mutationEntity2.setStatus("closed");
@@ -377,22 +393,26 @@ public class MulBranchParameterApplicationServiceTest {
                 mulBranchParameterApplicationService.getMulBranchParameters(sessionContext);
         assertThat(mulBranchParameterDTOList).isNotNull();
     }
-    @Test
-    @DisplayName("JUnit for getByCurrencyCodeAndEntityCode in application service check Parameter not null")
-    void getByCurrencyCodeAndEntityCodeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
+
+   @Test
+    @DisplayName("JUnit for getByCurrencyCodeAndEntityCodeAndEntityType in application service check Parameter not null")
+    void getByCurrencyCodeAndEntityCodeAndEntityTypeIsAuthorizeCheckParameter() throws FatalException, JsonProcessingException {
         MulBranchParameterDTO mulBranchParameterDTOnull=null;
         MulBranchParameterDTO mulBranchParameterDTOEx=new MulBranchParameterDTO();
         mulBranchParameterDTOEx.setCurrencyCode("INR");
-        mulBranchParameterDTOEx.setEntityCode("BR001");
+        mulBranchParameterDTOEx.setEntityCode("BR0021");
+        mulBranchParameterDTOEx.setEntityType("Branch");
         mulBranchParameterDTOEx.setAuthorized("Y");
 
         MulBranchParameterEntityKey mulBranchParameterEntityKey = new MulBranchParameterEntityKey();
         mulBranchParameterEntityKey.setCurrencyCode("INR");
         mulBranchParameterEntityKey.setEntityCode("BR001");
+        mulBranchParameterEntityKey.setEntityType("Branch");
 
-        given(mulBranchParameterDomainService.getByCurrencyCodeAndEntityCode(mulBranchParameterDTOEx.getCurrencyCode(),mulBranchParameterDTOEx.getEntityCode())).willReturn(mulBranchParameterEntity);
+        given(mulBranchParameterDomainService.getByCurrencyCodeAndEntityCodeAndEntityType(mulBranchParameterDTOEx.getCurrencyCode(),mulBranchParameterDTOEx.getEntityCode(),mulBranchParameterDTOEx.getEntityType()))
+                .willReturn(mulBranchParameterEntity);
         given(mulBranchParameterAssembler.convertEntityToDto(mulBranchParameterEntity)).willReturn(mulBranchParameterDTO);
-        MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCode(sessionContext, mulBranchParameterDTOEx);
+        MulBranchParameterDTO mulBranchParameterDTO1 = mulBranchParameterApplicationService.getByCurrencyCodeAndEntityCodeAndEntityType(sessionContext, mulBranchParameterDTOEx);
         assertThat(mulBranchParameterDTOEx.getCurrencyCode()).isNotBlank();
         assertThat(mulBranchParameterDTOEx.getAuthorized()).isNotBlank();
     }
@@ -403,28 +423,41 @@ public class MulBranchParameterApplicationServiceTest {
     {
         assertThat(mulBranchParameterEntity.toString()).isNotNull();
         assertThat(mulBranchParameterDTO.toString()).isNotNull();
-        MulBranchParameterDTO mulBranchParameterDTO2=new MulBranchParameterDTO("INR",
-                "BR001",
+        MulBranchParameterDTO mulBranchParameterDTO2=new MulBranchParameterDTO(
+                "INR",
+                "BR0021",
+                "Branch",
+                "Level4",
+                "Nashik",
+                "India",
                 1,
                 11,
                 21);
         MulBranchParameterDTO.builder().currencyCode("INR")
                 .entityCode("BR001")
+                .entityType("Branch")
+                .entityLevel("Level4")
+                .entityName("Nashik")
+                .currencyName("Indian")
                 .spotDays(1)
                 .generationOfPaymentMessage(11)
                 .generationOfReceiveMessages(21)
                 .authorized("N")
                 .taskCode("MULBRANCHPARAM")
-                .taskIdentifier("INR_BR001")
+                .taskIdentifier("INR_BR0021_Branch")
                 .build().toString();
-        MulBranchParameterEntityKey mulBranchParameterEntityKey=new MulBranchParameterEntityKey("INR","BR001");
+
+        MulBranchParameterEntityKey mulBranchParameterEntityKey=new MulBranchParameterEntityKey("INR","BR0021","Branch");
         assertThat(mulBranchParameterEntityKey.toString()).isNotNull();
         mulBranchParameterEntityKey.setCurrencyCode("INR");
+        mulBranchParameterEntityKey.setEntityCode("BR0021");
+        mulBranchParameterEntityKey.setEntityType("Branch");
         mulBranchParameterEntityKey.keyAsString();
         mulBranchParameterEntityKey.builder().currencyCode("INR").build();
         assertThat(mulBranchParameterDTO).descriptionText();
     }
-   // @Test
+
+   //@Test
     @DisplayName("JUnit for getMulBranchParameters in application service for catch block for checker")
     void getMulBranchParametersCatchBlockForChecker() throws JsonProcessingException, FatalException {
 
@@ -439,6 +472,16 @@ public class MulBranchParameterApplicationServiceTest {
             assertThat(mulBranchParameterDTO1).isNotNull();
         });
     }
+//    @Test
+//    @DisplayName("Should return all getBranchParameters when there are no unauthorized")
+//    void getBranchParametersWhenThereAreNoUnauthorized() throws FatalException {
+//        given(mutationsDomainService.getMutations("MULBRANCHPARAM"))
+//                .willReturn(List.of(mutationEntity));
+//        List<MulBranchParameterDTO> mulBranchParameterDTOList =
+//                mulBranchParameterApplicationService.getMulBranchParameters(sessionContext);
+//        assertThat(mulBranchParameterDTOList).isNotNull();
+//    }
+
     @Test
     @DisplayName("JUnit for proccessMulBranchParameter  in application service for Catch Block")
     void proccessMulBranchParameterForCatchBlock() throws FatalException {

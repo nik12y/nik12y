@@ -1,0 +1,15 @@
+{
+  "data": {
+    "getBranchParameterByCurrencyCodeAndEntityCodeAndEntityType": {
+      "currencyCode": "INR",
+      "entityCode": "BR001",
+      "entityType": "Branch",
+      "entityLevel": "Level4",
+      "entityName": "Pune",
+      "currencyName": "Indian",
+      "spotDays": 1,
+      "generationOfPaymentMessage": 2,
+      "generationOfReceiveMessages": 3
+    }
+  }
+}

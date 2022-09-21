@@ -32,7 +32,7 @@ public class MulBranchParameterDomainService implements IMulBranchParameterDomai
     public MulBranchParameterEntity getConfigurationByCode(MulBranchParameterDTO mulBranchParameterDTO) {
         MulBranchParameterEntity mulBranchParameterEntity = null;
         try {
-            mulBranchParameterEntity = this.mulBranchParameterRepository.getByCurrencyCodeAndEntityCode(mulBranchParameterDTO.getCurrencyCode(),mulBranchParameterDTO.getEntityCode());
+            mulBranchParameterEntity = this.mulBranchParameterRepository.getByCurrencyCodeAndEntityCodeAndEntityType(mulBranchParameterDTO.getCurrencyCode(),mulBranchParameterDTO.getEntityCode(),mulBranchParameterDTO.getEntityType());
         } catch (Exception e)  {
             log.error("Exception in getConfigurationByCode",e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
@@ -46,13 +46,13 @@ public class MulBranchParameterDomainService implements IMulBranchParameterDomai
     }
 
     @Override
-    public MulBranchParameterEntity getByCurrencyCodeAndEntityCode(String currencyCode, String entityCode) {
+    public MulBranchParameterEntity getByCurrencyCodeAndEntityCodeAndEntityType(String currencyCode, String entityCode,String entityType) {
         MulBranchParameterEntity mulBranchParameterEntity = null;
         try {
-            mulBranchParameterEntity = this.mulBranchParameterRepository.getByCurrencyCodeAndEntityCode(currencyCode,entityCode);
+            mulBranchParameterEntity = this.mulBranchParameterRepository.getByCurrencyCodeAndEntityCodeAndEntityType(currencyCode,entityCode,entityType);
             }
         catch (Exception e) {
-            log.error("Exception in getByCurrencyCodeAndEntityCode",e);
+            log.error("Exception in getByCurrencyCodeAndEntityCodeAndEntityType",e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return mulBranchParameterEntity;

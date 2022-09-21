@@ -27,8 +27,12 @@ query{
         },
     )
     {
-       currencyCode
+        currencyCode
+        currencyName
         entityCode
+        entityType
+        entityLevel
+        entityName
         spotDays
         generationOfPaymentMessage
         generationOfReceiveMessages

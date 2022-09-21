@@ -22,9 +22,9 @@ public class MulBranchParameterQueryResolver implements GraphQLQueryResolver {
     @Autowired
     IMulBranchParameterApplicationService iMulBranchParameterApplicationService;
 
-    public MulBranchParameterDTO getMulBranchParameterByCurrencyAndEntityCode(SessionContext sessionContext, MulBranchParameterDTO mulBranchParameterDTO)
+    public MulBranchParameterDTO getBranchParameterByCurrencyCodeAndEntityCodeAndEntityType (SessionContext sessionContext, MulBranchParameterDTO mulBranchParameterDTO)
             throws FatalException, JsonProcessingException {
-        return this.iMulBranchParameterApplicationService.getByCurrencyCodeAndEntityCode(sessionContext, mulBranchParameterDTO);
+        return this.iMulBranchParameterApplicationService.getByCurrencyCodeAndEntityCodeAndEntityType(sessionContext, mulBranchParameterDTO);
     }
 
     public List<MulBranchParameterDTO> getMulBranchParameters (SessionContext sessionContext) throws FatalException {

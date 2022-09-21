@@ -1,7 +1,10 @@
 type MulBranchParameter{
-
     currencyCode:String!
+    currencyName:String!
     entityCode:String!
+    entityType:String!
+    entityLevel:String!
+    entityName:String!
     spotDays: Int
     generationOfPaymentMessage : Int
     generationOfReceiveMessages: Int

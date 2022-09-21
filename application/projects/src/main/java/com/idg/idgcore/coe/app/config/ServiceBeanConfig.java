@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import static com.idg.idgcore.coe.common.Constants.*;
-import static com.idg.idgcore.coe.common.Constants.CURR_BRANCH_PARAM_SERVICE;
+
 
 @Configuration
 public class ServiceBeanConfig {
