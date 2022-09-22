@@ -1,0 +1,39 @@
+{
+  "data": {
+    "getMulBranchParameters": [
+      {
+        "currencyCode": "PQR",
+        "currencyName": "Indian",
+        "entityCode": "BR0021",
+        "entityType": "Branch",
+        "entityLevel": "Level4",
+        "entityName": "Nashik",
+        "spotDays": 1,
+        "generationOfPaymentMessage": 2,
+        "generationOfReceiveMessages": 3
+      },
+      {
+        "currencyCode": "INR",
+        "currencyName": "Indian",
+        "entityCode": "BR0031",
+        "entityType": "Branch",
+        "entityLevel": "Level4",
+        "entityName": "Nashik",
+        "spotDays": 1,
+        "generationOfPaymentMessage": 2,
+        "generationOfReceiveMessages": 3
+      },
+      {
+        "currencyCode": "INR",
+        "currencyName": "Indian",
+        "entityCode": "BR001",
+        "entityType": "Branch",
+        "entityLevel": "Level4",
+        "entityName": "Pune",
+        "spotDays": 1,
+        "generationOfPaymentMessage": 2,
+        "generationOfReceiveMessages": 3
+      }
+    ]
+  }
+}

@@ -119,3 +119,5 @@ databaseChangeLog:
       file: db/changelog/IDGC_MCY_CNFG_AMT_IN_WORDS_create_tbl.xml
   - include:
       file: db/changelog/IDGC_MCY_CNFG_CURRENCY_PAIR_create_tbl.xml
+  - include:
+     file: db/changelog/IDGC_MCY_CNFG_BRANCH_PARAMETER_create_tbl.xml

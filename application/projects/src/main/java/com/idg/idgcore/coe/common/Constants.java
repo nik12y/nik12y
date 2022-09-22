@@ -143,6 +143,9 @@ public final class Constants {
     public static final String BI_MONTHLY = "Bi-Monthly";
     public static final String DATE_FORMATTER="yyyy-MM-dd";
 
+    public static final String CURR_BRANCH_PARAM= "MULBRANCHPARAM";
+    public static final String  CURR_BRANCH_PARAM_SERVICE = "mulBranchparamApplicationService";
+
     private Constants () {
     }
 
