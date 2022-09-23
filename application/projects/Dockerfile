@@ -1,4 +1,4 @@
-FROM openjdk:17.0.2-buster
+FROM ghcr.io/graalvm/jdk:ol7-java17-22.2.0
 
 WORKDIR /app
 
