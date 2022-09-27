@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="IDGC_COE_ERROR_OVERRIDE_CNFG_create_tbl" author="PreetiS">
+
+        <createTable tableName="idgc_coe_error_override_cnfg"
+                     remarks="A table to contain all the error override">
+
+            <column name="error_code" type="varchar(10)">
+            </column>
+
+            <column name="error_message" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="type_of_message" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_confirmation_required" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="function_code" type="varchar(35)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="batch_type" type="varchar(20)">
+            </column>
+
+            <column name="branch_code" type="varchar(16)">
+            </column>
+
+            <column name="function_code_override" type="varchar(35)">
+            </column>
+
+            <column name="new_error_code" type="varchar(10)">
+            </column>
+
+            <column name="language_code" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="language_name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="locale_code" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="locale_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_excluded" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="life_cycle_id" type="varchar(50)">
+            </column>
+
+            <column name="reference_no" type="varchar(50)">
+            </column>
+
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+        <addUniqueConstraint
+                columnNames="error_code,branch_code"
+                tableName="idgc_coe_error_override_cnfg"
+                constraintName="idgc_coe_error_override_cnfg_pk"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="IDGC_COE_QUESTION_CATEGORY_CNFG_create_tbl" author="NikhilYadav">
+
+        <createTable tableName="idgc_coe_question_category_cnfg"
+                     remarks="A table to contain all the QuestionCategory configuration">
+
+            <column name="question_category_id" type="varchar(10)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="question_category_name" type="varchar(35)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_display" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_show_que_category_name" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_enable_document_upload" type="varchar(1)">
+            </column>
+
+            <column name="life_cycle_id" type="varchar(50)">
+            </column>
+
+            <column name="reference_no" type="varchar(50)">
+            </column>
+
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+
+
+        <createTable tableName="idgc_coe_que_cat_detail_cnfg"
+                     remarks="A table to contain all the QuestionCategory configuration">
+
+            <column name="que_cat_detail_id" type="integer" autoIncrement="true">
+            </column>
+
+            <column name="question_category_id" type="varchar(10)">
+            </column>
+
+            <column name="question_id" type="varchar(10)">
+            </column>
+
+            <column name="question_nature" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="parent_question_id" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="display_condition" type="varchar(10)">
+            </column>
+
+            <column name="record_version" type="integer">
+<!--                <constraints nullable="false"/>-->
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+<!--                <constraints nullable="false"/>-->
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint baseTableName="idgc_coe_que_cat_detail_cnfg" baseColumnNames="question_category_id"
+                                 constraintName="question_category_id_fk"
+                                 referencedTableName="idgc_coe_question_category_cnfg"
+                                 referencedColumnNames="question_category_id"/>
+
+    </changeSet>
+</databaseChangeLog>
