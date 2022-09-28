@@ -28,5 +28,9 @@ public class AppVerTypeConfigDTO extends CoreEngineBaseDTO {
         return isViewToCustomer;
     }
 
+    @Override
+    public String getTaskCode() {
+        return "AppVerTypeConfigDTO";
+    }
 }
 

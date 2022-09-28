@@ -1,23 +1,27 @@
 package com.idg.idgcore.coe.app.service.audit;
 
-import com.idg.idgcore.coe.domain.assembler.audit.*;
-import com.idg.idgcore.coe.domain.entity.audit.*;
-import com.idg.idgcore.coe.domain.entity.mutation.*;
-import com.idg.idgcore.coe.domain.service.audit.*;
-import com.idg.idgcore.coe.dto.audit.*;
-import com.idg.idgcore.datatypes.exceptions.*;
-import com.idg.idgcore.dto.context.*;
-import com.idg.idgcore.enumerations.core.*;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.*;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import com.idg.idgcore.coe.domain.assembler.audit.AuditHistoryAssembler;
+import com.idg.idgcore.coe.domain.entity.audit.AuditHistoryEntity;
+import com.idg.idgcore.coe.domain.entity.mutation.Payload;
+import com.idg.idgcore.coe.domain.service.audit.IAuditHistoryDomainService;
+import com.idg.idgcore.coe.dto.audit.AuditHistoryDTO;
+import com.idg.idgcore.datatypes.exceptions.FatalException;
+import com.idg.idgcore.dto.context.SessionContext;
+import com.idg.idgcore.enumerations.core.ServiceInvocationModeType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
-import static com.idg.idgcore.coe.common.Constants.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
+import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_Y;
+import static com.idg.idgcore.coe.common.Constants.INACTIVE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith (MockitoExtension.class)
 class AuditHistoryApplicationServiceTest {
@@ -101,7 +105,7 @@ class AuditHistoryApplicationServiceTest {
 
     private AuditHistoryDTO getValidAuditHistoryDTO () {
         AuditHistoryDTO auditHistoryDTO = new AuditHistoryDTO().builder()
-                .taskCode("CITY")
+//                .taskCode("CITY")
                 .taskIdentifier("MU")
                 .recordVersion(1)
                 .build();

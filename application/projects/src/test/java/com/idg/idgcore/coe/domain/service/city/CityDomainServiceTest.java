@@ -42,7 +42,7 @@ class CityDomainServiceTest {
     @DisplayName("Junit test for getCities method ")
     void getCitiesReturnCitiesList() {
         given(cityRepository.findAll()).willReturn(List.of(cityEntity));
-        List<CityEntity> cityEntityList = cityDomainService.getCities();
+        List<CityEntity> cityEntityList = cityDomainService.getAllEntities();
         assertThat(cityEntityList).isNotNull();
         assertThat(cityEntityList).hasSize(1);
     }
@@ -52,7 +52,7 @@ class CityDomainServiceTest {
     void getCitiesEmptyCityEntityList()
     {
         given(cityRepository.findAll()).willReturn(Collections.emptyList());
-        List<CityEntity> cityEntityList = cityDomainService.getCities();
+        List<CityEntity> cityEntityList = cityDomainService.getAllEntities();
         assertThat(cityEntityList).isEmpty();
         assertThat(cityEntityList).hasSize(0);
 
@@ -81,7 +81,7 @@ class CityDomainServiceTest {
     @DisplayName("JUnit test for getConfigurationByCode try block method")
     void getConfigurationByCodeTryBlock() {
         given(cityRepository.findByCityCode("MU")).willReturn(cityEntity);
-        CityEntity cityByCode = cityDomainService.getConfigurationByCode(cityDTO);
+        CityEntity cityByCode = cityDomainService.getEntityByIdentifier(cityDTO.getTaskIdentifier());
         assertThat(cityByCode).isNotNull();
     }
 

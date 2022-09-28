@@ -1,11 +1,8 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.mulbranchparameter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.appvertype.IAppVerTypeApplicationService;
 import com.idg.idgcore.coe.app.service.mulbranchparameter.IMulBranchParameterApplicationService;
-import com.idg.idgcore.coe.dto.appvertype.AppVerTypeDTO;
 import com.idg.idgcore.coe.dto.mulbranchparameter.MulBranchParameterDTO;
-import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
 import graphql.kickstart.tools.GraphQLQueryResolver;

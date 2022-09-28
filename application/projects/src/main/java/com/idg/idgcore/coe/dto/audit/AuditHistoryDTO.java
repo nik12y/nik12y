@@ -17,4 +17,9 @@ public class AuditHistoryDTO extends CoreEngineBaseDTO
     private String data;
     private String referenceNo;
     private String traceInfo;
+
+    @Override
+    public String getTaskCode() {
+        return "AuditHistoryDTO";
+    }
 }

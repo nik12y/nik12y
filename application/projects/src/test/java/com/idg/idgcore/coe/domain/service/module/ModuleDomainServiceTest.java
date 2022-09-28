@@ -3,7 +3,6 @@ package com.idg.idgcore.coe.domain.service.module;
 import com.idg.idgcore.coe.domain.entity.module.ModuleEntity;
 import com.idg.idgcore.coe.domain.repository.module.IModuleRepository;
 import com.idg.idgcore.coe.dto.module.ModuleDTO;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +39,7 @@ class ModuleDomainServiceTest {
     @DisplayName("Junit test for getModules method ")
     void getModulesReturnModuleList() {
         given(moduleRepository.findAll()).willReturn(List.of(moduleEntity));
-        List<ModuleEntity> bankParameterEntityList = moduleDomainService.getModules();
+        List<ModuleEntity> bankParameterEntityList = moduleDomainService.getAllEntities();
         assertThat(bankParameterEntityList).isNotNull();
         assertThat(bankParameterEntityList.size()).isEqualTo(1);
     }
@@ -50,7 +49,7 @@ class ModuleDomainServiceTest {
     void getModulesEmptyModuleEntityList()
     {
         given(moduleRepository.findAll()).willReturn(Collections.emptyList());
-        List<ModuleEntity> moduleEntityList = moduleDomainService.getModules();
+        List<ModuleEntity> moduleEntityList = moduleDomainService.getAllEntities();
 
         assertThat(moduleEntityList).isEmpty();
         assertThat(moduleEntityList.size()).isEqualTo(0);
@@ -61,7 +60,7 @@ class ModuleDomainServiceTest {
     @DisplayName("JUnit test for getIbanByCodeReturnIbanEntityObject method")
     void getIbanByCodeReturnIbanEntityObject() {
         given(moduleRepository.findByModuleCode("AB")).willReturn(moduleEntity);
-        ModuleEntity moduleEntity1 =moduleDomainService.getModuleByCode(moduleEntity.getModuleCode());
+        ModuleEntity moduleEntity1 =moduleDomainService.getEntityByIdentifier(moduleEntity.getModuleCode());
         assertThat(moduleEntity1).isNotNull();
     }
 
@@ -71,17 +70,10 @@ class ModuleDomainServiceTest {
         ModuleEntity moduleEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            ModuleEntity moduleEntity2 = moduleDomainService.getModuleByCode(moduleEntity1.getModuleCode());
+            ModuleEntity moduleEntity2 = moduleDomainService.getEntityByIdentifier(moduleEntity1.getModuleCode());
         });
     }
 
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    void getConfigurationByCodeTryBlock() {
-        given(moduleRepository.findByModuleCode("AB")).willReturn(moduleEntity);
-        ModuleEntity moduleByCode = moduleDomainService.getConfigurationByCode(moduleDTO);
-        assertThat(moduleByCode).isNotNull();
-    }
 
 //    @Test
 //    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")

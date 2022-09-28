@@ -1,11 +1,7 @@
 package com.idg.idgcore.coe.domain.service.riskcode;
 
-import com.idg.idgcore.coe.domain.entity.branchtype.BranchTypeEntity;
 import com.idg.idgcore.coe.domain.entity.riskcode.RiskCodeEntity;
-import com.idg.idgcore.coe.domain.repository.branchtype.IBranchTypeRepository;
 import com.idg.idgcore.coe.domain.repository.riskcode.IRiskCodeRepository;
-import com.idg.idgcore.coe.domain.service.branchtype.BranchTypeDomainService;
-import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
 import com.idg.idgcore.coe.dto.riskcode.RiskCodeDTO;
 import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,10 +26,8 @@ class RiskCodeDomainServiceTest {
 
     @InjectMocks
     private RiskCodeDomainService riskCodeDomainService;
-
     private RiskCodeEntity riskCodeEntity;
     private RiskCodeDTO riskCodeDTO;
-
 
     @BeforeEach
     void setUp() {
@@ -45,7 +39,7 @@ class RiskCodeDomainServiceTest {
     @DisplayName("Junit test for getBranches method ")
     public void getRiskCodeReturnRiskCodeList() {
         given(riskCodeRepository.findAll()).willReturn(List.of(riskCodeEntity));
-        List<RiskCodeEntity> riskCodeEntityList = riskCodeDomainService.getRiskCodes();
+        List<RiskCodeEntity> riskCodeEntityList = riskCodeDomainService.getAllEntities();
         assertThat(riskCodeEntityList).isNotNull();
         assertThat(riskCodeEntityList.size()).isEqualTo(1);
     }
@@ -53,32 +47,26 @@ class RiskCodeDomainServiceTest {
 
     @Test
     @DisplayName("JUnit test for getBranches method for negative scenario")
-    public void getBranchesEmptyStateEntityList()
-    {
+    public void getBranchesEmptyStateEntityList() {
         given(riskCodeRepository.findAll()).willReturn(Collections.emptyList());
-        List<RiskCodeEntity> riskCodeEntityList = riskCodeDomainService.getRiskCodes();
+        List<RiskCodeEntity> riskCodeEntityList = riskCodeDomainService.getAllEntities();
         assertThat(riskCodeEntityList).isEmpty();
         assertThat(riskCodeEntityList.size()).isEqualTo(0);
-
     }
-
 
     @Test
     @DisplayName("JUnit test for getStateById method")
     public void getBranchTypeByCodeReturnStateEntityObject() {
         given(riskCodeRepository.findByRiskCode("RISK003")).willReturn(riskCodeEntity);
-        RiskCodeEntity riskCodeEntity1 =riskCodeDomainService.getRiskCodeByCode(riskCodeEntity.getRiskCode());
+        RiskCodeEntity riskCodeEntity1 =riskCodeDomainService.getEntityByIdentifier(riskCodeEntity.getRiskCode());
         assertThat(riskCodeEntity1).isNotNull();
     }
-
 
     @Test
     @DisplayName("JUnit test for getRiskCodeByCode catch block method")
     public void getRiskCodeByCodeReturnCatchBlock() {
-        RiskCodeEntity riskCodeEntity1=null;
-
         assertThrows(Exception.class,()-> {
-            RiskCodeEntity riskCodeEntity2 = riskCodeDomainService.getRiskCodeByCode(riskCodeEntity1.getRiskCode());
+            RiskCodeEntity riskCodeEntity2 = riskCodeDomainService.getEntityByIdentifier(null);
         });
     }
 
@@ -86,76 +74,27 @@ class RiskCodeDomainServiceTest {
     @DisplayName("JUnit test for getConfigurationByCode try block method")
     public void getConfigurationByCodeTryBlock() {
         given(riskCodeRepository.findByRiskCode("RISK003")).willReturn(riskCodeEntity);
-       RiskCodeEntity riskCodeByCode = riskCodeDomainService.getConfigurationByCode(riskCodeDTO);
+        RiskCodeEntity riskCodeByCode = riskCodeDomainService.getEntityByIdentifier("RISK003");
         assertThat(riskCodeByCode).isNotNull();
     }
-
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
     public void getConfigurationByCodeCatchBlock() {
-        RiskCodeDTO riskCodeDTO = null;
         assertThrows(BusinessException.class,()-> {
-            RiskCodeEntity riskCodeByCode = riskCodeDomainService.getConfigurationByCode(riskCodeDTO);
+            riskCodeDomainService.getEntityByIdentifier(null);
         });
     }
-
-//    @Test
-//    @DisplayName("Should throw an exception when the state code is invalid")
-//    void getConfigurationByCodeWhenStateCodeIsInvalidThenThrowException() {
-//        StateDTO stateDTO = null;
-//        assertThrows(
-//                BusinessException.class, () -> {
-//                    stateDomainService.getConfigurationByCode(stateDTO);
-//                });
-//    }
-
-
-    //*****************
-
-//    @Test
-//    @DisplayName("JUnit test for getConfigurationByCode try block method")
-//    void getConfigurationByCodeTryBlock() {
-//        given(riskCodeRepository.findByRiskCode("RISK003")).willReturn(riskCodeEntity);
-//        RiskCodeEntity riskCodeEntity1 = riskCodeDomainService.getConfigurationByCode(riskCodeDTO);
-//        assertThat(riskCodeEntity1).isNotNull();
-//    }
-
-
-//    @Test
-//    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-//    void getConfigurationByCodeCatchBlock() {
-//        RiskCodeDTO riskCodeDTO= null;
-//        assertThrows(BusinessException.class,()-> {
-//            RiskCodeEntity riskCodeEntity2 = riskCodeDomainService.getConfigurationByCode(riskCodeDTO);
-//        });
-//    }
-
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
     void getSaveCodeCatchBlock() {
-        RiskCodeDTO riskCodeDTO = null;
         assertThrows(Exception.class, () -> {
-            riskCodeDomainService.save(riskCodeDTO);
+            riskCodeDomainService.save(null);
         });
     }
-     //*******************
 
-
-
-//    @Test
-//    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-//    public void getSaveCodeCatchBlock() {
-//        RiskCodeDTO riskCodeDTO = null;
-//        assertThrows(Exception.class,()-> {
-//            riskCodeDomainService.save(riskCodeDTO);
-//        });
-//    }
-
-
-    private RiskCodeEntity getRiskCodeEntity()
-    {
+    private RiskCodeEntity getRiskCodeEntity() {
         RiskCodeEntity riskCodeEntity=new RiskCodeEntity();
         riskCodeEntity.setRiskCode("RISK003");
         riskCodeEntity.setRiskCodeDescription("RiskCode003 Category");
@@ -165,8 +104,7 @@ class RiskCodeDomainServiceTest {
         return riskCodeEntity;
     }
 
-    private RiskCodeDTO getRiskCodeDTO()
-    {
+    private RiskCodeDTO getRiskCodeDTO() {
         RiskCodeDTO riskCodeDTO=new RiskCodeDTO();
         riskCodeDTO.setRiskCode("RISK003");
         riskCodeDTO.setRiskCodeDescription("RiskCode Category 003 Description");
@@ -176,5 +114,4 @@ class RiskCodeDomainServiceTest {
         riskCodeDTO.setAuthorized("Y");
         return riskCodeDTO;
     }
-
 }

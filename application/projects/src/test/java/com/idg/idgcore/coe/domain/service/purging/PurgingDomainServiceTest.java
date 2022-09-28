@@ -40,7 +40,7 @@ public class PurgingDomainServiceTest {
     @DisplayName("Junit test for getPurgingAll method ")
     public void getPurgingAllReturnPurgingAllList() {
         given(purgingRepository.findAll()).willReturn(List.of(purgingEntity));
-        List<PurgingEntity> purgingEntityList = purgingDomainService.getPurgingAll();
+        List<PurgingEntity> purgingEntityList = purgingDomainService.getAllEntities();
         assertThat(purgingEntityList).isNotNull();
         assertThat(purgingEntityList.size()).isEqualTo(1);
     }
@@ -50,7 +50,7 @@ public class PurgingDomainServiceTest {
     public void getPurgingAllEmptyPurgingEntityList()
     {
         given(purgingRepository.findAll()).willReturn(Collections.emptyList());
-        List<PurgingEntity> purgingEntityList = purgingDomainService.getPurgingAll();
+        List<PurgingEntity> purgingEntityList = purgingDomainService.getAllEntities();
         assertThat(purgingEntityList).isEmpty();
         assertThat(purgingEntityList.size()).isEqualTo(0);
 
@@ -60,7 +60,7 @@ public class PurgingDomainServiceTest {
     @DisplayName("JUnit test for getPurgingById method")
     public void getPurgingByCodeReturnPurgingEntityObject() {
         given(purgingRepository.findByModuleCode("LN")).willReturn(purgingEntity);
-        PurgingEntity purgingEntity1 = purgingDomainService.getPurgingByCode(purgingEntity.getModuleCode());
+        PurgingEntity purgingEntity1 = purgingDomainService.getEntityByIdentifier(purgingEntity.getModuleCode());
         assertThat(purgingEntity1).isNotNull();
     }
 
@@ -70,33 +70,15 @@ public class PurgingDomainServiceTest {
         PurgingEntity purgingEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            PurgingEntity purgingEntity2 = purgingDomainService.getPurgingByCode(purgingEntity1.getModuleCode());
-        });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    public void getConfigurationByCodeTryBlock() {
-        given(purgingRepository.findByModuleCode("LN")).willReturn(purgingEntity);
-        PurgingEntity purgingByCode = purgingDomainService.getConfigurationByCode(purgingDTO);
-        assertThat(purgingByCode).isNotNull();
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    public void getConfigurationByCodeCatchBlock() {
-        PurgingDTO purgingDTO = null;
-        assertThrows(Exception.class,()-> {
-            PurgingEntity purgingByCode = purgingDomainService.getConfigurationByCode(purgingDTO);
+            PurgingEntity purgingEntity2 = purgingDomainService.getEntityByIdentifier(purgingEntity1.getModuleCode());
         });
     }
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
     public void getSaveCodeCatchBlock() {
-        PurgingDTO purgingDTO = null;
         assertThrows(Exception.class,()-> {
-            purgingDomainService.save(purgingDTO);
+            purgingDomainService.save(null);
         });
     }
 

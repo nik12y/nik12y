@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.questionCategory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.questionCategory.IQuestionCategoryApplicationService;
+import com.idg.idgcore.coe.app.service.questionCategory.QuestionCategoryApplicationService;
 import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class QuestionCategoryMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IQuestionCategoryApplicationService iQuestionCategoryApplicationService;
+    private QuestionCategoryApplicationService questionCategoryApplicationService;
 
     public TransactionStatus processQuestionCategory (SessionContext sessionContext, QuestionCategoryDTO questionCategoryDTO)
             throws FatalException, JsonProcessingException {
-        return this.iQuestionCategoryApplicationService.processQuestionCategory(sessionContext, questionCategoryDTO);
+        return this.questionCategoryApplicationService.process(sessionContext, questionCategoryDTO);
     }
 }

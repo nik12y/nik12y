@@ -17,4 +17,7 @@ import lombok.experimental.SuperBuilder;
 public class MutationDTO extends CoreEngineBaseDTO {
     private PayloadDTO payload;
 
+    private String taskCode;
+
+
 }

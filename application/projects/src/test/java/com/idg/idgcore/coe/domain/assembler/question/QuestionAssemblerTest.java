@@ -1,21 +1,14 @@
 package com.idg.idgcore.coe.domain.assembler.question;
 
-import com.idg.idgcore.coe.domain.assembler.question.QuestionAssembler;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.question.QuestionEntity;
 import com.idg.idgcore.coe.dto.question.QuestionDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.idg.idgcore.coe.common.Constants.QUESTION;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
 class QuestionAssemblerTest {
 
     @Mock
@@ -34,7 +27,7 @@ class QuestionAssemblerTest {
         questionDTO.setManualFactBased("Manual");
         questionDTO.setAnswerValue("Education Amount");
         questionDTO.setAuthorized("Y");
-        questionDTO = questionAssembler.setAuditFields(mutationEntity, questionDTO);
+        questionAssembler.setAuditFields(mutationEntity, questionDTO);
         assertEquals("Y", questionDTO.getAuthorized());
 
     }
@@ -69,6 +62,6 @@ class QuestionAssemblerTest {
         questionDTO1.setTaskCode(QUESTION);
         questionDTO1.setLastConfigurationAction("unauthorized");
 
-     assertEquals(questionEntity,questionAssembler.convertDtoToEntity(questionDTO1));
+     assertEquals(questionEntity,questionAssembler.toEntity(questionDTO1));
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IMutationsDomainService {
     MutationEntity getConfigurationByCode (final String taskIdentifier);
+    MutationEntity getEntityByIdentifier (final String taskIdentifier);
     MutationEntity getConfigurationByTaskCodeAndIdentifier (final String taskCode, final String taskIdentifier);
     List<MutationEntity> findByTaskCodeAndTaskIdentifierStartsWith (final String taskCode, final String taskIdentifier);
     MutationEntity  addUpdate (final MutationDTO mutationDTO) throws BusinessException;

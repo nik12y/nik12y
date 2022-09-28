@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.purpose;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.purpose.IPurposeApplicationService;
+import com.idg.idgcore.coe.app.service.purpose.PurposeApplicationService;
 import com.idg.idgcore.coe.dto.purpose.PurposeDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,14 +17,14 @@ import java.util.List;
 public class PurposeQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IPurposeApplicationService purposeService;
+    private PurposeApplicationService purposeService;
 
     public PurposeDTO getPurposeByCode(SessionContext sessionContext, PurposeDTO purposeDTO) throws FatalException, JsonProcessingException {
-        return this.purposeService.getPurposeByCode(sessionContext, purposeDTO);
+        return this.purposeService.getByIdentifier(sessionContext, purposeDTO);
     }
 
     public List<PurposeDTO> getPurposes(SessionContext sessionContext)
             throws FatalException {
-        return this.purposeService.getPurposes(sessionContext);
+        return this.purposeService.getAll(sessionContext);
     }
 }

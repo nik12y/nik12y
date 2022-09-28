@@ -46,7 +46,7 @@ class QuestionCategoryAssemblerTest {
         questionCategoryDTO.setIsEnableDocumentUpload(true);
         questionCategoryDTO.setQuestionCategoryDetails(questionCategoryDetailsDTOList);
 
-        questionCategoryDTO = questionCategoryAssembler.setAuditFields(mutationEntity, questionCategoryDTO);
+        questionCategoryAssembler.setAuditFields(mutationEntity, questionCategoryDTO);
         assertEquals("Y", questionCategoryDTO.getAuthorized());
     }
 
@@ -90,7 +90,7 @@ class QuestionCategoryAssemblerTest {
         questionCategoryDTO.setRecordVersion(1);
         questionCategoryDTO.setLastConfigurationAction("unauthorized");
 
-        assertEquals(questionCategoryEntity2, questionCategoryAssembler.convertDtoTOEntity(questionCategoryDTO));
+        assertEquals(questionCategoryEntity2, questionCategoryAssembler.toEntity(questionCategoryDTO));
     }
 
     @Test

@@ -1,75 +1,39 @@
 package com.idg.idgcore.coe.domain.assembler.riskcode;
 
-import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
 import com.idg.idgcore.coe.domain.entity.riskcode.RiskCodeEntity;
 import com.idg.idgcore.coe.dto.riskcode.RiskCodeDTO;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
-
 @Component
-public class RiskCodeAssembler {
+public class RiskCodeAssembler extends Assembler<RiskCodeDTO, RiskCodeEntity> {
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
-    @PostConstruct
-    private void setMapperConfig() {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return RiskCodeDTO.class;
     }
 
-    public RiskCodeEntity convertDtoToEntity(RiskCodeDTO riskCodeDTO) {
-        RiskCodeEntity riskCodeEntity = modelMapper.map(riskCodeDTO, RiskCodeEntity.class);
-//        riskCodeEntity.setRiskCode(riskCodeDTO.getRiskCode());
-//        riskCodeEntity.setRiskCodeName(riskCodeDTO.getRiskCodeName());
-//        riskCodeEntity.setRiskCodeDescription(riskCodeDTO.getRiskCodeDescription());
+    @Override
+    public Class getSpecificEntityClass() {
+        return RiskCodeEntity.class;
+    }
+
+    @Override
+    public RiskCodeEntity toEntity(RiskCodeDTO riskCodeDTO) {
+        RiskCodeEntity riskCodeEntity = super.toEntity(riskCodeDTO);
         riskCodeEntity.setIsAllowDetailsModified(getCharValueFromBoolean(riskCodeDTO.getIsAllowDetailsModified()));
-//        riskCodeEntity.setRiskCategoryCode(riskCodeDTO.getRiskCategoryCode());
-
-
-
         return riskCodeEntity;
     }
 
-
     public RiskCodeDTO convertEntityToDto(RiskCodeEntity riskCodeEntity) {
         RiskCodeDTO riskCodeDTO = modelMapper.map(riskCodeEntity, RiskCodeDTO.class);
+        return riskCodeDTO;
+    }
+
+    @Override
+    public RiskCodeDTO toDTO(RiskCodeEntity riskCodeEntity) {
+        RiskCodeDTO riskCodeDTO = super.toDTO(riskCodeEntity);
         riskCodeDTO.setIsAllowDetailsModified(getBooleanValueFromChar(riskCodeEntity.getIsAllowDetailsModified()));
-//        riskCodeDTO.setRiskCode(riskCodeEntity.getRiskCode());
-//        riskCodeDTO.setRiskCodeName(riskCodeEntity.getRiskCodeName());
-//        riskCodeDTO.setRiskCategoryCode(riskCodeEntity.getRiskCategoryCode());
-//        riskCodeDTO.setRiskCodeDescription(riskCodeEntity.getRiskCodeDescription());
-//        riskCodeDTO.setRiskMode(riskCodeEntity.getRisk_Mode());
-
         return riskCodeDTO;
     }
-
-    public RiskCodeDTO setAuditFields (MutationEntity mutationEntity, RiskCodeDTO riskCodeDTO) {
-        riskCodeDTO.setAction(mutationEntity.getAction());
-        riskCodeDTO.setAuthorized(mutationEntity.getAuthorized());
-        riskCodeDTO.setRecordVersion(mutationEntity.getRecordVersion());
-        riskCodeDTO.setStatus(mutationEntity.getStatus());
-        riskCodeDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-        riskCodeDTO.setCreatedBy(mutationEntity.getCreatedBy());
-        riskCodeDTO.setCreationTime(mutationEntity.getCreationTime());
-        riskCodeDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        riskCodeDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        riskCodeDTO.setTaskCode(mutationEntity.getTaskCode());
-        riskCodeDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        return riskCodeDTO;
-    }
-    public char getCharValueFromBoolean(boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar(Character value) {
-        return value.equals(CHAR_Y);
-
-    }
-
 }

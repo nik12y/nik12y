@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,7 +25,7 @@ class CountryAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         CountryDTO countryDTO = CountryDTO.builder().build();
-        countryDTO = countryAssembler.setAuditFields(mutationEntity, countryDTO);
+        countryAssembler.setAuditFields(mutationEntity, countryDTO);
         assertEquals("Y", countryDTO.getAuthorized());
     }
 
@@ -38,7 +37,7 @@ class CountryAssemblerTest {
         countryEntity.setIsEuMember('N');
         countryEntity.setIsClearingNetwork('N');
         countryEntity.setIsMtGenerate('N');
-        CountryDTO countryDTO=countryAssembler.convertEntityToDto(countryEntity);
+        CountryDTO countryDTO=countryAssembler.toDTO(countryEntity);
     }
 
     @Test
@@ -49,6 +48,6 @@ class CountryAssemblerTest {
         countryDTO.setEuMember(false);
         countryDTO.setDefaultClearingNetwork(false);
         countryDTO.setGenerateMt205(false);
-        CountryEntity countryEntity=countryAssembler.convertDtoToEntity(countryDTO);
+        CountryEntity countryEntity=countryAssembler.toEntity(countryDTO);
     }
 }

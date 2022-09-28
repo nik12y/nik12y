@@ -17,4 +17,9 @@ public class DocumentsDTO  extends CoreEngineBaseDTO {
 
     private String documentName;
     private String nature;
+
+    @Override
+    public String getTaskCode() {
+        return "DocumentsDTO";
+    }
 }

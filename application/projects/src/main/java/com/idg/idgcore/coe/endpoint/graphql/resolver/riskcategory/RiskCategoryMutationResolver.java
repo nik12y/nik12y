@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.riskcategory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.riskcategory.IRiskCategoryApplicationService;
+import com.idg.idgcore.coe.app.service.riskcategory.RiskCategoryApplicationService;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class RiskCategoryMutationResolver implements GraphQLMutationResolver {
+
     @Autowired
-    private IRiskCategoryApplicationService riskcategoryService;
+    private RiskCategoryApplicationService riskCategoryApplicationService;
 
     public TransactionStatus processRiskCategory (SessionContext sessionContext, RiskCategoryDTO riskcategoryDTO)
             throws FatalException, JsonProcessingException {
-        return riskcategoryService.processRiskCategory(sessionContext, riskcategoryDTO);
+        return riskCategoryApplicationService.process(sessionContext, riskcategoryDTO);
     }
 
 }

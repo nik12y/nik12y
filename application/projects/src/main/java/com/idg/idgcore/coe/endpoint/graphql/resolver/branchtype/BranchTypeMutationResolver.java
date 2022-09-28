@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.branchtype;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.branchtype.IBranchTypeApplicationService;
+import com.idg.idgcore.coe.app.service.branchtype.BranchTypeApplicationService;
 import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class BranchTypeMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IBranchTypeApplicationService branchtypeService;
+    private BranchTypeApplicationService branchtypeService;
 
     public TransactionStatus processBranchType (SessionContext sessionContext, BranchTypeDTO branchtypeDTO)
             throws FatalException, JsonProcessingException {
-        return this.branchtypeService.processBranchType(sessionContext, branchtypeDTO);
+        return this.branchtypeService.process(sessionContext, branchtypeDTO);
     }
 
 }

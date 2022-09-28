@@ -27,7 +27,7 @@ public class BranchSystemAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         BranchSystemDateDTO branchSystemDateDTO = BranchSystemDateDTO.builder().build();
-        branchSystemDateDTO = branchSystemDateAssembler.setAuditFields(mutationEntity, branchSystemDateDTO);
+        branchSystemDateAssembler.setAuditFields(mutationEntity, branchSystemDateDTO);
         assertEquals("Y", branchSystemDateDTO.getAuthorized());
     }
 
@@ -39,7 +39,7 @@ public class BranchSystemAssemblerTest {
         branchSystemDateEntity.setCurrentWorkingDate(getDate("2022-08-06"));
         branchSystemDateEntity.setPreviousWorkingDate(getDate("2022-08-05"));
         branchSystemDateEntity.setNextWorkingDate(getDate("2022-08-07"));
-        BranchSystemDateDTO branchSystemDateDTO=branchSystemDateAssembler.convertEntityToDto(branchSystemDateEntity);
+        BranchSystemDateDTO branchSystemDateDTO=branchSystemDateAssembler.toDTO(branchSystemDateEntity);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class BranchSystemAssemblerTest {
         branchSystemDateDTO.setCurrentWorkingDate("06-08-2022");
         branchSystemDateDTO.setPreviousWorkingDate("10-07-2022");
         branchSystemDateDTO.setNextWorkingDate("15-08-2022");
-        BranchSystemDateEntity branchSystemDateEntity=branchSystemDateAssembler.convertDtoToEntity(branchSystemDateDTO);
+        BranchSystemDateEntity branchSystemDateEntity=branchSystemDateAssembler.toEntity(branchSystemDateDTO);
     }
 
     private Date getDate (String s) {

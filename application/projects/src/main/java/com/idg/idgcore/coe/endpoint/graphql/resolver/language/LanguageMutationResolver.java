@@ -2,6 +2,7 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.language;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.idg.idgcore.coe.app.service.language.ILanguageApplicationService;
+import com.idg.idgcore.coe.app.service.language.LanguageApplicationService;
 import com.idg.idgcore.coe.dto.language.LanguageDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LanguageMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private ILanguageApplicationService languageService;
+    private LanguageApplicationService languageService;
 
     public TransactionStatus processLanguage (SessionContext sessionContext, LanguageDTO languageDTO)
             throws FatalException, JsonProcessingException {
-        return this.languageService.processLanguage(sessionContext, languageDTO);
+        return this.languageService.process(sessionContext, languageDTO);
     }
 }

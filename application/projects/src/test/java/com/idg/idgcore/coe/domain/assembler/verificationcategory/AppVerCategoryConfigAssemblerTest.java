@@ -29,7 +29,7 @@ class AppVerCategoryConfigAssemblerTest {
             MutationEntity mutationEntity = new MutationEntity();
             mutationEntity.setAuthorized("Y");
             AppVerCategoryConfigDTO appVerCategoryConfigDTO = AppVerCategoryConfigDTO.builder().build();
-            appVerCategoryConfigDTO = appVerCategoryConfigAssembler.setAuditFields(mutationEntity, appVerCategoryConfigDTO);
+            appVerCategoryConfigAssembler.setAuditFields(mutationEntity, appVerCategoryConfigDTO);
             assertEquals("Y", appVerCategoryConfigDTO.getAuthorized());
         }
 
@@ -47,7 +47,7 @@ class AppVerCategoryConfigAssemblerTest {
             appVerCategoryConfigEntity.setStatus("draft");
             appVerCategoryConfigEntity.setRecordVersion(0);
 
-            AppVerCategoryConfigDTO appVerCategoryConfigDTO=appVerCategoryConfigAssembler.convertEntityToDto(appVerCategoryConfigEntity);
+            AppVerCategoryConfigDTO appVerCategoryConfigDTO=appVerCategoryConfigAssembler.toDTO(appVerCategoryConfigEntity);
         }
     @Test
     @DisplayName("Should set the authorized field in appVerCategoryConfigDTO")
@@ -60,6 +60,6 @@ class AppVerCategoryConfigAssemblerTest {
         List<AppVerTypeConfigDTO> appVerTypeConfigDTO=new ArrayList<>();
         appVerTypeConfigDTO.add(new AppVerTypeConfigDTO("VC001",true,"mutation"));
         appVerCategoryConfigDTO.setAppVerTypeConfig(appVerTypeConfigDTO);
-        AppVerCategoryConfigEntity appVerCategoryConfigEntity=appVerCategoryConfigAssembler.convertDtoToEntity(appVerCategoryConfigDTO);
+        AppVerCategoryConfigEntity appVerCategoryConfigEntity=appVerCategoryConfigAssembler.toEntity(appVerCategoryConfigDTO);
     }
 }

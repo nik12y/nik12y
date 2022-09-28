@@ -38,4 +38,9 @@ public class LanguageDTO extends CoreEngineBaseDTO {
     {
         return this.getLanguageCode();
     }
+
+
+    public static Class<? extends CoreEngineBaseDTO> getSpecificType() {
+        return LanguageDTO.class;
+    }
 }

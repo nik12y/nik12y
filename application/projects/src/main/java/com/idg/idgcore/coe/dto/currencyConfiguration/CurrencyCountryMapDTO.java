@@ -14,4 +14,9 @@ public class CurrencyCountryMapDTO extends CoreEngineBaseDTO {
     private String currencyCode;
     private String currencyCountryCode;
     private String currencyCountryName;
+
+    @Override
+    public String getTaskCode() {
+        return "CurrencyCountryMapDTO";
+    }
 }

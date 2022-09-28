@@ -1,11 +1,8 @@
 package com.idg.idgcore.coe.domain.assembler.regulatoryRegion;
 
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
-import com.idg.idgcore.coe.domain.entity.questionCategory.QuestionCatDetailsEntity;
-import com.idg.idgcore.coe.domain.entity.questionCategory.QuestionCategoryEntity;
 import com.idg.idgcore.coe.domain.entity.regulatoryRegion.RegulatoryRegionConfigEntity;
 import com.idg.idgcore.coe.domain.entity.regulatoryRegion.RegulatoryRegionMappingEntity;
-import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDTO;
 import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDetailsDTO;
 import com.idg.idgcore.coe.dto.regulatoryRegion.RegulatoryRegionConfigDTO;
 import com.idg.idgcore.coe.dto.regulatoryRegion.RegulatoryRegionMappingDTO;
@@ -52,7 +49,7 @@ class RegulatoryRegionAssemblerTest {
         regulatoryRegionConfigDTO.setRegionGroupCode("Country");
         regulatoryRegionConfigDTO.setPurpose("Fees");
 
-        regulatoryRegionConfigDTO = regulatoryRegionAssembler.setAuditFields(mutationEntity, regulatoryRegionConfigDTO);
+        regulatoryRegionAssembler.setAuditFields(mutationEntity, regulatoryRegionConfigDTO);
         assertEquals("Y", regulatoryRegionConfigDTO.getAuthorized());
     }
 
@@ -95,7 +92,7 @@ class RegulatoryRegionAssemblerTest {
         regulatoryRegionConfigDTO.setRegionGroupCode("Country");
         regulatoryRegionConfigDTO.setPurpose("Fees");
 
-        assertEquals(regulatoryRegionConfigEntity, regulatoryRegionAssembler.convertDtoToEntity(regulatoryRegionConfigDTO));
+        assertEquals(regulatoryRegionConfigEntity, regulatoryRegionAssembler.toEntity(regulatoryRegionConfigDTO));
     }
 
 }

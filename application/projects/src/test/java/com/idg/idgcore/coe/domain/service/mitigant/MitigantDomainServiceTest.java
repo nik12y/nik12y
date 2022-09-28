@@ -1,12 +1,8 @@
 package com.idg.idgcore.coe.domain.service.mitigant;
 
 import com.idg.idgcore.coe.domain.entity.mitigant.MitigantEntity;
-import com.idg.idgcore.coe.domain.entity.purpose.PurposeEntity;
 import com.idg.idgcore.coe.domain.repository.mitigant.IMitigantRepository;
-import com.idg.idgcore.coe.domain.repository.purpose.IPurposeRepository;
-import com.idg.idgcore.coe.domain.service.purpose.PurposeDomainService;
 import com.idg.idgcore.coe.dto.mitigant.MitigantDTO;
-import com.idg.idgcore.coe.dto.purpose.PurposeDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +38,7 @@ public class MitigantDomainServiceTest {
     @DisplayName("Junit test for getMitigantAll method ")
     public void getMitigantAllReturnPurposesList() {
         given(mitigantRepository.findAll()).willReturn(List.of(mitigantEntity));
-        List<MitigantEntity> mitigantEntityList = mitigantDomainService.getMitigantAll();
+        List<MitigantEntity> mitigantEntityList = mitigantDomainService.getAllEntities();
         assertThat(mitigantEntityList).isNotNull();
         assertThat(mitigantEntityList.size()).isEqualTo(1);
     }
@@ -52,7 +48,7 @@ public class MitigantDomainServiceTest {
     public void getMitigantAllEmptyMitigantEntityList()
     {
         given(mitigantRepository.findAll()).willReturn(Collections.emptyList());
-        List<MitigantEntity> mitigantEntityList = mitigantDomainService.getMitigantAll();
+        List<MitigantEntity> mitigantEntityList = mitigantDomainService.getAllEntities();
         assertThat(mitigantEntityList).isEmpty();
         assertThat(mitigantEntityList.size()).isEqualTo(0);
 
@@ -62,7 +58,7 @@ public class MitigantDomainServiceTest {
     @DisplayName("JUnit test for getMitigantById method")
     public void getMitigantByCodeReturnMitigantEntityObject() {
         given(mitigantRepository.findByMitigantCode("CR0001")).willReturn(mitigantEntity);
-        MitigantEntity mitigantEntity1 = mitigantDomainService.getMitigantByCode(mitigantEntity.getMitigantCode());
+        MitigantEntity mitigantEntity1 = mitigantDomainService.getEntityByIdentifier(mitigantEntity.getMitigantCode());
         assertThat(mitigantEntity1).isNotNull();
     }
 
@@ -72,24 +68,7 @@ public class MitigantDomainServiceTest {
         MitigantEntity mitigantEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            MitigantEntity mitigantEntity2 = mitigantDomainService.getMitigantByCode(mitigantEntity1.getMitigantCode());
-        });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    public void getConfigurationByCodeTryBlock() {
-        given(mitigantRepository.findByMitigantCode("CR0001")).willReturn(mitigantEntity);
-        MitigantEntity mitigantByCode = mitigantDomainService.getConfigurationByCode(mitigantDTO);
-        assertThat(mitigantByCode).isNotNull();
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    public void getConfigurationByCodeCatchBlock() {
-        MitigantDTO mitigantDTO = null;
-        assertThrows(Exception.class,()-> {
-            MitigantEntity mitigantByCode = mitigantDomainService.getConfigurationByCode(mitigantDTO);
+            MitigantEntity mitigantEntity2 = mitigantDomainService.getEntityByIdentifier(mitigantEntity1.getMitigantCode());
         });
     }
 

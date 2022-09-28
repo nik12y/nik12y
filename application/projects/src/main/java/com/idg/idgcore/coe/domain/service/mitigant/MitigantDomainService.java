@@ -1,11 +1,9 @@
 package com.idg.idgcore.coe.domain.service.mitigant;
 
 import com.idg.idgcore.coe.domain.assembler.mitigant.MitigantAssembler;
-import com.idg.idgcore.coe.domain.assembler.purpose.PurposeAssembler;
 import com.idg.idgcore.coe.domain.entity.mitigant.MitigantEntity;
-import com.idg.idgcore.coe.domain.entity.purpose.PurposeEntity;
 import com.idg.idgcore.coe.domain.repository.mitigant.IMitigantRepository;
-import com.idg.idgcore.coe.domain.repository.purpose.IPurposeRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
 import com.idg.idgcore.coe.dto.mitigant.MitigantDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,7 @@ import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class MitigantDomainService implements IMitigantDomainService{
+public class MitigantDomainService extends DomainService<MitigantDTO, MitigantEntity> {
 
     @Autowired
     private IMitigantRepository mitigantRepository;
@@ -27,50 +25,31 @@ public class MitigantDomainService implements IMitigantDomainService{
     private MitigantAssembler mitigantAssembler;
 
     @Override
-    public MitigantEntity getConfigurationByCode(MitigantDTO mitigantDTO) {
-        MitigantEntity mitigantEntity = null;
-        try {
-            mitigantEntity = this.mitigantRepository.findByMitigantCode(mitigantDTO.getMitigantCode());
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return mitigantEntity;
-    }
-
-    @Override
-    public List<MitigantEntity> getMitigantAll() {
-        return this.mitigantRepository.findAll();
-    }
-
-    @Override
-    public MitigantEntity getMitigantByCode(String mitigantCode) {
+    public MitigantEntity getEntityByIdentifier(String mitigantCode) {
         MitigantEntity mitigantEntity = null;
         try {
             mitigantEntity = this.mitigantRepository.findByMitigantCode(mitigantCode);
         }
         catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return mitigantEntity;
     }
 
     @Override
+    public List<MitigantEntity> getAllEntities() {
+        return this.mitigantRepository.findAll();
+    }
+
+    @Override
     public void save(MitigantDTO mitigantDTO) {
         try {
-            MitigantEntity mitigantEntity = mitigantAssembler.convertDtoToEntity(mitigantDTO);
+            MitigantEntity mitigantEntity = mitigantAssembler.toEntity(mitigantDTO);
             this.mitigantRepository.save(mitigantEntity);
         }
         catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }

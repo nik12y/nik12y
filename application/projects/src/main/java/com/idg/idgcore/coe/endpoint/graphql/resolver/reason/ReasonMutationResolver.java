@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.reason;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.reason.IReasonApplicationService;
+import com.idg.idgcore.coe.app.service.reason.ReasonApplicationService;
 import com.idg.idgcore.coe.dto.reason.ReasonDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class ReasonMutationResolver implements GraphQLMutationResolver {
+
     @Autowired
-    private IReasonApplicationService reasonService;
+    private ReasonApplicationService reasonService;
 
     public TransactionStatus processReason (SessionContext sessionContext, ReasonDTO reasonDTO)
             throws FatalException, JsonProcessingException {
-        return this.reasonService.processReason(sessionContext, reasonDTO);
+        return this.reasonService.process(sessionContext, reasonDTO);
     }
 
 }

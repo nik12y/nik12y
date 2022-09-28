@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.verificationcategory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.verificationcategory.IAppVerCategoryApplicationService;
+import com.idg.idgcore.coe.app.service.verificationcategory.AppVerCategoryApplicationService;
 import com.idg.idgcore.coe.dto.verificationcategory.AppVerCategoryConfigDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -18,15 +18,15 @@ import java.util.List;
 public class AppVerCategoryQueryResolver implements GraphQLQueryResolver{
 
         @Autowired
-        private IAppVerCategoryApplicationService appVerCategoryApplicationService;
+        private AppVerCategoryApplicationService appVerCategoryApplicationService;
 
         public AppVerCategoryConfigDTO getAppVerCategoryConfigByID(SessionContext sessionContext, AppVerCategoryConfigDTO appVerCategoryConfigDTO)
                 throws FatalException, JsonProcessingException {
-            return this.appVerCategoryApplicationService.getAppVerCategoryConfigByID(sessionContext, appVerCategoryConfigDTO);
+            return this.appVerCategoryApplicationService.getByIdentifier(sessionContext, appVerCategoryConfigDTO);
         }
 
         public List<AppVerCategoryConfigDTO> getAppVerCategoryConfigs(SessionContext sessionContext)
                 throws FatalException {
-            return this.appVerCategoryApplicationService.getAppVerCategoryConfigs(sessionContext);
+            return this.appVerCategoryApplicationService.getAll(sessionContext);
         }
 }

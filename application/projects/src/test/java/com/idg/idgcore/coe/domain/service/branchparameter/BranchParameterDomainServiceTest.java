@@ -1,19 +1,21 @@
 package com.idg.idgcore.coe.domain.service.branchparameter;
 
-import com.idg.idgcore.coe.domain.assembler.branchparameter.*;
+import com.idg.idgcore.coe.domain.assembler.branchparameter.BranchParameterAssembler;
 import com.idg.idgcore.coe.domain.entity.branchparameter.*;
-import com.idg.idgcore.coe.domain.repository.branchparameter.*;
+import com.idg.idgcore.coe.domain.repository.branchparameter.IBranchParameterRepository;
 import com.idg.idgcore.coe.dto.branchparameter.*;
-import com.idg.idgcore.datatypes.exceptions.*;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.*;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith (MockitoExtension.class)
@@ -38,7 +40,7 @@ class BranchParameterDomainServiceTest {
     @DisplayName("Junit test for getBranchParametersReturnBranchParametersList method ")
     void getBranchParametersReturnBranchParametersList() {
         given(branchParameterRepository.findAll()).willReturn(List.of(branchParameterEntity));
-        List<BranchParameterEntity> bankParameterEntityList = branchParameterDomainService.getBranchParameters();
+        List<BranchParameterEntity> bankParameterEntityList = branchParameterDomainService.getAllEntities();
         assertThat(bankParameterEntityList).isNotNull();
         assertThat(bankParameterEntityList.size()).isEqualTo(1);
     }
@@ -48,7 +50,7 @@ class BranchParameterDomainServiceTest {
     void getBranchParametersEmptyBranchParameterEntityList()
     {
         given(branchParameterRepository.findAll()).willReturn(Collections.emptyList());
-        List<BranchParameterEntity> branchParameterEntityList = branchParameterDomainService.getBranchParameters();
+        List<BranchParameterEntity> branchParameterEntityList = branchParameterDomainService.getAllEntities();
 
         assertThat(branchParameterEntityList).isEmpty();
         assertThat(branchParameterEntityList.size()).isEqualTo(0);
@@ -59,35 +61,8 @@ class BranchParameterDomainServiceTest {
     @DisplayName("JUnit test for getBranchParameterByCodeReturnBranchParameterEntityObject method")
     void getBranchParameterByCodeReturnBranchParameterEntityObject() {
         given(branchParameterRepository.findByBranchCode("10001")).willReturn(branchParameterEntity);
-        BranchParameterEntity branchParameterEntity1 =branchParameterDomainService.getBranchParameterByBranchCode(branchParameterEntity.getBranchCode());
+        BranchParameterEntity branchParameterEntity1 =branchParameterDomainService.getEntityByIdentifier(branchParameterEntity.getBranchCode());
         assertThat(branchParameterEntity1).isNotNull();
-    }
-
-    @Test
-    @DisplayName("JUnit test for getBranchParameterByCodeReturnCatchBlock catch block method")
-    void getBranchParameterByCodeReturnCatchBlock() {
-        BranchParameterEntity branchParameterEntity1=null;
-
-        assertThrows(Exception.class,()-> {
-            BranchParameterEntity branchParameterEntity2 = branchParameterDomainService.getBranchParameterByBranchCode(branchParameterEntity1.getBranchCode());
-        });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCodeTryBlock try block method")
-    void getConfigurationByCodeTryBlock() {
-        given(branchParameterRepository.findByBranchCode("10001")).willReturn(branchParameterEntity);
-        BranchParameterEntity branchParameterByBranchParameterCountryCode = branchParameterDomainService.getConfigurationByCode(branchParameterDTO);
-        assertThat(branchParameterByBranchParameterCountryCode).isNotNull();
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCodeCatchBlock for Catch Block method")
-    void getConfigurationByCodeCatchBlock() {
-        BranchParameterDTO branchParameterDTO = null;
-        assertThrows(BusinessException.class,()-> {
-            BranchParameterEntity branchParameterByBranchParameterCountryCode = branchParameterDomainService.getConfigurationByCode(branchParameterDTO);
-        });
     }
 
 /*

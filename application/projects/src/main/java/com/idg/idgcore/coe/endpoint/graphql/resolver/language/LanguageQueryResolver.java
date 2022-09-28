@@ -2,6 +2,7 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.language;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.idg.idgcore.coe.app.service.language.ILanguageApplicationService;
+import com.idg.idgcore.coe.app.service.language.LanguageApplicationService;
 import com.idg.idgcore.coe.dto.language.LanguageDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,15 +18,15 @@ import java.util.List;
 public class LanguageQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private ILanguageApplicationService languageService;
+    private LanguageApplicationService languageService;
 
     public LanguageDTO getLanguageByCode (SessionContext sessionContext, LanguageDTO languageDTO)
             throws FatalException, JsonProcessingException {
-        return this.languageService.getLanguageByCode(sessionContext, languageDTO);
+        return this.languageService.getByIdentifier(sessionContext, languageDTO);
     }
 
     public List<LanguageDTO> getLanguages (SessionContext sessionContext)
             throws FatalException {
-        return this.languageService.getLanguages(sessionContext);
+        return this.languageService.getAll(sessionContext);
     }
 }

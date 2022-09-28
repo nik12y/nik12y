@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.purgingpolicy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.purgingpolicy.IPurgingApplicationService;
+import com.idg.idgcore.coe.app.service.purgingpolicy.PurgingApplicationService;
 import com.idg.idgcore.coe.dto.purgingpolicy.PurgingDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 public class PurgingMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
-    private IPurgingApplicationService purgingService;
+    private PurgingApplicationService purgingApplicationService;
 
     public TransactionStatus processPurging (SessionContext sessionContext, PurgingDTO purgingDTO)
             throws FatalException, JsonProcessingException {
-        return this.purgingService.processPurging(sessionContext, purgingDTO);
+        return this.purgingApplicationService.process(sessionContext, purgingDTO);
     }
 }

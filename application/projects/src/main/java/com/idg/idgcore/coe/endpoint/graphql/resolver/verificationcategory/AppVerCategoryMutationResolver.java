@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.verificationcategory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.verificationcategory.IAppVerCategoryApplicationService;
+import com.idg.idgcore.coe.app.service.verificationcategory.AppVerCategoryApplicationService;
 import com.idg.idgcore.coe.dto.verificationcategory.AppVerCategoryConfigDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,11 +15,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class AppVerCategoryMutationResolver implements GraphQLMutationResolver {
+
         @Autowired
-        private IAppVerCategoryApplicationService appVerCategoryApplicationService;
+        private AppVerCategoryApplicationService appVerCategoryApplicationService;
 
         public TransactionStatus processAppVerCategoryConfigs(SessionContext sessionContext, AppVerCategoryConfigDTO appVerCategoryConfigDTO)
                 throws FatalException, JsonProcessingException {
-            return this.appVerCategoryApplicationService.processAppVerCategoryConfigs(sessionContext, appVerCategoryConfigDTO);
+            return this.appVerCategoryApplicationService.process(sessionContext, appVerCategoryConfigDTO);
         }
 }

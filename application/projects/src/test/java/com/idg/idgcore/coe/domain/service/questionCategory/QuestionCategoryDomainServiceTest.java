@@ -6,7 +6,6 @@ import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.questionCategory.QuestionCatDetailsEntity;
 import com.idg.idgcore.coe.domain.entity.questionCategory.QuestionCategoryEntity;
 import com.idg.idgcore.coe.domain.repository.questionCategory.IQuestionCategoryRepository;
-import com.idg.idgcore.coe.domain.service.questionCategory.QuestionCategoryDomainService;
 import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDTO;
 import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDetailsDTO;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -87,7 +86,7 @@ class QuestionCategoryDomainServiceTest {
     void getQuestionCategoryById(){
 
         given(iQuestionCategoryRepository.findByQuestionCategoryId(questionCategoryDTO.getQuestionCategoryId())).willReturn(questionCategoryEntity);
-        QuestionCategoryEntity questionCategoryById = questionCategoryDomainService.getQuestionCategoryById(questionCategoryEntity.getQuestionCategoryId());
+        QuestionCategoryEntity questionCategoryById = questionCategoryDomainService.getEntityByIdentifier(questionCategoryEntity.getQuestionCategoryId());
           assertThat(questionCategoryById).isNotNull();
     }
 
@@ -95,7 +94,7 @@ class QuestionCategoryDomainServiceTest {
     @DisplayName("Junit Test for geAllQuestionCategories empty list")
     void getAllQuestionsCategories(){
         given(iQuestionCategoryRepository.findAll()).willReturn(Collections.emptyList());
-        List<QuestionCategoryEntity> questionsCategories = questionCategoryDomainService.getQuestionsCategories();
+        List<QuestionCategoryEntity> questionsCategories = questionCategoryDomainService.getAllEntities();
           assertThat(questionsCategories).isEmpty();
     }
 
@@ -104,7 +103,7 @@ class QuestionCategoryDomainServiceTest {
     void getAllQuestionCategoriesWithList(){
 
         given(iQuestionCategoryRepository.findAll()).willReturn(List.of(questionCategoryEntity));
-        List<QuestionCategoryEntity> questionsCategories = questionCategoryDomainService.getQuestionsCategories();
+        List<QuestionCategoryEntity> questionsCategories = questionCategoryDomainService.getAllEntities();
      assertThat(questionsCategories).isNotNull().hasSize(1);
     }
 
@@ -112,7 +111,7 @@ class QuestionCategoryDomainServiceTest {
     @DisplayName("Junit test for save all QuestionCategories")
     void saveQuestionCategories(){
 
-        given(questionCategoryAssembler.convertDtoTOEntity(questionCategoryDTO)).willReturn(questionCategoryEntity);
+        given(questionCategoryAssembler.toEntity(questionCategoryDTO)).willReturn(questionCategoryEntity);
         when(iQuestionCategoryRepository.save(any(QuestionCategoryEntity.class))).thenReturn(questionCategoryEntity);
         questionCategoryDomainService.save(questionCategoryDTO);
         assertThat(questionCategoryEntity).isNotNull();

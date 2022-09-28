@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.reason;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.reason.IReasonApplicationService;
+import com.idg.idgcore.coe.app.service.reason.ReasonApplicationService;
 import com.idg.idgcore.coe.dto.reason.ReasonDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -16,15 +16,14 @@ import java.util.List;
 @Component
 public class ReasonQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    private IReasonApplicationService reasonService;
+    private ReasonApplicationService reasonService;
 
     public ReasonDTO getReasonByCode (SessionContext sessionContext, ReasonDTO reasonDTO)
             throws FatalException, JsonProcessingException {
-        return this.reasonService.getReasonByCode(sessionContext, reasonDTO);
+        return this.reasonService.getByIdentifier(sessionContext, reasonDTO);
     }
 
     public List<ReasonDTO> getReasons (SessionContext sessionContext) throws FatalException {
-        return this.reasonService.getReasons(sessionContext);
+        return this.reasonService.getAll(sessionContext);
     }
-
 }
