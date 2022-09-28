@@ -1,33 +1,41 @@
 package com.idg.idgcore.coe.domain.service.financialAccountingYear;
 
-import com.idg.idgcore.coe.domain.assembler.financialAccountingYear.*;
-import com.idg.idgcore.coe.domain.entity.financialAccountingYear.*;
-import com.idg.idgcore.coe.domain.repository.financialAccountingYear.*;
-import com.idg.idgcore.coe.dto.financialAccountingYear.*;
-import com.idg.idgcore.coe.exception.*;
-import lombok.extern.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
+import com.idg.idgcore.coe.domain.assembler.financialAccountingYear.FinancialAccountingYearAssembler;
+import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntity;
+import com.idg.idgcore.coe.domain.repository.financialAccountingYear.IFinancialAccountingYearRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
+import com.idg.idgcore.coe.dto.financialAccountingYear.FinancialAccountingYearDTO;
+import com.idg.idgcore.coe.exception.ExceptionUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
-import static com.idg.idgcore.coe.exception.Error.*;
+import static com.idg.idgcore.coe.common.Constants.FIELD_SEPARATOR;
+import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class FinancialAccountingYearDomainService implements IFinancialAccountingYearDomainService {
+public class FinancialAccountingYearDomainService extends DomainService<FinancialAccountingYearDTO, FinancialAccountingYearEntity> {
+
     @Autowired
     private IFinancialAccountingYearRepository repository;
+
     @Autowired
     private FinancialAccountingYearAssembler assembler;
 
-    public FinancialAccountingYearEntity getConfigurationByCode (
-            FinancialAccountingYearDTO dto) {
+    @Override
+    public FinancialAccountingYearEntity getEntityByIdentifier(String identifier) {
         FinancialAccountingYearEntity entity = null;
         try {
-            entity = this.repository.findByBankCode(dto.getBankCode());
-        }
-        catch (Exception e) {
+            String[] fields = identifier.split(FIELD_SEPARATOR);
+            if (fields.length == 3) {
+                entity = this.repository.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                        fields[0], fields[1], fields[2]);
+            }
+        } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error(e.getMessage());
             }
@@ -36,22 +44,22 @@ public class FinancialAccountingYearDomainService implements IFinancialAccountin
         return entity;
     }
 
-    public List<FinancialAccountingYearEntity> getFinancialAccountingYears () {
-        return this.repository.findAll();
+    @Override
+    public List<FinancialAccountingYearEntity> getAllEntities() {
+        return repository.findAll();
     }
 
-    public FinancialAccountingYearEntity getFinancialAccountingYearByCode (String bankCode) {
-        FinancialAccountingYearEntity entity = null;
+    @Override
+    public void save(FinancialAccountingYearDTO valDTO) {
         try {
-            entity = this.repository.findByBankCode(bankCode);
-        }
-        catch (Exception e) {
+            FinancialAccountingYearEntity entity = assembler.toEntity(valDTO);
+            this.repository.save(entity);
+        } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error(e.getMessage());
             }
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
-        return entity;
     }
 
     public FinancialAccountingYearEntity getByBankCodeAndBranchCodeAndFinancialAccountingYearCode (
@@ -71,19 +79,19 @@ public class FinancialAccountingYearDomainService implements IFinancialAccountin
         return entity;
     }
 
-    public void save (FinancialAccountingYearDTO dto) {
-        try {
-            FinancialAccountingYearEntity entity = assembler.convertDtoToEntity(dto);
-            this.repository.save(entity);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-    }
-    @Override
+//    public void save (FinancialAccountingYearDTO dto) {
+//        try {
+//            FinancialAccountingYearEntity entity = assembler.convertDtoToEntity(dto);
+//            this.repository.save(entity);
+//        }
+//        catch (Exception e) {
+//            if (log.isErrorEnabled()) {
+//                log.error(e.getMessage());
+//            }
+//            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+//        }
+//    }
+//    @Override
     public FinancialAccountingYearEntity getFinancialAccountingYearForProcessCall (
             String branchCode, Date inputDate) {
         log.info(" IN getFinancialAccountingYearForProcessCall[",

@@ -2,9 +2,7 @@ package com.idg.idgcore.coe.domain.service.language;
 
 import com.idg.idgcore.coe.domain.assembler.language.LanguageAssembler;
 import com.idg.idgcore.coe.domain.entity.language.LanguageEntity;
-
 import com.idg.idgcore.coe.domain.repository.language.ILanguageRepository;
-
 import com.idg.idgcore.coe.dto.language.LanguageDTO;
 import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -89,17 +88,16 @@ class LanguageDomainServiceTest {
 
         when(languageRepository.findByLanguageCode(languageDTO.getLanguageCode()))
                 .thenReturn(languageEntity);
-        LanguageEntity result = languageDomainService.getConfigurationByCode(languageDTO);
+        LanguageEntity result = languageDomainService.getEntityByIdentifier(languageDTO.getLanguageCode());
         assertEquals(languageEntity, result);
     }
 
     @Test
     @DisplayName("JUnit for getConfigurationByCode for exception when the language code is invalid")
     void getConfigurationByCodeWhenLanguageCodeIsInvalidThenThrowException() {
-        LanguageDTO languageDTO = null;
         assertThrows(
                 BusinessException.class, () -> {
-                    languageDomainService.getConfigurationByCode(languageDTO);
+                    languageDomainService.getEntityByIdentifier(null);
                 });
     }
 }

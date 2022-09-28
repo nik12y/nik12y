@@ -4,7 +4,6 @@ import com.idg.idgcore.coe.domain.entity.state.StateEntity;
 import com.idg.idgcore.coe.domain.repository.state.IStateRepository;
 import com.idg.idgcore.coe.domain.service.state.StateDomainService;
 import com.idg.idgcore.coe.dto.state.StateDTO;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,32 +42,28 @@ class StateDomainServiceTest {
     @DisplayName("Junit test for getStates method ")
     void getStatesReturnStatesList() {
         given(stateRepository.findAll()).willReturn(List.of(stateEntity));
-        List<StateEntity> stateEntityList = stateDomainService.getStates();
+        List<StateEntity> stateEntityList = stateDomainService.getAllEntities();
         assertThat(stateEntityList).isNotNull();
         assertThat(stateEntityList.size()).isEqualTo(1);
     }
 
-
     @Test
     @DisplayName("JUnit test for getStates method for negative scenario")
-    void getStatesEmptyStateEntityList()
-    {
+    void getStatesEmptyStateEntityList() {
         given(stateRepository.findAll()).willReturn(Collections.emptyList());
-        List<StateEntity> stateEntityList = stateDomainService.getStates();
+        List<StateEntity> stateEntityList = stateDomainService.getAllEntities();
         assertThat(stateEntityList).isEmpty();
         assertThat(stateEntityList.size()).isEqualTo(0);
 
     }
 
-
     @Test
     @DisplayName("JUnit test for getStateById method")
    void getStateByCodeReturnStateEntityObject() {
         given(stateRepository.findByStateCode("MH")).willReturn(stateEntity);
-        StateEntity stateEntity1 =stateDomainService.getStateByCode(stateEntity.getStateCode());
+        StateEntity stateEntity1 =stateDomainService.getEntityByIdentifier(stateEntity.getStateCode());
         assertThat(stateEntity1).isNotNull();
     }
-
 
     @Test
     @DisplayName("JUnit test for getStateById catch block method")
@@ -76,28 +71,9 @@ class StateDomainServiceTest {
         StateEntity stateEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            StateEntity stateEntity2 = stateDomainService.getStateByCode(stateEntity1.getStateCode());
+            StateEntity stateEntity2 = stateDomainService.getEntityByIdentifier(stateEntity1.getStateCode());
         });
     }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    void getConfigurationByCodeTryBlock() {
-        given(stateRepository.findByStateCode("MH")).willReturn(stateEntity);
-        StateEntity stateByCode = stateDomainService.getConfigurationByCode(stateDTO);
-        assertThat(stateByCode).isNotNull();
-    }
-
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-     void getConfigurationByCodeCatchBlock() {
-         StateDTO stateDTO = null;
-        assertThrows(BusinessException.class,()-> {
-            StateEntity stateByCode = stateDomainService.getConfigurationByCode(stateDTO);
-        });
-    }
-
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
@@ -107,7 +83,6 @@ class StateDomainServiceTest {
             stateDomainService.save(stateDTO);
         });
     }
-
 
     private StateEntity getStateEntity()
     {

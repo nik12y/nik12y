@@ -28,7 +28,7 @@ public class MitigantAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         MitigantDTO mitigantDTO = MitigantDTO.builder().build();
-        mitigantDTO = mitigantAssembler.setAuditFields(mutationEntity, mitigantDTO);
+        mitigantAssembler.setAuditFields(mutationEntity, mitigantDTO);
         assertEquals("Y", mitigantDTO.getAuthorized());
     }
 
@@ -47,7 +47,7 @@ public class MitigantAssemblerTest {
         mitigantEntity.setMitigantRiskCode(riskCodeEntity);
         mitigantEntity.setStatus("draft");
         mitigantEntity.setRecordVersion(0);
-        MitigantDTO mitigantDTO=mitigantAssembler.convertEntityToDto(mitigantEntity);
+        MitigantDTO mitigantDTO=mitigantAssembler.toDTO(mitigantEntity);
     }
 
     @Test
@@ -63,6 +63,6 @@ public class MitigantAssemblerTest {
         List<MitigantRiskCodeDTO> riskCodeDTO = new ArrayList<>();
         riskCodeDTO.add(new MitigantRiskCodeDTO("RC0001", "market risk1"));
         mitigantDTO.setMitigantRiskCode(riskCodeDTO);
-        MitigantEntity mitigantEntity=mitigantAssembler.convertDtoToEntity(mitigantDTO);
+        MitigantEntity mitigantEntity=mitigantAssembler.toEntity(mitigantDTO);
     }
 }

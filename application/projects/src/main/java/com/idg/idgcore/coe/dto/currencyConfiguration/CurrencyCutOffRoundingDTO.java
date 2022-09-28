@@ -33,4 +33,9 @@ public class CurrencyCutOffRoundingDTO extends CoreEngineBaseDTO {
     private boolean euroCloseFlag;
     private float creditExchangeLimit;
     private float debitExchangeLimit;
+
+    @Override
+    public String getTaskCode() {
+        return "CurrencyCutOffRoundingDTO";
+    }
 }

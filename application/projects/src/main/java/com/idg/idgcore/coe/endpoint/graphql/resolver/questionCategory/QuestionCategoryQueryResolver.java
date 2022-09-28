@@ -1,9 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.questionCategory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.country.ICountryApplicationService;
-import com.idg.idgcore.coe.app.service.questionCategory.IQuestionCategoryApplicationService;
-import com.idg.idgcore.coe.dto.country.CountryDTO;
+import com.idg.idgcore.coe.app.service.questionCategory.QuestionCategoryApplicationService;
 import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -19,14 +17,14 @@ import java.util.List;
 public class QuestionCategoryQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IQuestionCategoryApplicationService iQuestionCategoryApplicationService;
+    private QuestionCategoryApplicationService questionCategoryApplicationService;
 
     public QuestionCategoryDTO getQuestionCategoryById (SessionContext sessionContext, QuestionCategoryDTO questionCategoryDTO)
             throws FatalException, JsonProcessingException {
-        return this.iQuestionCategoryApplicationService.getQuestionCategoryById(sessionContext, questionCategoryDTO);
+        return this.questionCategoryApplicationService.getByIdentifier(sessionContext, questionCategoryDTO);
     }
 
     public List<QuestionCategoryDTO> getQuestionsCategories (SessionContext sessionContext) throws FatalException {
-        return this.iQuestionCategoryApplicationService.getQuestionsCategories(sessionContext);
+        return this.questionCategoryApplicationService.getAll(sessionContext);
     }
 }

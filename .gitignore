@@ -27,3 +27,4 @@ application/projects/.idea/sonarlint/issuestore/5/a/5a13bef31887337a752480c6f8f5
 application/projects/.idea/sonarlint/issuestore/f/0/f07866736216be0ee2aba49e392191aeae700a35
 *.pb
 *.bin
+*.gz

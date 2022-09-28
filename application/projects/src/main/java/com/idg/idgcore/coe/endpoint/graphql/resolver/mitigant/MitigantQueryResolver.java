@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.mitigant;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.mitigant.IMitigantApplicationService;
+import com.idg.idgcore.coe.app.service.mitigant.MitigantApplicationService;
 import com.idg.idgcore.coe.dto.mitigant.MitigantDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,14 +17,14 @@ import java.util.List;
 public class MitigantQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IMitigantApplicationService mitigantService;
+    private MitigantApplicationService mitigantApplicationService;
 
     public MitigantDTO getMitigantByCode (SessionContext sessionContext, MitigantDTO mitigantDTO)
             throws FatalException, JsonProcessingException {
-        return this.mitigantService.getMitigantByCode(sessionContext, mitigantDTO);
+        return this.mitigantApplicationService.getByIdentifier(sessionContext, mitigantDTO);
     }
 
     public List<MitigantDTO> getMitigantAll (SessionContext sessionContext) throws FatalException {
-        return this.mitigantService.getMitigantAll(sessionContext);
+        return this.mitigantApplicationService.getAll(sessionContext);
     }
 }

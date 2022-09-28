@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,7 +22,7 @@ class BranchTypeAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         BranchTypeDTO branchTypeDTO = new BranchTypeDTO();
-        branchTypeDTO = branchTypeAssembler.setAuditFields(mutationEntity, branchTypeDTO);
+        branchTypeAssembler.setAuditFields(mutationEntity, branchTypeDTO);
         assertEquals("Y", branchTypeDTO.getAuthorized());
     }
 

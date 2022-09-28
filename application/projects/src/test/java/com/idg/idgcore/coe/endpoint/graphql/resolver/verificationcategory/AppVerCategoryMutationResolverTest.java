@@ -1,15 +1,18 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.verificationcategory;
+
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
 import com.idg.idgcore.TestApplication;
-import com.idg.idgcore.coe.app.service.verificationcategory.IAppVerCategoryApplicationService;
+import com.idg.idgcore.coe.app.service.verificationcategory.AppVerCategoryApplicationService;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -22,7 +25,7 @@ class AppVerCategoryMutationResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
-    private IAppVerCategoryApplicationService appVerCategoryApplicationService;
+    private AppVerCategoryApplicationService appVerCategoryApplicationService;
 
     @DisplayName("JUnit test for save as draft")
     @Test

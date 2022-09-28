@@ -1,18 +1,23 @@
 package com.idg.idgcore.coe.domain.service.iban;
 
-import com.idg.idgcore.coe.domain.entity.iban.*;
-import com.idg.idgcore.coe.domain.repository.iban.*;
-import com.idg.idgcore.coe.dto.iban.*;
-import com.idg.idgcore.datatypes.exceptions.*;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.*;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import com.idg.idgcore.coe.domain.entity.iban.IbanBbanEntity;
+import com.idg.idgcore.coe.domain.entity.iban.IbanEntity;
+import com.idg.idgcore.coe.domain.repository.iban.IIbanRepository;
+import com.idg.idgcore.coe.dto.iban.IbanBbanDTO;
+import com.idg.idgcore.coe.dto.iban.IbanDTO;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith (MockitoExtension.class)
@@ -36,7 +41,7 @@ class IbanDomainServiceTest {
     @DisplayName("Junit test for getIbans method ")
     void getIbansReturnIbansList() {
         given(ibanRepository.findAll()).willReturn(List.of(ibanEntity));
-        List<IbanEntity> bankParameterEntityList = ibanDomainService.getIbans();
+        List<IbanEntity> bankParameterEntityList = ibanDomainService.getAllEntities();
         assertThat(bankParameterEntityList).isNotNull();
         assertThat(bankParameterEntityList.size()).isEqualTo(1);
     }
@@ -46,7 +51,7 @@ class IbanDomainServiceTest {
     void getIbansEmptyIbanEntityList()
     {
         given(ibanRepository.findAll()).willReturn(Collections.emptyList());
-        List<IbanEntity> ibanEntityList = ibanDomainService.getIbans();
+        List<IbanEntity> ibanEntityList = ibanDomainService.getAllEntities();
 
         assertThat(ibanEntityList).isEmpty();
         assertThat(ibanEntityList.size()).isEqualTo(0);
@@ -57,7 +62,7 @@ class IbanDomainServiceTest {
     @DisplayName("JUnit test for getIbanByIbanCountryCode method")
     void getIbanByCodeReturnIbanEntityObject() {
         given(ibanRepository.findByIbanCountryCode("US")).willReturn(ibanEntity);
-        IbanEntity ibanEntity1 =ibanDomainService.getIbanByIbanCountryCode(ibanEntity.getIbanCountryCode());
+        IbanEntity ibanEntity1 =ibanDomainService.getEntityByIdentifier(ibanEntity.getIbanCountryCode());
         assertThat(ibanEntity1).isNotNull();
     }
 
@@ -67,24 +72,7 @@ class IbanDomainServiceTest {
         IbanEntity ibanEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            IbanEntity ibanEntity2 = ibanDomainService.getIbanByIbanCountryCode(ibanEntity1.getIbanCountryCode());
-        });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    void getConfigurationByCodeTryBlock() {
-        given(ibanRepository.findByIbanCountryCode("US")).willReturn(ibanEntity);
-        IbanEntity ibanByIbanCountryCode = ibanDomainService.getConfigurationByCode(ibanDTO);
-        assertThat(ibanByIbanCountryCode).isNotNull();
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    void getConfigurationByCodeCatchBlock() {
-        IbanDTO ibanDTO = null;
-        assertThrows(BusinessException.class,()-> {
-            IbanEntity ibanByIbanCountryCode = ibanDomainService.getConfigurationByCode(ibanDTO);
+            IbanEntity ibanEntity2 = ibanDomainService.getEntityByIdentifier(ibanEntity1.getIbanCountryCode());
         });
     }
 

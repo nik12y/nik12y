@@ -24,7 +24,7 @@ public class PurgingAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         PurgingDTO purgingDTO = PurgingDTO.builder().build();
-        purgingDTO = purgingAssembler.setAuditFields(mutationEntity, purgingDTO);
+        purgingAssembler.setAuditFields(mutationEntity, purgingDTO);
         assertEquals("Y", purgingDTO.getAuthorized());
     }
 
@@ -32,13 +32,13 @@ public class PurgingAssemblerTest {
     @DisplayName("Should set the authorized field in purgingDTO")
     void convertEntityToDTO(){
         PurgingEntity purgingEntity=new PurgingEntity();
-        PurgingDTO purgingDTO=purgingAssembler.convertEntityToDto(purgingEntity);
+        PurgingDTO purgingDTO=purgingAssembler.toDTO(purgingEntity);
     }
 
     @Test
     @DisplayName("Should set the authorized field in purgingDTO")
     void convertDTOToEntity(){
         PurgingDTO purgingDTO=new PurgingDTO();
-        PurgingEntity purgingEntity=purgingAssembler.convertDtoToEntity(purgingDTO);
+        PurgingEntity purgingEntity=purgingAssembler.toEntity(purgingDTO);
     }
 }

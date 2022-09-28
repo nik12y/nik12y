@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class PurposeAssemblerTest {
@@ -22,7 +22,7 @@ class PurposeAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         PurposeDTO purposeDTO = PurposeDTO.builder().build();
-        purposeDTO = purposeAssembler.setAuditFields(mutationEntity, purposeDTO);
+        purposeAssembler.setAuditFields(mutationEntity, purposeDTO);
         assertEquals("Y", purposeDTO.getAuthorized());
     }
 
@@ -30,14 +30,14 @@ class PurposeAssemblerTest {
     @DisplayName("Should set the authorized field in purposeDTO")
     void convertEntityToDTO(){
         PurposeEntity purposeEntity=new PurposeEntity();
-        PurposeDTO purposeDTO=purposeAssembler.convertEntityToDto(purposeEntity);
+        PurposeDTO purposeDTO=purposeAssembler.toDTO(purposeEntity);
     }
 
     @Test
     @DisplayName("Should set the authorized field in purposeDTO")
     void convertDTOToEntity(){
         PurposeDTO purposeDTO=new PurposeDTO();
-        PurposeEntity purposeEntity=purposeAssembler.convertDtoToEntity(purposeDTO);
+        PurposeEntity purposeEntity=purposeAssembler.toEntity(purposeDTO);
     }
 
 }

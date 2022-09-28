@@ -1,28 +1,25 @@
 package com.idg.idgcore.coe.domain.assembler.country;
 
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
 import com.idg.idgcore.coe.domain.entity.country.CountryEntity;
-import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
-
 @Component
-public class CountryAssembler {
-    private final ModelMapper modelMapper = new ModelMapper();
+public class CountryAssembler extends Assembler<CountryDTO, CountryEntity> {
 
-    @PostConstruct
-    private void setMapperConfig () {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return CountryDTO.class;
     }
 
-    public CountryEntity convertDtoToEntity (CountryDTO countryDTO) {
+    @Override
+    public Class getSpecificEntityClass() {
+        return CountryEntity.class;
+    }
+
+    @Override
+    public CountryEntity toEntity (CountryDTO countryDTO) {
         CountryEntity countryEntity = modelMapper.map(countryDTO, CountryEntity.class);
         countryEntity.setCountryCodeAlternate(countryDTO.getAlternateCountryCode());
         countryEntity.setCountryCodeMachine(countryDTO.getNumericCountryCode());
@@ -36,7 +33,8 @@ public class CountryAssembler {
         return countryEntity;
     }
 
-    public CountryDTO convertEntityToDto (CountryEntity countryEntity) {
+    @Override
+    public CountryDTO toDTO (CountryEntity countryEntity) {
         CountryDTO countryDTO = modelMapper.map(countryEntity, CountryDTO.class);
         countryDTO.setAlternateCountryCode(countryEntity.getCountryCodeAlternate());
         countryDTO.setNumericCountryCode(countryEntity.getCountryCodeMachine());
@@ -48,29 +46,6 @@ public class CountryAssembler {
         countryDTO.setIbanRequired(getBooleanValueFromChar(countryEntity.getIsIban()));
         countryDTO.setGenerateMt205(getBooleanValueFromChar(countryEntity.getIsMtGenerate()));
         return countryDTO;
-    }
-
-    public CountryDTO setAuditFields (MutationEntity  mutationEntity, CountryDTO countryDTO) {
-            countryDTO.setAction(mutationEntity.getAction());
-            countryDTO.setAuthorized(mutationEntity.getAuthorized());
-            countryDTO.setRecordVersion(mutationEntity.getRecordVersion());
-            countryDTO.setStatus(mutationEntity.getStatus());
-            countryDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-            countryDTO.setCreatedBy(mutationEntity.getCreatedBy());
-            countryDTO.setCreationTime(mutationEntity.getCreationTime());
-            countryDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-            countryDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-            countryDTO.setTaskCode(mutationEntity.getTaskCode());
-            countryDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-            return countryDTO;
-    }
-
-    public char getCharValueFromBoolean (boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar (Character value) {
-        return value.equals(CHAR_Y);
     }
 
 }

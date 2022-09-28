@@ -3,7 +3,7 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.categorychecklist;
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
 import com.idg.idgcore.TestApplication;
-import com.idg.idgcore.coe.app.service.categorychecklist.IAppVerCatChecklistPolicyApplicationService;
+import com.idg.idgcore.coe.app.service.categorychecklist.AppVerCatChecklistPolicyApplicationService;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class AppVerCatChecklistPolicyMutationResolverTest {
         @Autowired
         GraphQLTestTemplate graphQLTestTemplate;
 
-        private IAppVerCatChecklistPolicyApplicationService appVerCatChecklistPolicyApplicationService;
+        private AppVerCatChecklistPolicyApplicationService appVerCatChecklistPolicyApplicationService;
 
         @DisplayName("JUnit test for save as draft")
         @Test

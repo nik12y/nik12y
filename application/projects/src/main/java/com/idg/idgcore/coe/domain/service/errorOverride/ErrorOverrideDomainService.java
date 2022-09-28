@@ -1,163 +1,67 @@
 package com.idg.idgcore.coe.domain.service.errorOverride;
 
-import com.idg.idgcore.coe.domain.assembler.errorOverride.*;
-import com.idg.idgcore.coe.domain.entity.errorOverride.*;
-import com.idg.idgcore.coe.domain.repository.errorOverride.*;
-import com.idg.idgcore.coe.dto.errorOverride.*;
-import com.idg.idgcore.coe.exception.*;
-import lombok.extern.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
+import com.idg.idgcore.coe.domain.assembler.errorOverride.ErrorOverrideAssembler;
+import com.idg.idgcore.coe.domain.entity.errorOverride.ErrorOverrideEntity;
+import com.idg.idgcore.coe.domain.repository.errorOverride.IErrorOverrideRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
+import com.idg.idgcore.coe.dto.errorOverride.ErrorOverrideDTO;
+import com.idg.idgcore.coe.exception.ExceptionUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 import static com.idg.idgcore.coe.common.Constants.ALL;
-import static com.idg.idgcore.coe.common.Constants.CLOSED;
-import static com.idg.idgcore.coe.exception.Error.*;
+import static com.idg.idgcore.coe.common.Constants.FIELD_SEPARATOR;
+import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class ErrorOverrideDomainService implements IErrorOverrideDomainService {
+public class ErrorOverrideDomainService extends DomainService<ErrorOverrideDTO, ErrorOverrideEntity> {
     @Autowired
     private IErrorOverrideRepository errorOverrideRepository;
     @Autowired
     private ErrorOverrideAssembler errorOverrideAssembler;
 
-    public ErrorOverrideEntity getConfigurationByCode (ErrorOverrideDTO errorOverrideDTO) {
-        ErrorOverrideEntity errorOverrideEntity = null;
-        try {
-            errorOverrideEntity = this.errorOverrideRepository.findByErrorCode(
-                    errorOverrideDTO.getErrorCode());
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return errorOverrideEntity;
-    }
-
-    public ErrorOverrideEntity getConfigurationByErrorCodeAndBranchCode (
-            ErrorOverrideDTO errorOverrideDTO) {
-        ErrorOverrideEntity errorOverrideEntity = null;
-        try {
-            errorOverrideEntity = this.errorOverrideRepository.findByErrorCodeAndBranchCode(
-                    errorOverrideDTO.getErrorCode(),
-                    errorOverrideDTO.getBranchCode());
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return errorOverrideEntity;
-    }
-
-    public List<ErrorOverrideEntity> getErrorCodes () {
-        return this.errorOverrideRepository.findAll();
-    }
-
-    public ErrorOverrideEntity getRecordByErrorCodeAndBranchCode (String errorCode,
-            String branchCode) {
+    private ErrorOverrideEntity getRecordByErrorCodeAndBranchCode (String errorCode,
+                                                                   String branchCode) {
         ErrorOverrideEntity errorOverrideEntity = this.errorOverrideRepository.findByErrorCodeAndBranchCode(
                 errorCode, branchCode);
         if (errorOverrideEntity == null) {
             try {
                 errorOverrideEntity = this.errorOverrideRepository.findByErrorCodeAndBranchCode(
                         errorCode, ALL);
-            }
-            catch (Exception e) {
-                if (log.isErrorEnabled()) {
-                    log.error(e.getMessage());
-                }
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
                 ExceptionUtil.handleException(DATA_ACCESS_ERROR);
             }
         }
         return errorOverrideEntity;
     }
 
-    public ErrorOverrideEntity getByErrorCodeAndBranchCode (String errorCode, String branchCode) {
-        ErrorOverrideEntity errorOverrideEntity = this.errorOverrideRepository.findByErrorCodeAndBranchCode(
-                errorCode, ALL);
-        if (errorOverrideEntity == null) {
-            try {
-                errorOverrideEntity = this.errorOverrideRepository.findByErrorCodeAndBranchCode(
-                        errorCode, branchCode);
-            }
-            catch (Exception e) {
-                if (log.isErrorEnabled()) {
-                    log.error(e.getMessage());
-                }
-                ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-            }
+    @Override
+    public ErrorOverrideEntity getEntityByIdentifier(String errorOverrideCode) {
+        String[] fields = errorOverrideCode.split(FIELD_SEPARATOR);
+        if (fields.length == 2) {
+            return getRecordByErrorCodeAndBranchCode(fields[0], fields[1]);
         }
-        return errorOverrideEntity;
+        return null;
     }
 
-    public ErrorOverrideEntity getErrorOverrideByCode (String errorOverrideCode) {
-        ErrorOverrideEntity errorOverrideEntity = null;
-        try {
-            errorOverrideEntity = this.errorOverrideRepository.findByErrorCode(errorOverrideCode);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return errorOverrideEntity;
-    }
-
-    public void validateAndSave (ErrorOverrideDTO errorOverrideDTO) {
-        try {
-            if (errorOverrideDTO.getIsExcluded()) {
-                save(errorOverrideDTO);
-            }
-            else {
-                processSave(errorOverrideDTO);
-            }
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            if (e.getMessage().contains("IDC_COE_0002"))
-                ExceptionUtil.handleException(DUPLICATE_RECORD);
-            else
-                ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-    }
-
-    private void processSave (ErrorOverrideDTO errorOverrideDTO) {
-        if (ALL.equals(errorOverrideDTO.getBranchCode())) {
-            save(errorOverrideDTO);
-        }
-        else {
-            ErrorOverrideEntity withAll = this.errorOverrideRepository.findByErrorCodeAndBranchCodeAndStatusNot(
-                    errorOverrideDTO.getErrorCode(), ALL,CLOSED);
-            if (withAll == null) {
-                save(errorOverrideDTO);
-            }
-            else {
-                ExceptionUtil.handleException(DUPLICATE_RECORD);
-            }
-        }
+    @Override
+    public List<ErrorOverrideEntity> getAllEntities() {
+        return this.errorOverrideRepository.findAll();
     }
 
     public void save (ErrorOverrideDTO errorOverrideDTO) {
         try {
-            ErrorOverrideEntity errorOverrideEntity = errorOverrideAssembler.convertDtoToEntity(
+            ErrorOverrideEntity errorOverrideEntity = errorOverrideAssembler.toEntity(
                     errorOverrideDTO);
             this.errorOverrideRepository.save(errorOverrideEntity);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }
-
 }

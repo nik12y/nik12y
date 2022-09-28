@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import static com.idg.idgcore.coe.common.Constants.GROUP_BANKING;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 class GroupBankingAssemblerTest {
 
     @Mock
@@ -23,7 +23,7 @@ class GroupBankingAssemblerTest {
         groupBankingDTO.setGroupBankingCode("CBI");
         groupBankingDTO.setGroupBankingName("Crime Bank Of India");
         groupBankingDTO.setAuthorized("Y");
-        groupBankingDTO = groupBankingAssembler.setAuditFields(mutationEntity, groupBankingDTO);
+        groupBankingAssembler.setAuditFields(mutationEntity, groupBankingDTO);
         assertEquals("Y", groupBankingDTO.getAuthorized());
     }
 
@@ -50,6 +50,6 @@ class GroupBankingAssemblerTest {
         groupBankingDTO.setTaskCode(GROUP_BANKING);
         groupBankingDTO.setLastConfigurationAction("unauthorized");
 
-        assertEquals(groupBankingEntity,groupBankingAssembler.convertDtoToEntity(groupBankingDTO));
+        assertEquals(groupBankingEntity,groupBankingAssembler.toEntity(groupBankingDTO));
     }
 }

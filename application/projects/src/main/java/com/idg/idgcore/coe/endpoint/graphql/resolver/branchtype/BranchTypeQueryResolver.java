@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.branchtype;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.branchtype.IBranchTypeApplicationService;
+import com.idg.idgcore.coe.app.service.branchtype.BranchTypeApplicationService;
 import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -16,15 +16,15 @@ import java.util.List;
 @Component
 public class BranchTypeQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    private IBranchTypeApplicationService branchtypeService;
+    private BranchTypeApplicationService branchtypeService;
 
     public BranchTypeDTO getBranchTypeByCode (SessionContext sessionContext, BranchTypeDTO branchtypeDTO)
             throws FatalException, JsonProcessingException {
-        return this.branchtypeService.getBranchTypeByCode(sessionContext, branchtypeDTO);
+        return this.branchtypeService.getByIdentifier(sessionContext, branchtypeDTO);
     }
 
     public List<BranchTypeDTO> getBranches (SessionContext sessionContext)
             throws FatalException {
-        return this.branchtypeService.getBranches(sessionContext);
+        return this.branchtypeService.getAll(sessionContext);
     }
 }

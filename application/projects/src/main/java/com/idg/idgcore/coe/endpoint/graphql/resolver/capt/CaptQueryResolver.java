@@ -1,10 +1,10 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.capt;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.idg.idgcore.coe.app.service.capt.CaptApplicationService;
 import com.idg.idgcore.coe.dto.capt.CaptDTO;
-import com.idg.idgcore.coe.app.service.capt.ICaptApplicationService;
-import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
+import com.idg.idgcore.dto.context.SessionContext;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +16,15 @@ import java.util.List;
 @Component
 public class CaptQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    private ICaptApplicationService captService;
+    private CaptApplicationService captService;
 
     public CaptDTO getCaptByCode (SessionContext sessionContext, CaptDTO captDTO)
             throws FatalException, JsonProcessingException {
-        return this.captService.getCaptByCode(sessionContext, captDTO);
+        return this.captService.getByIdentifier(sessionContext, captDTO);
     }
 
     public List<CaptDTO> getCaptAll (SessionContext sessionContext) throws FatalException {
-        return this.captService.getCaptAll(sessionContext);
+        return this.captService.getAll(sessionContext);
     }
 
 }

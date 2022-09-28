@@ -1,12 +1,8 @@
 package com.idg.idgcore.coe.domain.service.branchtype;
 
 import com.idg.idgcore.coe.domain.entity.branchtype.BranchTypeEntity;
-import com.idg.idgcore.coe.domain.entity.state.StateEntity;
 import com.idg.idgcore.coe.domain.repository.branchtype.IBranchTypeRepository;
 import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
-import com.idg.idgcore.coe.dto.state.StateDTO;
-import com.idg.idgcore.coe.exception.ExceptionUtil;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,9 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 
-import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +42,7 @@ class BranchTypeDomainServiceTest {
     @DisplayName("Junit test for getBranches method ")
     public void getStatesReturnStatesList() {
         given(branchTypeRepository.findAll()).willReturn(List.of(branchTypeEntity));
-        List<BranchTypeEntity> branchTypeEntityList = branchTypeDomainService.getBranches();
+        List<BranchTypeEntity> branchTypeEntityList = branchTypeDomainService.getAllEntities();
         assertThat(branchTypeEntityList).isNotNull();
         assertThat(branchTypeEntityList.size()).isEqualTo(1);
     }
@@ -58,7 +53,7 @@ class BranchTypeDomainServiceTest {
     public void getBranchesEmptyStateEntityList()
     {
         given(branchTypeRepository.findAll()).willReturn(Collections.emptyList());
-        List<BranchTypeEntity> branchTypeEntityList = branchTypeDomainService.getBranches();
+        List<BranchTypeEntity> branchTypeEntityList = branchTypeDomainService.getAllEntities();
         assertThat(branchTypeEntityList).isEmpty();
         assertThat(branchTypeEntityList.size()).isEqualTo(0);
 
@@ -69,7 +64,7 @@ class BranchTypeDomainServiceTest {
     @DisplayName("JUnit test for getStateById method")
     public void getBranchTypeByCodeReturnStateEntityObject() {
         given(branchTypeRepository.findByBranchTypeCode("MH")).willReturn(branchTypeEntity);
-        BranchTypeEntity branchTypeEntity1 =branchTypeDomainService.getBranchTypeByCode(branchTypeEntity.getBranchTypeCode());
+        BranchTypeEntity branchTypeEntity1 =branchTypeDomainService.getEntityByIdentifier(branchTypeEntity.getBranchTypeCode());
         assertThat(branchTypeEntity1).isNotNull();
     }
 
@@ -80,17 +75,10 @@ class BranchTypeDomainServiceTest {
         BranchTypeEntity branchTypeEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            BranchTypeEntity branchTypeEntity2 = branchTypeDomainService.getBranchTypeByCode(branchTypeEntity1.getBranchTypeCode());
+            BranchTypeEntity branchTypeEntity2 = branchTypeDomainService.getEntityByIdentifier(branchTypeEntity1.getBranchTypeCode());
         });
     }
 
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    public void getConfigurationByCodeTryBlock() {
-        given(branchTypeRepository.findByBranchTypeCode("MH")).willReturn(branchTypeEntity);
-       BranchTypeEntity branchTypeByCode = branchTypeDomainService.getConfigurationByBranchTypeCode(branchTypeDTO);
-        assertThat(branchTypeByCode).isNotNull();
-    }
 
 
 //    @Test

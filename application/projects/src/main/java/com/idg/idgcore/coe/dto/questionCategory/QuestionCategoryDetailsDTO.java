@@ -18,4 +18,9 @@ public class QuestionCategoryDetailsDTO extends CoreEngineBaseDTO {
     private String questionNature;
     private String parentQuestionId;
     private String displayCondition;
+
+    @Override
+    public String getTaskCode() {
+        return "QuestionCategoryDetailsDTO";
+    }
 }

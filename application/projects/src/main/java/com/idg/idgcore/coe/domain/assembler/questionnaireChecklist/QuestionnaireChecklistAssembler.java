@@ -1,30 +1,42 @@
 package com.idg.idgcore.coe.domain.assembler.questionnaireChecklist;
 
-import com.idg.idgcore.coe.domain.entity.mutation.*;
-import com.idg.idgcore.coe.domain.entity.questionnaireChecklist.*;
-import com.idg.idgcore.coe.dto.questionnaireChecklist.*;
-import org.modelmapper.*;
-import org.modelmapper.convention.*;
-import org.springframework.stereotype.*;
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
+import com.idg.idgcore.coe.domain.entity.questionnaireChecklist.QuestionnaireChecklistDetailsCategoryEntity;
+import com.idg.idgcore.coe.domain.entity.questionnaireChecklist.QuestionnaireChecklistDisplayEntity;
+import com.idg.idgcore.coe.domain.entity.questionnaireChecklist.QuestionnaireChecklistEntity;
+import com.idg.idgcore.coe.dto.questionnaireChecklist.QuestionnaireChecklistDTO;
+import com.idg.idgcore.coe.dto.questionnaireChecklist.QuestionnaireChecklistDetailsCategoryDTO;
+import com.idg.idgcore.coe.dto.questionnaireChecklist.QuestionnaireChecklistDisplayDTO;
+import com.idg.idgcore.coe.exception.ExceptionUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.*;
-import java.text.*;
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import static com.idg.idgcore.coe.exception.Error.JSON_PARSING_ERROR;
+
 
 @Component
-public class QuestionnaireChecklistAssembler {
-    private final ModelMapper modelMapper = new ModelMapper();
+@Slf4j
+public class QuestionnaireChecklistAssembler extends Assembler<QuestionnaireChecklistDTO, QuestionnaireChecklistEntity> {
 
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    @PostConstruct
-    private void setMapperConfig () {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return QuestionnaireChecklistDTO.class;
     }
 
-    public QuestionnaireChecklistEntity convertDtoToEntity (
-            QuestionnaireChecklistDTO questionnaireChecklistDTO) throws ParseException {
+    @Override
+    public Class getSpecificEntityClass() {
+        return QuestionnaireChecklistEntity.class;
+    }
+
+    @Override
+    public QuestionnaireChecklistEntity toEntity(QuestionnaireChecklistDTO questionnaireChecklistDTO) {
+        QuestionnaireChecklistEntity questionnaireChecklistEntity = super.toEntity(questionnaireChecklistDTO);
         /**
          * For Questionnaire Checklist Details List
          */
@@ -41,19 +53,24 @@ public class QuestionnaireChecklistAssembler {
         /**
          * For Questionnaire Checklist
          */
-        QuestionnaireChecklistEntity questionnaireChecklistEntity = modelMapper.map(
-                questionnaireChecklistDTO, QuestionnaireChecklistEntity.class);
         questionnaireChecklistEntity.setQuestionChecklistId(questionnaireChecklistDTO.getQuestionaireChecklistId());
         questionnaireChecklistEntity.setQuestionChecklistName(questionnaireChecklistDTO.getQuestionaireChecklistName());
         questionnaireChecklistEntity.setQuestionCategory(questionnaireChecklistDTO.getQuestionaireCategory());
         questionnaireChecklistEntity.setQuestionnaireChecklistDetailsCategory(
                 detailsEntity);
         questionnaireChecklistEntity.setChecklistDisplayEntity(displayEntity);
-        questionnaireChecklistEntity.setEffectiveDate(formatter.parse(questionnaireChecklistDTO.getEffectiveDate()));
+        try {
+            questionnaireChecklistEntity.setEffectiveDate(formatter.parse(questionnaireChecklistDTO.getEffectiveDate()));
+        } catch (ParseException e) {
+            log.error("Parsing exception in processing effective date.", e);
+            ExceptionUtil.handleException(JSON_PARSING_ERROR);
+        }
         return questionnaireChecklistEntity;
     }
 
-    public QuestionnaireChecklistDTO convertEntityToDto (QuestionnaireChecklistEntity inEntity) {
+    @Override
+    public QuestionnaireChecklistDTO toDTO(QuestionnaireChecklistEntity inEntity) {
+        QuestionnaireChecklistDTO questionnaireChecklistDTO = super.toDTO(inEntity);
         /**
          * For Questionnaire Checklist Details List
          */
@@ -70,8 +87,6 @@ public class QuestionnaireChecklistAssembler {
         /**
          * For Questionnaire Checklist
          */
-        QuestionnaireChecklistDTO questionnaireChecklistDTO = modelMapper.map(inEntity,
-                QuestionnaireChecklistDTO.class);
         questionnaireChecklistDTO.setQuestionnaireChecklistDetailsCategory(detailsDTO);
         questionnaireChecklistDTO.setQuestionnaireChecklistDisplay(checklistDisplayDTO);
         questionnaireChecklistDTO.setEffectiveDate(formatter.format(inEntity.getEffectiveDate()));
@@ -80,22 +95,4 @@ public class QuestionnaireChecklistAssembler {
         questionnaireChecklistDTO.setQuestionaireCategory(inEntity.getQuestionCategory());
         return questionnaireChecklistDTO;
     }
-
-    public QuestionnaireChecklistDTO setAuditFields (MutationEntity mutationEntity,
-            QuestionnaireChecklistDTO questionnaireChecklistDTO) {
-        questionnaireChecklistDTO.setAction(mutationEntity.getAction());
-        questionnaireChecklistDTO.setAuthorized(mutationEntity.getAuthorized());
-        questionnaireChecklistDTO.setRecordVersion(mutationEntity.getRecordVersion());
-        questionnaireChecklistDTO.setStatus(mutationEntity.getStatus());
-        questionnaireChecklistDTO.setLastConfigurationAction(
-                mutationEntity.getLastConfigurationAction());
-        questionnaireChecklistDTO.setCreatedBy(mutationEntity.getCreatedBy());
-        questionnaireChecklistDTO.setCreationTime(mutationEntity.getCreationTime());
-        questionnaireChecklistDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        questionnaireChecklistDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        questionnaireChecklistDTO.setTaskCode(mutationEntity.getTaskCode());
-        questionnaireChecklistDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        return questionnaireChecklistDTO;
-    }
-
 }

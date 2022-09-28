@@ -1,29 +1,16 @@
 package com.idg.idgcore.coe.domain.assembler.transaction;
 
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
 import com.idg.idgcore.coe.domain.entity.transaction.TransactionEntity;
-import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.dto.transaction.TransactionDTO;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
-
 @Component
-public class TransactionAssembler {
-    private final ModelMapper modelMapper = new ModelMapper();
+public class TransactionAssembler extends Assembler<TransactionDTO, TransactionEntity> {
 
-    @PostConstruct
-    private void setMapperConfig () {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
-    }
-
-    public TransactionEntity convertDtoToEntity (TransactionDTO transactionDTO) {
-        TransactionEntity transactionEntity = modelMapper.map(transactionDTO, TransactionEntity.class);
+    @Override
+    public TransactionEntity toEntity(TransactionDTO transactionDTO) {
+        TransactionEntity transactionEntity = super.toEntity(transactionDTO);
         transactionEntity.setTransactionCode(transactionDTO.getTransactionCode());
         transactionEntity.setTransactionDesc(transactionDTO.getTransactionDescription());
         transactionEntity.setTransactionSwiftCode(transactionDTO.getTransactionSwiftCode());
@@ -52,8 +39,9 @@ public class TransactionAssembler {
         return transactionEntity;
     }
 
-    public TransactionDTO convertEntityToDto (TransactionEntity transactionEntity) {
-        TransactionDTO transactionDTO = modelMapper.map(transactionEntity, TransactionDTO.class);
+    @Override
+    public TransactionDTO toDTO(TransactionEntity transactionEntity) {
+        TransactionDTO transactionDTO = super.toDTO(transactionEntity);
         transactionDTO.setTransactionCode(transactionEntity.getTransactionCode());
         transactionDTO.setTransactionDescription(transactionEntity.getTransactionDesc());
         transactionDTO.setTransactionSwiftCode(transactionEntity.getTransactionSwiftCode());
@@ -83,27 +71,13 @@ public class TransactionAssembler {
         return transactionDTO;
     }
 
-    public TransactionDTO setAuditFields (MutationEntity  mutationEntity, TransactionDTO transactionDTO) {
-        transactionDTO.setAction(mutationEntity.getAction());
-        transactionDTO.setAuthorized(mutationEntity.getAuthorized());
-        transactionDTO.setRecordVersion(mutationEntity.getRecordVersion());
-        transactionDTO.setStatus(mutationEntity.getStatus());
-        transactionDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-        transactionDTO.setCreatedBy(mutationEntity.getCreatedBy());
-        transactionDTO.setCreationTime(mutationEntity.getCreationTime());
-        transactionDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        transactionDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        transactionDTO.setTaskCode(mutationEntity.getTaskCode());
-        transactionDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        return transactionDTO;
+    @Override
+    public Class getSpecificDTOClass() {
+        return TransactionDTO.class;
     }
 
-    public char getCharValueFromBoolean (boolean value) {
-        return value ? CHAR_Y : CHAR_N;
+    @Override
+    public Class getSpecificEntityClass() {
+        return TransactionEntity.class;
     }
-
-    public boolean getBooleanValueFromChar (Character value) {
-        return value.equals(CHAR_Y);
-    }
-
 }

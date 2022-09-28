@@ -41,7 +41,12 @@ public class MutationsDomainService implements IMutationsDomainService {
     @Autowired
     private IAuditHistoryRepository auditHistoryRepository;
 
+
     public MutationEntity getConfigurationByCode (final String taskIdentifier) {
+        return getEntityByIdentifier(taskIdentifier);
+    }
+
+    public MutationEntity getEntityByIdentifier(String taskIdentifier) {
         if (log.isInfoEnabled()) {
             log.info("In getConfigurationByCode with parameters taskIdentifier {}", taskIdentifier);
         }
@@ -58,9 +63,10 @@ public class MutationsDomainService implements IMutationsDomainService {
         return mutationEntity;
     }
 
+    //  findByTaskCodeAndTaskIdentifierStartsWith
     public MutationEntity getConfigurationByTaskCodeAndIdentifier (final String taskCode, final String taskIdentifier) {
         if (log.isInfoEnabled()) {
-            log.info("In getConfigurationByTaskCodeAndIdentifier with parameters taskIdentifier {}", taskIdentifier);
+            log.info("In getConfigurationByCode with parameters taskIdentifier {}", taskIdentifier);
         }
         MutationEntity mutationEntity = null;
         try {

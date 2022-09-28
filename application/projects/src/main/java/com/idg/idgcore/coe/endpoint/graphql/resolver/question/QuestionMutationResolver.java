@@ -1,9 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.question;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.country.ICountryApplicationService;
-import com.idg.idgcore.coe.app.service.question.IQuestionApplicationService;
-import com.idg.idgcore.coe.dto.country.CountryDTO;
+import com.idg.idgcore.coe.app.service.question.QuestionApplicationService;
 import com.idg.idgcore.coe.dto.question.QuestionDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -18,11 +16,11 @@ import org.springframework.stereotype.Component;
 public class QuestionMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
-    private IQuestionApplicationService iQuestionApplicationService;
+    private QuestionApplicationService questionApplicationService;
 
     public TransactionStatus processQuestion (SessionContext sessionContext, QuestionDTO questionDTO)
             throws FatalException, JsonProcessingException {
-        return this.iQuestionApplicationService.processQuestion(sessionContext, questionDTO);
+        return this.questionApplicationService.process(sessionContext, questionDTO);
     }
 
 }

@@ -24,7 +24,7 @@ class AmlAssemblerTest {
         AmlDTO amlDTO = AmlDTO.builder().build();
 
         AmlAssembler amlAssembler = new AmlAssembler();
-        amlDTO = amlAssembler.setAuditFields(mutationEntity, amlDTO);
+        amlAssembler.setAuditFields(mutationEntity, amlDTO);
 
         assertEquals("CREATE", amlDTO.getAction());
     }
@@ -38,7 +38,7 @@ class AmlAssemblerTest {
         AmlDTO amlDTO = AmlDTO.builder().build();
 
         AmlAssembler amlAssembler = new AmlAssembler();
-        amlDTO = amlAssembler.setAuditFields(mutationEntity, amlDTO);
+        amlAssembler.setAuditFields(mutationEntity, amlDTO);
 
         assertEquals("Y", amlDTO.getAuthorized());
     }
@@ -65,7 +65,7 @@ class AmlAssemblerTest {
 
         AmlAssembler amlAssembler = new AmlAssembler();
 
-        AmlDTO amlDTO = amlAssembler.convertEntityToDto(amlEntity);
+        AmlDTO amlDTO = amlAssembler.toDTO(amlEntity);
 
         assertNotNull(amlDTO);
         assertEquals(amlEntity.getProductCategory(), amlDTO.getProductCategory());

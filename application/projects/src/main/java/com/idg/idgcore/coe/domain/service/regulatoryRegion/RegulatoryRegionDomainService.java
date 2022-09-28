@@ -3,6 +3,7 @@ package com.idg.idgcore.coe.domain.service.regulatoryRegion;
 import com.idg.idgcore.coe.domain.assembler.regulatoryRegion.RegulatoryRegionAssembler;
 import com.idg.idgcore.coe.domain.entity.regulatoryRegion.RegulatoryRegionConfigEntity;
 import com.idg.idgcore.coe.domain.repository.regulatoryRegion.IRegulatoryRegionRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
 import com.idg.idgcore.coe.dto.regulatoryRegion.RegulatoryRegionConfigDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,7 @@ import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class RegulatoryRegionDomainService implements IRegulatoryRegionDomainService {
+public class RegulatoryRegionDomainService extends DomainService<RegulatoryRegionConfigDTO, RegulatoryRegionConfigEntity> {
 
     @Autowired
     private IRegulatoryRegionRepository iRegulatoryRegionRepository;
@@ -23,41 +24,26 @@ public class RegulatoryRegionDomainService implements IRegulatoryRegionDomainSer
     @Autowired
     private RegulatoryRegionAssembler regulatoryRegionAssembler;
 
-
-    public RegulatoryRegionConfigEntity getConfigurationByCode(RegulatoryRegionConfigDTO regulatoryRegionConfigDTO ) {
-        RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = null;
-        try {
-            regulatoryRegionConfigEntity = this.iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTO.getRegulatoryRegionCode());
-        } catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return regulatoryRegionConfigEntity;
-    }
-
-    public List<RegulatoryRegionConfigEntity> getRegulatoryRegionCodes() {
-        return this.iRegulatoryRegionRepository.findAll();
-    }
-
-    public RegulatoryRegionConfigEntity getRegulatoryRegionByCode(String regionCode) {
+    @Override
+    public RegulatoryRegionConfigEntity getEntityByIdentifier(String regionCode) {
         RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = null;
         try {
             regulatoryRegionConfigEntity = this.iRegulatoryRegionRepository.findByRegRegionCode(regionCode);
         } catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return regulatoryRegionConfigEntity;
+    }
 
+    @Override
+    public List<RegulatoryRegionConfigEntity> getAllEntities() {
+        return this.iRegulatoryRegionRepository.findAll();
     }
 
     public void save(RegulatoryRegionConfigDTO regulatoryRegionConfigDTO) {
         try {
-            RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = this.regulatoryRegionAssembler.convertDtoToEntity(regulatoryRegionConfigDTO);
+            RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = this.regulatoryRegionAssembler.toEntity(regulatoryRegionConfigDTO);
             this.iRegulatoryRegionRepository.save(regulatoryRegionConfigEntity);
         } catch (Exception e) {
             if (log.isErrorEnabled()) {

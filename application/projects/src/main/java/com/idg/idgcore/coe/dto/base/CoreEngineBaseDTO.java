@@ -14,12 +14,18 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class CoreEngineBaseDTO extends AuditableDTO {
+public abstract class CoreEngineBaseDTO extends AuditableDTO {
     private String action;
     private String status;
     private Integer recordVersion;
     private String authorized;
     private String lastConfigurationAction;
-    private String taskCode;
     private String taskIdentifier;
+
+    public void setTaskCode(String s) {}
+    public abstract String getTaskCode();
+
+    public static Class<? extends CoreEngineBaseDTO> getSpecificType() {
+        return CoreEngineBaseDTO.class;
+    }
 }

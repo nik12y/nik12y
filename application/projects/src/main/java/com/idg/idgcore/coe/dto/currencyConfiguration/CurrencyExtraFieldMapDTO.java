@@ -15,4 +15,8 @@ public class CurrencyExtraFieldMapDTO extends CoreEngineBaseDTO {
     private String extraFieldName;
     private String extraFieldValue;
 
+    @Override
+    public String getTaskCode() {
+        return "CurrencyExtraFieldMapDTO";
+    }
 }

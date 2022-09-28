@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.appvertype;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.appvertype.IAppVerTypeApplicationService;
+import com.idg.idgcore.coe.app.service.appvertype.AppVerTypeApplicationService;
 import com.idg.idgcore.coe.dto.appvertype.AppVerTypeDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,16 +17,16 @@ import java.util.List;
 public class AppVerTypeQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IAppVerTypeApplicationService appVerTypeApplicationService;
+    private AppVerTypeApplicationService appVerTypeApplicationService;
 
     public AppVerTypeDTO getAppVerTypeById(SessionContext sessionContext, AppVerTypeDTO appVerTypeDTO)
             throws FatalException, JsonProcessingException {
-        return this.appVerTypeApplicationService.getAppVerTypeByID(sessionContext, appVerTypeDTO);
+        return this.appVerTypeApplicationService.getByIdentifier(sessionContext, appVerTypeDTO);
     }
 
     public List<AppVerTypeDTO> getAppVerTypes(SessionContext sessionContext)
             throws FatalException {
-        return this.appVerTypeApplicationService.getAppVerTypes(sessionContext);
+        return this.appVerTypeApplicationService.getAll(sessionContext);
     }
 
 }

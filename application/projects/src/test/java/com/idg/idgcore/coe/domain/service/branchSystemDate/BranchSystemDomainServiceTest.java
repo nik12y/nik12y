@@ -41,7 +41,7 @@ public class BranchSystemDomainServiceTest {
     @DisplayName("Junit test for getBranchSystemAll method ")
     public void getBranchSystemAllReturnBranchSystemAllList() {
         given(branchSystemRepository.findAll()).willReturn(List.of(branchSystemDateEntity));
-        List<BranchSystemDateEntity> purgingEntityList = branchSystemDateDomainService.getBranchSystemDateAll();
+        List<BranchSystemDateEntity> purgingEntityList = branchSystemDateDomainService.getAllEntities();
         assertThat(purgingEntityList).isNotNull();
         assertThat(purgingEntityList.size()).isEqualTo(1);
     }
@@ -51,7 +51,7 @@ public class BranchSystemDomainServiceTest {
     public void getBranchSystemAllEmptyBranchSystemEntityList()
     {
         given(branchSystemRepository.findAll()).willReturn(Collections.emptyList());
-        List<BranchSystemDateEntity> branchSystemDateEntityList = branchSystemDateDomainService.getBranchSystemDateAll();
+        List<BranchSystemDateEntity> branchSystemDateEntityList = branchSystemDateDomainService.getAllEntities();
         assertThat(branchSystemDateEntityList).isEmpty();
         assertThat(branchSystemDateEntityList.size()).isEqualTo(0);
 
@@ -61,7 +61,7 @@ public class BranchSystemDomainServiceTest {
     @DisplayName("JUnit test for getBranchCodeById method")
     public void getBranchCodeByCodeReturnBranchSystemDateEntityObject() {
         given(branchSystemRepository.findByBranchCode("BC0002")).willReturn(branchSystemDateEntity);
-        BranchSystemDateEntity branchSystemEntity1 = branchSystemDateDomainService.getBranchSystemDateByCode(branchSystemDateEntity.getBranchCode());
+        BranchSystemDateEntity branchSystemEntity1 = branchSystemDateDomainService.getEntityByIdentifier(branchSystemDateEntity.getBranchCode());
         assertThat(branchSystemEntity1).isNotNull();
     }
 
@@ -71,24 +71,15 @@ public class BranchSystemDomainServiceTest {
         BranchSystemDateEntity branchSystemDateEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            BranchSystemDateEntity branchSystemDateEntity2 = branchSystemDateDomainService.getBranchSystemDateByCode(branchSystemDateEntity1.getBranchCode());
+            BranchSystemDateEntity branchSystemDateEntity2 = branchSystemDateDomainService.getEntityByIdentifier(branchSystemDateEntity1.getBranchCode());
         });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    public void getConfigurationByCodeTryBlock() {
-        given(branchSystemRepository.findByBranchCode("BC0002")).willReturn(branchSystemDateEntity);
-        BranchSystemDateEntity branchSystemDateEntity = branchSystemDateDomainService.getConfigurationByCode(branchSystemDateDTO);
-        assertThat(branchSystemDateEntity).isNotNull();
     }
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
     public void getConfigurationByCodeCatchBlock() {
-        BranchSystemDateDTO branchSystemDTO = null;
         assertThrows(Exception.class,()-> {
-            BranchSystemDateEntity branchSystemDateEntity = branchSystemDateDomainService.getConfigurationByCode(branchSystemDTO);
+            BranchSystemDateEntity branchSystemDateEntity = branchSystemDateDomainService.getEntityByIdentifier(null);
         });
     }
 

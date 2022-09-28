@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.groupBanking;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.groupBanking.IGroupBankingApplicationService;
+import com.idg.idgcore.coe.app.service.groupBanking.GroupBankingApplicationService;
 import com.idg.idgcore.coe.dto.groupBanking.GroupBankingDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -15,17 +15,17 @@ import java.util.List;
 @Slf4j
 @Component
 public class GroupBankingQueryResolver implements GraphQLQueryResolver {
+
     @Autowired
-    private IGroupBankingApplicationService iGroupBankingApplicationService;
+    private GroupBankingApplicationService groupBankingApplicationService;
 
     public GroupBankingDTO getGroupBankByCode (SessionContext sessionContext, GroupBankingDTO groupBankingDTO)
             throws FatalException, JsonProcessingException {
-        return this.iGroupBankingApplicationService.getGroupBankByCode(sessionContext, groupBankingDTO);
+        return this.groupBankingApplicationService.getByIdentifier(sessionContext, groupBankingDTO);
     }
 
     public List<GroupBankingDTO> getGroupBanks (SessionContext sessionContext)
             throws FatalException {
-        return this.iGroupBankingApplicationService.getGroupBanks(sessionContext);
+        return this.groupBankingApplicationService.getAll(sessionContext);
     }
-
 }

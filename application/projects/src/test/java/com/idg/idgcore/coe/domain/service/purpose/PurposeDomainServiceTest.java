@@ -3,7 +3,6 @@ package com.idg.idgcore.coe.domain.service.purpose;
 import com.idg.idgcore.coe.domain.entity.purpose.PurposeEntity;
 import com.idg.idgcore.coe.domain.repository.purpose.IPurposeRepository;
 import com.idg.idgcore.coe.dto.purpose.PurposeDTO;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class PurposeDomainServiceTest {
     @DisplayName("Junit test for getPurposes method ")
     public void getPurposesReturnPurposesList() {
         given(purposeRepository.findAll()).willReturn(List.of(purposeEntity));
-        List<PurposeEntity> purposeEntityList = purposeDomainService.getPurposes();
+        List<PurposeEntity> purposeEntityList = purposeDomainService.getAllEntities();
         assertThat(purposeEntityList).isNotNull();
         assertThat(purposeEntityList.size()).isEqualTo(1);
     }
@@ -49,7 +48,7 @@ class PurposeDomainServiceTest {
     public void getPurposesEmptyPurposeEntityList()
     {
         given(purposeRepository.findAll()).willReturn(Collections.emptyList());
-        List<PurposeEntity> purposeEntityList = purposeDomainService.getPurposes();
+        List<PurposeEntity> purposeEntityList = purposeDomainService.getAllEntities();
         assertThat(purposeEntityList).isEmpty();
         assertThat(purposeEntityList.size()).isEqualTo(0);
 
@@ -59,7 +58,7 @@ class PurposeDomainServiceTest {
     @DisplayName("JUnit test for getPurposeById method")
     public void getPurposeByCodeReturnPurposeEntityObject() {
         given(purposeRepository.findByPurposeCode("PC0006")).willReturn(purposeEntity);
-        PurposeEntity purposeEntity1 = purposeDomainService.getPurposeByCode(purposeEntity.getPurposeCode());
+        PurposeEntity purposeEntity1 = purposeDomainService.getEntityByIdentifier(purposeEntity.getPurposeCode());
         assertThat(purposeEntity1).isNotNull();
     }
 
@@ -69,36 +68,9 @@ class PurposeDomainServiceTest {
         PurposeEntity purposeEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            PurposeEntity purposeEntity2 = purposeDomainService.getPurposeByCode(purposeEntity1.getPurposeCode());
+            PurposeEntity purposeEntity2 = purposeDomainService.getEntityByIdentifier(purposeEntity1.getPurposeCode());
         });
     }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    public void getConfigurationByCodeTryBlock() {
-        given(purposeRepository.findByPurposeCode("PC0006")).willReturn(purposeEntity);
-        PurposeEntity purposeByCode = purposeDomainService.getConfigurationByCode(purposeDTO);
-        assertThat(purposeByCode).isNotNull();
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    public void getConfigurationByCodeCatchBlock() {
-        PurposeDTO purposeDTO = null;
-        assertThrows(Exception.class,()-> {
-            PurposeEntity purposeByCode = purposeDomainService.getConfigurationByCode(purposeDTO);
-        });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    public void getSaveCodeCatchBlock() {
-        PurposeDTO purposeDTO = null;
-        assertThrows(Exception.class,()-> {
-            purposeDomainService.save(purposeDTO);
-        });
-    }
-
 
     private PurposeEntity getPurposeEntity()
     {

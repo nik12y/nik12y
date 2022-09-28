@@ -5,7 +5,6 @@ import com.idg.idgcore.coe.domain.assembler.question.QuestionAssembler;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.domain.entity.question.QuestionEntity;
 import com.idg.idgcore.coe.domain.repository.question.IQuestionRepository;
-import com.idg.idgcore.coe.domain.service.question.QuestionDomainService;
 import com.idg.idgcore.coe.dto.question.QuestionDTO;
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -83,7 +82,7 @@ class QuestionDomainServiceTest {
     void getQuestionByIdReturnEntity() {
 
         given(iQuestionRepository.findByQuestionId("Q01")).willReturn(questionEntity);
-        QuestionEntity questionById = questionDomainService.getQuestionById(questionEntity.getQuestionId());
+        QuestionEntity questionById = questionDomainService.getEntityByIdentifier(questionEntity.getQuestionId());
         assertThat(questionById).isNotNull();
     }
 
@@ -101,7 +100,7 @@ class QuestionDomainServiceTest {
         }
         given(iQuestionRepository.findByQuestionId("Q01")).willReturn(questionEntity);
 
-        QuestionEntity question = questionDomainService.getConfigurationByCode(questionDTO);
+        QuestionEntity question = questionDomainService.getEntityByIdentifier(questionDTO.getQuestionId());
         assertThat(question).isNotNull();
     }
 
@@ -113,7 +112,7 @@ class QuestionDomainServiceTest {
         questionEntity.setQuestionName("Education Loan Purpose");
 
         given(iQuestionRepository.findByQuestionId("Q01")).willReturn(questionEntity);
-        QuestionEntity groupBankByCode1 = questionDomainService.getQuestionById(questionEntity.getQuestionId());
+        QuestionEntity groupBankByCode1 = questionDomainService.getEntityByIdentifier(questionEntity.getQuestionId());
         assertThat(groupBankByCode1).isNotNull();
     }
 
@@ -125,7 +124,7 @@ class QuestionDomainServiceTest {
         questionEntity.setQuestionName("Education Loan Purpose");
 
         given(iQuestionRepository.findAll()).willReturn(Collections.emptyList());
-        List<QuestionEntity> questionEntityList = questionDomainService.getQuestions();
+        List<QuestionEntity> questionEntityList = questionDomainService.getAllEntities();
         assertThat(questionEntityList).isEmpty();
         assertThat(questionEntityList.size()).isEqualTo(0);
     }
@@ -138,7 +137,7 @@ class QuestionDomainServiceTest {
         questionEntity.setQuestionName("Education Loan Purpose");
 
         given(iQuestionRepository.findAll()).willReturn(List.of(questionEntity));
-        List<QuestionEntity> questions = questionDomainService.getQuestions();
+        List<QuestionEntity> questions = questionDomainService.getAllEntities();
         assertThat(questions).isNotNull();
         assertThat(questions.size()).isEqualTo(1);
     }
@@ -152,7 +151,7 @@ class QuestionDomainServiceTest {
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setQuestionId("Q01");
         questionDTO.setQuestionName("Education Loan Purpose");
-        given(questionAssembler.convertDtoToEntity(questionDTO)).willReturn(questionEntity);
+        given(questionAssembler.toEntity(questionDTO)).willReturn(questionEntity);
         when(iQuestionRepository.save(any(QuestionEntity.class))).thenReturn(questionEntity);
         questionDomainService.save(questionDTO);
     assertThat(questionEntity).isNotNull();

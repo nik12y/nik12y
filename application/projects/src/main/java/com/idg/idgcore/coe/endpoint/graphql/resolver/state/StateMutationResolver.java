@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.state;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.state.IStateApplicationService;
+import com.idg.idgcore.coe.app.service.state.StateApplicationService;
 import com.idg.idgcore.coe.dto.state.StateDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class StateMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IStateApplicationService stateService;
+    private StateApplicationService stateService;
 
     public TransactionStatus processState (SessionContext sessionContext, StateDTO stateDTO)
             throws FatalException, JsonProcessingException {
-        return this.stateService.processState(sessionContext, stateDTO);
+        return this.stateService.process(sessionContext, stateDTO);
     }
 
 }

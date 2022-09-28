@@ -1,31 +1,27 @@
 package com.idg.idgcore.coe.domain.assembler.reason;
 
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
 import com.idg.idgcore.coe.domain.entity.reason.ReasonEntity;
-import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.dto.reason.ReasonDTO;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
 
 
 @Component
-public class ReasonAssembler {
+public class ReasonAssembler extends Assembler<ReasonDTO, ReasonEntity> {
 
-    private ModelMapper modelMapper = new ModelMapper();
-
-    @PostConstruct
-    private void setMapperConfig() {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return ReasonDTO.class;
     }
 
-    public ReasonEntity convertDtoToEntity(ReasonDTO reasonDTO) {
-        ReasonEntity reasonEntity = modelMapper.map(reasonDTO, ReasonEntity.class);
+    @Override
+    public Class getSpecificEntityClass() {
+        return ReasonEntity.class;
+    }
+
+    @Override
+    public ReasonEntity toEntity(ReasonDTO reasonDTO) {
+        ReasonEntity reasonEntity = super.toEntity(reasonDTO);
         reasonEntity.setPrimaryReasonCode(reasonDTO.getPrimaryReasonCode());
         reasonEntity.setPrimaryReasonDesc(reasonDTO.getPrimaryReasonDescription());
         reasonEntity.setIsPriAccountBlock(getCharValueFromBoolean(reasonDTO.isPrimaryAccountBlock()));
@@ -47,8 +43,9 @@ public class ReasonAssembler {
         return reasonEntity;
     }
 
-    public ReasonDTO convertEntityToDto(ReasonEntity reasonEntity) {
-        ReasonDTO reasonDTO = modelMapper.map(reasonEntity, ReasonDTO.class);
+    @Override
+    public ReasonDTO toDTO(ReasonEntity reasonEntity) {
+        ReasonDTO reasonDTO = super.toDTO(reasonEntity);
         reasonDTO.setPrimaryReasonCode(reasonEntity.getPrimaryReasonCode());
         reasonDTO.setPrimaryReasonDescription(reasonEntity.getPrimaryReasonDesc());
         reasonDTO.setPrimaryAccountBlock(getBooleanValueFromChar(reasonEntity.getIsPriAccountBlock()));
@@ -70,27 +67,4 @@ public class ReasonAssembler {
         return reasonDTO;
     }
 
-    public ReasonDTO setAuditFields (MutationEntity mutationEntity, ReasonDTO reasonDTO) {
-        reasonDTO.setAction(mutationEntity.getAction());
-        reasonDTO.setAuthorized(mutationEntity.getAuthorized());
-        reasonDTO.setRecordVersion(mutationEntity.getRecordVersion());
-        reasonDTO.setStatus(mutationEntity.getStatus());
-        reasonDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-        reasonDTO.setCreatedBy(mutationEntity.getCreatedBy());
-        reasonDTO.setCreationTime(mutationEntity.getCreationTime());
-        reasonDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        reasonDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        reasonDTO.setTaskCode(mutationEntity.getTaskCode());
-        reasonDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        return reasonDTO;
-    }
-
-
-    public char getCharValueFromBoolean(boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar(Character value) {
-        return value.equals(CHAR_Y);
-    }
 }

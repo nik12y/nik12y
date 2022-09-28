@@ -13,9 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class AppVerTypeAssemblerTest {
@@ -41,7 +39,7 @@ class AppVerTypeAssemblerTest {
         documentsEntity.setNature("Mandatory");
         appVerTypeEntity.setDocuments(List.of(documentsEntity));
 
-        AppVerTypeDTO appVerTypeDTO = appVerTypeAssembler.convertEntityToDto(appVerTypeEntity);
+        AppVerTypeDTO appVerTypeDTO = appVerTypeAssembler.toDTO(appVerTypeEntity);
         assertEquals(appVerTypeEntity.getVerificationTypeId(), appVerTypeDTO.getVerificationTypeId());
         assertEquals(appVerTypeEntity.getVerificationTypeName(), appVerTypeDTO.getVerificationTypeName());
         assertEquals(appVerTypeEntity.getVerificationTypeDesc(), appVerTypeDTO.getVerificationTypeDesc());
@@ -76,7 +74,7 @@ class AppVerTypeAssemblerTest {
         appVerTypeEntity.setIsExternal('Y');
         appVerTypeEntity.setIsDocumentRequired('N');
 
-        AppVerTypeDTO appVerTypeDTO = appVerTypeAssembler.convertEntityToDto(appVerTypeEntity);
+        AppVerTypeDTO appVerTypeDTO = appVerTypeAssembler.toDTO(appVerTypeEntity);
 
         assertEquals(appVerTypeEntity.getVerificationTypeId(), appVerTypeDTO.getVerificationTypeId());
         assertEquals(appVerTypeEntity.getVerificationTypeName(), appVerTypeDTO.getVerificationTypeName());
@@ -97,7 +95,7 @@ class AppVerTypeAssemblerTest {
         AppVerTypeDTO appVerTypeDTO = AppVerTypeDTO.builder().build();
 
         AppVerTypeAssembler appVerTypeAssembler = new AppVerTypeAssembler();
-        appVerTypeDTO = appVerTypeAssembler.setAuditFields(mutationEntity, appVerTypeDTO);
+        appVerTypeAssembler.setAuditFields(mutationEntity, appVerTypeDTO);
 
         assertEquals("Y", appVerTypeDTO.getAuthorized());
     }

@@ -1,18 +1,23 @@
 package com.idg.idgcore.coe.domain.service.errorOverride;
 
-import com.idg.idgcore.coe.domain.assembler.errorOverride.*;
-import com.idg.idgcore.coe.domain.entity.errorOverride.*;
-import com.idg.idgcore.coe.domain.repository.errorOverride.*;
-import com.idg.idgcore.coe.dto.errorOverride.*;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.*;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import com.idg.idgcore.coe.domain.assembler.errorOverride.ErrorOverrideAssembler;
+import com.idg.idgcore.coe.domain.entity.errorOverride.ErrorOverrideConversionsEntity;
+import com.idg.idgcore.coe.domain.entity.errorOverride.ErrorOverrideEntity;
+import com.idg.idgcore.coe.domain.entity.errorOverride.ErrorOverrideLanguageDetailsEntity;
+import com.idg.idgcore.coe.domain.repository.errorOverride.IErrorOverrideRepository;
+import com.idg.idgcore.coe.dto.errorOverride.ErrorOverrideConversionsDTO;
+import com.idg.idgcore.coe.dto.errorOverride.ErrorOverrideDTO;
+import com.idg.idgcore.coe.dto.errorOverride.ErrorOverrideLanguageDetailsDTO;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith (MockitoExtension.class)
 class ErrorOverrideDomainServiceTest {
@@ -26,7 +31,7 @@ class ErrorOverrideDomainServiceTest {
         ErrorOverrideDTO dto = getErrorOverrideDTONew();
         ErrorOverrideEntity errorOverrideEntity = getErrorOverrideEntityNew();
         given(repository.findByErrorCode("ERR-CHD-02")).willReturn(errorOverrideEntity);
-        ErrorOverrideEntity configurationByCode = domainService.getConfigurationByCode(dto);
+        ErrorOverrideEntity configurationByCode = domainService.getEntityByIdentifier(dto.getTaskIdentifier());
         assertThat(configurationByCode).isNotNull();
     }
 
@@ -35,17 +40,8 @@ class ErrorOverrideDomainServiceTest {
         ErrorOverrideEntity errorOverrideEntity = getErrorOverrideEntityNew();
         given(repository.findAll()).willReturn(
                 List.of(errorOverrideEntity));
-        List<ErrorOverrideEntity> errorOverrideEntityList = domainService.getErrorCodes();
+        List<ErrorOverrideEntity> errorOverrideEntityList = domainService.getAllEntities();
         assertThat(errorOverrideEntityList).isNotNull();
-    }
-
-    @Test
-    void getErrorOverrideByCode () {
-        ErrorOverrideEntity errorOverrideEntity = getErrorOverrideEntityNew();
-        given(domainService.getErrorOverrideByCode("ERR-CHD-02")).willReturn(errorOverrideEntity);
-        ErrorOverrideEntity errorOverrideEntityR = domainService.getErrorOverrideByCode(
-                "ERR-CHD-02");
-        assertThat(errorOverrideEntityR).isNotNull();
     }
 
     private ErrorOverrideEntity getErrorOverrideEntityNew () {

@@ -1,53 +1,37 @@
 package com.idg.idgcore.coe.domain.assembler.groupBanking;
 
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
 import com.idg.idgcore.coe.domain.entity.groupBanking.GroupBankingEntity;
-import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.dto.groupBanking.GroupBankingDTO;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 @Component
-public class GroupBankingAssembler {
-    private final ModelMapper modelMapper = new ModelMapper();
+public class GroupBankingAssembler extends Assembler<GroupBankingDTO, GroupBankingEntity> {
 
-    @PostConstruct
-    private void setMapperConfig() {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return GroupBankingDTO.class;
     }
 
-    public GroupBankingEntity convertDtoToEntity(GroupBankingDTO groupBankingDTO) {
-
-        GroupBankingEntity groupBankingEntity= modelMapper.map(groupBankingDTO, GroupBankingEntity.class);
-             groupBankingEntity.setBankGroupName(groupBankingDTO.getGroupBankingName());
-             groupBankingEntity.setBankGroupCode(groupBankingDTO.getGroupBankingCode());
-             return groupBankingEntity;
+    @Override
+    public Class getSpecificEntityClass() {
+        return GroupBankingEntity.class;
     }
 
-    public GroupBankingDTO convertEntityToDto(GroupBankingEntity groupBankingEntity) {
-        GroupBankingDTO groupBankingDTO= modelMapper.map(groupBankingEntity, GroupBankingDTO.class);
-          groupBankingDTO.setGroupBankingCode(groupBankingEntity.getBankGroupCode());
-          groupBankingDTO.setGroupBankingName(groupBankingEntity.getBankGroupName());
-          return groupBankingDTO;
+    @Override
+    public GroupBankingEntity toEntity(GroupBankingDTO groupBankingDTO) {
+        GroupBankingEntity groupBankingEntity = super.toEntity(groupBankingDTO);
+        groupBankingEntity.setBankGroupName(groupBankingDTO.getGroupBankingName());
+        groupBankingEntity.setBankGroupCode(groupBankingDTO.getGroupBankingCode());
+        return groupBankingEntity;
     }
 
-    public GroupBankingDTO setAuditFields(MutationEntity mutationEntity, GroupBankingDTO groupBankingDTO) {
-        groupBankingDTO.setAction(mutationEntity.getAction());
-        groupBankingDTO.setAuthorized(mutationEntity.getAuthorized());
-        groupBankingDTO.setRecordVersion(mutationEntity.getRecordVersion());
-        groupBankingDTO.setStatus(mutationEntity.getStatus());
-        groupBankingDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-        groupBankingDTO.setCreatedBy(mutationEntity.getCreatedBy());
-        groupBankingDTO.setCreationTime(mutationEntity.getCreationTime());
-        groupBankingDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        groupBankingDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        groupBankingDTO.setTaskCode(mutationEntity.getTaskCode());
-        groupBankingDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
+    @Override
+    public GroupBankingDTO toDTO(GroupBankingEntity groupBankingEntity) {
+        GroupBankingDTO groupBankingDTO = super.toDTO(groupBankingEntity);
+        groupBankingDTO.setGroupBankingCode(groupBankingEntity.getBankGroupCode());
+        groupBankingDTO.setGroupBankingName(groupBankingEntity.getBankGroupName());
         return groupBankingDTO;
     }
-
-    }
+}
 

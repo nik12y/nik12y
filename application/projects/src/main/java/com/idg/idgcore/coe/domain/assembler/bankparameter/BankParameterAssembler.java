@@ -1,29 +1,30 @@
 package com.idg.idgcore.coe.domain.assembler.bankparameter;
 
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
 import com.idg.idgcore.coe.domain.entity.bankparameter.*;
-import com.idg.idgcore.coe.domain.entity.mutation.*;
+import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
 import com.idg.idgcore.coe.dto.bankparameter.*;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.stereotype.*;
-
-import javax.annotation.*;
+import com.idg.idgcore.coe.dto.branchparameter.BranchParameterDTO;
+import org.springframework.stereotype.Component;
 
 import static com.idg.idgcore.coe.common.Constants.CHAR_N;
 import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
 
 @Component
-public class BankParameterAssembler {
+public class BankParameterAssembler extends Assembler<BankParameterDTO, BankParameterEntity> {
 
-    private ModelMapper modelMapper = new ModelMapper();
-
-    @PostConstruct
-    private void setMapperConfig() {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return BankParameterDTO.class;
     }
 
-    public BankParameterEntity convertDtoToEntity(BankParameterDTO bankParameterDTO) {
+    @Override
+    public Class getSpecificEntityClass() {
+        return BankParameterEntity.class;
+    }
+
+    @Override
+    public BankParameterEntity toEntity(BankParameterDTO bankParameterDTO) {
         /**
          * For Bank Parameter Address
          */
@@ -98,7 +99,8 @@ public class BankParameterAssembler {
         return bankParameterEntity;
     }
 
-    public BankParameterDTO convertEntityToDto(BankParameterEntity bankParameterEntity) {
+    @Override
+    public BankParameterDTO toDTO(BankParameterEntity bankParameterEntity) {
 
         /**
          * For Bank Parameter Address

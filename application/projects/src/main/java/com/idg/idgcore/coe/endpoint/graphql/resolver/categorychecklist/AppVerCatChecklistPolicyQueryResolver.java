@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.categorychecklist;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.categorychecklist.IAppVerCatChecklistPolicyApplicationService;
+import com.idg.idgcore.coe.app.service.categorychecklist.AppVerCatChecklistPolicyApplicationService;
 import com.idg.idgcore.coe.dto.categorychecklist.AppVerCatChecklistPolicyDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -16,15 +16,15 @@ import java.util.List;
 public class AppVerCatChecklistPolicyQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IAppVerCatChecklistPolicyApplicationService appVerCatChecklistPolicyApplicationService;
+    private AppVerCatChecklistPolicyApplicationService appVerCatChecklistPolicyApplicationService;
 
     public AppVerCatChecklistPolicyDTO getAppVerCatChecklistPolicyById(SessionContext sessionContext, AppVerCatChecklistPolicyDTO appVerCatChecklistPolicyDTO)
             throws FatalException, JsonProcessingException {
-        return this.appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicyById(sessionContext, appVerCatChecklistPolicyDTO);
+        return this.appVerCatChecklistPolicyApplicationService.getByIdentifier(sessionContext, appVerCatChecklistPolicyDTO);
     }
 
     public List<AppVerCatChecklistPolicyDTO> getAppVerCatChecklistPolicies(SessionContext sessionContext)
             throws FatalException {
-        return this.appVerCatChecklistPolicyApplicationService.getAppVerCatChecklistPolicies(sessionContext);
+        return this.appVerCatChecklistPolicyApplicationService.getAll(sessionContext);
     }
 }
