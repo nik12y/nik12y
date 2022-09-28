@@ -56,6 +56,7 @@ public class ServiceBeanConfig {
         beanMappings.put(AMOUNT_IN_WORDS, AMOUNT_IN_WORDS_SERVICE);
         beanMappings.put(CURR_BRANCH_PARAM, CURR_BRANCH_PARAM_SERVICE);
 
+        beanMappings.put(HOLIDAY, HOLIDAY_LIST_SERVICE);
     }
 
     public Map<String, String> getBeanConfig () {

@@ -121,3 +121,5 @@ databaseChangeLog:
       file: db/changelog/IDGC_MCY_CNFG_CURRENCY_PAIR_create_tbl.xml
   - include:
      file: db/changelog/IDGC_MCY_CNFG_BRANCH_PARAMETER_create_tbl.xml
+  - include:
+      file: db/changelog/IDGC_COE_CAL_HOLIDAY_LIST_CNFG_create.xml

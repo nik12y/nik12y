@@ -1,0 +1,4 @@
+type HolidayListResponse{
+    holidayList :[HolidayList]
+    transactionStatus : TransactionStatus
+}

@@ -1,0 +1,4 @@
+type HolidayListQuery {
+    holidayListId: String!
+    authorized: String!
+}

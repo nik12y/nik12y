@@ -1,0 +1,4 @@
+input HolidayListInputQuery {
+    holidayListId: String!
+    authorized: String!
+}

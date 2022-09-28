@@ -1,0 +1,6 @@
+type Holiday {
+    holidayId:Int
+    holidayName: String
+    holidayType: String
+    holidayDate: String
+}
