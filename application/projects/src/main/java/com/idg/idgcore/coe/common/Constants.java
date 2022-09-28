@@ -146,6 +146,10 @@ public final class Constants {
     public static final String CURR_BRANCH_PARAM= "MULBRANCHPARAM";
     public static final String  CURR_BRANCH_PARAM_SERVICE = "mulBranchparamApplicationService";
 
+    public static final String HOLIDAY = "HOLIDAY";
+    public static final String HOLIDAY_LIST_SERVICE = "holidayListApplicationService";
+
+
     private Constants () {
     }
 

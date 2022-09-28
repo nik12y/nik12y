@@ -93,5 +93,11 @@ type Query{
 
     getBranchParameterByCurrencyCodeAndEntityCodeAndEntityType(sessionContext: SessionContextInput,mulBranchParameterQuery:MulBranchParameterInputQuery ): MulBranchParameter
     getMulBranchParameters(sessionContext: SessionContextInput): [MulBranchParameter]
+
+
+    searchHolidayList(sessionContext: SessionContextInput, holidayListQuery: HolidayListInputQuery): HolidayListResponse
+    getHolidayLists(sessionContext: SessionContextInput): HolidayListResponse
+    getHolidayListByID(sessionContext: SessionContextInput, holidayListQuery: HolidayListInputQuery): HolidayListResponse
+
 }
 

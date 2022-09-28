@@ -1,0 +1,17 @@
+type HolidayList {
+    holidayListId: String!
+    holidayListName : String!
+    holidayListDescription : String!
+    isAdhocHolidays : Boolean
+    effectiveDate : String
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+    holiday: [Holiday]
+
+
+}

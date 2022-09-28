@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="idgc_coe_cal_holiday_list_cnfg" author="nikhil_jagtap">
+
+        <createTable tableName="idgc_coe_cal_holiday_list_cnfg"
+                     remarks="A table to contain all the Holiday List configuration">
+
+            <column name="holiday_list_id" type="varchar(10)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="holiday_list_name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="holiday_list_description" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_adhoc_holidays" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="effective_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="life_cycle_id" type="varchar(50)">
+            </column>
+
+            <column name="reference_no" type="varchar(50)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+
+        <addUniqueConstraint
+                columnNames="holiday_list_id" tableName="idgc_coe_cal_holiday_list_cnfg"
+                constraintName="idgc_coe_cal_holiday_list_cnfg_pk"/>
+
+    </changeSet>
+
+
+    <changeSet id="idgc_coe_cal_holiday_list" author="nikhil_jagtap">
+
+        <createTable tableName="idgc_coe_cal_holiday_list"
+                     remarks="A table to contain all the Holiday configuration">
+
+            <column name="holiday_id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="holiday_name" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="holiday_list_id" type="varchar(10)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="holiday_type" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="holiday_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_version" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_authorized" type="varchar(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_configuration_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+            </column>
+
+            <column name="creation_time" type="timestamp">
+            </column>
+
+            <column name="last_updated_by" type="varchar(20)">
+            </column>
+
+            <column name="last_updated_time" type="timestamp">
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
