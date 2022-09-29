@@ -22,4 +22,9 @@ public class HolidayDTO extends CoreEngineBaseDTO {
     private String holidayName;
     private String holidayType;
     private String holidayDate;
+
+    @Override
+    public String getTaskCode() {
+        return "HolidayDTO";
+    }
 }
