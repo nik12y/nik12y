@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.currencyratetype;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.currencyratetype.ICurrencyRateTypeApplicationService;
+import com.idg.idgcore.coe.app.service.currencyratetype.CurrencyRateTypeApplicationService;
 import com.idg.idgcore.coe.dto.currencyratetype.CurrencyRateTypeDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CurrencyRateTypeMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private ICurrencyRateTypeApplicationService currencyRateTypeService;
+    private CurrencyRateTypeApplicationService currencyRateTypeService;
 
     public TransactionStatus processCurrencyRateType(SessionContext sessionContext, CurrencyRateTypeDTO currencyRateTypeDTO)
             throws FatalException, JsonProcessingException {
-        return this.currencyRateTypeService.processCurrencyRateType(sessionContext, currencyRateTypeDTO);
+        return this.currencyRateTypeService.process(sessionContext, currencyRateTypeDTO);
     }
 }

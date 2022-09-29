@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name ="IDGC_MCY_CNFG_EXCHG_RATE_TYPE")
+@Table(name ="idgc_mcy_cnfg_currency_rate_type")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ToString
 @IdClass(CurrencyRateTypeEntityKey.class)

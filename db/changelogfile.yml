@@ -27,3 +27,6 @@ databaseChangeLog:
       file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_insert_01.xml
   - include:
       file: db/changelog/IDGC_MCY_CNFG_AMT_IN_WORDS_create_tbl.xml
+  - include:
+      file: currency_config /IDGC_MCY_CNFG_CURRENCY_RATE_TYPE_create_tbl.xml
+

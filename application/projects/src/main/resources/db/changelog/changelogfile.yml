@@ -2,8 +2,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/language-table.xml
   - include:
-      file: db/changelog/multicurrency-rate-type-table.xml
-  - include:
       file: db/changelog/audit-table.xml
   - include:
       file: db/changelog/create-seed-tables-currency-configuration-schema.xml
@@ -123,3 +121,6 @@ databaseChangeLog:
      file: db/changelog/IDGC_MCY_CNFG_BRANCH_PARAMETER_create_tbl.xml
   - include:
       file: db/changelog/IDGC_COE_CAL_HOLIDAY_LIST_CNFG_create.xml
+  - include:
+      file: db/changelog/IDGC_MCY_CNFG_CURRENCY_RATE_TYPE_create_tbl.xml
+
