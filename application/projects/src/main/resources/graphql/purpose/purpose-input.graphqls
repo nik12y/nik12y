@@ -3,7 +3,7 @@ input PurposeInput {
     purposeCode: String! @Size(min: 6, max: 6, message: "purposeCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,6}",message: "Purpose Code Invalid pattern")
     purposeName: String! @Size(min: 1, max: 40, message: "purposeName.message") @Pattern(regexp: ".[A-Za-z0-9_ ]{1,40}",message: "Purpose Name Invalid pattern")
     purposeDescription: String! @Size(min: 1, max: 40, message: "purposeDescription.message") @Pattern(regexp: ".[A-Za-z0-9_ ]{1,40}",message: "Purpose Description Invalid pattern")
-    purposeType: String! @Size(min: 1, max: 100, message: "purposeType.message") @Pattern(regexp: ".[A-Za-z0-9_ ]{1,100}",message: "Purpose Type Invalid pattern")
+    purposeType: String!
 
     action : String!
     status : String!

@@ -1,0 +1,89 @@
+
+{
+  getCurrenciesList(sessionContext: {
+    bankCode: ""
+      defaultBranchCode: ""
+      internalTransactionReferenceNumber: ""
+      userTransactionReferenceNumber: ""
+      externalTransactionReferenceNumber: ""
+      targetUnit: ""
+      postingDate: ""
+      valueDate: ""
+      transactionBranch: ""
+      userId: "rakshit"
+      accessibleTargetUnits: [""]
+      channel: ""
+      taskCode: ""
+      localDateTime: ""
+      role: ["maker"]
+      originalTransactionReferenceNumber: ""
+      externalBatchNumber: 1
+      customAttributes: ""
+      serviceInvocationModeType:Regular
+      allTargetUnitsSelected: false
+      mutationType:ADDITION
+      userLocal: ""
+      originatingModuleCode: ""
+  }) {
+    currencyCode
+    currencyName
+    isoNumericCode
+    countryName
+    countryCode
+    locale
+    alternateCurrencyCode
+    currencySymbol
+    currencyDescription
+    currencyCategory
+    decimals
+    dayDivisor
+    spotDays
+    fxNettingDays
+    settlementDays
+    calenderId
+    beforeFormattingFlag
+    afterFormattingFlag
+    includeSpaceFormattingFlag
+    currencyCutOff {
+      currencyCode
+      days
+      hours
+      minutes
+      enableMt101Remit
+      enableMt103Stp
+      indexFlag
+      enableMt202Cov
+      clsCurrencyFlag
+      validateTag50fFlag
+      preferredHoliday1
+      preferredHoliday2
+      preferredHoliday3
+      roundingRule
+      roundingUnit
+      amountFormatMaskPtt
+      euroTransactionCurrency
+      inLegCurrency
+      outLegCurrency
+      euroCloseFlag
+      creditExchangeLimit
+      debitExchangeLimit
+    }
+    currencyCountryMap {
+      currencyCode
+      currencyCountryCode
+      currencyCountryName
+    }
+    currencyExtraFieldMap {
+      currencyCode
+      extraFieldName
+      extraFieldValue
+    }
+    action
+    status
+    recordVersion
+    createdBy
+    creationTime
+    lastUpdatedBy
+    lastUpdatedTime
+  }
+}

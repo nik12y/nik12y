@@ -1,12 +1,9 @@
 package com.idg.idgcore.coe.dto.questionnaireChecklist;
 
 import com.fasterxml.jackson.annotation.*;
-import com.idg.idgcore.coe.domain.entity.questionnaireChecklist.*;
 import com.idg.idgcore.coe.dto.base.*;
 import lombok.*;
 import lombok.experimental.*;
-
-import java.util.*;
 
 import static com.idg.idgcore.coe.common.Constants.*;
 
@@ -19,9 +16,9 @@ import static com.idg.idgcore.coe.common.Constants.*;
 @JsonInclude (JsonInclude.Include.NON_NULL)
 public class QuestionnaireChecklistDTO extends CoreEngineBaseDTO {
 
-    private String questionChecklistId;
-    private String questionChecklistName;
-    private String questionCategory;
+    private String questionaireChecklistId;
+    private String questionaireChecklistName;
+    private String questionaireCategory;
     private String effectiveDate;
 
     private QuestionnaireChecklistDetailsCategoryDTO questionnaireChecklistDetailsCategory;
@@ -39,6 +36,6 @@ public class QuestionnaireChecklistDTO extends CoreEngineBaseDTO {
 
     @Override
     public String getTaskIdentifier () {
-        return this.getQuestionChecklistId();
+        return this.getQuestionaireChecklistId();
     }
 }

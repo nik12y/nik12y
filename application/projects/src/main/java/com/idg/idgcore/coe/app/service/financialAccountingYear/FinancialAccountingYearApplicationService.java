@@ -11,30 +11,24 @@ import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.domain.process.*;
 import com.idg.idgcore.coe.domain.service.financialAccountingYear.*;
 import com.idg.idgcore.coe.domain.service.mutation.*;
+import com.idg.idgcore.coe.domain.util.*;
 import com.idg.idgcore.coe.dto.base.*;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
-import com.idg.idgcore.coe.dto.mapping.*;
 import com.idg.idgcore.coe.dto.mutation.*;
 import com.idg.idgcore.coe.exception.*;
 import com.idg.idgcore.datatypes.core.*;
 import com.idg.idgcore.datatypes.exceptions.*;
 import com.idg.idgcore.dto.context.*;
 import com.idg.idgcore.enumerations.core.*;
-import com.idg.idgcore.infra.*;
 import lombok.extern.slf4j.*;
 import org.modelmapper.*;
-import org.modelmapper.convention.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.function.*;
-import java.util.stream.*;
 
 import static com.idg.idgcore.coe.common.Constants.*;
-import static com.idg.idgcore.coe.common.Constants.FIELD_SEPARATOR;
 import static com.idg.idgcore.coe.exception.Error.*;
 
 @Slf4j
@@ -49,6 +43,45 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
     @Autowired private IFinancialAccountingYearDomainService domainService;
     @Autowired private FinancialAccountingYearAssembler assembler;
     @Autowired private MutationAssembler mutationAssembler;
+
+
+    public List<FinancialAccountingYearDTO> searchFinancialAccountingYear(SessionContext sessionContext, FinancialAccountingYearDTO financialAccountingYearDTO)
+            throws FatalException, JsonProcessingException {
+
+        if (log.isInfoEnabled()) {
+            log.info("In searchFinancialAccountingYear with parameters sessionContext {}, financialAccountingYearDTO {}",
+                    sessionContext, financialAccountingYearDTO);
+        }
+        TransactionStatus transactionStatus = fetchTransactionStatus();
+        Interaction.begin(sessionContext);
+        prepareTransactionContext(sessionContext, TransactionMessageType.NORMAL_MESSAGE);
+
+        List<FinancialAccountingYearDTO> result = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<MutationEntity> entities = mutationsDomainService.findByTaskCodeAndTaskIdentifierStartsWith(financialAccountingYearDTO.getTaskCode(), financialAccountingYearDTO.getTaskIdentifier());
+            result = entities.stream().map(entity -> {
+                String data = entity.getPayload().getData();
+                FinancialAccountingYearDTO dto = null;
+                try {
+                    dto = objectMapper.readValue(data, FinancialAccountingYearDTO.class);
+                    dto = assembler.setAuditFields(entity, dto);
+                } catch (JsonProcessingException e) {
+                    ExceptionUtil.handleException(JSON_PARSING_ERROR);
+                }
+                return dto;
+            }).toList();
+            fillTransactionStatus(transactionStatus);
+        } catch (Exception exception) {
+            fillTransactionStatus(transactionStatus, exception);
+        } finally {
+            Interaction.close();
+        }
+        if (log.isInfoEnabled()) {
+            log.info("RETURNING searchFinancialAccountingYear with {}", result);
+        }
+        return result;
+    }
 
 
     public FinancialAccountingYearDTO getFinancialAccountingYearByCode (
@@ -144,12 +177,9 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
         ObjectMapper objectMapper = new ObjectMapper();
         List<FinancialAccountingYearDTO> dtoList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            dtoList.addAll(domainService.getFinancialAccountingYears().stream()
-                    .map(entity -> assembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            dtoList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            dtoList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 FinancialAccountingYearDTO dto = null;
                 try {
@@ -160,7 +190,7 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return dto;
-            }).collect(Collectors.toList()));
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -206,10 +236,8 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
         FinancialAccountingYearDTO dto = objMapper.readValue(data,
                 FinancialAccountingYearDTO.class);
         dto.getFinancialAccountingYearPeriodicCode();
-
         save(dto);
     }
-
 
     @Override
     public CoreEngineBaseDTO getConfigurationByCode (String code) {
@@ -223,7 +251,6 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
             return null;
     }
 
-
     @Override
     public void save (FinancialAccountingYearDTO dto) {
         domainService.save(dto);
@@ -236,6 +263,52 @@ public class FinancialAccountingYearApplicationService extends AbstractApplicati
 
     private String getTaskCode () {
         return FinancialAccountingYearDTO.builder().build().getTaskCode();
+    }
+    //-------SERVICES PROCESSING
+
+    /**
+     * service for the given system dates according to the bank & branch dates,
+     * the financial cycle & period code will be returned to the branches
+     */
+    public FinancialAccountingYearProcessDTO getFinancialAccountingYearDateAndPeriodCode (
+            String branchCode, Date inputDate) throws FatalException {
+        if (log.isInfoEnabled()) {
+            log.info(" IN getFinancialAccountingYearDateAndPeriodCode[",
+                    branchCode + ", " + inputDate + "] ");
+        }
+        FinancialAccountingYearProcessDTO result = null;
+        FinancialAccountingYearEntity entity = domainService.getFinancialAccountingYearForProcessCall(
+                branchCode, inputDate);
+        return assembler.getDateAndPeriodCode(entity, inputDate);
+    }
+
+    /**
+     * service for retrieval of Start Date & End Date of financial cycle and each of the period code defined in the system in Financial Cycle Configuration screen.
+     */
+    public FinancialAccountingYearDTO getFinancialAccountingYearDateAndAllPeriodCode (
+            String branchCode, Date inputDate) throws FatalException {
+        if (log.isInfoEnabled()) {
+            log.info(" IN getFinancialAccountingYearDateAndPeriodCode[",
+                    branchCode + ", " + inputDate + "] ");
+        }
+        FinancialAccountingYearProcessDTO result = null;
+        FinancialAccountingYearEntity entity = domainService.getFinancialAccountingYearForProcessCall(
+                branchCode, inputDate);
+        return assembler.getDtoFromEntity(entity, inputDate);
+    }
+
+    /**
+     * service for retrieval of Start Date & End Date of financial cycle and each of the period code defined in the system in Financial Cycle Configuration screen.
+     */
+    public FinancialAccountingYearDTO getPeriodCodeDetails (SessionContext sessionContext,
+            FinancialAccountingYearDTO dto) {
+        if (log.isInfoEnabled()) {
+            log.info(" IN getPeriodCodeDetails with {}  ", dto);
+        }
+        FinancialAccountingYearUtil financialAccountingYearUtil = new FinancialAccountingYearUtil();
+        FinancialAccountingYearDTO financialAccountingYearDTO = financialAccountingYearUtil.getPeriodCodeDetails(
+                dto);
+        return financialAccountingYearDTO;
     }
 
 }

@@ -1,5 +1,5 @@
 input BranchParameterInputQuery {
     branchCode: String!
-    authorized : String!
+    authorized : String
 }
 

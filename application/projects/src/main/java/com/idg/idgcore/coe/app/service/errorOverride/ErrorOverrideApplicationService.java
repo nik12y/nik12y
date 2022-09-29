@@ -101,12 +101,9 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
         ObjectMapper objectMapper = new ObjectMapper();
         List<ErrorOverrideDTO> errorOverrideDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            errorOverrideDTOList.addAll(errorOverrideDomainService.getErrorCodes().stream()
-                    .map(entity -> errorOverrideAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            errorOverrideDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            errorOverrideDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 ErrorOverrideDTO errorOverrideDTO = null;
                 try {
@@ -118,8 +115,7 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return errorOverrideDTO;
-            }).collect(Collectors.toList()));
-
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
@@ -178,7 +174,7 @@ public class ErrorOverrideApplicationService extends AbstractApplicationService
         if (fields.length == 2) {
             ErrorOverrideDTO withAll = errorOverrideAssembler.convertEntityToDto(
                     errorOverrideDomainService.getByErrorCodeAndBranchCode(
-                            fields[0], "ALL"));
+                            fields[0], ALL));
             withAll.setBranchCode(fields[1]);
             return withAll;
         }

@@ -106,12 +106,9 @@ public class IbanApplicationService extends AbstractApplicationService
         ObjectMapper objectMapper = new ObjectMapper();
         List<IbanDTO> ibanDTOList = new ArrayList<>();
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            ibanDTOList.addAll(ibanDomainService.getIbans().stream()
-                    .map(entity -> ibanAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            ibanDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            ibanDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 IbanDTO ibanDTO = null;
                 try {
@@ -123,13 +120,8 @@ public class IbanApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return ibanDTO;
-            }).collect(Collectors.toList()));
-            ibanDTOList = ibanDTOList.stream().collect(
-                    Collectors.groupingBy(IbanDTO::getIbanCountryCode,
-                            Collectors.collectingAndThen(
-                                    Collectors.maxBy(Comparator.comparing(
-                                            IbanDTO::getRecordVersion)),
-                                    Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

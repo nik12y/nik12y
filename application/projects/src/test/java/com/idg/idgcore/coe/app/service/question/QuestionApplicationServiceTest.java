@@ -13,10 +13,12 @@ import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.domain.service.question.IQuestionDomainService;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.coe.dto.question.QuestionDTO;
+import com.idg.idgcore.coe.dto.state.StateDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.domain.AbstractAuditableDomainEntity;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.enumerations.core.ServiceInvocationModeType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -101,7 +103,7 @@ class QuestionApplicationServiceTest {
     @Test
     @DisplayName("JUnit Test for getGroupBanks for empty list")
     void getQuestionsEmptyList() throws FatalException {
-        given(iQuestionDomainService.getQuestions()).willReturn(Collections.emptyList());
+        //given(iQuestionDomainService.getQuestions()).willReturn(Collections.emptyList());
         List<QuestionDTO> groupBanks = questionApplicationService.getQuestions(sessionContext);
         assertThat(groupBanks).isEmpty();
         System.out.println("Done");
@@ -118,8 +120,8 @@ class QuestionApplicationServiceTest {
         List<MutationEntity> unauthorizedEntites = new ArrayList<>();
         unauthorizedEntites.add(mutationEntity);
 
-        given(iQuestionDomainService.getQuestions()).willReturn(questionEntityList);
-        given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
+       // given(iQuestionDomainService.getQuestions()).willReturn(questionEntityList);
+       // given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
 
         // given(mutationsDomainService.getUnauthorizedMutation(groupBankingDTO.getTaskCode())).willReturn(unauthorizedEntites);
         Payload payload = new Payload();
@@ -127,7 +129,7 @@ class QuestionApplicationServiceTest {
         mutationEntity.setPayload(payload);
         ObjectMapper objectMapper = mock(ObjectMapper.class);
 
-        given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
+//        given(questionAssembler.convertEntityToDto(questionEntity)).willReturn(questionDTO);
         List<QuestionDTO> questions = questionApplicationService.getQuestions(sessionContext);
         assertThat(questions).isNotNull();
         System.out.println("Done");
@@ -144,6 +146,22 @@ class QuestionApplicationServiceTest {
         System.out.println(groupBankByCode);
         System.out.println("Done");
     }
+
+
+
+    @Test
+    @DisplayName("JUnit for getQuestionById in application service when Not Authorize in try else block")
+    void getQuestionByIdwhenNotAuthorizeTryBlock() throws JsonProcessingException, FatalException {
+        given(mutationsDomainService.getConfigurationByCode(questionDTONe.getTaskIdentifier())).willReturn(mutationEntity);
+        Assertions.assertThrows(FatalException.class,()-> {
+                    QuestionDTO questionDTO1 = questionApplicationService.getQuestionById(sessionContext,questionDTONe);
+        });
+        System.out.println("questionDTO1 "+questionDTONe);
+        assertEquals("N",questionDTONe.getAuthorized());
+        assertThat(questionDTONe).isNotNull();
+
+    }
+
 
    /* @Test
     @DisplayName("Junit test for Unauthorized Records else block")

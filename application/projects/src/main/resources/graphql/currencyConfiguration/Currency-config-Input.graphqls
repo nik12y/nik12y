@@ -1,0 +1,33 @@
+input CurrencyInput{
+
+    currencyCode : String! @Size(min: 3, max: 3, message: "currencyCode.message") @Pattern(regexp: "[A-Z]+",message: "Currency code should be uppercase alphabet of size 3")
+    currencyName : String! @Size(min: 1, max: 35, message: "currencyName.message") @Pattern(regexp: "[A-Za-z0-9 ]+",message: "Currency Name should be alphanumeric of size up to 35")
+    isoNumericCode : Int! @PositiveOrZero(message : "Numeric code Cannot be negative")
+    countryName : String! @Size(min: 1, max: 35, message: "countryName.message") @Pattern(regexp: "[A-Za-z ]+",message: "Country name should be alphabet of size up to 35")
+    countryCode : String! @Size(min: 2, max: 2, message: "countryCode.message") @Pattern(regexp: "[A-Z]+",message: "Country code should be uppercase alphabet of size up to 2")
+    locale : String! @Size(min: 1, max: 30, message: "locale.message") @Pattern(regexp: "[A-Za-z_-]+",message: "Locale should be of size up to 30")
+    alternateCurrencyCode : String @Size(min: 0, max: 12, message: "alternateCurrencyCode.message") @Pattern(regexp: "[A-Za-z0-9]+",message: "Alternate currency code should be alphanumeric of size up to 12")
+    currencySymbol : String @Size(min: 1, max: 5, message: "currencySymbol.message") @Pattern(regexp: "[د.إAfLԴKz$ƒманКМ৳лвب.د₣Bs.R$PBr₣¥₡Kčkrد.ج£Nfk€ლ₵D₣QKnGFtRp₪₹ع.د﷼Krد.ا¥Sh៛₩د.ك〒₭ل.لRsLل.دد.م.денK₮PUM₨ރ.MKRMMTn₦C$kr₨ر.ع.B/.S/.K₱₨zł₲ر.قLdinр.₣ر.س₨£krLeShDbل.سLЅМmد.تT$₤₴Bs F₫VtT₣﷼RZK]+",message: "Currency code should be Z-character set of size 5")
+    currencyDescription : String @Size(min: 0, max: 10, message: "currencyDescription.message") @Pattern(regexp: "[A-Za-z0-9 ]+",message: "Currency Description should be alphanumeric of size up to 10")
+    currencyCategory : String @Size(min: 0, max: 3, message: "currencyCategory.message") @Pattern(regexp: "[A-Za-z0-9]+",message: "Currency category should be alphanumeric of size up to 3")
+    decimals : Int! @PositiveOrZero(message : "Decimals Cannot be negative")
+    dayDivisor : String! @Size(min: 1, max: 50, message: "dayDivisor.message") @Pattern(regexp: "[A-Za-z0-9/ ]+",message: "Day Divisor should be alphanumeric of size up to 50")
+    spotDays : Int! @PositiveOrZero(message : "Spot days cannot be negative")
+    fxNettingDays : Int @PositiveOrZero(message : "Fx netting days cannot be negative")
+    settlementDays : Int @PositiveOrZero(message : "Settlement days cannot be negative")
+    calenderId : String! @Size(min: 1, max: 25, message: "calenderId.message") @Pattern(regexp: "[A-Za-z0-9 ]+",message: "Calendar ID should be alphanumeric of size up to 25")
+    beforeFormattingFlag : Boolean
+    afterFormattingFlag : Boolean
+    includeSpaceFormattingFlag : Boolean
+    currencyCutOff : CurrencyCutOff
+    currencyCountryMap : [CurrencyCountryMapRequest]
+    currencyExtraFieldMap : [CurrencyExtraFieldMapRequest]
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+
+}

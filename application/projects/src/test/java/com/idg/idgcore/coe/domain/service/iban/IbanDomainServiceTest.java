@@ -125,13 +125,13 @@ class IbanDomainServiceTest {
         ibanEntity.setIbanCountryCodeLength(1);
         ibanEntity.setIbanCheckDigitPosition(1);
         ibanEntity.setIbanCheckDigitLength(1);
-        ibanEntity.setIbanNationalIdLength("IBAN0001");
+        ibanEntity.setIbanNationalIdLength(0);
         ibanEntity.setIbanTotalLength(20);
 
         ibanBbanEntity.setBankIdentifierPosition(1);
-        ibanBbanEntity.setBankIdentifierLength("IBAN000001");
-        ibanBbanEntity.setBranchIdentifierPosition("AM");
-        ibanBbanEntity.setBankIdentifierLength("IB01");
+        ibanBbanEntity.setBankIdentifierLength(0);
+        ibanBbanEntity.setBranchIdentifierPosition(1);
+        ibanBbanEntity.setBankIdentifierLength(1);
         ibanBbanEntity.setAccountNumberPosition(5);
         ibanBbanEntity.setAccountNumberLength(4);
 
@@ -150,13 +150,13 @@ class IbanDomainServiceTest {
         ibanDTO.setIbanCountryCodeLength(1);
         ibanDTO.setIbanCheckDigitPosition(1);
         ibanDTO.setIbanCheckDigitLength(1);
-        ibanDTO.setIbanNationalIdLength("IBAN0001");
+        ibanDTO.setIbanNationalIdLength(0);
         ibanDTO.setIbanTotalLength(20);
 
         ibanBbanDTO.setBankIdentifierPosition(1);
-        ibanBbanDTO.setBankIdentifierLength("IBAN000001");
-        ibanBbanDTO.setBranchIdentifierPosition("AM");
-        ibanBbanDTO.setBankIdentifierLength("IB01");
+        ibanBbanDTO.setBankIdentifierLength(0);
+        ibanBbanDTO.setBranchIdentifierPosition(1);
+        ibanBbanDTO.setBankIdentifierLength(1);
         ibanBbanDTO.setAccountNumberPosition(5);
         ibanBbanDTO.setAccountNumberLength(4);
 

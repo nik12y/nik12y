@@ -1,0 +1,52 @@
+mutation{
+processModule(
+sessionContext:{
+  bankCode: ""
+  defaultBranchCode: ""
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Pranay"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: "checker"
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+  }
+		module:{
+		    moduleCode: "XY"
+			moduleName : "TESTMODULE"
+			bankCode : "KPI"
+			moduleUsers : 123
+			moduleCurrentUsers : 1
+			licensed : true
+			purgeAvailable : true
+			userDefinedFields : true
+			installed : true
+            action : "authorize"
+            status:"updated"
+            recordVersion : 2
+        }
+    )
+    {
+        externalReferenceNumber
+        internalReferenceNumber
+        userReferenceNumber
+        replyCode
+        replyMessage
+        errorCode
+        isErrorToBeOverridden
+    }
+}

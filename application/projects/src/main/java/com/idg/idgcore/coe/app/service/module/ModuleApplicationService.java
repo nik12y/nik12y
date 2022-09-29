@@ -106,12 +106,8 @@ public class ModuleApplicationService extends AbstractApplicationService
         List<ModuleDTO> moduleDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            moduleDTOList.addAll(moduleDomainService.getModules().stream()
-                    .map(entity -> moduleAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            moduleDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            moduleDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 ModuleDTO moduleDTO = null;
                 try {
@@ -122,11 +118,8 @@ public class ModuleApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return moduleDTO;
-            }).collect(Collectors.toList()));
-            moduleDTOList = moduleDTOList.stream().collect(
-                    Collectors.groupingBy(ModuleDTO::getModuleCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(ModuleDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

@@ -100,11 +100,8 @@ public class CurrencyRateTypeApplicationService extends AbstractApplicationServi
         List<CurrencyRateTypeDTO> currencyRateTypeDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            currencyRateTypeDTOList.addAll(currencyRateTypeDomainService.getCurrencyRateTypes().stream()
-                    .map(entity -> currencyRateTypeAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
+            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getMutations(
+                    getTaskCode());
             currencyRateTypeDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 CurrencyRateTypeDTO currencyRateTypeDTO = null;
@@ -116,11 +113,8 @@ public class CurrencyRateTypeApplicationService extends AbstractApplicationServi
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return currencyRateTypeDTO;
-            }).collect(Collectors.toList()));
-            currencyRateTypeDTOList = currencyRateTypeDTOList.stream().collect(
-                    Collectors.groupingBy(CurrencyRateTypeDTO::getCurrencyRateType, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(CurrencyRateTypeDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         } catch (Exception exception) {
             log.error("Exception in getCurrencyRateTypes",exception);

@@ -83,5 +83,23 @@ public class FinancialAccountingYearDomainService implements IFinancialAccountin
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }
-
+    @Override
+    public FinancialAccountingYearEntity getFinancialAccountingYearForProcessCall (
+            String branchCode, Date inputDate) {
+        log.info(" IN getFinancialAccountingYearForProcessCall[",
+                branchCode + ", " + inputDate
+                        + "] ");
+        FinancialAccountingYearEntity entity = null;
+        try {
+            entity = this.repository.findByBranchCodeAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+                    branchCode, inputDate, inputDate);
+        }
+        catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error(e.getMessage());
+            }
+            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
+        }
+        return entity;
+    }
 }

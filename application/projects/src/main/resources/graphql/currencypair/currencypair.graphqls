@@ -1,0 +1,28 @@
+type CurrencyPair {
+    pairId: Int
+    currency1 : String!
+    currency1Name : String
+    currency2: String!
+    currency2Name : String
+    entityType : String!
+    entityLevel : Int!
+    entityCode : String!
+    entityName : String!
+    countryCode : String!
+    countryName : String!
+    throughCurrency : Boolean
+    throughCurrencyCode : String
+    throughCurrencyDescription : String
+    noofunits : Int!
+    pointMultiplier : Float!
+    quotationMethods : Boolean!
+    spreadDefinition : Boolean!
+    recordVersion : Int!
+    status : String!
+    authorized: String
+    action : String!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

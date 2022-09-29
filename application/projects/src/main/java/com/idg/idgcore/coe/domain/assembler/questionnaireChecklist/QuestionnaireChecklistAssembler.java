@@ -43,6 +43,9 @@ public class QuestionnaireChecklistAssembler {
          */
         QuestionnaireChecklistEntity questionnaireChecklistEntity = modelMapper.map(
                 questionnaireChecklistDTO, QuestionnaireChecklistEntity.class);
+        questionnaireChecklistEntity.setQuestionChecklistId(questionnaireChecklistDTO.getQuestionaireChecklistId());
+        questionnaireChecklistEntity.setQuestionChecklistName(questionnaireChecklistDTO.getQuestionaireChecklistName());
+        questionnaireChecklistEntity.setQuestionCategory(questionnaireChecklistDTO.getQuestionaireCategory());
         questionnaireChecklistEntity.setQuestionnaireChecklistDetailsCategory(
                 detailsEntity);
         questionnaireChecklistEntity.setChecklistDisplayEntity(displayEntity);
@@ -72,6 +75,9 @@ public class QuestionnaireChecklistAssembler {
         questionnaireChecklistDTO.setQuestionnaireChecklistDetailsCategory(detailsDTO);
         questionnaireChecklistDTO.setQuestionnaireChecklistDisplay(checklistDisplayDTO);
         questionnaireChecklistDTO.setEffectiveDate(formatter.format(inEntity.getEffectiveDate()));
+        questionnaireChecklistDTO.setQuestionaireChecklistId(inEntity.getQuestionChecklistId());
+        questionnaireChecklistDTO.setQuestionaireChecklistName(inEntity.getQuestionChecklistName());
+        questionnaireChecklistDTO.setQuestionaireCategory(inEntity.getQuestionCategory());
         return questionnaireChecklistDTO;
     }
 

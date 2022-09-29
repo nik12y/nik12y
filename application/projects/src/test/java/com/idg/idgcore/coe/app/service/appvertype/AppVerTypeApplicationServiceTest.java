@@ -13,6 +13,7 @@ import com.idg.idgcore.coe.domain.service.appvertype.IAppVerTypeDomainService;
 import com.idg.idgcore.coe.domain.service.mutation.IMutationsDomainService;
 import com.idg.idgcore.coe.dto.appvertype.AppVerTypeDTO;
 import com.idg.idgcore.coe.dto.appvertype.DocumentsDTO;
+import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.mutation.PayloadDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -30,8 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
 
-import static com.idg.idgcore.coe.common.Constants.APP_VERIFICATION_TYPE;
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
+import static com.idg.idgcore.coe.common.Constants.*;
 import static com.idg.idgcore.enumerations.core.ServiceInvocationModeType.Regular;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -92,16 +92,14 @@ class AppVerTypeApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("JUnit for getAppVerTypes where return all appVerTypes when there are no unauthorized mutations")
-    void getAppVerTypesWhenThereAreNoUnauthorizedMutationsThenReturnAllAppVerTypes() throws FatalException {
-        given(appVerTypeDomainService.getAppVerTypes()).willReturn(List.of(appVerTypeEntity));
-        given(mutationsDomainService.getUnauthorizedMutation(APP_VERIFICATION_TYPE, AUTHORIZED_N)).willReturn(List.of());
-        given(appVerTypeAssembler.convertEntityToDto(appVerTypeEntity)).willReturn(appVerTypeDTO);
+    @DisplayName("JUnit for getAppVerTypes in application service for try block")
+    void getAppVerTypesTryBlock() throws FatalException {
 
-        List<AppVerTypeDTO> appVerTypeDTOList = appVerTypeApplicationService.getAppVerTypes(sessionContext);
-
-        assertEquals(1, appVerTypeDTOList.size());
-        assertEquals(appVerTypeDTO, appVerTypeDTOList.get(0));
+        given(mutationsDomainService.getMutations(APP_VERIFICATION_TYPE))
+                .willReturn(List.of(mutationEntity));
+        List<AppVerTypeDTO> appVerTypeDTOList1 =
+                appVerTypeApplicationService.getAppVerTypes(sessionContext);
+        assertThat(appVerTypeDTOList1).isNotNull();
     }
 
     @Test
@@ -146,8 +144,8 @@ class AppVerTypeApplicationServiceTest {
         MutationEntity unauthorizedEntities = getMutationEntity();
         MutationEntity unauthorizedEntities1 = getMutationEntityJsonError();
         sessionContext.setRole(new String[] { "" });
-        given(mutationsDomainService.getUnauthorizedMutation(
-                appVerTypeDTO1.getTaskCode(),AUTHORIZED_N))
+        given(mutationsDomainService.getMutations(
+                appVerTypeDTO1.getTaskCode()))
                 .willReturn(List.of(unauthorizedEntities, unauthorizedEntities1));
         Assertions.assertThrows(FatalException.class,()-> {
             List<AppVerTypeDTO> appVerTypeDTO1 = appVerTypeApplicationService.getAppVerTypes(sessionContext);

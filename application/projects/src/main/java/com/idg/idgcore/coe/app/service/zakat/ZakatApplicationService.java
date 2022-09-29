@@ -105,12 +105,8 @@ public class ZakatApplicationService extends AbstractApplicationService
         List<ZakatDTO> zakatDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            zakatDTOList.addAll(zakatDomainService.getZakats().stream()
-                    .map(entity -> zakatAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            zakatDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            zakatDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 ZakatDTO zakatDTO = null;
                 try {
@@ -121,11 +117,8 @@ public class ZakatApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return zakatDTO;
-            }).collect(Collectors.toList()));
-            zakatDTOList = zakatDTOList.stream().collect(
-                    Collectors.groupingBy(ZakatDTO::getZakatYear, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(ZakatDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

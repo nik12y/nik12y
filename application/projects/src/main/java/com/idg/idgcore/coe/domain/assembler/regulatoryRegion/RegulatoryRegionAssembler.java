@@ -51,9 +51,9 @@ public class RegulatoryRegionAssembler {
         List<RegulatoryRegionMappingDTO> regulatoryRegionMappingDTOList = modelMapper.map(regulatoryRegionMappingEntity, listType);
 */
         RegulatoryRegionConfigDTO regulatoryRegionConfigDTO = modelMapper.map(regulatoryRegionConfigEntity, RegulatoryRegionConfigDTO.class);
-        regulatoryRegionConfigDTO.setRegRegionCode(regulatoryRegionConfigEntity.getRegRegionCode());
-        regulatoryRegionConfigDTO.setRegionName(regulatoryRegionConfigEntity.getRegionName());
-        regulatoryRegionConfigDTO.setRegionDescription(regulatoryRegionConfigEntity.getRegionDescription());
+        regulatoryRegionConfigDTO.setRegulatoryRegionCode(regulatoryRegionConfigEntity.getRegRegionCode());
+        regulatoryRegionConfigDTO.setRegulatoryRegionName(regulatoryRegionConfigEntity.getRegionName());
+        regulatoryRegionConfigDTO.setRegulatoryRegionDescription(regulatoryRegionConfigEntity.getRegionDescription());
         regulatoryRegionConfigDTO.setRegionEffectiveDate(formatter.format(regulatoryRegionConfigEntity.getRegionEffectiveDate()));
         regulatoryRegionConfigDTO.setRegionGroupCode(regulatoryRegionConfigEntity.getRegionGroupCode());
         regulatoryRegionConfigDTO.setPurpose(regulatoryRegionConfigEntity.getPurpose());
@@ -80,8 +80,8 @@ public class RegulatoryRegionAssembler {
 //        List<RegulatoryRegionMappingEntity> regulatoryRegionMappingEntities = modelMapper.map(regulatoryRegionMappingDTOList, listType);
 
         RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = modelMapper.map(regulatoryRegionConfigDTO, RegulatoryRegionConfigEntity.class);
-        regulatoryRegionConfigEntity.setRegRegionCode(regulatoryRegionConfigDTO.getRegRegionCode());
-        regulatoryRegionConfigEntity.setRegionName(regulatoryRegionConfigDTO.getRegionName());
+        regulatoryRegionConfigEntity.setRegRegionCode(regulatoryRegionConfigDTO.getRegulatoryRegionCode());
+        regulatoryRegionConfigEntity.setRegionName(regulatoryRegionConfigDTO.getRegulatoryRegionName());
         regulatoryRegionConfigEntity.setRegionDescription(regulatoryRegionConfigEntity.getRegionDescription());
         regulatoryRegionConfigEntity.setRegionEffectiveDate(formatter.parse(regulatoryRegionConfigDTO.getRegionEffectiveDate()));
         regulatoryRegionConfigEntity.setRegionGroupCode(regulatoryRegionConfigDTO.getRegionGroupCode());

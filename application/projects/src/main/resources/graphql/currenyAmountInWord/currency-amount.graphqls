@@ -1,0 +1,24 @@
+type AmountInWordsDetails{
+
+         currencyCode : String
+         languageCode : String
+         languageName : String
+         localeCode : String
+         localeName : String
+         beforeDecimalVerbose : String
+         afterDecimalVerbose : String
+         suffixText : String
+         prefixTextWithCurrency : String
+         fraction : Boolean
+         textBetween : String
+         amountInFigures : Int
+         amountInWords : String
+         action : String!
+         status : String!
+         recordVersion : Int!
+         createdBy: String
+         creationTime: String
+         lastUpdatedBy: String
+         lastUpdatedTime: String
+
+}

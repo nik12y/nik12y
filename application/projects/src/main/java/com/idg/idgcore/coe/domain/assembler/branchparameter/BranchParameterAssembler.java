@@ -43,6 +43,7 @@ public class BranchParameterAssembler {
         BranchParameterGeneralDTO branchParameterGeneralDTO= branchParameterDTO.getBranchParameterGeneral();
         BranchParameterGeneralEntity branchParameterGeneralEntity = modelMapper.map(branchParameterGeneralDTO, BranchParameterGeneralEntity.class);
         branchParameterGeneralEntity.setGeneralCurrencyCode(branchParameterGeneralDTO.getGeneralCurrencyCode());
+        branchParameterGeneralEntity.setIsHeadZoneRegionalOffice(branchParameterGeneralDTO.getIsHeadZoneRegionalOffice());
 
         /**
          *  For Branch Parameter Clearing
@@ -147,6 +148,7 @@ public class BranchParameterAssembler {
         BranchParameterGeneralEntity branchParameterGeneralEntity= branchParameterEntity.getBranchParameterGeneralEntity();
         BranchParameterGeneralDTO branchParameterGeneralDTO = modelMapper.map(branchParameterGeneralEntity, BranchParameterGeneralDTO.class);
         branchParameterGeneralDTO.setGeneralCurrencyCode(branchParameterGeneralEntity.getGeneralCurrencyCode());
+        branchParameterGeneralDTO.setIsHeadZoneRegionalOffice(branchParameterGeneralEntity.getIsHeadZoneRegionalOffice());
 
         /**
          *  For Branch Parameter Clearing

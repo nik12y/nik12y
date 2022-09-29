@@ -11,9 +11,9 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 public class IbanBbanDTO {
     private Integer bankIdentifierPosition;
-    private String bankIdentifierLength;
-    private String branchIdentifierPosition;
-    private String branchIdentifierLength;
+    private Integer bankIdentifierLength;
+    private Integer branchIdentifierPosition;
+    private Integer branchIdentifierLength;
     private Integer accountNumberPosition;
     private Integer accountNumberLength;
 }

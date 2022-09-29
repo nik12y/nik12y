@@ -1,0 +1,16 @@
+input VirtualEntityInput {
+    entityType: String!
+    entityCode: String! @Size(min: 1, max: 10, message: "entityCode.message") @Pattern(regexp: ".[A-Za-z0-9]{1,10}",message: "Entity Code Invalid pattern")
+    entityName: String! @Size(min: 1, max: 40, message: "entityName.message") @Pattern(regexp: ".[A-Za-z0-9 .,–()/=‘+:?!”%&*<>;{@#_]{1,10}",message: "Entity Name Invalid pattern")
+    parentEntityType: String! @Size(min: 1, max: 50, message: "parentEntityType.typeOfMessage.message")
+    parentEntityCode: String @Size(min: 1, max: 20, message: "parentEntityCode.message") @Pattern(regexp: "^[^<>%$@#!%&*_+'=-]*${1,20}",message: "Parent Entity Code Invalid pattern")
+    isDefault: Boolean
+    effectiveDate: String!
+    action : String!
+    status : String!
+    recordVersion : Int!
+    createdBy: String
+    creationTime: String
+    lastUpdatedBy: String
+    lastUpdatedTime: String
+}

@@ -93,12 +93,9 @@ public class GroupBankingApplicationService extends AbstractApplicationService
         List<GroupBankingDTO> groupBankingDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(), AUTHORIZED_N);
-            groupBankingDTOList.addAll(iGroupBankingDomainService.getGroupBanks().stream()
-                    .map(entity -> groupBankingAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            groupBankingDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(
+                    getTaskCode());
+            groupBankingDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 GroupBankingDTO groupBankingDTO = null;
                 try {
@@ -108,11 +105,7 @@ public class GroupBankingApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return groupBankingDTO;
-            }).collect(Collectors.toList()));
-            groupBankingDTOList = groupBankingDTOList.stream().collect(
-                    Collectors.groupingBy(GroupBankingDTO::getGroupBankingCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(GroupBankingDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         } catch (Exception exception) {
             fillTransactionStatus(transactionStatus, exception);

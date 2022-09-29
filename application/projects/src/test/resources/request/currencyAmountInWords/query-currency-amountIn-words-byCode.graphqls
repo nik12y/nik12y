@@ -1,0 +1,51 @@
+{
+  getAmountInWordsDetails(
+    sessionContext: {
+      bankCode: ""
+  defaultBranchCode: ""
+  internalTransactionReferenceNumber: ""
+  userTransactionReferenceNumber: ""
+  externalTransactionReferenceNumber: ""
+  targetUnit: ""
+  postingDate: ""
+  valueDate: ""
+  transactionBranch: ""
+  userId: "Rakshit"
+  accessibleTargetUnits: [""]
+  channel: ""
+  taskCode: ""
+  localDateTime: ""
+  role: "maker"
+  originalTransactionReferenceNumber: ""
+  externalBatchNumber: 1
+  customAttributes: ""
+  serviceInvocationModeType : Regular
+  allTargetUnitsSelected: false
+  mutationType: ADDITION
+  userLocal: ""
+  originatingModuleCode: ""
+    }
+    currencyCodeQuery: { currencyCode: "TES", authorized: "Y" }
+  ) {
+    currencyCode
+    languageCode
+    languageName
+    localeCode
+    localeName
+    beforeDecimalVerbose
+    afterDecimalVerbose
+    suffixText
+    prefixTextWithCurrency
+    fraction
+    textBetween
+    amountInFigures
+    amountInWords
+    action
+    status
+    recordVersion
+    createdBy
+    creationTime
+    lastUpdatedBy
+    lastUpdatedTime
+  }
+}

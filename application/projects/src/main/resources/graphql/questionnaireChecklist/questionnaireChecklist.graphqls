@@ -1,7 +1,7 @@
 type QuestionnaireChecklist {
-    questionChecklistId: String!
-    questionChecklistName : String
-    questionCategory : String
+    questionaireChecklistId: String!
+    questionaireChecklistName : String
+    questionaireCategory : String
     effectiveDate : String
 
 

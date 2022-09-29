@@ -18,19 +18,32 @@ public class FinancialAccountingYearQueryResolver implements GraphQLQueryResolve
     @Autowired
     private IFinancialAccountingYearApplicationService appService;
 
-    public FinancialAccountingYearDTO getFinancialAccountingYearByCode (SessionContext sessionContext, FinancialAccountingYearDTO dto)
+    public FinancialAccountingYearDTO getFinancialAccountingYearByCode (
+            SessionContext sessionContext, FinancialAccountingYearDTO dto)
             throws FatalException, JsonProcessingException {
         return this.appService.getFinancialAccountingYearByCode(sessionContext, dto);
     }
 
-    public FinancialAccountingYearDTO getFinancialAccountByBankCodeAndBranchCodeAndFinancialAccountingYearCode (SessionContext sessionContext, FinancialAccountingYearDTO dto)
+    public FinancialAccountingYearDTO getFinancialAccountByBankCodeAndBranchCodeAndFinancialAccountingYearCode (
+            SessionContext sessionContext, FinancialAccountingYearDTO dto)
             throws FatalException, JsonProcessingException {
-        return this.appService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(sessionContext, dto);
+        return this.appService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                sessionContext, dto);
     }
 
-
-    public List<FinancialAccountingYearDTO> getFinancialAccountingYears (SessionContext sessionContext) throws FatalException {
+    public List<FinancialAccountingYearDTO> getFinancialAccountingYears (
+            SessionContext sessionContext) throws FatalException {
         return this.appService.getFinancialAccountingYears(sessionContext);
+    }
+
+    public FinancialAccountingYearDTO getPeriodCodeDetails (SessionContext sessionContext,
+            FinancialAccountingYearDTO dto)
+            throws FatalException, JsonProcessingException {
+        return this.appService.getPeriodCodeDetails(sessionContext, dto);
+    }
+
+    public List<FinancialAccountingYearDTO> searchFinancialAccountingYear (SessionContext sessionContext, FinancialAccountingYearDTO financialAccountingYearDTO) throws FatalException, JsonProcessingException {
+        return this.appService.searchFinancialAccountingYear(sessionContext, financialAccountingYearDTO);
     }
 
 }

@@ -12,4 +12,5 @@ public interface IMutationRepository extends JpaRepository<MutationEntity, Integ
     MutationEntity findByTaskIdentifier (String taskIdentifier);
     MutationEntity findByTaskCodeAndTaskIdentifier (String taskCode, String taskIdentifier);
     List<MutationEntity> findByTaskCode (String taskCode);
+    List<MutationEntity> findByTaskCodeAndTaskIdentifierContaining(String taskCode, String taskIdentifier);
 }

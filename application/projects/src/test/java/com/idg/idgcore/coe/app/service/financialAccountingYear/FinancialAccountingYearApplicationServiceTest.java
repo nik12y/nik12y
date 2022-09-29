@@ -31,7 +31,7 @@ import static org.mockito.BDDMockito.*;
 
 @ExtendWith (MockitoExtension.class)
 class FinancialAccountingYearApplicationServiceTest {
-    @InjectMocks private FinancialAccountingYearApplicationService financialAccountingYearApplicationService;
+    @InjectMocks private FinancialAccountingYearApplicationService applicationService;
     @Mock private ProcessConfiguration process;
     @Mock private FinancialAccountingYearAssembler assembler;
     @Mock private IFinancialAccountingYearDomainService domainService;
@@ -71,63 +71,66 @@ class FinancialAccountingYearApplicationServiceTest {
                 financialAccountingYearEntity);
         given(assembler.convertEntityToDto(financialAccountingYearEntity)).willReturn(
                 financialAccountingYearDTO);
-        FinancialAccountingYearDTO financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYearByCode(
+        FinancialAccountingYearDTO financialAccountingYearDTO1 = applicationService.getFinancialAccountingYearByCode(
                 sessionContext, financialAccountingYearDTO);
         assertEquals("Y", financialAccountingYearDTO1.getAuthorized());
         assertThat(financialAccountingYearDTO1).isNotNull();
     }
 
-    //    @Test
-    @DisplayName ("JUnit for getByFinancialAccountingYearCode in application service when Authorize try Block")
-    void getFinancialAccountingYearByCodeUnAuthorize () throws FatalException {
-        MutationEntity mutationEntity1 = getMutationEntity();
-        FinancialAccountingYearDTO financialAccountingYearDTOUnAuth = getFinancialAccountingYearDTOUnAuth();
-        FinancialAccountingYearDTO financialAccountingYearDTOUnAuthUpdated = getFinancialAccountingYearDTOUnAuth();
-        given(mutationsDomainService.getConfigurationByCode(
-                financialAccountingYearDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity1);
-        financialAccountingYearDTOUnAuthUpdated.setAction(mutationEntity1.getAction());
-        financialAccountingYearDTOUnAuthUpdated.setAuthorized(mutationEntity1.getAuthorized());
-        financialAccountingYearDTOUnAuthUpdated.setRecordVersion(
-                mutationEntity1.getRecordVersion());
-        financialAccountingYearDTOUnAuthUpdated.setStatus(mutationEntity1.getStatus());
-        financialAccountingYearDTOUnAuthUpdated.setLastConfigurationAction(
-                mutationEntity1.getLastConfigurationAction());
-        financialAccountingYearDTOUnAuthUpdated.setCreatedBy(mutationEntity1.getCreatedBy());
-        financialAccountingYearDTOUnAuthUpdated.setCreationTime(mutationEntity1.getCreationTime());
-        financialAccountingYearDTOUnAuthUpdated.setLastUpdatedBy(
-                mutationEntity1.getLastUpdatedBy());
-        financialAccountingYearDTOUnAuthUpdated.setLastUpdatedTime(
-                mutationEntity1.getLastUpdatedTime());
-        financialAccountingYearDTOUnAuthUpdated.setTaskCode(mutationEntity1.getTaskCode());
-        financialAccountingYearDTOUnAuthUpdated.setTaskIdentifier(
-                mutationEntity1.getTaskIdentifier());
-        System.out.
-                println(" ----- financialAccountingYearDTOUnAuthUpdated : "
-                        + financialAccountingYearDTOUnAuthUpdated);
-        given(assembler.setAuditFields(mutationEntity1,financialAccountingYearDTOUnAuth)).willReturn(financialAccountingYearDTOUnAuthUpdated);
-        FinancialAccountingYearDTO financialAccountingYearDTO1 =
-                financialAccountingYearApplicationService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
-                        sessionContext, financialAccountingYearDTOUnAuth);
-        //        assertEquals("N", financialAccountingYearDTO1.getAuthorized());
-        System.out.println(
-                "---------------        FinancialAccountingYearDTO financialAccountingYearDTO1 -------------"
-                        + financialAccountingYearDTO1);
+    @Test
+    @DisplayName ("JUnit for getByBankCodeAndBranchCodeAndFinancialAccountingYearCode in application service when Authorize try Block")
+    void getByBankCodeAndBranchCodeAndFinancialAccountingYearCodeIsAuthorize ()
+            throws FatalException {
+        given(domainService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                financialAccountingYearDTO.getBankCode(),
+                financialAccountingYearDTO.getBranchCode(),
+                financialAccountingYearDTO.getFinancialAccountingYearCode())).willReturn(
+                financialAccountingYearEntity);
+        given(assembler.convertEntityToDto(financialAccountingYearEntity)).willReturn(
+                financialAccountingYearDTO);
+        FinancialAccountingYearDTO financialAccountingYearDTO1 = applicationService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                sessionContext, financialAccountingYearDTO);
+        assertEquals("Y", financialAccountingYearDTO1.getAuthorized());
         assertThat(financialAccountingYearDTO1).isNotNull();
     }
 
-    //    @Test
+//    @Test
+    @DisplayName ("JUnit for getByFinancialAccountingYearCode in application service when Authorize try Block")
+    void getFinancialAccountingYearByCodeUnAuthorize () throws FatalException {
+        MutationEntity mutationEntity1 = getMutationEntity();
+        System.out.println("-----------mutationEntity1 : "+mutationEntity1);
+        FinancialAccountingYearDTO financialAccountingYearDTOUnAuth = getFinancialAccountingYearDTOUnAuth();
+        FinancialAccountingYearDTO financialAccountingYearDTOUnAuthUpdated = getFinancialAccountingYearDTOUnAuth();
+        financialAccountingYearDTOUnAuthUpdated = setAuditFields(mutationEntity1,
+                financialAccountingYearDTOUnAuth);
+
+        given(mutationsDomainService.getConfigurationByCode(
+                financialAccountingYearDTOUnAuth.getTaskIdentifier())).willReturn(mutationEntity1);
+        given(domainService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode("ICI", "BRV",
+                "FY2022")).willReturn(financialAccountingYearEntity);
+        given(assembler.setAuditFields(mutationEntity1,
+                financialAccountingYearDTOUnAuth)).willReturn(
+                financialAccountingYearDTOUnAuthUpdated);
+        FinancialAccountingYearDTO financialAccountingYearDTO1 =
+                applicationService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                        sessionContext, financialAccountingYearDTOUnAuth);
+        System.out.println("--------financialAccountingYearDTO1 : "+financialAccountingYearDTO1);
+        assertThat(financialAccountingYearDTO1).isNotNull();
+    }
+
+   // @Test
     @DisplayName ("JUnit for getFinancialAccountingYears in application service")
     void getFinancialAccountingYears () throws JsonProcessingException, FatalException {
         FinancialAccountingYearEntity financialAccountingYearEntity = getFinancialAccountingYearEntityDeleted();
         FinancialAccountingYearDTO financialAccountingYearDTO = getFinancialAccountingYearDTODeleted();
         MutationEntity unauthorizedEntities = getMutationEntityDeleted();
-        given(mutationsDomainService.getUnauthorizedMutation(
-                "FIN_ACC_YEAR", AUTHORIZED_N)).willReturn(List.of(unauthorizedEntities));
+//        given(mutationsDomainService.getUnauthorizedMutation(
+//                "FIN_ACC_YEAR", AUTHORIZED_N)).willReturn(List.of(unauthorizedEntities));
         given(domainService.getFinancialAccountingYears()).willReturn(
                 List.of(financialAccountingYearEntity));
         given(assembler.convertEntityToDto(financialAccountingYearEntity)).willReturn(
                 financialAccountingYearDTO);
-        List<FinancialAccountingYearDTO> financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYears(
+        List<FinancialAccountingYearDTO> financialAccountingYearDTO1 = applicationService.getFinancialAccountingYears(
                 sessionContext);
         assertThat(financialAccountingYearEntity.toString()).isNotNull();
         assertThat(financialAccountingYearDTO1).isNotNull();
@@ -139,15 +142,31 @@ class FinancialAccountingYearApplicationServiceTest {
             throws FatalException, JsonProcessingException {
         ModelMapper mapper = new ModelMapper();
         PayloadDTO payload = new PayloadDTO(payLoadString1);
-        System.out.println(" payload : " + payload);
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
         PayloadDTO helper = Mockito.mock(PayloadDTO.class);
         Assertions.assertThrows(Exception.class, () -> {
-            FinancialAccountingYearDTO financialAccountingYearDTO1 = financialAccountingYearApplicationService.getFinancialAccountingYearByCode(
+            FinancialAccountingYearDTO financialAccountingYearDTO1 = applicationService.getFinancialAccountingYearByCode(
                     sessionContext, financialAccountingYearDTOMapper);
             assertEquals("N", financialAccountingYearDTO1.getAuthorized());
             assertThat(financialAccountingYearDTO1).isNotNull();
             System.out.println(financialAccountingYearDTO1);
+        });
+    }
+
+    @Test
+    @DisplayName ("JUnit for getByFinancialAccountingYearCode in application service when Not Authorize in catch block")
+    void getFinancialAccountingYearByCodeAndBranchCodeWhenNotAuthorizeCatchBlock ()
+            throws FatalException, JsonProcessingException {
+        ModelMapper mapper = new ModelMapper();
+        PayloadDTO payload = new PayloadDTO(payLoadString1);
+        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
+        PayloadDTO helper = Mockito.mock(PayloadDTO.class);
+        Assertions.assertThrows(Exception.class, () -> {
+            FinancialAccountingYearDTO financialAccountingYearDTO1 = applicationService.getByBankCodeAndBranchCodeAndFinancialAccountingYearCode(
+                    sessionContext, financialAccountingYearDTOMapper);
+            assertEquals("N", financialAccountingYearDTO1.getAuthorized());
+            assertThat(financialAccountingYearDTO1).isNotNull();
+            assertThat(financialAccountingYearDTO1.toString()).isNotNull();
         });
     }
 
@@ -156,7 +175,7 @@ class FinancialAccountingYearApplicationServiceTest {
     void processFinancialAccountingYear () throws JsonProcessingException, FatalException {
         financialAccountingYearDTOMapper = getFinancialAccountingYearDTOMapper();
         doNothing().when(process).process(financialAccountingYearDTOMapper);
-        financialAccountingYearApplicationService.processFinancialAccountingYear(sessionContext,
+        applicationService.processFinancialAccountingYear(sessionContext,
                 financialAccountingYearDTOMapper);
         verify(process, times(1)).process(financialAccountingYearDTOMapper);
     }
@@ -167,8 +186,8 @@ class FinancialAccountingYearApplicationServiceTest {
         String payloadStr = getpayloadValidString();
         financialAccountingYearDTOMapper = getFinancialAccountingYearDTOMapper();
         doNothing().when(domainService).save(financialAccountingYearDTOMapper);
-        financialAccountingYearApplicationService.save(financialAccountingYearDTOMapper);
-        financialAccountingYearApplicationService.addUpdateRecord(payloadStr);
+        applicationService.save(financialAccountingYearDTOMapper);
+        applicationService.addUpdateRecord(payloadStr);
         verify(domainService, times(1)).save(financialAccountingYearDTOMapper);
     }
 
@@ -177,10 +196,7 @@ class FinancialAccountingYearApplicationServiceTest {
         FinancialAccountingYearEntity financialAccountingYearEntity = getFinancialAccountingYearEntityDeleted();
         FinancialAccountingYearDTO financialAccountingYearDTO = getFinancialAccountingYearDTODeleted();
         String code = financialAccountingYearDTO.getBankCode();
-   /* ---------------------------------------
-       given(domainService.getFinancialAccountingYearByCode(code)).willReturn(
-                financialAccountingYearEntity);*/
-        financialAccountingYearApplicationService.getConfigurationByCode(code);
+        applicationService.getConfigurationByCode(code);
         assertThat(financialAccountingYearEntity).isNotNull();
     }
 
@@ -188,13 +204,15 @@ class FinancialAccountingYearApplicationServiceTest {
     void save () {
         financialAccountingYearDTOMapper = getFinancialAccountingYearDTOMapper();
         doNothing().when(domainService).save(financialAccountingYearDTOMapper);
-        financialAccountingYearApplicationService.save(financialAccountingYearDTOMapper);
+        applicationService.save(financialAccountingYearDTOMapper);
         verify(domainService, times(1)).save(financialAccountingYearDTOMapper);
     }
 
     @Test
     void testBuilder () {
         FinancialAccountingYearDTO financialAccountingYearDTODeletedBuilder = getFinancialAccountingYearDTODeletedBuilder();
+        List<FinancialAccountingYearPeriodicCodeDTO> financialAccountingYearPeriodicCode = financialAccountingYearDTODeletedBuilder.getFinancialAccountingYearPeriodicCode();
+        assertThat(financialAccountingYearPeriodicCode.toString()).isNotNull();
         assertThat(financialAccountingYearDTODeletedBuilder.toString()).isNotNull();
     }
 
@@ -202,7 +220,36 @@ class FinancialAccountingYearApplicationServiceTest {
     void test () {
         FinancialAccountingYearEntity financialAccountingYearEntity = getFinancialAccountingYearEntityDeleted();
         List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCode = financialAccountingYearEntity.getFinancialAccountingYearPeriodicCode();
+        assertThat(financialAccountingYearEntity.toString()).isNotNull();
         assertThat(financialAccountingYearPeriodicCode.toString()).isNotNull();
+    }
+
+    @Test
+    @DisplayName ("JUnit for FinancialAccountingYearEntityKey")
+    void getFinancialAccountingYearEntityKey () {
+        FinancialAccountingYearEntityKey financialAccountingYearEntityKey = new FinancialAccountingYearEntityKey(
+                "SBI", "BRV", "FY2022");
+        assertThat(financialAccountingYearEntityKey.toString()).isNotNull();
+        financialAccountingYearEntityKey.setFinancialAccountingYearCode("FY2023");
+        financialAccountingYearEntityKey.keyAsString();
+        financialAccountingYearEntityKey.builder().financialAccountingYearCode("FY20223")
+                .bankCode("SBI").branchCode("BRV").build();
+        assertThat(financialAccountingYearEntityKey).descriptionText();
+        assertThat(financialAccountingYearEntityKey.toString()).isNotNull();
+    }
+
+    @Test
+    @DisplayName ("JUnit for FinancialAccountingYearPeriodicCodeEntityKey")
+    void getFinancialAccountingYearPeriodicCodeEntityKey () {
+        FinancialAccountingYearPeriodicCodeEntityKey periodicCodeEntityKey = new FinancialAccountingYearPeriodicCodeEntityKey(
+                "SBI", "BRV", "FY2022", "JAN");
+        assertThat(periodicCodeEntityKey.toString()).isNotNull();
+        periodicCodeEntityKey.setFinancialAccountingYearCode("FY2023");
+        periodicCodeEntityKey.keyAsString();
+        periodicCodeEntityKey.builder().financialAccountingYearCode("FY20223").bankCode("SBI")
+                .branchCode("BRV").build();
+        assertThat(periodicCodeEntityKey).descriptionText();
+        assertThat(periodicCodeEntityKey.toString()).isNotNull();
     }
 
     private SessionContext getValidSessionContext () {
@@ -234,7 +281,7 @@ class FinancialAccountingYearApplicationServiceTest {
         String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "Q1", sDate, eDate);
+                "Q1", sDate, eDate, "Open", "Open");
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
         dto2.setPeriodCode("Q2");
         dto2.setBankCode("ICI");
@@ -244,7 +291,7 @@ class FinancialAccountingYearApplicationServiceTest {
         dto2.setEndDateAccountingPeriod(eDate);
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "FC", sDate, eDate);
+                "FC", sDate, eDate, "Open", "Open");
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
@@ -262,7 +309,7 @@ class FinancialAccountingYearApplicationServiceTest {
         String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "Q1", sDate, eDate);
+                "Q1", sDate, eDate, "Open", "Open");
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
         dto2.setPeriodCode("Q2");
         dto2.setBankCode("ICI");
@@ -271,7 +318,7 @@ class FinancialAccountingYearApplicationServiceTest {
         dto2.setEndDateAccountingPeriod(eDate);
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "FC", sDate, eDate);
+                "FC", sDate, eDate, "Open", "Open");
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
@@ -294,7 +341,8 @@ class FinancialAccountingYearApplicationServiceTest {
     private FinancialAccountingYearEntity getFinancialAccountingYearEntity () {
         List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCodeList = new ArrayList<>();
         FinancialAccountingYearPeriodicCodeEntity entity1 = new FinancialAccountingYearPeriodicCodeEntity(
-                "ICI", "BRV", "FY2022", "Q1", getDate("2022-01-01"), getDate("2022-12-31"));
+                "ICI", "BRV", "FY2022", "Q1", getDate("2022-01-01"), getDate("2022-12-31"), "Open",
+                "Open", "new", 1, "Y", "");
         FinancialAccountingYearPeriodicCodeEntity entity2 = new FinancialAccountingYearPeriodicCodeEntity();
         entity2.setPeriodCode("Q2");
         entity2.setBankCode("ICI");
@@ -302,7 +350,8 @@ class FinancialAccountingYearApplicationServiceTest {
         entity2.setStartDateAccountingPeriod(getDate("2022-02-01"));
         entity2.setEndDateAccountingPeriod(getDate("2022-02-28"));
         FinancialAccountingYearPeriodicCodeEntity entity3 = new FinancialAccountingYearPeriodicCodeEntity(
-                "ICI", "BRV", "FY2022", "Q1", getDate("2022-02-28"), getDate("2022-02-28"));
+                "ICI", "BRV", "FY2022", "Q1", getDate("2022-02-28"), getDate("2022-02-28"), "Open",
+                "Open", "new", 1, "Y", "");
         List<FinancialAccountingYearPeriodicCodeEntity> periodicCodeEntityList = new ArrayList<FinancialAccountingYearPeriodicCodeEntity>();
         periodicCodeEntityList.add(entity1);
         periodicCodeEntityList.add(entity2);
@@ -340,16 +389,16 @@ class FinancialAccountingYearApplicationServiceTest {
         String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "Q1", sDate, eDate);
+                "Q1", "2022-01-01", "2022-12-31", "Open", "Open");
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
         dto2.setPeriodCode("Q2");
         dto2.setBankCode("ICI");
         dto2.setBranchCode("BRV");
-        dto2.setStartDateAccountingPeriod(sDate);
-        dto2.setEndDateAccountingPeriod(eDate);
+        dto2.setStartDateAccountingPeriod("2022-01-01");
+        dto2.setEndDateAccountingPeriod("2022-12-31");
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "FC", sDate, eDate);
+                "FC", "2022-12-31", "2022-12-31", "Open", "Open");
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
@@ -362,11 +411,11 @@ class FinancialAccountingYearApplicationServiceTest {
         financialAccountingYearDTOUnAuth.setFinancialAccountingYearName(
                 "Financial Accounting Year FY 2022");
         financialAccountingYearDTOUnAuth.setPeriodCodeFrequency("Half-Yearly");
-        financialAccountingYearDTOUnAuth.setStatus("draft");
+        financialAccountingYearDTOUnAuth.setStatus("new");
         financialAccountingYearDTOUnAuth.setRecordVersion(0);
-        financialAccountingYearDTOUnAuth.setAuthorized("N");
+        financialAccountingYearDTOUnAuth.setAuthorized("Y");
         financialAccountingYearDTOUnAuth.setLastConfigurationAction("draft");
-        financialAccountingYearDTOUnAuth.setAction("draft");
+        financialAccountingYearDTOUnAuth.setAction("add");
         financialAccountingYearDTOUnAuth.setTaskCode("FIN_ACC_YEAR");
         financialAccountingYearDTOUnAuth.setTaskIdentifier("ICI_BRV_FY2022");
         financialAccountingYearDTOUnAuth.setFinancialAccountingYearPeriodicCode(
@@ -380,7 +429,7 @@ class FinancialAccountingYearApplicationServiceTest {
         String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "Q1", sDate, eDate);
+                "Q1", sDate, eDate, "Open", "Open");
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
         dto2.setPeriodCode("Q2");
         dto2.setBankCode("ICI");
@@ -389,7 +438,7 @@ class FinancialAccountingYearApplicationServiceTest {
         dto2.setEndDateAccountingPeriod(eDate);
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "FC", sDate, eDate);
+                "FC", sDate, eDate, "Open", "Open");
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
@@ -404,21 +453,73 @@ class FinancialAccountingYearApplicationServiceTest {
     }
 
     private MutationEntity getMutationEntity () {
-        String payLoadString = "{\"action\":\"authorize\",\"status\":\"closed\",\"recordVersion\":2,\"authorized\":\"Y\",\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"FIN_ACC_YEAR\",\"taskIdentifier\":\"ICI_BRV_FY2022\",\"bankCode\":\"ICI\",\"branchCode\":\"BRV\",\"financialAccountingYearCode\":\"FY2022\",\"startDate\":\"2022-01-01\",\"endDate\":\"2022-12-31\",\"financialAccountingYearName\":\"Financial Accounting Year FY 2022\",\"periodCodeFrequency\":\"Half-Yearly\",\"financialAccountingYearPeriodicCode\":[{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,\"financialAccountingYearCode\":null,\"periodCode\":\"Q1\",\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\"},{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,\"financialAccountingYearCode\":null,\"periodCode\":\"Q2\",\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\"},{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,\"financialAccountingYearCode\":null,\"periodCode\":\"FC\",\"startDateAccountingPeriod\":\"2022-12-31\",\"endDateAccountingPeriod\":\"2022-12-31\"}]}";
+        String payLoadString = "{\"action\":\"add\",\"status\":\"new\",\"recordVersion\":1,"
+                + "\"authorized\":\"N\","
+                + "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"FIN_ACC_YEAR\","
+                + "\"taskIdentifier\":\"ICI_BRV_FY2022\",\"bankCode\":\"ICI\",\"branchCode\":\"BRV\","
+                + "\"financialAccountingYearCode\":\"FY2022\",\"startDate\":\"2022-01-01\","
+                + "\"endDate\":\"2022-12-31\","
+                + "\"financialAccountingYearName\":\"Financial Accounting Year FY 2022\","
+                + "\"periodCodeFrequency\":\"Half-Yearly\","
+                + "\"financialAccountingYearPeriodicCode\":[{\"createdBy\":null,\"creationTime\":null,"
+                + "\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,"
+                + "\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,"
+                + "\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,"
+                + "\"financialAccountingYearCode\":null,\"periodCode\":\"Q1\","
+                + "\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\","
+                + "\"periodCodeClosureStatus\":null,\"financialYearClosureStatus\":null},{\"createdBy\":null,"
+                + "\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,"
+                + "\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,"
+                + "\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,"
+                + "\"financialAccountingYearCode\":null,\"periodCode\":\"Q2\","
+                + "\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\","
+                + "\"periodCodeClosureStatus\":null,\"financialYearClosureStatus\":null},{\"createdBy\":null,"
+                + "\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,"
+                + "\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,"
+                + "\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,"
+                + "\"financialAccountingYearCode\":null,\"periodCode\":\"FC\","
+                + "\"startDateAccountingPeriod\":\"2022-12-31\",\"endDateAccountingPeriod\":\"2022-12-31\","
+                + "\"periodCodeClosureStatus\":null,\"financialYearClosureStatus\":null}]}";
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setTaskIdentifier("ICI_BRV_FY2022");
         mutationEntity.setTaskCode("FIN_ACC_YEAR");
         mutationEntity.setPayload(new Payload(payLoadString));
-        mutationEntity.setStatus("draft");
+        mutationEntity.setStatus("new");
         mutationEntity.setAuthorized("N");
         mutationEntity.setRecordVersion(0);
-        mutationEntity.setAction("draft");
-        mutationEntity.setLastConfigurationAction("draft");
+        mutationEntity.setAction("add");
+        mutationEntity.setLastConfigurationAction("new");
         return mutationEntity;
     }
 
     private MutationEntity getMutationEntityJsonError () {
-        String payLoadString = "{\"action\":\"authorize\",\"status\":\"closed\",\"recordVersion\":2,\"authorized\":\"Y\",\"lastConfigurationAction\":\"authorized\",\"taskCode\":\"FIN_ACC_YEAR\",\"taskIdentifier\":\"ICI_BRV_FY2022\",\"bankCode\":\"ICI\",\"branchCode\":\"BRV\",\"financialAccountingYearCode\":\"FY2022\",\"startDate\":\"2022-01-01\",\"endDate\":\"2022-12-31\",\"financialAccountingYearName\":\"Financial Accounting Year FY 2022\",\"periodCodeFrequency\":\"Half-Yearly\",\"financialAccountingYearPeriodicCode\":[{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,\"financialAccountingYearCode\":null,\"periodCode\":\"Q1\",\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\"},{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,\"financialAccountingYearCode\":null,\"periodCode\":\"Q2\",\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\"},{\"createdBy\":null,\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,\"financialAccountingYearCode\":null,\"periodCode\":\"FC\",\"startDateAccountingPeriod\":\"2022-12-31\",\"endDateAccountingPeriod\":\"2022-12-31\"}]}";
+        String payLoadString = "{\"action\":\"add\",\"status\":\"new\",\"recordVersion\":abcd,"
+                + "\"authorized\":\"N\","
+                + "\"lastConfigurationAction\":\"unauthorized\",\"taskCode\":\"FIN_ACC_YEAR\","
+                + "\"taskIdentifier\":\"ICI_BRV_FY2022\",\"bankCode\":\"ICI\",\"branchCode\":\"BRV\","
+                + "\"financialAccountingYearCode\":\"FY2022\",\"startDate\":\"2022-01-01\","
+                + "\"endDate\":\"2022-12-31\","
+                + "\"financialAccountingYearName\":\"Financial Accounting Year FY 2022\","
+                + "\"periodCodeFrequency\":\"Half-Yearly\","
+                + "\"financialAccountingYearPeriodicCode\":[{\"createdBy\":null,\"creationTime\":null,"
+                + "\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,\"status\":null,"
+                + "\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,"
+                + "\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,"
+                + "\"financialAccountingYearCode\":null,\"periodCode\":\"Q1\","
+                + "\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\","
+                + "\"periodCodeClosureStatus\":null,\"financialYearClosureStatus\":null},{\"createdBy\":null,"
+                + "\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,"
+                + "\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,"
+                + "\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,"
+                + "\"financialAccountingYearCode\":null,\"periodCode\":\"Q2\","
+                + "\"startDateAccountingPeriod\":\"2022-01-01\",\"endDateAccountingPeriod\":\"2022-12-31\","
+                + "\"periodCodeClosureStatus\":null,\"financialYearClosureStatus\":null},{\"createdBy\":null,"
+                + "\"creationTime\":null,\"lastUpdatedBy\":null,\"lastUpdatedTime\":null,\"action\":null,"
+                + "\"status\":null,\"recordVersion\":null,\"authorized\":null,\"lastConfigurationAction\":null,"
+                + "\"taskCode\":null,\"taskIdentifier\":null,\"bankCode\":null,\"branchCode\":null,"
+                + "\"financialAccountingYearCode\":null,\"periodCode\":\"FC\","
+                + "\"startDateAccountingPeriod\":\"2022-12-31\",\"endDateAccountingPeriod\":\"2022-12-31\","
+                + "\"periodCodeClosureStatus\":null,\"financialYearClosureStatus\":null}]}";
         MutationEntity mutationEntity2 = new MutationEntity();
         mutationEntity2.setTaskIdentifier("ICI_BRV_FY2022");
         mutationEntity2.setTaskCode("FIN_ACC_YEAR");
@@ -453,15 +554,24 @@ class FinancialAccountingYearApplicationServiceTest {
         FinancialAccountingYearEntity financialAccountingYearEntityDeleted = new FinancialAccountingYearEntity();
         List<FinancialAccountingYearPeriodicCodeEntity> financialAccountingYearPeriodicCodeList = new ArrayList<>();
         FinancialAccountingYearPeriodicCodeEntity entity1 = new FinancialAccountingYearPeriodicCodeEntity(
-                "ICI", "BRV", "FY2022", "Q1", getDate("2022-01-01"), getDate("2022-12-31"));
+                "ICI", "BRV", "FY2022", "Q1", getDate("2022-01-01"), getDate("2022-12-31"), "Open",
+                "Open", "new", 1, "Y", "");
         FinancialAccountingYearPeriodicCodeEntity entity2 = new FinancialAccountingYearPeriodicCodeEntity();
         entity2.setPeriodCode("Q2");
         entity2.setBankCode("ICI");
         entity2.setBranchCode("BRV");
+        entity2.setFinancialAccountingYearCode("FY2022");
+        entity2.setPeriodCodeClosureStatus("Open");
+        entity2.setFinancialYearClosureStatus("Open");
+        entity2.setStatus("new");
+        entity2.setRecordVersion(1);
+        entity2.setAuthorized("Y");
+        entity2.setLastConfigurationAction("");
         entity2.setStartDateAccountingPeriod(getDate("2022-02-01"));
         entity2.setEndDateAccountingPeriod(getDate("2022-02-28"));
         FinancialAccountingYearPeriodicCodeEntity entity3 = new FinancialAccountingYearPeriodicCodeEntity(
-                "ICI", "BRV", "FY2022", "Q1", getDate("2022-02-28"), getDate("2022-02-28"));
+                "ICI", "BRV", "FY2022", "Q1", getDate("2022-02-28"), getDate("2022-02-28"), "Open",
+                "Open", "new", 1, "Y", "");
         List<FinancialAccountingYearPeriodicCodeEntity> periodicCodeEntityList = new ArrayList<FinancialAccountingYearPeriodicCodeEntity>();
         periodicCodeEntityList.add(entity1);
         periodicCodeEntityList.add(entity2);
@@ -482,7 +592,7 @@ class FinancialAccountingYearApplicationServiceTest {
         String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "Q1", sDate, eDate);
+                "Q1", sDate, eDate, "Open", "Open");
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
         dto2.setPeriodCode("Q2");
         dto2.setBankCode("ICI");
@@ -491,7 +601,7 @@ class FinancialAccountingYearApplicationServiceTest {
         dto2.setEndDateAccountingPeriod(eDate);
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "FC", sDate, eDate);
+                "FC", sDate, eDate, "Open", "Open");
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
@@ -552,7 +662,7 @@ class FinancialAccountingYearApplicationServiceTest {
         String eDate = "2022-12-31";
         FinancialAccountingYearPeriodicCodeDTO dto1 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "Q1", sDate, eDate);
+                "Q1", sDate, eDate, "Open", "Open");
         FinancialAccountingYearPeriodicCodeDTO dto2 = new FinancialAccountingYearPeriodicCodeDTO();
         dto2.setPeriodCode("Q2");
         dto2.setBankCode("ICI");
@@ -561,7 +671,7 @@ class FinancialAccountingYearApplicationServiceTest {
         dto2.setEndDateAccountingPeriod(eDate);
         FinancialAccountingYearPeriodicCodeDTO dto3 = new FinancialAccountingYearPeriodicCodeDTO(
                 "ICI", "BRV", "FY2022",
-                "FC", sDate, eDate);
+                "FC", sDate, eDate, "Open", "Open");
         financialAccountingYearPeriodicCodeList.add(dto1);
         financialAccountingYearPeriodicCodeList.add(dto2);
         financialAccountingYearPeriodicCodeList.add(dto3);
@@ -593,6 +703,23 @@ class FinancialAccountingYearApplicationServiceTest {
                 .status("deleted").taskCode("FIN_ACC_YEAR").taskIdentifier("ICI").recordVersion(1)
                 .build();
         return financialAccountingYearDtoDeleted;
+    }
+
+    public FinancialAccountingYearDTO setAuditFields (MutationEntity mutationEntity,
+            FinancialAccountingYearDTO financialAccountingYearDTO) {
+        financialAccountingYearDTO.setAction(mutationEntity.getAction());
+        financialAccountingYearDTO.setAuthorized(mutationEntity.getAuthorized());
+        financialAccountingYearDTO.setRecordVersion(mutationEntity.getRecordVersion());
+        financialAccountingYearDTO.setStatus(mutationEntity.getStatus());
+        financialAccountingYearDTO.setLastConfigurationAction(
+                mutationEntity.getLastConfigurationAction());
+        financialAccountingYearDTO.setCreatedBy(mutationEntity.getCreatedBy());
+        financialAccountingYearDTO.setCreationTime(mutationEntity.getCreationTime());
+        financialAccountingYearDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
+        financialAccountingYearDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
+        financialAccountingYearDTO.setTaskCode("FIN_ACC_YEAR");
+        financialAccountingYearDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
+        return financialAccountingYearDTO;
     }
 
 }

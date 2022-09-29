@@ -9,6 +9,7 @@ import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.domain.process.*;
 import com.idg.idgcore.coe.domain.service.bankparameter.*;
 import com.idg.idgcore.coe.domain.service.mutation.*;
+import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.coe.dto.bankparameter.*;
 import com.idg.idgcore.coe.dto.mutation.*;
 import com.idg.idgcore.datatypes.exceptions.*;
@@ -23,9 +24,7 @@ import org.springframework.beans.factory.annotation.*;
 
 import java.util.*;
 
-import static com.idg.idgcore.coe.common.Constants.AUTHORIZED_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
+import static com.idg.idgcore.coe.common.Constants.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -169,6 +168,20 @@ class BankParameterApplicationServiceTest {
 
         });
     }
+
+    @Test
+    @DisplayName("JUnit for getBankParameters in application service for try block")
+    void getBankParametersTryBlock() throws FatalException {
+
+        given(mutationsDomainService.getMutations(bankParameterDTO1.getTaskCode()))
+                .willReturn(List.of(mutationEntity));
+        List<BankParameterDTO> bankParameterDTOList =
+                bankParameterApplicationService.getBankParameters(sessionContext);
+        assertThat(bankParameterDTOList).isNotNull();
+    }
+
+
+
     /*//PPN
     @Test
     @DisplayName("JUnit for getBankParameters in application service for catch block for checker")

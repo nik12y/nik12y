@@ -106,12 +106,8 @@ public class CaptApplicationService extends AbstractApplicationService
         List<CaptDTO> captDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            captDTOList.addAll(captDomainService.getCaptAll().stream()
-                    .map(entity -> captAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            captDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            captDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 CaptDTO captDTO = null;
                 try {
@@ -122,11 +118,8 @@ public class CaptApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return captDTO;
-            }).collect(Collectors.toList()));
-            captDTOList = captDTOList.stream().collect(
-                    Collectors.groupingBy(CaptDTO::getClearingPaymentTypeCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(CaptDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

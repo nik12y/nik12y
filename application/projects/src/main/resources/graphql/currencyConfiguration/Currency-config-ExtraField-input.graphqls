@@ -1,0 +1,7 @@
+input CurrencyExtraFieldMapRequest{
+
+    currencyCode : String @Size(min: 3, max: 3, message: "currencyCode.message") @Pattern(regexp: "[A-Z]+",message: "Currency code should be uppercase alphabet of size 3")
+    extraFieldName : String @Size(min: 0, max: 10, message: "extraFieldName.message") @Pattern(regexp: "[A-Za-z0-9_ ]+",message: "Field name should be alphanumeric of of size up to 10")
+    extraFieldValue : String @Size(min: 0, max: 35, message: "extraFieldValue.message") @Pattern(regexp: "[A-Za-z0-9_ ]+",message: "Value should be alphanumeric of of size up to 35")
+
+}

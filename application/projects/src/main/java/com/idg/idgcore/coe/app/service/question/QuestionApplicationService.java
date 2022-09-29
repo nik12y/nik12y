@@ -104,12 +104,8 @@ public class QuestionApplicationService extends AbstractApplicationService
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            questionDTOList.addAll(questionDomainService.getQuestions().stream()
-                    .map(entity -> questionAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            questionDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            questionDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 QuestionDTO questionDTO = null;
                 try {
@@ -120,11 +116,8 @@ public class QuestionApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return questionDTO;
-            }).collect(Collectors.toList()));
-            questionDTOList = questionDTOList.stream().collect(
-                    Collectors.groupingBy(QuestionDTO::getQuestionId, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(QuestionDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
+
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {

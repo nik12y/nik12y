@@ -107,12 +107,8 @@ public class CityApplicationService extends AbstractApplicationService
         List<CityDTO> cityDTOList = new ArrayList<>();
 
         try {
-            List<MutationEntity> unauthorizedEntities = mutationsDomainService.getUnauthorizedMutation(
-                    getTaskCode(),AUTHORIZED_N);
-            cityDTOList.addAll(cityDomainService.getCities().stream()
-                    .map(entity -> cityAssembler.convertEntityToDto(entity))
-                    .collect(Collectors.toList()));
-            cityDTOList.addAll(unauthorizedEntities.stream().map(entity -> {
+            List<MutationEntity> entities = mutationsDomainService.getMutations(getTaskCode());
+            cityDTOList.addAll(entities.stream().map(entity -> {
                 String data = entity.getPayload().getData();
                 CityDTO cityDTO = null;
                 try {
@@ -123,11 +119,7 @@ public class CityApplicationService extends AbstractApplicationService
                     ExceptionUtil.handleException(JSON_PARSING_ERROR);
                 }
                 return cityDTO;
-            }).collect(Collectors.toList()));
-            cityDTOList = cityDTOList.stream().collect(
-                    Collectors.groupingBy(CityDTO::getCityCode, Collectors.collectingAndThen(
-                            Collectors.maxBy(Comparator.comparing(CityDTO::getRecordVersion)),
-                            Optional::get))).values().stream().collect(Collectors.toList());
+            }).toList());
             fillTransactionStatus(transactionStatus);
         }
         catch (Exception exception) {
