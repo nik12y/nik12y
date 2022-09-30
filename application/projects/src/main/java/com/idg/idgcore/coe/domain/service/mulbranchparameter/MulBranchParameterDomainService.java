@@ -53,9 +53,9 @@ public class MulBranchParameterDomainService extends DomainService<MulBranchPara
 
     public void save (MulBranchParameterDTO mulBranchParameterDTO) {
         try{
-        MulBranchParameterEntity mulBranchParameterEntity= mulBranchParameterAssembler.toEntity(mulBranchParameterDTO);
-        this.mulBranchParameterRepository.save(mulBranchParameterEntity);
-        } catch (Exception e) {
+                MulBranchParameterEntity mulBranchParameterEntity= mulBranchParameterAssembler.toEntity(mulBranchParameterDTO);
+                this.mulBranchParameterRepository.save(mulBranchParameterEntity);
+            } catch (Exception e) {
             log.error("Exception in Save",e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }

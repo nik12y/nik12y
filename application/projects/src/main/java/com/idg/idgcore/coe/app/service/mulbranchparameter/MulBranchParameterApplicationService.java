@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service("mulBranchparamApplicationService")
 public class MulBranchParameterApplicationService extends
-        GenericApplicationService<MulBranchParameterDTO, MulBranchParameterEntity, MulBranchParameterDomainService, MulBranchParameterAssembler> {
+        GenericApplicationService<MulBranchParameterDTO, MulBranchParameterEntity, MulBranchParameterDomainService, MulBranchParameterAssembler>
+  {
     protected  MulBranchParameterApplicationService() {
         super(Constants.CURR_BRANCH_PARAM);
     }
