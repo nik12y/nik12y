@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.mulbranchparameter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.mulbranchparameter.IMulBranchParameterApplicationService;
+import com.idg.idgcore.coe.app.service.mulbranchparameter.MulBranchParameterApplicationService;
 import com.idg.idgcore.coe.dto.mulbranchparameter.MulBranchParameterDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,14 +17,14 @@ import java.util.List;
 public class MulBranchParameterQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    IMulBranchParameterApplicationService iMulBranchParameterApplicationService;
+    MulBranchParameterApplicationService MulBranchParameterApplicationService;
 
     public MulBranchParameterDTO getBranchParameterByCurrencyCodeAndEntityCodeAndEntityType (SessionContext sessionContext, MulBranchParameterDTO mulBranchParameterDTO)
             throws FatalException, JsonProcessingException {
-        return this.iMulBranchParameterApplicationService.getByCurrencyCodeAndEntityCodeAndEntityType(sessionContext, mulBranchParameterDTO);
+        return this.MulBranchParameterApplicationService.getByIdentifier(sessionContext, mulBranchParameterDTO);
     }
 
     public List<MulBranchParameterDTO> getMulBranchParameters (SessionContext sessionContext) throws FatalException {
-        return this.iMulBranchParameterApplicationService.getMulBranchParameters(sessionContext);
+        return this.MulBranchParameterApplicationService.getAll(sessionContext);
     }
 }

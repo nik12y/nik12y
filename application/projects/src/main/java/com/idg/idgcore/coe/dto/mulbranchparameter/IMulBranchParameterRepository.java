@@ -1,6 +1,5 @@
-package com.idg.idgcore.coe.domain.repository.mulbranchparameter;
+package com.idg.idgcore.coe.dto.mulbranchparameter;
 
-import com.idg.idgcore.coe.domain.entity.financialAccountingYear.FinancialAccountingYearEntity;
 import com.idg.idgcore.coe.domain.entity.mulbranchparameter.MulBranchParameterEntity;
 import com.idg.idgcore.coe.domain.entity.mulbranchparameter.MulBranchParameterEntityKey;
 import org.springframework.data.jpa.repository.JpaRepository;
