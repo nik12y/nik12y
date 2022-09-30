@@ -1,9 +1,8 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.mulbranchparameter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.mulbranchparameter.IMulBranchParameterApplicationService;
+import com.idg.idgcore.coe.app.service.mulbranchparameter.MulBranchParameterApplicationService;
 import com.idg.idgcore.coe.dto.mulbranchparameter.MulBranchParameterDTO;
-import com.idg.idgcore.coe.dto.questionCategory.QuestionCategoryDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -16,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class MulBranchParameterMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    IMulBranchParameterApplicationService iMulBranchParameterApplicationService;
+    MulBranchParameterApplicationService iMulBranchParameterApplicationService;
 
     public TransactionStatus processMulBranchParameter(SessionContext sessionContext, MulBranchParameterDTO mulBranchParameterDTO)
             throws FatalException, JsonProcessingException {
-        return this.iMulBranchParameterApplicationService.processMulBranchParameter(sessionContext, mulBranchParameterDTO);
+        return this.iMulBranchParameterApplicationService.process(sessionContext, mulBranchParameterDTO);
 
     }
 }
