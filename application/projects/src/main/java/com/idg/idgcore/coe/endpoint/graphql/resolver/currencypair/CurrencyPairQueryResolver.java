@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.currencypair;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.currencypair.ICurrencyPairApplicationService;
+import com.idg.idgcore.coe.app.service.currencypair.CurrencyPairApplicationService;
 import com.idg.idgcore.coe.dto.currencypair.CurrencyPairDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,17 +17,13 @@ import java.util.List;
 public class CurrencyPairQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private ICurrencyPairApplicationService currencyPairApplicationService;
+    private CurrencyPairApplicationService currencyPairApplicationService;
 
-    public CurrencyPairDTO getCurrencyPairById(SessionContext sessionContext, CurrencyPairDTO currencyPairDTO)
-            throws FatalException, JsonProcessingException {
-        return this.currencyPairApplicationService.getCurrencyPairById(sessionContext, currencyPairDTO);
+    public CurrencyPairDTO getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(SessionContext sessionContext, CurrencyPairDTO dto) throws FatalException, JsonProcessingException {
+        return this.currencyPairApplicationService.getByIdentifier(sessionContext, dto);
     }
 
     public List<CurrencyPairDTO> getCurrencyPairs (SessionContext sessionContext) throws FatalException {
-        return this.currencyPairApplicationService.getCurrencyPairs(sessionContext);
+        return this.currencyPairApplicationService.getAll(sessionContext);
     }
-
-
-
 }

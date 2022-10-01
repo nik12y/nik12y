@@ -12,7 +12,7 @@
                      remarks="A table to contain all the Currency Pair configuration">
 
             <column name="pair_id" type="integer" autoIncrement="true">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
+                <constraints unique="true"/>
             </column>
 
             <column name="currency_1" type="varchar(3)">
@@ -40,7 +40,7 @@
             </column>
 
             <column name="entity_code" type="varchar(10)">
-                <constraints unique="true" nullable="false"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="entity_name" type="varchar(40)">
@@ -118,16 +118,9 @@
         </createTable>
 
         <addUniqueConstraint
-                columnNames="pair_id" tableName="idgc_mcy_cnfg_currency_pair"
+                columnNames="currency_1,currency_2,entity_type,entity_code"
+                tableName="idgc_mcy_cnfg_currency_pair"
                 constraintName="idgc_mcy_cnfg_currency_pair_pk" />
-
-        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_1" constraintName="currency_1_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code" />
-
-        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_2" constraintName="currency_2_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code"/>
-
-        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="through_currency_code" constraintName="through_currency_code_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code"/>
-
-        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="entity_code" constraintName="entity_code_fk_for_currency_pair" referencedTableName="idgc_coe_ve_code_cnfg" referencedColumnNames="entity_code" />
 
     </changeSet>
 

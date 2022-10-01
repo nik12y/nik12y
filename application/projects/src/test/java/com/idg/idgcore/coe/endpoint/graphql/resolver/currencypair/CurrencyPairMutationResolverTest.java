@@ -3,7 +3,7 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.currencypair;
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
 import com.idg.idgcore.TestApplication;
-import com.idg.idgcore.coe.app.service.currencypair.ICurrencyPairApplicationService;
+import com.idg.idgcore.coe.app.service.currencypair.CurrencyPairApplicationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +23,7 @@ class CurrencyPairMutationResolverTest {
     @Autowired
     GraphQLTestTemplate graphQLTestTemplate;
 
-    private ICurrencyPairApplicationService currencyPairApplicationService;
+    private CurrencyPairApplicationService currencyPairApplicationService;
 
     @DisplayName("JUnit test for save as Draft")
     @Test
