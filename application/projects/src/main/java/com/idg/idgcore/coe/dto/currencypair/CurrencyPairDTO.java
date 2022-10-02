@@ -5,7 +5,7 @@ import com.idg.idgcore.coe.dto.base.CoreEngineBaseDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import static com.idg.idgcore.coe.common.Constants.CURRENCY_PAIR;
+import static com.idg.idgcore.coe.common.Constants.*;
 
 @ToString(callSuper = true)
 @Getter
@@ -35,15 +35,15 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
     private boolean quotationMethods;
     private boolean spreadDefinition;
 
-    public Boolean getThroughCurrency() {
+    public boolean getThroughCurrency() {
         return throughCurrency;
     }
 
-    public Boolean getQuotationMethods() {
+    public boolean getQuotationMethods() {
         return quotationMethods;
     }
 
-    public Boolean getSpreadDefinition() {
+    public boolean getSpreadDefinition() {
         return spreadDefinition;
     }
 
@@ -53,17 +53,17 @@ public class CurrencyPairDTO extends CoreEngineBaseDTO {
     }
 
     @Override
-    public void setTaskCode(String taskCode)
-    {
+    public void setTaskCode(String taskCode) {
         super.setTaskCode(CURRENCY_PAIR);
     }
 
     @Override
     public String getTaskIdentifier () {
-        if(this.getPairId() != null) {
-            return this.getPairId()+"";
-        }
-        return  getCurrency1()+getCurrency2()+getEntityType()+getEntityCode();
+        return  currency1 + FIELD_SEPARATOR + currency2 + FIELD_SEPARATOR + entityType + FIELD_SEPARATOR + entityCode;
+    }
+
+    public static Class<? extends CoreEngineBaseDTO> getSpecificType() {
+        return CurrencyPairDTO.class;
     }
 
 }
