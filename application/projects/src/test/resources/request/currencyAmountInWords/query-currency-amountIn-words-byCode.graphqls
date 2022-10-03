@@ -25,7 +25,7 @@
   userLocal: ""
   originatingModuleCode: ""
     }
-    currencyCodeQuery: { currencyCode: "TES", authorized: "Y" }
+    currencyCodeInputQuery: { currencyCode: "TES", authorized: "Y" }
   ) {
     currencyCode
     languageCode

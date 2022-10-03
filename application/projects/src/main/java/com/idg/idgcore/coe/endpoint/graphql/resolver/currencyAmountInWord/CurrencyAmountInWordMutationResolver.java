@@ -19,16 +19,12 @@ public class CurrencyAmountInWordMutationResolver implements GraphQLMutationReso
     private static final String ENTERED_STRING="Entered into ";
 
     @Autowired
-    ICurrencyAmountInWordService iCurrencyAmountInWordService;
+    CurrencyAmountInWordService currencyAmountInWordService;
 
-    public TransactionStatus processAmountInWords (SessionContext sessionContext,
-            CurrencyAmountInWordDTO currencyAmountInWordDTO)
+    public TransactionStatus processAmountInWords (SessionContext sessionContext, CurrencyAmountInWordDTO currencyAmountInWordDTO)
             throws FatalException, JsonProcessingException {
-
-            log.info(ENTERED_STRING+CLASS_NAME+"processAmountInWords() with SessionContext{} and CurrencyAmountInWordsDTO{}"
-                    ,sessionContext, currencyAmountInWordDTO);
-
-        return this.iCurrencyAmountInWordService.processAmountInWords(sessionContext,
-                currencyAmountInWordDTO);
+        log.info(ENTERED_STRING+CLASS_NAME+"processAmountInWords() with SessionContext{} and CurrencyAmountInWordsDTO{}"
+                ,sessionContext, currencyAmountInWordDTO);
+        return this.currencyAmountInWordService.process(sessionContext, currencyAmountInWordDTO);
     }
 }
