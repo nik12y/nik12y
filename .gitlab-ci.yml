@@ -114,7 +114,7 @@ push image:
 .deploy_template: &deploy_config
   before_script:
     - chmod 400 $SSH_KEY
-    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV helper.sh $DEPLOY_SERVER:/home/idc/build/
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV helper.sh $DEPLOY_SERVER:/home/gitlab/build/
     - echo $IMAGE_NAME
   script:
     - echo "Deploying application..."
