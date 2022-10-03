@@ -15,7 +15,6 @@ variables:
   VERSION_NO: v01
   ENVIROMENT: $CI_COMMIT_BRANCH
   PORT_MAPPING: 8081:8099 
-  
 # Run when not schedule
 .rules_template: &rules_config
   rules:
@@ -130,9 +129,9 @@ push image:
       docker run -d -p $PORT_MAPPING 
       --restart=always
       -v $NEW_LOG:/app/jdbcApp.log
-      --env-file /home/idc/.env
+      --env-file /home/gitlab/.env
       --name $APP_NAME-$VERSION_NO $IMAGE_NAME;
-      rm helper.sh;
+      rm helper.sh .env;
       docker image prune -a -f --filter 'until=10m'"
     - echo "Application successfully deployed."
   environment:
