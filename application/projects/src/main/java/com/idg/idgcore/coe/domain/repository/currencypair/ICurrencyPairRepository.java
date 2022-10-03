@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.dto.currencypair;
+package com.idg.idgcore.coe.domain.repository.currencypair;
 
 import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
