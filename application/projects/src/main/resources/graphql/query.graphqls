@@ -83,7 +83,7 @@ type Query{
     getVirtualEntityAll(sessionContext: SessionContextInput): [VirtualEntity]
 
     getAmountInWordsList(sessionContext: SessionContextInput) : [AmountInWordsDetails]
-    getAmountInWordsDetails(sessionContext: SessionContextInput,currencyCodeQuery : CurrencyCodeInputQuery) : AmountInWordsDetails
+    getAmountInWordsDetails(sessionContext: SessionContextInput,currencyAmountInput : CurrencyAmountInputQuery) : AmountInWordsDetails
 
     getPeriodCodeDetails(sessionContext: SessionContextInput, financialAccountingYear: FinancialAccountingYearPeriodCodeInputQuery): FinancialAccountingYear
 
