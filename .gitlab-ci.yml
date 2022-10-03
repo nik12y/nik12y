@@ -131,7 +131,6 @@ push image:
       -v $NEW_LOG:/app/jdbcApp.log
       --env-file /home/gitlab/build/.env
       --name $APP_NAME-$VERSION_NO $IMAGE_NAME;
-      rm helper.sh .env;
       docker image prune -a -f --filter 'until=10m'"
     - echo "Application successfully deployed."
   environment:
