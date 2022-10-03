@@ -13,7 +13,7 @@ variables:
   IMAGE_NAME: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:$CI_PIPELINE_IID
   LATEST_TAG: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:latest #tag to be used in latest image
   VERSION_NO: v01
-  ENVIROMENT: $CI_PIPELINE_SOURCE
+  ENVIROMENT: $CI_COMMIT_BRANCH
 
 # Run when not schedule
 .rules_template: &rules_config
