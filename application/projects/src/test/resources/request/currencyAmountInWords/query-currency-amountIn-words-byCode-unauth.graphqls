@@ -25,7 +25,7 @@
   userLocal: ""
   originatingModuleCode: ""
     }
-    currencyCodeQuery: { currencyCode: "ZES", authorized: "N" }
+    currencyCodeInputQuery: { currencyCode: "ZES", authorized: "N" }
   ) {
     currencyCode
     languageCode

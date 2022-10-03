@@ -3,7 +3,6 @@ package com.idg.idgcore.coe.endpoint.graphql.resolver.currencyAmountInWord;
 import com.fasterxml.jackson.core.*;
 import com.idg.idgcore.coe.app.service.currencyAmountInWord.*;
 import com.idg.idgcore.coe.dto.currencyAmountInWord.*;
-import com.idg.idgcore.coe.dto.currencyConfiguration.*;
 import com.idg.idgcore.datatypes.exceptions.*;
 import com.idg.idgcore.dto.context.*;
 import graphql.kickstart.tools.*;
@@ -21,21 +20,19 @@ public class CurrencyAmountInWordQueryResolver implements GraphQLQueryResolver {
     private static final String ENTERED_STRING="Entered into ";
 
     @Autowired
-    ICurrencyAmountInWordService iCurrencyAmountInWordService;
+    CurrencyAmountInWordService currencyAmountInWordService;
 
-    public List<CurrencyAmountInWordDTO> getAmountInWordsList(SessionContext sessionContext) throws
-            FatalException, JsonProcessingException {
-
-            log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsList() with SessionContext{}",sessionContext);
-
-        return iCurrencyAmountInWordService.getAmountInWordsList(sessionContext);
+    public CurrencyAmountInWordDTO getAmountInWordsDetails (SessionContext sessionContext,
+            CurrencyAmountInWordsInputDTO currencyAmountInWordsInputDTO)
+            throws FatalException, JsonProcessingException {
+        log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsDetails() with SessionContext{} and CurrencyAmountInWordsInputDTO{}"
+                ,sessionContext, currencyAmountInWordsInputDTO);
+        return this.currencyAmountInWordService.getAmountInWordsDetails(sessionContext,currencyAmountInWordsInputDTO);
     }
 
-    public CurrencyAmountInWordDTO getAmountInWordsDetails(SessionContext sessionContext,CurrencyDetailsInputDTO currencyDetailsInputDTO)
-            throws FatalException, JsonProcessingException {
-
-            log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsDetails() with SessionContext{}",sessionContext);
-
-        return iCurrencyAmountInWordService.getAmountInWordsDetails(sessionContext,currencyDetailsInputDTO);
+    public List<CurrencyAmountInWordDTO> getAmountInWordsList (SessionContext sessionContext) throws FatalException {
+        log.info(ENTERED_STRING+CLASS_NAME+"getAmountInWordsList() with SessionContext{} and CurrencyAmountInWordDTO{}"
+                ,sessionContext);
+        return this.currencyAmountInWordService.getAll(sessionContext);
     }
 }
