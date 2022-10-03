@@ -2,7 +2,7 @@ package com.idg.idgcore.coe.domain.service.city;
 
 
 import com.idg.idgcore.coe.domain.entity.city.CityEntity;
-import com.idg.idgcore.coe.dto.city.ICityRepository;
+import com.idg.idgcore.coe.domain.repository.city.ICityRepository;
 import com.idg.idgcore.coe.dto.city.CityDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
