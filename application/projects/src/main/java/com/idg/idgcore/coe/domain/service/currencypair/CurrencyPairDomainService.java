@@ -4,7 +4,7 @@ import com.idg.idgcore.coe.domain.assembler.currencypair.CurrencyPairAssembler;
 import com.idg.idgcore.coe.domain.entity.currencypair.CurrencyPairEntity;
 import com.idg.idgcore.coe.domain.service.generic.DomainService;
 import com.idg.idgcore.coe.dto.currencypair.CurrencyPairDTO;
-import com.idg.idgcore.coe.dto.currencypair.ICurrencyPairRepository;
+import com.idg.idgcore.coe.domain.repository.currencypair.ICurrencyPairRepository;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
