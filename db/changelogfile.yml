@@ -1,37 +1,122 @@
 databaseChangeLog:
   - include:
+      file: core_engine/IDGC_COE_LANGUAGE_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_AUDIT_HISTORY_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_BRANCH_TYPE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_RISK_CATEGORY_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_STATE_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_APP_VER_CHECKLIST_POLICY_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_APP_CATEGORY_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_IBAN_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_BANK_PARAMETERS_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_BRANCH_PARAMETERS_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_BANK_IDENTIFIER_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_AML_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_APP_VER_TYPE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_PURGING_POLICY_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_BRANCH_SYSTEM_DATE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_PURPOSE_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_MITIGANT_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_GROUP_BANKING_CODES_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_QUESTION_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_RISK_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_QUESTION_CATEGORY_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_ZAKAT_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_FINANCIAL_ACCOUNTING_YEAR_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_QUESTION_CHECKLIST_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_ERROR_OVERRIDE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_CITY_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_REASON_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_CLEARING_PAYMENT_TYPE_CNFG_create_tbl.xml
+  -  include:
+      file: core_engine/IDGC_COE_TRAN_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_MODULE_CODE_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_BANK_CODES_CNFG_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_MEMO_create_tbl.xml
+  - include:
+      file: core_engine/IDGC_COE_MAPPING_CONFIG_create_tbl.xml
+  -  include:
+      file: core_engine/IDGC_COE_COUNTRY_CODE_CNFG_create_tbl.xml
+  -  include:
+      file: core_engine/IDGC_COE_MUTATION_STAGE_CNFG_create_tbl.xml
+  -  include:
+      file: core_engine/IDGC_COE_MAPPING_CONFIG_inserts_01.xml
+  -  include:
+      file: core_engine/IDGC_COE_STATIC_CODE_create_tbl.xml
+  -  include:
+      file: core_engine/IDGC_COE_STATIC_CODE_inserts_01.xml
+  -  include:
+      file: virtual_entity/IDGC_COE_VE_CODE_CNFG_create_tbl.xml
+  -  include:
+      file: virtual_entity/IDGC_VE_REG_REGION_CONFIG_create_tbl.xml
+  -  include:
+      file: currency_config/IDGC_MCY_CNFG_CURRENCY_PAIR_create_tbl.xml
+  - include:
       file: currency_config/IDGC_MCY_CNFG_EXCHG_RATE_TYPE_create_tbl.xml
   - include:
       file: currency_config/IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_create_tbl.xml
   - include:
       file: currency_config/IDGC_MCY_CNFG_EXCHANGE_RATE_CONFIG_RATE_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_CURRENCY_DTLS_drop.xml
+      file: currency_config/IDGC_MCY_CNFG_CURRENCY_DTLS_drop.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_drop.xml
+      file: currency_config/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_drop.xml
   - include:
-      file: db/changelog/IDGC_MCY_SEED_LOCALE_COUNTRY_drop.xml
+      file: currency_config/IDGC_MCY_SEED_LOCALE_COUNTRY_drop.xml
   - include:
-      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_drop.xml
+      file: currency_config/IDGC_MCY_SEED_ROUNDING_RULES_drop.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_CURRENCY_DTLS_create_tbl.xml
+      file: currency_config/IDGC_MCY_CNFG_CURRENCY_DTLS_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create_tbl.xml
+      file: currency_config/IDGC_MCY_CNFG_CUT_OFF_ROUNDING_RULES_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_COUNTRY_MAP_create_tbl.xml
+      file: currency_config/IDGC_MCY_CNFG_COUNTRY_MAP_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_CNFG_EXTRA_FIELD_MAP_create_tbl.xml
+      file: currency_config/IDGC_MCY_CNFG_EXTRA_FIELD_MAP_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_create_tbl.xml
+      file: currency_config/IDGC_MCY_SEED_ROUNDING_RULES_create_tbl.xml
   - include:
-      file: db/changelog/IDGC_MCY_SEED_ROUNDING_RULES_insert_01.xml
+      file: currency_config/IDGC_MCY_SEED_ROUNDING_RULES_inserts_01.xml
+  - include:
+      file: currency_config/IDGC_MCY_CNFG_AMT_IN_WORDS_create_tbl.xml
+  - include:
+      file: currency_config/IDGC_MCY_CNFG_CURRENCY_RATE_TYPE_create_tbl.xml
   - include:
       file: db/changelog/IDGC_MCY_CNFG_AMT_IN_WORDS_create_tbl.xml
   - include:
       file: currency_config /IDGC_MCY_CNFG_CURRENCY_RATE_TYPE_create_tbl.xml
   - include:
       file: currency_config /IDGC_MCY_CNFG_BRANCH_PARAMETER_create_tbl.xml
-
 
 
 
