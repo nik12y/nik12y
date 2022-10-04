@@ -1,0 +1,4 @@
+input CurrencyAmountInputQuery{
+    currencyCode:String! @Size(min: 3, max: 3, message: "currencyCode.message") @Pattern(regexp: "[A-Z]+",message: "Currency code should be uppercase alphabet of size 3")
+        authorized:String! @Size(min: 1, max: 1, message: "authorized.message") @Pattern(regexp: "[YN]+",message: "Authorized flag should be Y or N")
+}

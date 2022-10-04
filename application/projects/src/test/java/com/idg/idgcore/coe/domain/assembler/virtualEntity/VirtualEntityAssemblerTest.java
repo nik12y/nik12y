@@ -2,9 +2,7 @@ package com.idg.idgcore.coe.domain.assembler.virtualEntity;
 
 import com.idg.idgcore.coe.domain.assembler.virtualentity.VirtualEntityAssembler;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
-import com.idg.idgcore.coe.domain.entity.purpose.PurposeEntity;
 import com.idg.idgcore.coe.domain.entity.virtualentity.VirtualEntity;
-import com.idg.idgcore.coe.dto.purpose.PurposeDTO;
 import com.idg.idgcore.coe.dto.virtualentity.VirtualEntityDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class VirtualEntityAssemblerTest {
@@ -30,7 +28,7 @@ class VirtualEntityAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         VirtualEntityDTO virtualEntityDTO = VirtualEntityDTO.builder().build();
-        virtualEntityDTO = virtualEntityAssembler.setAuditFields(mutationEntity, virtualEntityDTO);
+        virtualEntityAssembler.setAuditFields(mutationEntity, virtualEntityDTO);
         assertEquals("Y", virtualEntityDTO.getAuthorized());
     }
 
@@ -45,7 +43,7 @@ class VirtualEntityAssemblerTest {
         virtualEntity.setParentEntityCode("GBC");
         virtualEntity.setIsDefault('Y');
         virtualEntity.setEffectiveDate(getDate("2022-08-08"));
-        VirtualEntityDTO virtualEntityDTO = virtualEntityAssembler.convertEntityToDto(virtualEntity);
+        VirtualEntityDTO virtualEntityDTO = virtualEntityAssembler.toDTO(virtualEntity);
     }
 
     @Test
@@ -59,7 +57,7 @@ class VirtualEntityAssemblerTest {
         virtualEntityDTO.setParentEntityCode("GBC");
         virtualEntityDTO.setIsDefault(true);
         virtualEntityDTO.setEffectiveDate("2022-08-08");
-        VirtualEntity virtualEntity=virtualEntityAssembler.convertDtoToEntity(virtualEntityDTO);
+        VirtualEntity virtualEntity=virtualEntityAssembler.toEntity(virtualEntityDTO);
     }
 
     private Date getDate (String s) {

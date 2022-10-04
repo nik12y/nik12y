@@ -39,7 +39,7 @@ class CaptDomainServiceTest {
     @DisplayName("Junit test for getCapts method ")
     void getCaptAllReturnCaptList() {
         given(captRepository.findAll()).willReturn(List.of(captEntity));
-        List<CaptEntity> bankParameterEntityList = captDomainService.getCaptAll();
+        List<CaptEntity> bankParameterEntityList = captDomainService.getAllEntities();
         assertThat(bankParameterEntityList).isNotNull();
         assertThat(bankParameterEntityList.size()).isEqualTo(1);
     }
@@ -49,7 +49,7 @@ class CaptDomainServiceTest {
     void getCaptAllEmptyCaptEntityList()
     {
         given(captRepository.findAll()).willReturn(Collections.emptyList());
-        List<CaptEntity> captEntityList = captDomainService.getCaptAll();
+        List<CaptEntity> captEntityList = captDomainService.getAllEntities();
 
         assertThat(captEntityList).isEmpty();
         assertThat(captEntityList.size()).isEqualTo(0);
@@ -60,7 +60,7 @@ class CaptDomainServiceTest {
     @DisplayName("JUnit test for getIbanByCodeReturnIbanEntityObject method")
     void getCaptByCodeReturnCaptEntityObject() {
         given(captRepository.findByClearingPaymentTypeCode("ABCD")).willReturn(captEntity);
-        CaptEntity captEntity1 =captDomainService.getCaptByCode(captEntity.getClearingPaymentTypeCode());
+        CaptEntity captEntity1 =captDomainService.getEntityByIdentifier(captEntity.getClearingPaymentTypeCode());
         assertThat(captEntity1).isNotNull();
     }
 
@@ -70,16 +70,8 @@ class CaptDomainServiceTest {
         CaptEntity captEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            CaptEntity captEntity2 = captDomainService.getCaptByCode(captEntity1.getClearingPaymentTypeCode());
+            CaptEntity captEntity2 = captDomainService.getEntityByIdentifier(captEntity1.getClearingPaymentTypeCode());
         });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    void getConfigurationByCodeTryBlock() {
-        given(captRepository.findByClearingPaymentTypeCode("ABCD")).willReturn(captEntity);
-        CaptEntity captByCode = captDomainService.getConfigurationByCode(captDTO);
-        assertThat(captByCode).isNotNull();
     }
 
 /*    @Test

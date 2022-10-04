@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.bank;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.bank.IBankApplicationService;
+import com.idg.idgcore.coe.app.service.bank.BankApplicationService;
 import com.idg.idgcore.coe.dto.bank.BankDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -16,16 +16,16 @@ import java.util.List;
 @Component
 public class BankQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    IBankApplicationService bankService;
+    private BankApplicationService bankService;
 
     public BankDTO getBankByCode (SessionContext sessionContext, BankDTO bankDTO)
             throws FatalException, JsonProcessingException {
-        return this.bankService.getBankByCode(sessionContext, bankDTO);
+        return this.bankService.getByIdentifier(sessionContext, bankDTO);
     }
 
     public List<BankDTO> getBanks (SessionContext sessionContext)
             throws FatalException {
-        return this.bankService.getBanks(sessionContext);
+        return this.bankService.getAll(sessionContext);
     }
 
 

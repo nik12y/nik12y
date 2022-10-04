@@ -40,7 +40,7 @@ class TransactionDomainServiceTest {
     @DisplayName("Junit test for getTransactions method ")
     void getTransactionsReturnTransactionList() {
         given(transactionRepository.findAll()).willReturn(List.of(transactionEntity));
-        List<TransactionEntity> bankParameterEntityList = transactionDomainService.getTransactions();
+        List<TransactionEntity> bankParameterEntityList = transactionDomainService.getAllEntities();
         assertThat(bankParameterEntityList).isNotNull();
         assertThat(bankParameterEntityList.size()).isEqualTo(1);
     }
@@ -50,7 +50,7 @@ class TransactionDomainServiceTest {
     void getTransactionsEmptyTransactionEntityList()
     {
         given(transactionRepository.findAll()).willReturn(Collections.emptyList());
-        List<TransactionEntity> transactionEntityList = transactionDomainService.getTransactions();
+        List<TransactionEntity> transactionEntityList = transactionDomainService.getAllEntities();
 
         assertThat(transactionEntityList).isEmpty();
         assertThat(transactionEntityList.size()).isEqualTo(0);
@@ -61,34 +61,23 @@ class TransactionDomainServiceTest {
     @DisplayName("JUnit test for getIbanByCodeReturnIbanEntityObject method")
     void getIbanByCodeReturnIbanEntityObject() {
         given(transactionRepository.findByTransactionCode("IA")).willReturn(transactionEntity);
-        TransactionEntity transactionEntity1 =transactionDomainService.getTransactionByCode(transactionEntity.getTransactionCode());
+        TransactionEntity transactionEntity1 =transactionDomainService.getEntityByIdentifier(transactionEntity.getTransactionCode());
         assertThat(transactionEntity1).isNotNull();
-    }
-
-    @Test
-    @DisplayName("JUnit test for getTransactionByCode catch block method")
-    void getTransactionByCodeReturnCatchBlock() {
-        TransactionEntity transactionEntity1=null;
-
-        assertThrows(Exception.class,()-> {
-            TransactionEntity transactionEntity2 = transactionDomainService.getTransactionByCode(transactionEntity1.getTransactionCode());
-        });
     }
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode try block method")
     void getConfigurationByCodeTryBlock() {
         given(transactionRepository.findByTransactionCode("IA")).willReturn(transactionEntity);
-        TransactionEntity transactionByCode = transactionDomainService.getConfigurationByCode(transactionDTO);
+        TransactionEntity transactionByCode = transactionDomainService.getEntityByIdentifier("IA");
         assertThat(transactionByCode).isNotNull();
     }
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
     void getConfigurationByCodeCatchBlock() {
-        TransactionDTO transactionDTO = null;
         assertThrows(BusinessException.class,()-> {
-            TransactionEntity TransactionByCode = transactionDomainService.getConfigurationByCode(transactionDTO);
+            TransactionEntity TransactionByCode = transactionDomainService.getEntityByIdentifier(null);
         });
     }
 
@@ -100,24 +89,6 @@ class TransactionDomainServiceTest {
             transactionDomainService.save(transactionDTO);
         });
     }
-
-
-    /*@Test
-    void getConfigurationByCode () {
-    }
-
-    @Test
-    void getIbans () {
-    }
-
-    @Test
-    void getIbanByIbanCountryCode () {
-    }
-
-    @Test
-    void save () {
-    }
-    */
 
     private TransactionEntity getTransactionEntity()
     {

@@ -17,4 +17,8 @@ public class MitigantRiskCodeDTO extends CoreEngineBaseDTO {
     private String riskCode;
     private String riskName;
 
+    @Override
+    public String getTaskCode() {
+        return "MitigantRiskCodeDTO";
+    }
 }

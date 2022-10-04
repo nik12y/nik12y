@@ -1,8 +1,9 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.city;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.idg.idgcore.coe.app.service.city.CityApplicationService;
+import com.idg.idgcore.coe.app.service.generic.IGenericApplicationService;
 import com.idg.idgcore.coe.dto.city.CityDTO;
-import com.idg.idgcore.coe.app.service.city.ICityApplicationService;
 import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -16,15 +17,15 @@ import java.util.List;
 @Component
 public class CityQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    private ICityApplicationService cityService;
+    private CityApplicationService cityService;
 
     public CityDTO getCityByCode (SessionContext sessionContext, CityDTO cityDTO)
             throws FatalException, JsonProcessingException {
-        return this.cityService.getCityByCode(sessionContext, cityDTO);
+        return this.cityService.getByIdentifier(sessionContext, cityDTO);
     }
 
     public List<CityDTO> getCities (SessionContext sessionContext)
             throws FatalException {
-        return this.cityService.getCities(sessionContext);
+        return this.cityService.getAll(sessionContext);
     }
 }

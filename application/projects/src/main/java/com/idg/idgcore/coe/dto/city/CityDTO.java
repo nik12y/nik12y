@@ -31,4 +31,8 @@ public class CityDTO extends CoreEngineBaseDTO {
         return this.getCityCode();
     }
 
+    public static Class<? extends CoreEngineBaseDTO> getSpecificType() {
+        return CityDTO.class;
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.regulatoryRegion;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.regulatoryRegion.IRegulatoryRegionApplicationService;
+import com.idg.idgcore.coe.app.service.regulatoryRegion.RegulatoryRegionApplicationService;
 import com.idg.idgcore.coe.dto.regulatoryRegion.RegulatoryRegionConfigDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 public class RegulatoryRegionMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
-    private IRegulatoryRegionApplicationService iRegulatoryRegionApplicationService;
+    private RegulatoryRegionApplicationService iRegulatoryRegionApplicationService;
 
     public TransactionStatus processRegulatoryRegion (SessionContext sessionContext, RegulatoryRegionConfigDTO regulatoryRegionConfigDTO)
             throws FatalException, JsonProcessingException {
-        return this.iRegulatoryRegionApplicationService.processRegulatoryRegion(sessionContext, regulatoryRegionConfigDTO);
+        return this.iRegulatoryRegionApplicationService.process(sessionContext, regulatoryRegionConfigDTO);
     }
 }

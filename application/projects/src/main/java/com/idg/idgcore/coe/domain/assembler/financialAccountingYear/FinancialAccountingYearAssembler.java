@@ -1,9 +1,11 @@
 package com.idg.idgcore.coe.domain.assembler.financialAccountingYear;
 
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
+import com.idg.idgcore.coe.domain.entity.city.CityEntity;
 import com.idg.idgcore.coe.domain.entity.financialAccountingYear.*;
 import com.idg.idgcore.coe.domain.entity.mutation.*;
+import com.idg.idgcore.coe.dto.city.CityDTO;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
-import lombok.extern.slf4j.*;
 import org.modelmapper.*;
 import org.modelmapper.convention.*;
 import org.springframework.stereotype.*;
@@ -13,57 +15,27 @@ import java.text.*;
 import java.time.*;
 import java.time.temporal.*;
 import java.util.*;
+import java.util.stream.*;
 
-@Slf4j
 @Component
-public class FinancialAccountingYearAssembler {
-    private final ModelMapper modelMapper = new ModelMapper();
+public class FinancialAccountingYearAssembler extends Assembler<FinancialAccountingYearDTO, FinancialAccountingYearEntity> {
+
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    @PostConstruct
-    private void setMapperConfig () {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return FinancialAccountingYearDTO.class;
     }
 
-    public FinancialAccountingYearEntity convertDtoToEntity (FinancialAccountingYearDTO inputDTO) {
-        if (log.isInfoEnabled()) {
-            log.info(
-                    "In convertDtoToEntity with {}",
-                    inputDTO);
-        }
-        FinancialAccountingYearEntity outEntity = modelMapper.map(inputDTO,
-                FinancialAccountingYearEntity.class);
-        List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = inputDTO.getFinancialAccountingYearPeriodicCode();
-        List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = new ArrayList<>();
-        periodEntityList.addAll(periodDTOList.stream().map(entity -> {
-            FinancialAccountingYearPeriodicCodeEntity map = modelMapper.map(entity,
-                    FinancialAccountingYearPeriodicCodeEntity.class);
-            map.setBankCode(inputDTO.getBankCode());
-            map.setBranchCode(inputDTO.getBranchCode());
-            map.setFinancialAccountingYearCode(inputDTO.getFinancialAccountingYearCode());
-            map.setPeriodCodeClosureStatus("Open");
-            map.setFinancialYearClosureStatus("Open");
-            map.setStatus(outEntity.getStatus());
-            map.setAuthorized(outEntity.getAuthorized());
-            map.setRecordVersion(outEntity.getRecordVersion());
-            map.setLastConfigurationAction(outEntity.getLastConfigurationAction());
-            return map;
-        }).toList());
-        outEntity.setFinancialAccountingYearPeriodicCode(periodEntityList);
-
-        if (log.isInfoEnabled()) {
-            log.info(
-                    " Leaving  convertDtoToEntity with {}",
-                    outEntity);
-        }
-        return outEntity;
+    @Override
+    public Class getSpecificEntityClass() {
+        return FinancialAccountingYearEntity.class;
     }
 
-    public FinancialAccountingYearDTO convertEntityToDto (FinancialAccountingYearEntity inEntity) {
+    @Override
+    public FinancialAccountingYearDTO toDTO(FinancialAccountingYearEntity inEntity) {
         if (inEntity != null) {
-            FinancialAccountingYearDTO outDTO = modelMapper.map(inEntity,
-                    FinancialAccountingYearDTO.class);
+            FinancialAccountingYearDTO outDTO = super.toDTO(inEntity);
             List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = new ArrayList<>();
             List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = inEntity.getFinancialAccountingYearPeriodicCode();
             periodDTOList.addAll(periodEntityList.stream().map(dto -> {
@@ -92,20 +64,27 @@ public class FinancialAccountingYearAssembler {
         }
     }
 
-    public FinancialAccountingYearDTO setAuditFields (MutationEntity mutationEntity,
-            FinancialAccountingYearDTO dto) {
-        dto.setAction(mutationEntity.getAction());
-        dto.setAuthorized(mutationEntity.getAuthorized());
-        dto.setRecordVersion(mutationEntity.getRecordVersion());
-        dto.setStatus(mutationEntity.getStatus());
-        dto.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-        dto.setCreatedBy(mutationEntity.getCreatedBy());
-        dto.setCreationTime(mutationEntity.getCreationTime());
-        dto.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        dto.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        dto.setTaskCode(mutationEntity.getTaskCode());
-        dto.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        return dto;
+    @Override
+    public FinancialAccountingYearEntity toEntity(FinancialAccountingYearDTO inputDTO) {
+        FinancialAccountingYearEntity outEntity = super.toEntity(inputDTO);
+        List<FinancialAccountingYearPeriodicCodeDTO> periodDTOList = inputDTO.getFinancialAccountingYearPeriodicCode();
+        List<FinancialAccountingYearPeriodicCodeEntity> periodEntityList = new ArrayList<>();
+        periodEntityList.addAll(periodDTOList.stream().map(entity -> {
+            FinancialAccountingYearPeriodicCodeEntity map = modelMapper.map(entity,
+                    FinancialAccountingYearPeriodicCodeEntity.class);
+            map.setBankCode(inputDTO.getBankCode());
+            map.setBranchCode(inputDTO.getBranchCode());
+            map.setFinancialAccountingYearCode(inputDTO.getFinancialAccountingYearCode());
+            map.setPeriodCodeClosureStatus("Open");
+            map.setFinancialYearClosureStatus("Open");
+            map.setStatus(outEntity.getStatus());
+            map.setAuthorized(outEntity.getAuthorized());
+            map.setRecordVersion(outEntity.getRecordVersion());
+            map.setLastConfigurationAction(outEntity.getLastConfigurationAction());
+            return map;
+        }).toList());
+        outEntity.setFinancialAccountingYearPeriodicCode(periodEntityList);
+        return outEntity;
     }
 
     public FinancialAccountingYearProcessDTO getDateAndPeriodCode (

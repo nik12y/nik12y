@@ -1,10 +1,10 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.module;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.idg.idgcore.coe.app.service.module.ModuleApplicationService;
 import com.idg.idgcore.coe.dto.module.ModuleDTO;
-import com.idg.idgcore.coe.app.service.module.IModuleApplicationService;
-import com.idg.idgcore.dto.context.SessionContext;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
+import com.idg.idgcore.dto.context.SessionContext;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +16,15 @@ import java.util.List;
 @Component
 public class ModuleQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    private IModuleApplicationService moduleService;
+    private ModuleApplicationService moduleService;
 
     public ModuleDTO getModuleByCode (SessionContext sessionContext, ModuleDTO moduleDTO)
             throws FatalException, JsonProcessingException {
-        return this.moduleService.getModuleByCode(sessionContext, moduleDTO);
+        return this.moduleService.getByIdentifier(sessionContext, moduleDTO);
     }
 
     public List<ModuleDTO> getModules (SessionContext sessionContext) throws FatalException {
-        return this.moduleService.getModules(sessionContext);
+        return this.moduleService.getAll(sessionContext);
     }
 
 }

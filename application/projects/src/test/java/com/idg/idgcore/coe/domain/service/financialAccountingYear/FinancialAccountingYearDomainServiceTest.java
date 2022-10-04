@@ -34,7 +34,7 @@ class FinancialAccountingYearDomainServiceTest {
     @DisplayName ("Junit test for getCities method ")
     void getFinancialAccountingYears () {
         given(repository.findAll()).willReturn(List.of(financialAccountingYearEntity));
-        List<FinancialAccountingYearEntity> financialAccountingYearEntityList = domainService.getFinancialAccountingYears();
+        List<FinancialAccountingYearEntity> financialAccountingYearEntityList = domainService.getAllEntities();
         assertThat(financialAccountingYearEntityList).isNotNull();
         assertThat(financialAccountingYearEntityList).hasSize(1);
     }
@@ -43,7 +43,7 @@ class FinancialAccountingYearDomainServiceTest {
     @DisplayName ("JUnit test for getCities method for negative scenario")
     void getFinancialAccountingYearEmptyFinancialAccountingYearEntityList () {
         given(repository.findAll()).willReturn(Collections.emptyList());
-        List<FinancialAccountingYearEntity> financialAccountingYearEntityList = domainService.getFinancialAccountingYears();
+        List<FinancialAccountingYearEntity> financialAccountingYearEntityList = domainService.getAllEntities();
         assertThat(financialAccountingYearEntityList).isEmpty();
         assertThat(financialAccountingYearEntityList).hasSize(0);
     }

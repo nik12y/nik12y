@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -63,41 +62,12 @@ class RegulatoryRegionDomainSerivceTest {
         mutationEntity=getMutationEntity();
     }
 
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode")
-    void getConfigurationByCodeReturnEntity(){
-        List<RegulatoryRegionMappingEntity> regulatoryRegionMappingEntities = new ArrayList<>();
-        regulatoryRegionMappingEntities.add(new RegulatoryRegionMappingEntity(1,"IN","add",
-                1,
-                "Y",
-                "authorized"));
-
-       RegulatoryRegionConfigEntity regulatoryRegionConfigEntity= new RegulatoryRegionConfigEntity("REGC002", "India",
-                "The India", getDate("2022-08-21"), "Country",
-                "Fees",regulatoryRegionMappingEntities,
-                null,
-                null,
-                "add",
-                1,
-                "Y",
-                "authorized");
-        List<RegulatoryRegionMappingDTO> regulatoryRegionMappingDTOList = new ArrayList<>();
-        regulatoryRegionMappingDTOList.add(new RegulatoryRegionMappingDTO("IN"));
-
-        RegulatoryRegionConfigDTO regulatoryRegionConfigDTO= new RegulatoryRegionConfigDTO("REGC002","India","The India","2022-08-21","Country","Fees",
-                regulatoryRegionMappingDTOList);
-        given(iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTO.getRegulatoryRegionCode())).willReturn(regulatoryRegionConfigEntity);
-        RegulatoryRegionConfigEntity questionCategoryEntity = regulatoryRegionDomainService.getConfigurationByCode(regulatoryRegionConfigDTO);
-        assertThat(questionCategoryEntity).isNotNull();
-    }
-
     @Test
     @DisplayName("Junit Test for getRegulatoryRegionByCode")
     void getRegulatoryRegionByCode(){
 
         given(iRegulatoryRegionRepository.findByRegRegionCode(regulatoryRegionConfigDTOUnAuth.getRegulatoryRegionCode())).willReturn(regulatoryRegionConfigEntity);
-        RegulatoryRegionConfigEntity regulatoryRegionByCode = regulatoryRegionDomainService.getRegulatoryRegionByCode(regulatoryRegionConfigEntity.getRegRegionCode());
+        RegulatoryRegionConfigEntity regulatoryRegionByCode = regulatoryRegionDomainService.getEntityByIdentifier(regulatoryRegionConfigEntity.getRegRegionCode());
         assertThat(regulatoryRegionByCode).isNotNull();
     }
 
@@ -105,7 +75,7 @@ class RegulatoryRegionDomainSerivceTest {
     @DisplayName("Junit Test for getRegulatoryRegionCodes empty list")
     void getRegulatoryRegionCodes(){
         given(iRegulatoryRegionRepository.findAll()).willReturn(Collections.emptyList());
-        List<RegulatoryRegionConfigEntity> regulatoryRegionCodes = regulatoryRegionDomainService.getRegulatoryRegionCodes();
+        List<RegulatoryRegionConfigEntity> regulatoryRegionCodes = regulatoryRegionDomainService.getAllEntities();
         assertThat(regulatoryRegionCodes).isEmpty();
     }
 
@@ -114,7 +84,7 @@ class RegulatoryRegionDomainSerivceTest {
     void getRegulatoryRegionCodesWithList(){
 
         given(iRegulatoryRegionRepository.findAll()).willReturn(List.of(regulatoryRegionConfigEntity));
-        List<RegulatoryRegionConfigEntity> regulatoryRegionCodes = regulatoryRegionDomainService.getRegulatoryRegionCodes();
+        List<RegulatoryRegionConfigEntity> regulatoryRegionCodes = regulatoryRegionDomainService.getAllEntities();
         assertThat(regulatoryRegionCodes).isNotNull().hasSize(1);
     }
 
@@ -122,7 +92,7 @@ class RegulatoryRegionDomainSerivceTest {
     @DisplayName("Junit test for save all QuestionCategories")
     void saveRegulatoryRegion() throws ParseException {
 
-        given(regulatoryRegionAssembler.convertDtoToEntity(regulatoryRegionConfigDTOUnAuth)).willReturn(regulatoryRegionConfigEntity);
+        given(regulatoryRegionAssembler.toEntity(regulatoryRegionConfigDTOUnAuth)).willReturn(regulatoryRegionConfigEntity);
         when(iRegulatoryRegionRepository.save(any(RegulatoryRegionConfigEntity.class))).thenReturn(regulatoryRegionConfigEntity);
         regulatoryRegionDomainService.save(regulatoryRegionConfigDTOUnAuth);
         assertThat(regulatoryRegionConfigEntity).isNotNull();

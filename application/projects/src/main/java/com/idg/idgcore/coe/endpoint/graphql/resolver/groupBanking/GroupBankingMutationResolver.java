@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.groupBanking;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.groupBanking.IGroupBankingApplicationService;
+import com.idg.idgcore.coe.app.service.groupBanking.GroupBankingApplicationService;
 import com.idg.idgcore.coe.dto.groupBanking.GroupBankingDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class GroupBankingMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IGroupBankingApplicationService iGroupBankingApplicationService;
+    private GroupBankingApplicationService groupBankingApplicationService;
 
     public TransactionStatus processGroupBanking (SessionContext sessionContext, GroupBankingDTO groupBankingDTO)
             throws FatalException, JsonProcessingException {
-        return this.iGroupBankingApplicationService.processGroupBanking(sessionContext, groupBankingDTO);
+        return this.groupBankingApplicationService.process(sessionContext, groupBankingDTO);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.bankidentifier;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.bankidentifier.IBankIdentifierApplicationService;
+import com.idg.idgcore.coe.app.service.bankidentifier.BankIdentifierApplicationService;
 import com.idg.idgcore.coe.dto.bankidentifier.BankIdentifierDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class BankIdentifierMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IBankIdentifierApplicationService bankIdentifierService;
+    private BankIdentifierApplicationService bankIdentifierService;
 
     public TransactionStatus processBankIdentifier(SessionContext sessionContext, BankIdentifierDTO bankIdentifierDTO)
             throws FatalException, JsonProcessingException {
-        return this.bankIdentifierService.processBankIdentifier(sessionContext, bankIdentifierDTO);
+        return this.bankIdentifierService.process(sessionContext, bankIdentifierDTO);
     }
 }

@@ -3,6 +3,7 @@ package com.idg.idgcore.coe.domain.service.riskcategory;
 import com.idg.idgcore.coe.domain.assembler.riskcategory.RiskCategoryAssembler;
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntity;
 import com.idg.idgcore.coe.domain.repository.riskcategory.IRiskCategoryRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +16,7 @@ import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class RiskCategoryDomainService implements IRiskCategoryDomainService {
-
+public class RiskCategoryDomainService extends DomainService<RiskCategoryDTO, RiskCategoryEntity> {
 
     @Autowired
     private IRiskCategoryRepository riskCategoryRepository;
@@ -24,51 +24,29 @@ public class RiskCategoryDomainService implements IRiskCategoryDomainService {
     @Autowired
     private RiskCategoryAssembler riskCategoryAssembler;
 
-
-
-    public RiskCategoryEntity getConfigurationByCode(RiskCategoryDTO riskcategoryDTO) {
-        RiskCategoryEntity riskcategoryEntity = null;
-        try {
-            riskcategoryEntity = this.riskCategoryRepository.findByRiskCategoryCode(riskcategoryDTO.getRiskCategoryCode());
-        } catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-
-        return riskcategoryEntity;
-    }
-
-    public List<RiskCategoryEntity> getRiskCategories() {
-        return this.riskCategoryRepository.findAll();
-    }
-
     @Override
-    public RiskCategoryEntity getRiskCategoryByCode(String riskCategoryCode) {
+    public RiskCategoryEntity getEntityByIdentifier(String riskCategoryCode) {
         RiskCategoryEntity riskcategoryEntity = null;
         try {
             riskcategoryEntity = this.riskCategoryRepository.findByRiskCategoryCode(riskCategoryCode);
         } catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return riskcategoryEntity;
-
-
     }
 
+    @Override
+    public List<RiskCategoryEntity> getAllEntities() {
+        return this.riskCategoryRepository.findAll();
+    }
 
     public void save(RiskCategoryDTO riskCategoryDTO) {
         try {
-            RiskCategoryEntity riskcategoryEntity = riskCategoryAssembler.convertDtoToEntity(riskCategoryDTO);
+            RiskCategoryEntity riskcategoryEntity = riskCategoryAssembler.toEntity(riskCategoryDTO);
             this.riskCategoryRepository.save(riskcategoryEntity);
         } catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }

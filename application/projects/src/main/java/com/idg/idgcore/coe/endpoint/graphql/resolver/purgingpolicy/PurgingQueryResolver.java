@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.purgingpolicy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.purgingpolicy.IPurgingApplicationService;
+import com.idg.idgcore.coe.app.service.purgingpolicy.PurgingApplicationService;
 import com.idg.idgcore.coe.dto.purgingpolicy.PurgingDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,14 +17,14 @@ import java.util.List;
 public class PurgingQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IPurgingApplicationService purgingService;
+    private PurgingApplicationService purgingApplicationService;
 
     public PurgingDTO getPurgingByCode (SessionContext sessionContext, PurgingDTO purgingDTO)
             throws FatalException, JsonProcessingException {
-        return this.purgingService.getPurgingByCode(sessionContext, purgingDTO);
+        return this.purgingApplicationService.getByIdentifier(sessionContext, purgingDTO);
     }
 
     public List<PurgingDTO> getPurgingAll (SessionContext sessionContext) throws FatalException {
-        return this.purgingService.getPurgingAll(sessionContext);
+        return this.purgingApplicationService.getAll(sessionContext);
     }
 }

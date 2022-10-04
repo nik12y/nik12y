@@ -41,5 +41,7 @@ type Mutation {
     processAmountFormatting(sessionContext: SessionContextInput, amount: AmountInput) : FormattedAmount
     processAmountRounding(sessionContext: SessionContextInput, roundingAmount: RoundingAmountInput) : FormattedAmount
     processAmountInWords(sessionContext: SessionContextInput, currencyAmountInWords:CurrencyAmountInWordsInput) : TransactionStatus
+
+    processHolidayList(sessionContext: SessionContextInput, holidayList: HolidayListInput): TransactionStatus
 }
 

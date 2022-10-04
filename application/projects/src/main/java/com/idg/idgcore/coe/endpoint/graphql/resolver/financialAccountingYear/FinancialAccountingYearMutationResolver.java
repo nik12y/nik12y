@@ -1,6 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.financialAccountingYear;
 
 import com.fasterxml.jackson.core.*;
+import com.idg.idgcore.coe.app.service.city.CityApplicationService;
 import com.idg.idgcore.coe.app.service.financialAccountingYear.*;
 import com.idg.idgcore.coe.dto.financialAccountingYear.*;
 import com.idg.idgcore.datatypes.core.*;
@@ -14,12 +15,13 @@ import org.springframework.stereotype.*;
 @Slf4j
 @Component
 public class FinancialAccountingYearMutationResolver implements GraphQLMutationResolver {
+
     @Autowired
-    private IFinancialAccountingYearApplicationService appService;
+    private FinancialAccountingYearApplicationService financialAccountingYearApplicationService;
 
     public TransactionStatus processFinancialAccountingYear (SessionContext sessionContext, FinancialAccountingYearDTO dto)
             throws FatalException, JsonProcessingException {
-        return this.appService.processFinancialAccountingYear(sessionContext, dto);
+        return this.financialAccountingYearApplicationService.process(sessionContext, dto);
     }
 
 }

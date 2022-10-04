@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.riskcategory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.riskcategory.IRiskCategoryApplicationService;
+import com.idg.idgcore.coe.app.service.riskcategory.RiskCategoryApplicationService;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -15,16 +15,17 @@ import java.util.List;
 @Slf4j
 @Component
 public class RiskCategoryQueryResolver implements GraphQLQueryResolver {
+
     @Autowired
-    private IRiskCategoryApplicationService riskcategoryService;
+    private RiskCategoryApplicationService riskCategoryApplicationService;
 
     public RiskCategoryDTO getRiskCategoryByCode (SessionContext sessionContext, RiskCategoryDTO riskCategoryDTO)
             throws FatalException, JsonProcessingException {
-        return this.riskcategoryService.getRiskCategoryByCode(sessionContext, riskCategoryDTO);
+        return this.riskCategoryApplicationService.getByIdentifier(sessionContext, riskCategoryDTO);
     }
 
     public List<RiskCategoryDTO> getRiskCategories (SessionContext sessionContext)
             throws FatalException {
-        return this.riskcategoryService.getRiskCategories(sessionContext);
+        return this.riskCategoryApplicationService.getAll(sessionContext);
     }
 }

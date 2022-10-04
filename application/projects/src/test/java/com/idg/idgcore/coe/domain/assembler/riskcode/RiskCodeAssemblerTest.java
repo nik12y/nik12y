@@ -1,9 +1,7 @@
 package com.idg.idgcore.coe.domain.assembler.riskcode;
 
 
-import com.idg.idgcore.coe.domain.assembler.branchtype.BranchTypeAssembler;
 import com.idg.idgcore.coe.domain.entity.mutation.MutationEntity;
-import com.idg.idgcore.coe.dto.branchtype.BranchTypeDTO;
 import com.idg.idgcore.coe.dto.riskcode.RiskCodeDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +22,7 @@ class RiskCodeAssemblerTest {
         MutationEntity mutationEntity = new MutationEntity();
         mutationEntity.setAuthorized("Y");
         RiskCodeDTO riskCodeDTO = new RiskCodeDTO();
-        riskCodeDTO = riskCodeAssembler.setAuditFields(mutationEntity, riskCodeDTO);
+        riskCodeAssembler.setAuditFields(mutationEntity, riskCodeDTO);
         assertEquals("Y", riskCodeDTO.getAuthorized());
     }
 

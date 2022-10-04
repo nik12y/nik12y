@@ -4,6 +4,7 @@ package com.idg.idgcore.coe.domain.service.verificationcategory;
 import com.idg.idgcore.coe.domain.assembler.verificationcategory.AppVerCategoryConfigAssembler;
 import com.idg.idgcore.coe.domain.entity.verificationcategory.AppVerCategoryConfigEntity;
 import com.idg.idgcore.coe.domain.repository.verificationcategory.IAppVerCategoryConfigRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
 import com.idg.idgcore.coe.dto.verificationcategory.AppVerCategoryConfigDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -16,55 +17,37 @@ import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class AppVerCategoryDomainService implements IAppVerCategoryConfigDomainService {
+public class AppVerCategoryDomainService extends DomainService<AppVerCategoryConfigDTO, AppVerCategoryConfigEntity> {
     @Autowired
     private IAppVerCategoryConfigRepository appVerCategoryConfigRepository;
 
     @Autowired
     private AppVerCategoryConfigAssembler appVerCategoryConfigAssembler;
 
-    public AppVerCategoryConfigEntity getConfigurationByCode (AppVerCategoryConfigDTO appVercategoryConfigDTO) {
+    @Override
+    public AppVerCategoryConfigEntity getEntityByIdentifier(String appVerAppVerificationCategoryId) {
         AppVerCategoryConfigEntity appVerCategoryConfigEntity = null;
         try {
-            appVerCategoryConfigEntity = this.appVerCategoryConfigRepository.findByAppVerificationCategoryId(appVercategoryConfigDTO.getAppVerificationCategoryId());
-        }
-        catch (Exception e){
-            if (log.isErrorEnabled())
-            {
-                log.error(e.getMessage());
-            }
+            appVerCategoryConfigEntity = this.appVerCategoryConfigRepository
+                    .findByAppVerificationCategoryId(appVerAppVerificationCategoryId);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return appVerCategoryConfigEntity;
     }
 
-    public List<AppVerCategoryConfigEntity> getAppVerCategoryConfigs() {
+    @Override
+    public List<AppVerCategoryConfigEntity> getAllEntities() {
         return this.appVerCategoryConfigRepository.findAll();
-    }
-
-    public AppVerCategoryConfigEntity getAppVerCategoryConfigByID (String appVerAppVerificationCategoryId) {
-        AppVerCategoryConfigEntity appVerCategoryConfigEntity = null;
-        try {
-            appVerCategoryConfigEntity = this.appVerCategoryConfigRepository.findByAppVerificationCategoryId(appVerAppVerificationCategoryId);
-        }
-        catch (Exception e){
-            if (log.isErrorEnabled()){
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return appVerCategoryConfigEntity;
     }
 
     public void save (AppVerCategoryConfigDTO appVercategoryConfigDTO) {
         try {
-            AppVerCategoryConfigEntity appVerCategoryConfigEntity = appVerCategoryConfigAssembler.convertDtoToEntity(appVercategoryConfigDTO);
+            AppVerCategoryConfigEntity appVerCategoryConfigEntity = appVerCategoryConfigAssembler.toEntity(appVercategoryConfigDTO);
             this.appVerCategoryConfigRepository.save(appVerCategoryConfigEntity);
-        }
-        catch (Exception e){
-            if (log.isErrorEnabled()){
-                log.error(e.getMessage());
-            }
+        } catch (Exception e){
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }

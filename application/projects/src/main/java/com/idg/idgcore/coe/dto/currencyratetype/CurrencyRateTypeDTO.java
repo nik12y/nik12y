@@ -25,13 +25,12 @@ public class CurrencyRateTypeDTO extends CoreEngineBaseDTO {
     }
 
     @Override
-    public void setTaskCode (String taskCode) {
-        super.setTaskCode(CURRENCY_RATE_TYPE);
-    }
-
-    @Override
     public String getTaskIdentifier () {
         return this.getCurrencyRateType();
+    }
+
+    public static Class getSpecificType() {
+        return CurrencyRateTypeDTO.class;
     }
 
 }

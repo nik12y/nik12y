@@ -23,7 +23,7 @@ class LanguageAssemblerTest {
         mutationEntity.setAuthorized("Y");
         LanguageDTO languageDTO = new LanguageDTO();
 
-        languageDTO = languageAssembler.setAuditFields(mutationEntity, languageDTO);
+        languageAssembler.setAuditFields(mutationEntity, languageDTO);
         assertEquals("Y", languageDTO.getAuthorized());
     }
 }

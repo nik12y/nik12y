@@ -14,4 +14,8 @@ public class QuestionnaireChecklistDetailsCategoryDTO extends CoreEngineBaseDTO 
     private String questionaireCategoryId;
 
 
+    @Override
+    public String getTaskCode() {
+        return "QuestionnaireChecklistDetailsCategoryDTO";
+    }
 }

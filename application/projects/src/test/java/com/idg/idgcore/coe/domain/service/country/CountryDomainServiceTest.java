@@ -3,7 +3,6 @@ package com.idg.idgcore.coe.domain.service.country;
 import com.idg.idgcore.coe.domain.entity.country.CountryEntity;
 import com.idg.idgcore.coe.domain.repository.country.ICountryRepository;
 import com.idg.idgcore.coe.dto.country.CountryDTO;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ class CountryDomainServiceTest {
     @DisplayName("Junit test for getCountries method ")
     void getCountriesReturnStatesList() {
         given(countryRepository.findAll()).willReturn(List.of(countryEntity));
-        List<CountryEntity> countryEntityList = countryDomainService.getCountries();
+        List<CountryEntity> countryEntityList = countryDomainService.getAllEntities();
         assertThat(countryEntityList).isNotNull();
         assertThat(countryEntityList.size()).isEqualTo(1);
     }
@@ -54,7 +53,7 @@ class CountryDomainServiceTest {
     void getCountriesEmptyStateEntityList()
     {
         given(countryRepository.findAll()).willReturn(Collections.emptyList());
-        List<CountryEntity> countryEntityList = countryDomainService.getCountries();
+        List<CountryEntity> countryEntityList = countryDomainService.getAllEntities();
         assertThat(countryEntityList).isEmpty();
         assertThat(countryEntityList.size()).isZero();
 
@@ -65,7 +64,7 @@ class CountryDomainServiceTest {
     @DisplayName("JUnit test for getCountryById method")
     void getCountryByCodeReturnCountryEntityObject() {
         given(countryRepository.findByCountryCode("IN")).willReturn(countryEntity);
-        CountryEntity countryEntity1 =countryDomainService.getCountryByCode(countryEntity.getCountryCode());
+        CountryEntity countryEntity1 =countryDomainService.getEntityByIdentifier(countryEntity.getCountryCode());
         assertThat(countryEntity1).isNotNull();
     }
 
@@ -76,28 +75,9 @@ class CountryDomainServiceTest {
         CountryEntity countryEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            CountryEntity countryEntity2 = countryDomainService.getCountryByCode(countryEntity1.getCountryCode());
+            CountryEntity countryEntity2 = countryDomainService.getEntityByIdentifier(countryEntity1.getCountryCode());
         });
     }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    void getConfigurationByCodeTryBlock() {
-        given(countryRepository.findByCountryCode("IN")).willReturn(countryEntity);
-        CountryEntity countryByCode = countryDomainService.getConfigurationByCode(countryDTO);
-        assertThat(countryByCode).isNotNull();
-    }
-
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    void getConfigurationByCodeCatchBlock() {
-        CountryDTO countryDTO = null;
-        assertThrows(BusinessException.class,()-> {
-            CountryEntity countryByCode = countryDomainService.getConfigurationByCode(countryDTO);
-        });
-    }
-
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")

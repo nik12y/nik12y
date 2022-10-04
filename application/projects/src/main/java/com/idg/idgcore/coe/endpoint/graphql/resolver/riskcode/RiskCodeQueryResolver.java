@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.riskcode;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.riskcode.IRiskCodeApplicationService;
+import com.idg.idgcore.coe.app.service.riskcode.RiskCodeApplicationService;
 import com.idg.idgcore.coe.dto.riskcode.RiskCodeDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -16,15 +16,15 @@ import java.util.List;
 @Component
 public class RiskCodeQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    private IRiskCodeApplicationService riskcodeService;
+    private RiskCodeApplicationService riskCodeApplicationService;
 
     public RiskCodeDTO getRiskCodeByCode (SessionContext sessionContext, RiskCodeDTO riskCodeDTO)
             throws FatalException, JsonProcessingException {
-        return this.riskcodeService.getRiskCodeByCode(sessionContext, riskCodeDTO);
+        return this.riskCodeApplicationService.getByIdentifier(sessionContext, riskCodeDTO);
     }
 
     public List<RiskCodeDTO> getRiskCodes (SessionContext sessionContext)
             throws FatalException {
-        return this.riskcodeService.getRiskCodes(sessionContext);
+        return this.riskCodeApplicationService.getAll(sessionContext);
     }
 }

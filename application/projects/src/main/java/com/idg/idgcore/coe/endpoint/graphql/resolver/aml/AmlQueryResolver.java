@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.aml;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.aml.IAmlApplicationService;
+import com.idg.idgcore.coe.app.service.aml.AmlApplicationService;
 import com.idg.idgcore.coe.dto.aml.AmlDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -16,14 +16,14 @@ import java.util.List;
 @Component
 public class AmlQueryResolver implements GraphQLQueryResolver {
     @Autowired
-    private IAmlApplicationService amlApplicationService;
+    private AmlApplicationService amlApplicationService;
 
     public AmlDTO getAmlByCode (SessionContext sessionContext, AmlDTO amlDTO)
             throws FatalException, JsonProcessingException {
-        return this.amlApplicationService.getAmlByCode(sessionContext, amlDTO);
+        return this.amlApplicationService.getByIdentifier(sessionContext, amlDTO);
     }
 
     public List<AmlDTO> getAmls (SessionContext sessionContext) throws FatalException {
-        return this.amlApplicationService.getAmls(sessionContext);
+        return this.amlApplicationService.getAll(sessionContext);
     }
 }

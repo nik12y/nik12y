@@ -1,76 +1,55 @@
 package com.idg.idgcore.coe.domain.service.questionnaireChecklist;
 
-import com.idg.idgcore.coe.domain.assembler.questionnaireChecklist.*;
-import com.idg.idgcore.coe.domain.entity.questionnaireChecklist.*;
-import com.idg.idgcore.coe.domain.repository.questionnaireChecklist.*;
-import com.idg.idgcore.coe.dto.questionnaireChecklist.*;
-import com.idg.idgcore.coe.exception.*;
-import lombok.extern.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
+import com.idg.idgcore.coe.domain.assembler.questionnaireChecklist.QuestionnaireChecklistAssembler;
+import com.idg.idgcore.coe.domain.entity.questionnaireChecklist.QuestionnaireChecklistEntity;
+import com.idg.idgcore.coe.domain.repository.questionnaireChecklist.IQuestionnaireChecklistRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
+import com.idg.idgcore.coe.dto.questionnaireChecklist.QuestionnaireChecklistDTO;
+import com.idg.idgcore.coe.exception.ExceptionUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
-import static com.idg.idgcore.coe.exception.Error.*;
+import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class QuestionnaireChecklistDomainService implements
-        IQuestionnaireChecklistDomainService
-{
+public class QuestionnaireChecklistDomainService extends DomainService<QuestionnaireChecklistDTO,
+        QuestionnaireChecklistEntity> {
+
     @Autowired
     private IQuestionnaireChecklistRepository questionnaireChecklistRepository;
     @Autowired
     private QuestionnaireChecklistAssembler questionnaireChecklistAssembler;
 
-    public QuestionnaireChecklistEntity getConfigurationById (
-            QuestionnaireChecklistDTO questionnaireChecklistDTO) {
-        QuestionnaireChecklistEntity questionnaireChecklistEntity = null;
-        try {
-            questionnaireChecklistEntity = this.questionnaireChecklistRepository.findByQuestionChecklistId(
-                    questionnaireChecklistDTO.getQuestionaireChecklistId());
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return questionnaireChecklistEntity;
-    }
-
-    public List<QuestionnaireChecklistEntity> getQuestionnaireChecklists () {
-        return this.questionnaireChecklistRepository.findAll();
-    }
-
     @Override
-    public QuestionnaireChecklistEntity getQuestionnaireChecklistById (String questionChecklistId) {
+    public QuestionnaireChecklistEntity getEntityByIdentifier(String questionChecklistId) {
         QuestionnaireChecklistEntity questionnaireChecklistEntity = null;
         try {
             questionnaireChecklistEntity = this.questionnaireChecklistRepository.findByQuestionChecklistId(
                     questionChecklistId);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return questionnaireChecklistEntity;
     }
 
+    @Override
+    public List<QuestionnaireChecklistEntity> getAllEntities() {
+        return this.questionnaireChecklistRepository.findAll();
+    }
+
     public void save (QuestionnaireChecklistDTO questionnaireChecklistDTO) {
         try {
-            QuestionnaireChecklistEntity questionnaireChecklistEntity = questionnaireChecklistAssembler.convertDtoToEntity(
+            QuestionnaireChecklistEntity questionnaireChecklistEntity = questionnaireChecklistAssembler.toEntity(
                     questionnaireChecklistDTO);
             this.questionnaireChecklistRepository.save(questionnaireChecklistEntity);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }
-
 }

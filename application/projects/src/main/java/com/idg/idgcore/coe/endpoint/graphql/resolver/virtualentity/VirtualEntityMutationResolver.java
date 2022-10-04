@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.virtualentity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.virtualentity.IVirtualEntityApplicationService;
+import com.idg.idgcore.coe.app.service.virtualentity.VirtualEntityApplicationService;
 import com.idg.idgcore.coe.dto.virtualentity.VirtualEntityDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 public class VirtualEntityMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
-    private IVirtualEntityApplicationService virtualEntityService;
+    private VirtualEntityApplicationService virtualEntityService;
 
     public TransactionStatus processVirtualEntity (SessionContext sessionContext, VirtualEntityDTO virtualEntityDTO)
             throws FatalException, JsonProcessingException {
-        return this.virtualEntityService.processVirtualEntity(sessionContext, virtualEntityDTO);
+        return this.virtualEntityService.process(sessionContext, virtualEntityDTO);
     }
 }

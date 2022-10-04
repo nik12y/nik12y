@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.zakat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.zakat.IZakatApplicationService;
+import com.idg.idgcore.coe.app.service.zakat.ZakatApplicationService;
 import com.idg.idgcore.coe.dto.zakat.ZakatDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ZakatMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IZakatApplicationService zakatService;
+    private ZakatApplicationService zakatService;
 
     public TransactionStatus processZakat (SessionContext sessionContext, ZakatDTO zakatDTO)
             throws FatalException, JsonProcessingException {
-        return this.zakatService.processZakat(sessionContext, zakatDTO);
+        return this.zakatService.process(sessionContext, zakatDTO);
     }
 
 }

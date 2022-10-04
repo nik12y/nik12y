@@ -1,29 +1,30 @@
 package com.idg.idgcore.coe.domain.assembler.errorOverride;
 
-import com.idg.idgcore.coe.domain.entity.errorOverride.*;
-import com.idg.idgcore.coe.domain.entity.mutation.*;
-import com.idg.idgcore.coe.dto.errorOverride.*;
-import org.modelmapper.*;
-import org.modelmapper.convention.*;
-import org.springframework.stereotype.*;
-
-import javax.annotation.*;
-
-import static com.idg.idgcore.coe.common.Constants.*;
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
+import com.idg.idgcore.coe.domain.entity.errorOverride.ErrorOverrideConversionsEntity;
+import com.idg.idgcore.coe.domain.entity.errorOverride.ErrorOverrideEntity;
+import com.idg.idgcore.coe.domain.entity.errorOverride.ErrorOverrideLanguageDetailsEntity;
+import com.idg.idgcore.coe.dto.errorOverride.ErrorOverrideConversionsDTO;
+import com.idg.idgcore.coe.dto.errorOverride.ErrorOverrideDTO;
+import com.idg.idgcore.coe.dto.errorOverride.ErrorOverrideLanguageDetailsDTO;
+import org.springframework.stereotype.Component;
 
 @Component
-public class ErrorOverrideAssembler {
-    private final ModelMapper modelMapper = new ModelMapper();
+public class ErrorOverrideAssembler extends Assembler<ErrorOverrideDTO, ErrorOverrideEntity> {
 
-    @PostConstruct
-    private void setMapperConfig () {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return ErrorOverrideDTO.class;
     }
 
-    public ErrorOverrideEntity convertDtoToEntity (ErrorOverrideDTO errorOverrideDTO) {
-        ErrorOverrideEntity errorOverrideEntity = modelMapper.map(errorOverrideDTO,
-                ErrorOverrideEntity.class);
+    @Override
+    public Class getSpecificEntityClass() {
+        return ErrorOverrideEntity.class;
+    }
+
+    @Override
+    public ErrorOverrideEntity toEntity(ErrorOverrideDTO errorOverrideDTO) {
+        ErrorOverrideEntity errorOverrideEntity = super.toEntity(errorOverrideDTO);
         errorOverrideEntity.setIsConfirmationRequired(
                 getCharValueFromBoolean(errorOverrideDTO.getIsConfirmationRequired()));
         errorOverrideEntity.setIsExcluded(
@@ -43,10 +44,9 @@ public class ErrorOverrideAssembler {
         return errorOverrideEntity;
     }
 
-    public ErrorOverrideDTO convertEntityToDto (ErrorOverrideEntity errorOverrideEntity) {
-        System.out.println("\n\n---convertEntityToDto---with--- "+errorOverrideEntity);
-        ErrorOverrideDTO errorOverrideDTO = modelMapper.map(errorOverrideEntity,
-                ErrorOverrideDTO.class);
+    @Override
+    public ErrorOverrideDTO toDTO(ErrorOverrideEntity errorOverrideEntity) {
+        ErrorOverrideDTO errorOverrideDTO = super.toDTO(errorOverrideEntity);
         errorOverrideDTO.setIsConfirmationRequired(
                 getBooleanValueFromChar(errorOverrideEntity.getIsConfirmationRequired()));
         errorOverrideDTO.setIsExcluded(getBooleanValueFromChar(errorOverrideEntity.getIsExcluded()));
@@ -64,30 +64,6 @@ public class ErrorOverrideAssembler {
         errorOverrideDTO.setErrorOverrideConversions(errorOverrideConversionsDTO);
         errorOverrideDTO.setErrorOverrideLanguageDetails(errorOverrideLanguageDetailsDTO);
         return errorOverrideDTO;
-    }
-
-    public ErrorOverrideDTO setAuditFields (MutationEntity mutationEntity,
-            ErrorOverrideDTO errorOverrideDTO) {
-        errorOverrideDTO.setAction(mutationEntity.getAction());
-        errorOverrideDTO.setAuthorized(mutationEntity.getAuthorized());
-        errorOverrideDTO.setRecordVersion(mutationEntity.getRecordVersion());
-        errorOverrideDTO.setStatus(mutationEntity.getStatus());
-        errorOverrideDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-        errorOverrideDTO.setCreatedBy(mutationEntity.getCreatedBy());
-        errorOverrideDTO.setCreationTime(mutationEntity.getCreationTime());
-        errorOverrideDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        errorOverrideDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        errorOverrideDTO.setTaskCode(mutationEntity.getTaskCode());
-        errorOverrideDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        return errorOverrideDTO;
-    }
-
-    public char getCharValueFromBoolean (boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar (Character value) {
-        return value.equals(CHAR_Y);
     }
 
 }

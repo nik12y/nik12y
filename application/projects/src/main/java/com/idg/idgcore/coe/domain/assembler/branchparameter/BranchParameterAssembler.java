@@ -1,32 +1,27 @@
 package com.idg.idgcore.coe.domain.assembler.branchparameter;
 
+import com.idg.idgcore.coe.domain.assembler.generic.Assembler;
 import com.idg.idgcore.coe.domain.entity.branchparameter.*;
-import com.idg.idgcore.coe.domain.entity.mutation.*;
 import com.idg.idgcore.coe.dto.branchparameter.*;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.stereotype.*;
-
-import javax.annotation.*;
-
-import static com.idg.idgcore.coe.common.Constants.CHAR_N;
-import static com.idg.idgcore.coe.common.Constants.CHAR_Y;
+import org.springframework.stereotype.Component;
 
 @Component
-public class BranchParameterAssembler {
+public class BranchParameterAssembler extends Assembler<BranchParameterDTO, BranchParameterEntity> {
 
-    private ModelMapper modelMapper = new ModelMapper();
-
-    @PostConstruct
-    private void setMapperConfig() {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+    @Override
+    public Class getSpecificDTOClass() {
+        return BranchParameterDTO.class;
     }
 
-    public BranchParameterEntity convertDtoToEntity(BranchParameterDTO branchParameterDTO) {
-        /**
-         * For Branch Parameter Address
-         */
+    @Override
+    public Class getSpecificEntityClass() {
+        return BranchParameterEntity.class;
+    }
+
+    @Override
+    public BranchParameterEntity toEntity(BranchParameterDTO branchParameterDTO) {
+        BranchParameterEntity branchParameterEntity = super.toEntity(branchParameterDTO);
+
         BranchParameterAddressDTO branchParameterAddressDTO= branchParameterDTO.getBranchParameterAddress();
         BranchParameterAddressEntity branchParameterAddressEntity = modelMapper.map(branchParameterAddressDTO, BranchParameterAddressEntity.class);
         branchParameterAddressEntity.setCountryCode(branchParameterAddressDTO.getCountry());
@@ -103,8 +98,6 @@ public class BranchParameterAssembler {
          * Set Address/Currency/Preferences/ODLoanDecision Entity values
          */
 
-        BranchParameterEntity branchParameterEntity = modelMapper.map(branchParameterDTO, BranchParameterEntity.class);
-
         branchParameterEntity.setBranchParameterAddressEntity(branchParameterAddressEntity);
         branchParameterEntity.setBranchParameterContactInfoEntity(branchParameterContactInfoEntity);
         branchParameterEntity.setBranchParameterGeneralEntity(branchParameterGeneralEntity);
@@ -127,7 +120,8 @@ public class BranchParameterAssembler {
         return branchParameterEntity;
     }
 
-    public BranchParameterDTO convertEntityToDto(BranchParameterEntity branchParameterEntity) {
+    @Override
+    public BranchParameterDTO toDTO(BranchParameterEntity branchParameterEntity) {
 
         /**
          * For Branch Parameter Address
@@ -227,29 +221,5 @@ public class BranchParameterAssembler {
         branchParameterDTO.setBranchConciseName(branchParameterDTO.getBranchConciseName());
         branchParameterDTO.setIsBranchAvailableStatus(getBooleanValueFromChar(branchParameterEntity.getIsBranchAvailableStatus()));
         return branchParameterDTO;
-    }
-
-    public BranchParameterDTO setAuditFields (MutationEntity mutationEntity, BranchParameterDTO branchParameterDTO) {
-        branchParameterDTO.setAction(mutationEntity.getAction());
-        branchParameterDTO.setAuthorized(mutationEntity.getAuthorized());
-        branchParameterDTO.setRecordVersion(mutationEntity.getRecordVersion());
-        branchParameterDTO.setStatus(mutationEntity.getStatus());
-        branchParameterDTO.setLastConfigurationAction(mutationEntity.getLastConfigurationAction());
-        branchParameterDTO.setCreatedBy(mutationEntity.getCreatedBy());
-        branchParameterDTO.setCreationTime(mutationEntity.getCreationTime());
-        branchParameterDTO.setLastUpdatedBy(mutationEntity.getLastUpdatedBy());
-        branchParameterDTO.setLastUpdatedTime(mutationEntity.getLastUpdatedTime());
-        branchParameterDTO.setTaskCode(mutationEntity.getTaskCode());
-        branchParameterDTO.setTaskIdentifier(mutationEntity.getTaskIdentifier());
-        return branchParameterDTO;
-    }
-
-    public char getCharValueFromBoolean(boolean value) {
-        return value ? CHAR_Y : CHAR_N;
-    }
-
-    public boolean getBooleanValueFromChar(Character value) {
-        return value.equals(CHAR_Y);
-
     }
 }

@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.branchSystemDate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.branchSystemDate.IBranchSystemApplicationService;
+import com.idg.idgcore.coe.app.service.branchSystemDate.BranchSystemApplicationService;
 import com.idg.idgcore.coe.dto.branchSystemDate.BranchSystemDateDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,14 +17,14 @@ import java.util.List;
 public class BranchSystemDateQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IBranchSystemApplicationService branchSystemApplicationService;
+    private BranchSystemApplicationService branchSystemApplicationService;
 
     public BranchSystemDateDTO getBranchSystemDateByCode (SessionContext sessionContext, BranchSystemDateDTO branchSystemDateDTO)
             throws FatalException, JsonProcessingException {
-        return this.branchSystemApplicationService.getBranchSystemDateByCode(sessionContext, branchSystemDateDTO);
+        return this.branchSystemApplicationService.getByIdentifier(sessionContext, branchSystemDateDTO);
     }
 
     public List<BranchSystemDateDTO> getBranchSystemDateAll (SessionContext sessionContext) throws FatalException {
-        return this.branchSystemApplicationService.getBranchSystemDateAll(sessionContext);
+        return this.branchSystemApplicationService.getAll(sessionContext);
     }
 }

@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.transaction;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.transaction.ITransactionApplicationService;
+import com.idg.idgcore.coe.app.service.transaction.TransactionApplicationService;
 import com.idg.idgcore.coe.dto.transaction.TransactionDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -15,16 +15,17 @@ import java.util.List;
 @Slf4j
 @Component
 public class TransactionQueryResolver implements GraphQLQueryResolver {
+
     @Autowired
-    private ITransactionApplicationService transactionService;
+    private TransactionApplicationService transactionService;
 
     public TransactionDTO getTransactionByCode (SessionContext sessionContext, TransactionDTO transactionDTO)
             throws FatalException, JsonProcessingException {
-        return this.transactionService.getTransactionByCode(sessionContext, transactionDTO);
+        return this.transactionService.getByIdentifier(sessionContext, transactionDTO);
     }
 
     public List<TransactionDTO> getTransactions (SessionContext sessionContext) throws FatalException {
-        return this.transactionService.getTransactions(sessionContext);
+        return this.transactionService.getAll(sessionContext);
     }
 
 }

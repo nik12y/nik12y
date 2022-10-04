@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.riskcode;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.riskcode.IRiskCodeApplicationService;
+import com.idg.idgcore.coe.app.service.riskcode.RiskCodeApplicationService;
 import com.idg.idgcore.coe.dto.riskcode.RiskCodeDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -15,11 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RiskCodeMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IRiskCodeApplicationService riskcodeService;
+    private RiskCodeApplicationService riskCodeApplicationService;
 
     public TransactionStatus processRiskCode (SessionContext sessionContext, RiskCodeDTO riskcodeDTO)
             throws FatalException, JsonProcessingException {
-        return riskcodeService.processRiskCode(sessionContext, riskcodeDTO);
+        return riskCodeApplicationService.process(sessionContext, riskcodeDTO);
     }
-
 }

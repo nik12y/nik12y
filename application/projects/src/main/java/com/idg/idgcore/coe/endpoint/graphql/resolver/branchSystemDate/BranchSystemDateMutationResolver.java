@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.branchSystemDate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.branchSystemDate.IBranchSystemApplicationService;
+import com.idg.idgcore.coe.app.service.branchSystemDate.BranchSystemApplicationService;
 import com.idg.idgcore.coe.dto.branchSystemDate.BranchSystemDateDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 public class BranchSystemDateMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
-    private IBranchSystemApplicationService branchSystemApplicationService;
+    private BranchSystemApplicationService branchSystemApplicationService;
 
     public TransactionStatus processBranchSystemDate (SessionContext sessionContext, BranchSystemDateDTO branchSystemDateDTO)
             throws FatalException, JsonProcessingException {
-        return this.branchSystemApplicationService.processBranchSystemDate(sessionContext, branchSystemDateDTO);
+        return this.branchSystemApplicationService.process(sessionContext, branchSystemDateDTO);
     }
 }

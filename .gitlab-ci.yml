@@ -1,189 +1,157 @@
 
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
-
 stages:         # List of stages for jobs, and their order of execution
-  - Test
-  - Merge
-  - Build
-  - Docker
-  - Deploy
-  
-test-job:
-  stage: Test
+  - merge
+  - test
+  - build
+  - docker
+  - deploy
+
+variables:
+  APP_NAME: ${CI_COMMIT_BRANCH}_coreengine #App Name with env name
+  LOG_PATH: /var/log/containers/coreengine
+  NEW_LOG: $LOG_PATH/$APP_NAME.log 
+  OLD_LOG: $LOG_PATH/$APP_NAME-$(date -d '-1 day' '+%d-%m-%Y').log
+  IMAGE_NAME: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:$CI_PIPELINE_IID 
+  LATEST_TAG: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:latest #tag to be used in latest image
+  VERSION_NO: v01
+  ENVIROMENT: $CI_COMMIT_BRANCH
+  PORT_MAPPING: 8081:8099
+  CONTAINER_NAME: $APP_NAME-$VERSION_NO #This includes version number
+# Run when not schedule
+.rules_template: &rules_config
+  rules:
+    - if: ($CI_COMMIT_BRANCH == 'dev' || $CI_COMMIT_BRANCH == 'iut') && $CI_PIPELINE_SOURCE != "schedule"
+
+# RUn when schedule merge
+.rules_merge: &merge_rule
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "iut"
+
+
+merge:
+  stage: merge
+  image: 
+    name: bitnami/git
+  variables:
+    GIT_PATH: gitlab.idigicloudtech.com/$CI_PROJECT_NAMESPACE/middleware-coreengine.git
+  before_script:
+    - git clone -b dev https://runner:$TOKEN@$GIT_PATH && cd $CI_PROJECT_NAME
+    - git status
+    - git config --global user.email "runner@idigicloudtech.com" && git config --global user.name "GitLabRunner"
+    - chmod +x helper.sh
+    - git checkout iut
+    - git status
+  script:
+    - ./helper.sh mergeFunc
+    - git merge origin/dev
+    - git push origin iut
+  <<: *merge_rule
+
+
+test:
+  stage: test
   image: gradle:7.4.2-jdk17-focal
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
   cache:
     paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
+      - $CI_PROJECT_DIR/application/projects/.gradle/caches
   before_script:
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
   script:
     - gradle clean check 
 
-merge:
-  stage: Merge
-  variables:
-    GIT_STRATEGY: none
-  image: 
-    name: bitnami/git
-  before_script:
-    - git clone $PROJECT_URL && cd $CI_PROJECT_NAME
-    - git checkout iut
-    - git config --global user.email "runner@idigicloudtech.com" && git config --global user.name "GitLabRunner"
-  script:
-    - git merge origin/dev
-    - git push origin iut
-  only:
-    - iut
-  environment:
-    name: IUT
-
-
-Build Dev:       # This job runs in the build stage, which runs first.
+build:
   image: gradle:7.4.2-jdk17-focal
-  stage: Build
+  stage: build
   environment:
-    name: Dev
+    name: $ENVIROMENT
   cache:
     paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
+      - $CI_PROJECT_DIR/application/projects/.gradle/caches
   before_script:
+    - echo $CONTAINER_NAME
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
-    - mv /builds/idgCore/middleware-coreengine.tmp/ENV .env
-    - cat .env
+    - mv $ENV .env
   script:
     - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
     - echo "Compile complete."
-  only:
-    - dev
   artifacts:
+    expire_in: 1 day
     paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/build/libs
+      - $CI_PROJECT_DIR/application/projects/build/libs
+  <<: *rules_config
 
-Build IUT:       # This job runs in the build stage, which runs first.
-  image: gradle:7.4.2-jdk17-focal
-  stage: Build
-  environment:
-    name: IUT
-  cache:
-    paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/.gradle/caches
+build image:
+  stage: docker
   before_script:
     - cd application/projects/
-    - export GRADLE_USER_HOME=`pwd`/.gradle
-    - mv /builds/idgCore/middleware-coreengine.tmp/ENV .env
-    - cat .env
   script:
-    - gradle clean build -x test -x sonarlintMain -x sonarlintTest  ## Ignoring tests, SonarTests so build can pass
-    - echo "Compile complete."
-  only:
-    - iut
-  artifacts:
-    paths:
-      - /builds/idgCore/middleware-coreengine/application/projects/build/libs
-      - /builds/idgCore/middleware-coreengine/application/projects/.env
-
-Build Image Dev:
-  stage: Docker
+    - echo "Building With Version Tag $IMAGE_NAME"
+    - docker build -t $IMAGE_NAME .
+    - echo "Building With Latest Tag $LATEST_TAG"
+    - docker build -t $LATEST_TAG .
   environment:
-    name: Dev
-  before_script:
-    - cd application/projects/
-    - ls
-  script:
-    - docker build  --no-cache -t $IMAGE_NAME .
-  only:
-    - dev
+    name: $ENVIROMENT
+  <<: *rules_config
 
-Push Image Dev:
-  stage: Docker
-  environment:
-    name: Dev
+push image:
+  stage: docker
+  # variables:
+  #   GIT_STRATEGY: none
+  extends: build image
   script:
     - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
     - docker push $IMAGE_NAME
-  needs:
-    - job: Build Image Dev
-  only:
-    - dev
-
-
-Build Image IUT:
-  stage: Docker
+    - docker push $LATEST_TAG
+  after_script:
+    - docker rmi $IMAGE_NAME $LATEST_TAG
   environment:
-    name: IUT
-  before_script:
-    - cd application/projects/
-    - cat .env
-    - cat src/main/resources/application.properties
-  script:
-    - ls
-    - docker build  --no-cache -t $IMAGE_NAME .
-  only:
-    - iut
-
-Push Image IUT:
-  stage: Docker
-  environment:
-    name: IUT
-  script:
-    - docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS
-    - docker push $IMAGE_NAME
+    name: $ENVIROMENT
   needs:
-    - job: Build Image IUT
-  only:
-    - iut
+    - job: build image
+  <<: *rules_config
 
-
-Deploy DEV:      # This job runs in the deploy stage.
-  stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  variables:
-    GIT_STRATEGY: none
-    ENV_PATH: /home/gitlab/.env
+.deploy_template: &deploy_config
   before_script:
     - chmod 400 $SSH_KEY
-    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV $DEPLOY_SERVER:$ENV_PATH
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY helper.sh $DEPLOY_SERVER:/home/gitlab/build/
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV  $DEPLOY_SERVER:/home/gitlab/build/.env
+    - echo $IMAGE_NAME
   script:
     - echo "Deploying application..."
+    - echo $CI_PROJECT_NAME
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
-      "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
-       docker stop $CONTAINER_NAME;
-       docker rm  $CONTAINER_NAME;
-      docker run -d -p 8081:8099 --restart=always --env-file $ENV_PATH  --name $CONTAINER_NAME $IMAGE_NAME;
-      rm  $ENV_PATH"
+      "cd build;
+      docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
+      docker stop $CONTAINER_NAME;
+      docker rm $CONTAINER_NAME;
+      chmod +x helper.sh;
+      ./helper.sh logFunc $OLD_LOG $NEW_LOG;
+      docker run -d -p $PORT_MAPPING 
+      --restart=always
+      -v $NEW_LOG:/app/jdbcApp.log
+      --env-file /home/gitlab/build/.env
+      --name $CONTAINER_NAME $IMAGE_NAME &&
+      rm helper.sh .env;
+      docker image prune -a -f --filter 'until=10m'"
     - echo "Application successfully deployed."
-  only:
-    - dev
   environment:
-    name: Dev
-    url: http://192.168.100.163:8081/graphiql
+    name: $ENVIROMENT
+    url: http://192.168.100.178:8081/graphiql
 
 
-Deploy IUT:      # This job runs in the deploy stage.
-  stage: Deploy  # It only runs when *both* jobs in the test stage complete successfully.
+deploy:
+  stage: deploy
+  <<: *deploy_config
+  <<: *rules_config
+
+deploy latest:
+  stage: deploy 
   variables:
-    GIT_STRATEGY: none
-    ENV_PATH: /home/gitlab/.env
-  before_script:
-    - chmod 400 $SSH_KEY
-    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV $DEPLOY_SERVER:$ENV_PATH
-  script:
-    - echo "Deploying application..."
-    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
-      "docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
-       docker stop $CONTAINER_NAME;
-       docker rm  $CONTAINER_NAME;
-      docker run -d -p 8081:8099 --env-file $ENV_PATH --name $CONTAINER_NAME $IMAGE_NAME;
-      rm  $ENV_PATH"
-    - echo "Application successfully deployed."
-  only:
-    - iut
-  environment:
-    name: IUT
-    url: http://192.168.100.189:8081/graphiql
+    IMAGE_NAME: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:latest
+  <<: *deploy_config
+  <<: *merge_rule
+  when: on_failure

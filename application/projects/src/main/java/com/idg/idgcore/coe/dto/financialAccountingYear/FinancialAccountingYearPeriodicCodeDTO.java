@@ -17,4 +17,8 @@ public class FinancialAccountingYearPeriodicCodeDTO extends CoreEngineBaseDTO {
     private String periodCodeClosureStatus;
     private String financialYearClosureStatus;
 
+    @Override
+    public String getTaskCode() {
+        return "FinancialAccountingYearPeriodicCodeDTO";
+    }
 }

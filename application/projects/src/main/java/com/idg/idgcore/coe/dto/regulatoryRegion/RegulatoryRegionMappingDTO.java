@@ -15,5 +15,10 @@ import lombok.experimental.SuperBuilder;
 public class RegulatoryRegionMappingDTO extends CoreEngineBaseDTO {
 
     private String demographicMappingCode;
-  //  private String demographicMappingName;
+
+    @Override
+    public String getTaskCode() {
+        return "RegulatoryRegionMappingDTO";
+    }
+    //  private String demographicMappingName;
 }

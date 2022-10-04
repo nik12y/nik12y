@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.aml;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.aml.IAmlApplicationService;
+import com.idg.idgcore.coe.app.service.aml.AmlApplicationService;
 import com.idg.idgcore.coe.dto.aml.AmlDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AmlMutationResolver implements GraphQLMutationResolver {
     @Autowired
-    private IAmlApplicationService amlApplicationService;
+    private AmlApplicationService amlApplicationService;
 
     public TransactionStatus processAml (SessionContext sessionContext, AmlDTO amlDTO)
             throws FatalException, JsonProcessingException {
-        return this.amlApplicationService.processAml(sessionContext, amlDTO);
+        return this.amlApplicationService.process(sessionContext, amlDTO);
     }
 }

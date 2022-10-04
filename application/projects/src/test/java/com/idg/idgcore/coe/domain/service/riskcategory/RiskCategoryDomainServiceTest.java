@@ -2,7 +2,6 @@ package com.idg.idgcore.coe.domain.service.riskcategory;
 
 import com.idg.idgcore.coe.domain.entity.riskcategory.RiskCategoryEntity;
 import com.idg.idgcore.coe.domain.repository.riskcategory.IRiskCategoryRepository;
-import com.idg.idgcore.coe.domain.service.riskcategory.RiskCategoryDomainService;
 import com.idg.idgcore.coe.dto.riskcategory.RiskCategoryDTO;
 import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,12 +30,9 @@ public class RiskCategoryDomainServiceTest {
     private RiskCategoryDomainService riskCategoryDomainService;
 
     private RiskCategoryEntity riskCategoryEntity;
-    private RiskCategoryDTO riskCategoryDTO;
-
 
     @BeforeEach
     void setUp() {
-        riskCategoryDTO=getThisRiskCategoryDTO ();
         riskCategoryEntity=getThisRiskCategoryEntity();
     }
 
@@ -44,7 +40,7 @@ public class RiskCategoryDomainServiceTest {
     @DisplayName("Junit test for getRiskCategories method ")
     public void getStatesReturnStatesList() {
         given(iRiskCategoryRepository.findAll()).willReturn(List.of(riskCategoryEntity));
-        List<RiskCategoryEntity> riskCategoryEntityList = riskCategoryDomainService.getRiskCategories();
+        List<RiskCategoryEntity> riskCategoryEntityList = riskCategoryDomainService.getAllEntities();
         assertThat(riskCategoryEntityList).isNotNull();
         assertThat(riskCategoryEntityList.size()).isEqualTo(1);
     }
@@ -52,10 +48,9 @@ public class RiskCategoryDomainServiceTest {
 
     @Test
     @DisplayName("JUnit test for getRiskCategories method for negative scenario")
-    public void getBranchesEmptyStateEntityList()
-    {
+    public void getBranchesEmptyStateEntityList() {
         given(iRiskCategoryRepository.findAll()).willReturn(Collections.emptyList());
-        List<RiskCategoryEntity> riskCategoryEntityList = riskCategoryDomainService.getRiskCategories();
+        List<RiskCategoryEntity> riskCategoryEntityList = riskCategoryDomainService.getAllEntities();
         assertThat(riskCategoryEntityList).isEmpty();
         assertThat(riskCategoryEntityList.size()).isEqualTo(0);
 
@@ -66,7 +61,7 @@ public class RiskCategoryDomainServiceTest {
     @DisplayName("JUnit test for getRiskCategoryById method")
     public void getRiskCategoryByCodeReturnStateEntityObject() {
         given(iRiskCategoryRepository.findByRiskCategoryCode("MH")).willReturn(riskCategoryEntity);
-        RiskCategoryEntity riskCategoryEntity1 =riskCategoryDomainService.getRiskCategoryByCode(riskCategoryEntity.getRiskCategoryCode());
+        RiskCategoryEntity riskCategoryEntity1 =riskCategoryDomainService.getEntityByIdentifier(riskCategoryEntity.getRiskCategoryCode());
         assertThat(riskCategoryEntity1).isNotNull();
     }
 
@@ -77,7 +72,7 @@ public class RiskCategoryDomainServiceTest {
         RiskCategoryEntity riskCategoryEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            RiskCategoryEntity riskcategoryEntity2 = riskCategoryDomainService.getRiskCategoryByCode(riskCategoryEntity1.getRiskCategoryCode());
+            RiskCategoryEntity riskcategoryEntity2 = riskCategoryDomainService.getEntityByIdentifier(riskCategoryEntity1.getRiskCategoryCode());
         });
     }
 
@@ -85,29 +80,17 @@ public class RiskCategoryDomainServiceTest {
     @DisplayName("JUnit test for getConfigurationByCode try block method")
     public void getConfigurationByCodeTryBlock() {
         given(iRiskCategoryRepository.findByRiskCategoryCode("MH")).willReturn(riskCategoryEntity);
-        RiskCategoryEntity riskCategoryByCode = riskCategoryDomainService.getConfigurationByCode(riskCategoryDTO);
+        RiskCategoryEntity riskCategoryByCode = riskCategoryDomainService.getEntityByIdentifier("MH");
         assertThat(riskCategoryByCode).isNotNull();
     }
-
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
     public void getConfigurationByCodeCatchBlock() {
-        RiskCategoryDTO riskCategoryDTO = null;
         assertThrows(BusinessException.class,()-> {
-            RiskCategoryEntity riskCategoryByCode = riskCategoryDomainService.getConfigurationByCode(riskCategoryDTO);
+            RiskCategoryEntity riskCategoryByCode = riskCategoryDomainService.getEntityByIdentifier(null);
         });
     }
-
-//    @Test
-//    @DisplayName("Should throw an exception when the state code is invalid")
-//    void getConfigurationByCodeWhenStateCodeIsInvalidThenThrowException() {
-//        StateDTO stateDTO = null;
-//        assertThrows(
-//                BusinessException.class, () -> {
-//                    stateDomainService.getConfigurationByCode(stateDTO);
-//                });
-//    }
 
     @Test
     @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
@@ -118,9 +101,7 @@ public class RiskCategoryDomainServiceTest {
         });
     }
 
-
-    private RiskCategoryEntity getThisRiskCategoryEntity()
-    {
+    private RiskCategoryEntity getThisRiskCategoryEntity() {
         RiskCategoryEntity riskCategoryEntity=new RiskCategoryEntity();
         riskCategoryEntity.setRiskCategoryCode("MH");
         riskCategoryEntity.setRiskCategoryName("MAHARASHTRA");
@@ -129,8 +110,7 @@ public class RiskCategoryDomainServiceTest {
         return riskCategoryEntity;
     }
 
-    private RiskCategoryDTO getThisRiskCategoryDTO()
-    {
+    private RiskCategoryDTO getThisRiskCategoryDTO() {
         RiskCategoryDTO riskCategoryDTO=new RiskCategoryDTO();
         riskCategoryDTO.setRiskCategoryCode("MH");
         riskCategoryDTO.setRiskCategoryName("MAHARASHTRA");

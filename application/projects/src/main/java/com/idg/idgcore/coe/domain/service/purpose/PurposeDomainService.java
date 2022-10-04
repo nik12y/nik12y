@@ -3,6 +3,7 @@ package com.idg.idgcore.coe.domain.service.purpose;
 import com.idg.idgcore.coe.domain.assembler.purpose.PurposeAssembler;
 import com.idg.idgcore.coe.domain.entity.purpose.PurposeEntity;
 import com.idg.idgcore.coe.domain.repository.purpose.IPurposeRepository;
+import com.idg.idgcore.coe.domain.service.generic.DomainService;
 import com.idg.idgcore.coe.dto.purpose.PurposeDTO;
 import com.idg.idgcore.coe.exception.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,7 @@ import static com.idg.idgcore.coe.exception.Error.DATA_ACCESS_ERROR;
 
 @Slf4j
 @Service
-public class PurposeDomainService implements IPurposeDomainService {
+public class PurposeDomainService extends DomainService<PurposeDTO, PurposeEntity> {
 
     @Autowired
     private IPurposeRepository purposeRepository;
@@ -23,52 +24,30 @@ public class PurposeDomainService implements IPurposeDomainService {
     @Autowired
     private PurposeAssembler purposeAssembler;
 
-
     @Override
-    public PurposeEntity getConfigurationByCode(PurposeDTO purposeDTO) {
-        PurposeEntity purposeEntity = null;
-        try {
-            purposeEntity = this.purposeRepository.findByPurposeCode(purposeDTO.getPurposeCode());
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
-            ExceptionUtil.handleException(DATA_ACCESS_ERROR);
-        }
-        return purposeEntity;
-    }
-
-    @Override
-    public List<PurposeEntity> getPurposes() {
-        return this.purposeRepository.findAll();
-    }
-
-    @Override
-    public PurposeEntity getPurposeByCode(String purposeCode) {
+    public PurposeEntity getEntityByIdentifier(String purposeCode) {
         PurposeEntity purposeEntity = null;
         try {
             purposeEntity = this.purposeRepository.findByPurposeCode(purposeCode);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
         return purposeEntity;
+    }
+
+    @Override
+    public List<PurposeEntity> getAllEntities() {
+        return this.purposeRepository.findAll();
     }
 
     @Override
     public void save(PurposeDTO purposeDTO) {
         try {
-            PurposeEntity purposeEntity = purposeAssembler.convertDtoToEntity(purposeDTO);
+            PurposeEntity purposeEntity = purposeAssembler.toEntity(purposeDTO);
             this.purposeRepository.save(purposeEntity);
-        }
-        catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error(e.getMessage());
-            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
             ExceptionUtil.handleException(DATA_ACCESS_ERROR);
         }
     }

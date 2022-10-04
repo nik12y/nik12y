@@ -39,27 +39,25 @@ public class VirtualEntityDomainServiceTest {
     @DisplayName("Junit test for getVirtualEntityAll method ")
     public void getVirtualEntityAllReturnVirtualEntityAllList() {
         given(virtualEntityRepository.findAll()).willReturn(List.of(virtualEntity));
-        List<VirtualEntity> virtualEntityList = virtualEntityDomainService.getVirtualEntityAll();
+        List<VirtualEntity> virtualEntityList = virtualEntityDomainService.getAllEntities();
         assertThat(virtualEntityList).isNotNull();
         assertThat(virtualEntityList.size()).isEqualTo(1);
     }
 
     @Test
     @DisplayName("JUnit test for getVirtualEntityAll method for negative scenario")
-    public void getVirtualEntityAllEmptyVirtualEntityList()
-    {
+    public void getVirtualEntityAllEmptyVirtualEntityList() {
         given(virtualEntityRepository.findAll()).willReturn(Collections.emptyList());
-        List<VirtualEntity> virtualEntityList = virtualEntityDomainService.getVirtualEntityAll();
+        List<VirtualEntity> virtualEntityList = virtualEntityDomainService.getAllEntities();
         assertThat(virtualEntityList).isEmpty();
         assertThat(virtualEntityList.size()).isEqualTo(0);
-
     }
 
     @Test
     @DisplayName("JUnit test for getVirtualEntityByEntityCode method")
     public void getVirtualEntityByEntityCodeReturnVirtualEntityObject() {
         given(virtualEntityRepository.findByEntityCode("MKE01")).willReturn(virtualEntity);
-        VirtualEntity virtualEntity1 = virtualEntityDomainService.getByVirtualEntityCode(virtualEntity.getEntityCode());
+        VirtualEntity virtualEntity1 = virtualEntityDomainService.getEntityByIdentifier(virtualEntity.getEntityCode());
         assertThat(virtualEntity1).isNotNull();
     }
 
@@ -69,24 +67,7 @@ public class VirtualEntityDomainServiceTest {
         VirtualEntity virtualEntity1=null;
 
         assertThrows(Exception.class,()-> {
-            VirtualEntity virtualEntity2 = virtualEntityDomainService.getByVirtualEntityCode(virtualEntity1.getEntityCode());
-        });
-    }
-
-//    @Test
-//    @DisplayName("JUnit test for getConfigurationByCode try block method")
-//    public void getConfigurationByCodeTryBlock() {
-//        given(virtualEntityRepository.findByEntityCode("MKE01")).willReturn(virtualEntity);
-//        VirtualEntity virtualEntityByCode = virtualEntityDomainService.getConfigurationByCode(virtualEntityDTO);
-//        assertThat(virtualEntityByCode).isNotNull();
-//    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    public void getConfigurationByCodeCatchBlock() {
-        VirtualEntityDTO virtualEntityDTO = null;
-        assertThrows(Exception.class,()-> {
-            VirtualEntity virtualEntityByCode = virtualEntityDomainService.getConfigurationByCode(virtualEntityDTO);
+            VirtualEntity virtualEntity2 = virtualEntityDomainService.getEntityByIdentifier(virtualEntity1.getEntityCode());
         });
     }
 
@@ -99,9 +80,7 @@ public class VirtualEntityDomainServiceTest {
         });
     }
 
-
-    private VirtualEntity getVirtualEntity()
-    {
+    private VirtualEntity getVirtualEntity() {
         VirtualEntity virtualEntity=new VirtualEntity();
         virtualEntity.setEntityType("MKE");
         virtualEntity.setEntityCode("MKE01");
@@ -112,8 +91,7 @@ public class VirtualEntityDomainServiceTest {
         return virtualEntity;
     }
 
-    private VirtualEntityDTO getVirtualEntityDTO()
-    {
+    private VirtualEntityDTO getVirtualEntityDTO() {
         VirtualEntityDTO virtualEntityDTO = new VirtualEntityDTO();
         virtualEntityDTO.setEntityType("MKE");
         virtualEntityDTO.setEntityCode("MKE01");

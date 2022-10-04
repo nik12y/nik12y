@@ -6,7 +6,6 @@ import com.idg.idgcore.coe.domain.entity.verificationcategory.AppVerTypeConfigEn
 import com.idg.idgcore.coe.domain.repository.verificationcategory.IAppVerCategoryConfigRepository;
 import com.idg.idgcore.coe.dto.verificationcategory.AppVerCategoryConfigDTO;
 import com.idg.idgcore.coe.dto.verificationcategory.AppVerTypeConfigDTO;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +46,7 @@ import static org.mockito.BDDMockito.given;
         @DisplayName("Junit test for AppVerCategoryConfigs method ")
         void getAppVerCategoryConfigsReturnStatesList() {
             given(appVerCategoryConfigRepository.findAll()).willReturn(List.of(appVerCategoryConfigEntity));
-            List<AppVerCategoryConfigEntity> appVerCategoryConfigEntityList = appVerCategoryDomainService.getAppVerCategoryConfigs();
+            List<AppVerCategoryConfigEntity> appVerCategoryConfigEntityList = appVerCategoryDomainService.getAllEntities();
             assertThat(appVerCategoryConfigEntityList).isNotNull();
             assertThat(appVerCategoryConfigEntityList.size()).isEqualTo(1);
         }
@@ -58,7 +57,7 @@ import static org.mockito.BDDMockito.given;
         void getAppVerCategoryConfigsEmptyStateEntityList()
         {
             given(appVerCategoryConfigRepository.findAll()).willReturn(Collections.emptyList());
-            List<AppVerCategoryConfigEntity> appVerCategoryConfigEntityList = appVerCategoryDomainService.getAppVerCategoryConfigs();
+            List<AppVerCategoryConfigEntity> appVerCategoryConfigEntityList = appVerCategoryDomainService.getAllEntities();
             assertThat(appVerCategoryConfigEntityList).isEmpty();
             assertThat(appVerCategoryConfigEntityList.size()).isEqualTo(0);
 
@@ -69,7 +68,7 @@ import static org.mockito.BDDMockito.given;
         @DisplayName("JUnit test for getAppVerCategoryConfigById method")
         void getgetAppVerCategoryConfigByIdReturnStateEntityObject() {
             given(appVerCategoryConfigRepository.findByAppVerificationCategoryId("VC0001")).willReturn(appVerCategoryConfigEntity);
-            AppVerCategoryConfigEntity apVerCategoryConfigEntity1 =appVerCategoryDomainService.getAppVerCategoryConfigByID(appVerCategoryConfigEntity.getAppVerificationCategoryId());
+            AppVerCategoryConfigEntity apVerCategoryConfigEntity1 =appVerCategoryDomainService.getEntityByIdentifier(appVerCategoryConfigEntity.getAppVerificationCategoryId());
             assertThat(apVerCategoryConfigEntity1).isNotNull();
         }
 
@@ -80,25 +79,7 @@ import static org.mockito.BDDMockito.given;
             AppVerCategoryConfigEntity appVerCategoryConfigEntity1=null;
 
             assertThrows(Exception.class,()-> {
-                AppVerCategoryConfigEntity appVerCategoryConfigEntity2 = appVerCategoryDomainService.getAppVerCategoryConfigByID(appVerCategoryConfigEntity1.getAppVerificationCategoryId());
-            });
-        }
-
-        @Test
-        @DisplayName("JUnit test for getConfigurationByCode try block method")
-        void getConfigurationByCodeTryBlock() {
-            given(appVerCategoryConfigRepository.findByAppVerificationCategoryId("VC0001")).willReturn(appVerCategoryConfigEntity);
-            AppVerCategoryConfigEntity AppVerCategoryByCode = appVerCategoryDomainService.getConfigurationByCode(appVerCategoryConfigDTO);
-            assertThat(AppVerCategoryByCode).isNotNull();
-        }
-
-
-        @Test
-        @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-        void getConfigurationByCodeCatchBlock() {
-            AppVerCategoryConfigDTO appVerCategoryConfigDTO = null;
-            assertThrows(BusinessException.class,()-> {
-                AppVerCategoryConfigEntity appVerCategoryByCode = appVerCategoryDomainService.getConfigurationByCode(appVerCategoryConfigDTO);
+                AppVerCategoryConfigEntity appVerCategoryConfigEntity2 = appVerCategoryDomainService.getEntityByIdentifier(appVerCategoryConfigEntity1.getAppVerificationCategoryId());
             });
         }
 

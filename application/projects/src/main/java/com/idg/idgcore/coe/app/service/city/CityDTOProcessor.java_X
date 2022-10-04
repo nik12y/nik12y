@@ -1,0 +1,11 @@
+package com.idg.idgcore.coe.app.service.city;
+
+import com.idg.idgcore.coe.dto.city.CityDTO;
+
+import com.idg.idgcore.coe.app.service.generic.DTOProcessor;
+
+public class CityDTOProcessor extends DTOProcessor<CityDTO> {
+    public Class getSpecificClass() {
+        return CityDTO.class;
+    }
+}

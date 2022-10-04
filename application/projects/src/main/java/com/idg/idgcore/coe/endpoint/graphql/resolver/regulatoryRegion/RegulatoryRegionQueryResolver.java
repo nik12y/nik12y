@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.regulatoryRegion;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.regulatoryRegion.IRegulatoryRegionApplicationService;
+import com.idg.idgcore.coe.app.service.regulatoryRegion.RegulatoryRegionApplicationService;
 import com.idg.idgcore.coe.dto.regulatoryRegion.RegulatoryRegionConfigDTO;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
 import com.idg.idgcore.dto.context.SessionContext;
@@ -17,14 +17,14 @@ import java.util.List;
 public class RegulatoryRegionQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
-    private IRegulatoryRegionApplicationService iRegulatoryRegionApplicationService;
+    private RegulatoryRegionApplicationService iRegulatoryRegionApplicationService;
 
     public RegulatoryRegionConfigDTO getRegulatoryRegionByCode (SessionContext sessionContext, RegulatoryRegionConfigDTO regulatoryRegionConfigDTO)
             throws FatalException, JsonProcessingException {
-        return this.iRegulatoryRegionApplicationService.getRegulatoryRegionByCode(sessionContext, regulatoryRegionConfigDTO);
+        return this.iRegulatoryRegionApplicationService.getByIdentifier(sessionContext, regulatoryRegionConfigDTO);
     }
 
     public List<RegulatoryRegionConfigDTO> getRegulatoryRegionCodes (SessionContext sessionContext) throws FatalException {
-        return this.iRegulatoryRegionApplicationService.getRegulatoryRegionCodes(sessionContext);
+        return this.iRegulatoryRegionApplicationService.getAll(sessionContext);
     }
 }

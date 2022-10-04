@@ -1,7 +1,7 @@
 package com.idg.idgcore.coe.endpoint.graphql.resolver.purpose;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.idg.idgcore.coe.app.service.purpose.IPurposeApplicationService;
+import com.idg.idgcore.coe.app.service.purpose.PurposeApplicationService;
 import com.idg.idgcore.coe.dto.purpose.PurposeDTO;
 import com.idg.idgcore.datatypes.core.TransactionStatus;
 import com.idg.idgcore.datatypes.exceptions.FatalException;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 public class PurposeMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
-    private IPurposeApplicationService purposeService;
+    private PurposeApplicationService purposeService;
 
     public TransactionStatus processPurpose(SessionContext sessionContext, PurposeDTO purposeDTO)
             throws FatalException, JsonProcessingException {
-        return this.purposeService.processPurpose(sessionContext, purposeDTO);
+        return this.purposeService.process(sessionContext, purposeDTO);
     }
 }

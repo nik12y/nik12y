@@ -1,5 +1,5 @@
 query{
-    getCurrencyPairById(
+    getByCurrency1AndCurrency2AndEntityTypeAndEntityCode(
         sessionContext:{
             bankCode: "05"
             defaultBranchCode: "1392"
@@ -25,7 +25,6 @@ query{
             originatingModuleCode: null
         },
         currencyPairQuery:{
-            pairId : 1
             currency1 : "EUR"
             currency2 : "RIY"
             entityType : "MarketEntity"

@@ -3,7 +3,6 @@ package com.idg.idgcore.coe.domain.service.bankparameter;
 import com.idg.idgcore.coe.domain.entity.bankparameter.*;
 import com.idg.idgcore.coe.domain.repository.bankparameter.IBankParameterRepository;
 import com.idg.idgcore.coe.dto.bankparameter.*;
-import com.idg.idgcore.datatypes.exceptions.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith (MockitoExtension.class)
@@ -42,7 +40,7 @@ class BankParameterDomainServiceTest {
     @DisplayName("Junit test for getBankParameters method ")
     void getBankParametersReturnBankParametersList() {
         given(bankParameterRepository.findAll()).willReturn(List.of(bankParameterEntity));
-        List<BankParameterEntity> bankParameterEntityList = bankParameterDomainService.getBankParameters();
+        List<BankParameterEntity> bankParameterEntityList = bankParameterDomainService.getAllEntities();
         assertThat(bankParameterEntityList).isNotNull();
         assertThat(bankParameterEntityList.size()).isEqualTo(1);
     }
@@ -53,7 +51,7 @@ class BankParameterDomainServiceTest {
     void getBankParametersEmptyBankParameterEntityList()
     {
         given(bankParameterRepository.findAll()).willReturn(Collections.emptyList());
-        List<BankParameterEntity> bankParameterEntityList = bankParameterDomainService.getBankParameters();
+        List<BankParameterEntity> bankParameterEntityList = bankParameterDomainService.getAllEntities();
 
         assertThat(bankParameterEntityList).isEmpty();
         assertThat(bankParameterEntityList.size()).isEqualTo(0);
@@ -65,48 +63,11 @@ class BankParameterDomainServiceTest {
     @DisplayName("JUnit test for getBankParameterById method")
     void getBankParameterByCodeReturnBankParameterEntityObject() {
         given(bankParameterRepository.findByBankCode("0002")).willReturn(bankParameterEntity);
-        BankParameterEntity bankParameterEntity1 =bankParameterDomainService.getBankParameterByBankCode(bankParameterEntity.getBankCode());
+        BankParameterEntity bankParameterEntity1 =bankParameterDomainService.getEntityByIdentifier(bankParameterEntity.getBankCode());
         assertThat(bankParameterEntity1).isNotNull();
     }
 
 
-    @Test
-    @DisplayName("JUnit test for getBankParameterById catch block method")
-    void getBankParameterByCodeReturnCatchBolock() {
-        BankParameterEntity bankParameterEntity1=null;
-
-        assertThrows(Exception.class,()-> {
-            BankParameterEntity bankParameterEntity2 = bankParameterDomainService.getBankParameterByBankCode(bankParameterEntity1.getBankCode());
-        });
-    }
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode try block method")
-    void getConfigurationByCodeTryBlock() {
-        given(bankParameterRepository.findByBankCode("0002")).willReturn(bankParameterEntity);
-        BankParameterEntity bankParameterByCode = bankParameterDomainService.getConfigurationByCode(bankParameterDTO);
-        assertThat(bankParameterByCode).isNotNull();
-    }
-
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    void getConfigurationByCodeCatchBlock() {
-        BankParameterDTO bankParameterDTO = null;
-        assertThrows(BusinessException.class,()-> {
-            BankParameterEntity bankParameterByCode = bankParameterDomainService.getConfigurationByCode(bankParameterDTO);
-        });
-    }
-
-
-    @Test
-    @DisplayName("JUnit test for getConfigurationByCode for Catch Block method")
-    void getSaveCodeCatchBlock() {
-        BankParameterDTO bankParameterDTO = null;
-        assertThrows(Exception.class,()-> {
-            bankParameterDomainService.save(bankParameterDTO);
-        });
-    }
 
 
     private BankParameterEntity getBankParameterEntity()
