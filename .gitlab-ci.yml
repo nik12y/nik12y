@@ -114,7 +114,8 @@ push image:
 .deploy_template: &deploy_config
   before_script:
     - chmod 400 $SSH_KEY
-    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV helper.sh $DEPLOY_SERVER:/home/gitlab/build/
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY helper.sh $DEPLOY_SERVER:/home/gitlab/build/
+    - scp -o StrictHostKeyChecking=no -i $SSH_KEY $ENV  $DEPLOY_SERVER:/home/gitlab/build/.env
     - echo $IMAGE_NAME
   script:
     - echo "Deploying application..."
@@ -131,6 +132,7 @@ push image:
       -v $NEW_LOG:/app/jdbcApp.log
       --env-file /home/gitlab/build/.env
       --name $APP_NAME-$VERSION_NO $IMAGE_NAME;
+      rm helper.sh .env;
       docker image prune -a -f --filter 'until=10m'"
     - echo "Application successfully deployed."
   environment:
