@@ -8,8 +8,9 @@ stages:         # List of stages for jobs, and their order of execution
 
 variables:
   APP_NAME: ${CI_COMMIT_BRANCH}_coreengine #App Name with env name
-  NEW_LOG: /var/log/containers/core-engine/$APP_NAME.log 
-  OLD_LOG: /var/log/containers/core-engine/$APP_NAME-$(date -d '-1 day' '+%d-%m-%Y').log
+  LOG_PATH: /var/log/containers/coreengine
+  NEW_LOG: $LOG_PATH/$APP_NAME.log 
+  OLD_LOG: $LOG_PATH/$APP_NAME-$(date -d '-1 day' '+%d-%m-%Y').log
   IMAGE_NAME: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:$CI_PIPELINE_IID 
   LATEST_TAG: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:latest #tag to be used in latest image
   VERSION_NO: v01
@@ -70,6 +71,7 @@ build:
     paths:
       - $CI_PROJECT_DIR/application/projects/.gradle/caches
   before_script:
+    - echo $CONTAINER_NAME
     - cd application/projects/
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - mv $ENV .env
