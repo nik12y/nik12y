@@ -1,4 +1,4 @@
-package com.idg.idgcore.coe.dto.city;
+package com.idg.idgcore.coe.domain.repository.city;
 
 import com.idg.idgcore.coe.domain.entity.city.CityEntity;
 import com.idg.idgcore.coe.domain.entity.city.CityEntityKey;

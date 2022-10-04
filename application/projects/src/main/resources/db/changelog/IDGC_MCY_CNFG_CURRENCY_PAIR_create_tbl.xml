@@ -122,6 +122,18 @@
                 tableName="idgc_mcy_cnfg_currency_pair"
                 constraintName="idgc_mcy_cnfg_currency_pair_pk" />
 
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_1" constraintName="currency_1_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code" />
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_2" constraintName="currency_2_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code"/>
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="through_currency_code" constraintName="through_currency_code_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_code"/>
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="entity_code" constraintName="entity_code_fk_for_currency_pair" referencedTableName="idgc_coe_ve_code_cnfg" referencedColumnNames="entity_code" />
+
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_1_name" constraintName="currency_1_name_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_name" />
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="currency_2_name" constraintName="currency_2_name_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="currency_name"/>
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="entity_type" constraintName="entity_type_fk_for_currency_pair" referencedTableName="idgc_coe_ve_code_cnfg" referencedColumnNames="entity_type" />
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="entity_name" constraintName="entity_name_fk_for_currency_pair" referencedTableName="idgc_coe_ve_code_cnfg" referencedColumnNames="entity_name" />
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="country_code" constraintName="country_code_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="country_code" />
+        <addForeignKeyConstraint baseTableName="idgc_mcy_cnfg_currency_pair" baseColumnNames="country_name" constraintName="country_name_fk_for_currency_pair" referencedTableName="idgc_mcy_cnfg_currency_dtls" referencedColumnNames="country_name" />
+
     </changeSet>
 
 </databaseChangeLog>
