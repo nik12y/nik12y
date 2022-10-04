@@ -7,14 +7,15 @@ stages:         # List of stages for jobs, and their order of execution
   - deploy
 
 variables:
-  APP_NAME: ${CI_COMMIT_BRANCH}_coreengine #App Name
+  APP_NAME: ${CI_COMMIT_BRANCH}_coreengine #App Name with env name
   NEW_LOG: /var/log/containers/core-engine/$APP_NAME.log 
   OLD_LOG: /var/log/containers/core-engine/$APP_NAME-$(date -d '-1 day' '+%d-%m-%Y').log
-  IMAGE_NAME: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:$CI_PIPELINE_IID
+  IMAGE_NAME: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:$CI_PIPELINE_IID 
   LATEST_TAG: $IMAGE_REPO/$CI_COMMIT_BRANCH-$CI_PROJECT_NAME:latest #tag to be used in latest image
   VERSION_NO: v01
   ENVIROMENT: $CI_COMMIT_BRANCH
-  PORT_MAPPING: 8081:8099 
+  PORT_MAPPING: 8081:8099
+  CONTAINER_NAME: $APP_NAME-$VERSION_NO #This includes version number
 # Run when not schedule
 .rules_template: &rules_config
   rules:
@@ -123,15 +124,15 @@ push image:
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY $DEPLOY_SERVER
       "cd build;
       docker login harbor.idigicloudtech.com -u $REG_USER -p $REG_PASS &&
-      docker stop $APP_NAME;
-      docker rm  $APP_NAME;
+      docker stop $CONTAINER_NAME;
+      docker rm $CONTAINER_NAME;
       chmod +x helper.sh;
       ./helper.sh logFunc $OLD_LOG $NEW_LOG;
       docker run -d -p $PORT_MAPPING 
       --restart=always
       -v $NEW_LOG:/app/jdbcApp.log
       --env-file /home/gitlab/build/.env
-      --name $APP_NAME-$VERSION_NO $IMAGE_NAME;
+      --name $CONTAINER_NAME $IMAGE_NAME &&
       rm helper.sh .env;
       docker image prune -a -f --filter 'until=10m'"
     - echo "Application successfully deployed."
