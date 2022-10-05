@@ -1,5 +1,4 @@
 package com.idg.idgcore.coe.domain.service.virtualentity;
-
 import com.idg.idgcore.coe.domain.assembler.virtualentity.VirtualEntityAssembler;
 import com.idg.idgcore.coe.domain.entity.virtualentity.VirtualEntity;
 import com.idg.idgcore.coe.domain.repository.virtualentity.IVirtualEntityRepository;

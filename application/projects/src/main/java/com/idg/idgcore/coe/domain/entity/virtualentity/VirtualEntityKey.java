@@ -22,8 +22,12 @@ public class VirtualEntityKey extends AbstractDomainKey implements Serializable 
     @Id
     private String entityCode;
 
+    @Id
+    private String parentEntityCode;
+
     @Override
     public String keyAsString() {
-        return entityCode;
+        return entityCode+parentEntityCode;
     }
+
 }

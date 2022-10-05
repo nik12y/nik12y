@@ -78,7 +78,7 @@ public class RegulatoryRegionAssembler extends Assembler<RegulatoryRegionConfigD
         RegulatoryRegionConfigEntity regulatoryRegionConfigEntity = modelMapper.map(regulatoryRegionConfigDTO, RegulatoryRegionConfigEntity.class);
         regulatoryRegionConfigEntity.setRegRegionCode(regulatoryRegionConfigDTO.getRegulatoryRegionCode());
         regulatoryRegionConfigEntity.setRegionName(regulatoryRegionConfigDTO.getRegulatoryRegionName());
-        regulatoryRegionConfigEntity.setRegionDescription(regulatoryRegionConfigEntity.getRegionDescription());
+        regulatoryRegionConfigEntity.setRegionDescription(regulatoryRegionConfigDTO.getRegulatoryRegionDescription());
         try {
             regulatoryRegionConfigEntity.setRegionEffectiveDate(formatter.parse(regulatoryRegionConfigDTO.getRegionEffectiveDate()));
         } catch (ParseException e) {

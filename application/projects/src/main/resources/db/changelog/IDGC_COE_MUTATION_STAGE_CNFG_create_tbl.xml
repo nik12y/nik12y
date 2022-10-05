@@ -6,36 +6,20 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="IDGC_COE_VE_CODE_CNFG_create_tbl" author="aditya">
+    <changeSet id="IDGC_COE_MUTATION_STAGE_CNFG_create_tbl" author="NileshB">
 
-        <createTable tableName="idgc_coe_ve_code_cnfg"
-                     remarks="A table to contain all the virtual entity code configuration">
+        <createTable tableName="idgc_coe_mutation_stage_cnfg"
+                     remarks="A table to contain all the mutation config">
 
-
-            <column name="entity_type" type="varchar(10)">
-                <constraints nullable="false"/>
+            <column name="task_code" type="varchar(50)">
+                <constraints nullable="false" primaryKey="true"/>
             </column>
 
-            <column name="entity_code" type="varchar(10)">
-                <constraints unique="true" nullable="false" primaryKey="true"/>
+            <column name="task_identifier" type="varchar(40)">
+                <constraints nullable="false" primaryKey="true"/>
             </column>
 
-            <column name="entity_name" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="parent_entity_type" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="parent_entity_code" type="varchar(40)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="is_default" type="char(1)">
-            </column>
-
-            <column name="effective_date" type="date">
+            <column name="json_payload" type="text">
                 <constraints nullable="false"/>
             </column>
 
@@ -49,7 +33,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="record_status" type="varchar(10)">
+            <column name="record_action" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_status" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
 

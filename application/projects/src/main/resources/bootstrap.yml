@@ -13,9 +13,10 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: ${DB_DRIVER_CLASSNAME:org.postgresql.Driver}
-    url: ${DATABASE_URL:jdbc:postgresql://192.168.100.176:5433/dev?useSSL=false}
-    username: ${DB_USER_NAME:devadmin}
-    password: ${DB_USER_PASSWORD:4$tar&Fish}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/User?useSSL=false}
+    username: ${DB_USER_NAME:postgres}
+    password: ${DB_USER_PASSWORD:postgres}
+
   spring:
     jpa:
       properties:

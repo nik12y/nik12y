@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface IVirtualEntityRepository extends JpaRepository<VirtualEntity, VirtualEntityKey> {
 
     VirtualEntity findByEntityCode(String entityCode);
+
 }

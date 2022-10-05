@@ -82,6 +82,7 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-server', version: '2.2.8.RELEASE'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.2'
+    implementation group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'
 }
 
 tasks.named('test') {
